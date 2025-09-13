@@ -1,0 +1,2971 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.2.3 Sums and products – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.2.4.html" rel="next">
+<link href="../vol-1/1.2.2.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.2.3.html"><span class="chapter-title">1.2.3 Sums and products</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [10]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [01]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3 [13]</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4 [10]</a></li>
+  <li><a href="#hm20" id="toc-hm20" class="nav-link" data-scroll-target="#hm20">5 [HM20]</a></li>
+  <li><a href="#hm20-1" id="toc-hm20-1" class="nav-link" data-scroll-target="#hm20-1">6 [HM20]</a></li>
+  <li><a href="#hm23" id="toc-hm23" class="nav-link" data-scroll-target="#hm23">7 [HM23]</a></li>
+  <li><a href="#hm25" id="toc-hm25" class="nav-link" data-scroll-target="#hm25">8 [HM25]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">9 [05]</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">10 [05]</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">11 [03]</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">12 [10]</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">13 [10]</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">14 [11]</a></li>
+  <li><a href="#m22" id="toc-m22" class="nav-link" data-scroll-target="#m22">15 [M22]</a></li>
+  <li><a href="#m22-1" id="toc-m22-1" class="nav-link" data-scroll-target="#m22-1">16 [M22]</a></li>
+  <li><a href="#m00" id="toc-m00" class="nav-link" data-scroll-target="#m00">17 [M00]</a></li>
+  <li><a href="#m20" id="toc-m20" class="nav-link" data-scroll-target="#m20">18 [M20]</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">19 [20]</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">20 [25]</a></li>
+  <li><a href="#m25" id="toc-m25" class="nav-link" data-scroll-target="#m25">21 [M25]</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">22 [20]</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">23 [10]</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">24 [20]</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">25 [15]</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">26 [25]</a></li>
+  <li><a href="#m20-1" id="toc-m20-1" class="nav-link" data-scroll-target="#m20-1">27 [M20]</a></li>
+  <li><a href="#m22-2" id="toc-m22-2" class="nav-link" data-scroll-target="#m22-2">28 [M22]</a></li>
+  <li><a href="#m30" id="toc-m30" class="nav-link" data-scroll-target="#m30">29 [M30]</a></li>
+  <li><a href="#m23" id="toc-m23" class="nav-link" data-scroll-target="#m23">30 [M23]</a></li>
+  <li><a href="#m20-2" id="toc-m20-2" class="nav-link" data-scroll-target="#m20-2">31 [M20]</a></li>
+  <li><a href="#m20-3" id="toc-m20-3" class="nav-link" data-scroll-target="#m20-3">32 [M20]</a></li>
+  <li><a href="#m30-1" id="toc-m30-1" class="nav-link" data-scroll-target="#m30-1">33 [M30]</a></li>
+  <li><a href="#m25-1" id="toc-m25-1" class="nav-link" data-scroll-target="#m25-1">34 [M25]</a></li>
+  <li><a href="#hm20-2" id="toc-hm20-2" class="nav-link" data-scroll-target="#hm20-2">35 [HM20]</a></li>
+  <li><a href="#m23-1" id="toc-m23-1" class="nav-link" data-scroll-target="#m23-1">36 [M23]</a></li>
+  <li><a href="#m24" id="toc-m24" class="nav-link" data-scroll-target="#m24">37 [M24]</a></li>
+  <li><a href="#m25-2" id="toc-m25-2" class="nav-link" data-scroll-target="#m25-2">38 [M25]</a></li>
+  <li><a href="#m23-2" id="toc-m23-2" class="nav-link" data-scroll-target="#m23-2">39 [M23]</a></li>
+  <li><a href="#m24-1" id="toc-m24-1" class="nav-link" data-scroll-target="#m24-1">40 [M24]</a></li>
+  <li><a href="#m26" id="toc-m26" class="nav-link" data-scroll-target="#m26">41 [M26]</a></li>
+  <li><a href="#m18" id="toc-m18" class="nav-link" data-scroll-target="#m18">42 [M18]</a></li>
+  <li><a href="#m24-2" id="toc-m24-2" class="nav-link" data-scroll-target="#m24-2">43 [M24]</a></li>
+  <li><a href="#m26-1" id="toc-m26-1" class="nav-link" data-scroll-target="#m26-1">44 [M26]</a></li>
+  <li><a href="#m25-3" id="toc-m25-3" class="nav-link" data-scroll-target="#m25-3">45 [M25]</a></li>
+  <li><a href="#m30-2" id="toc-m30-2" class="nav-link" data-scroll-target="#m30-2">46 [M30]</a></li>
+  <li><a href="#m27" id="toc-m27" class="nav-link" data-scroll-target="#m27">47 [M27]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.2.3 Sums and products</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1 [10]</h3>
+<p>By definition in §1.2.3, the three-dot sum <span class="math inline">\(a_1+a_2+\cdots+a_n\)</span> is shorthand for the indexed sum <span class="math inline">\(\sum_{1\le j\le n} a_j\)</span>. More generally, <span class="math inline">\(\sum_{R(j)} a_j\)</span> means “sum all <span class="math inline">\(a_j\)</span> with integer <span class="math inline">\(j\)</span> that satisfy <span class="math inline">\(R(j)\)</span>,” and if no integers satisfy <span class="math inline">\(R(j)\)</span>, the sum is defined to be <span class="math inline">\(0\)</span>**. </p>
+<p>So</p>
+<p><span class="math display">\[
+a_2+\cdots+a_0\;\equiv\;\sum_{2\le j\le 0} a_j \;=\;0,
+\]</span></p>
+<p>because there is no integer <span class="math inline">\(j\)</span> with <span class="math inline">\(2\le j\le 0\)</span>.</p>
+<p>This is why Knuth calls the behavior “slightly peculiar but sensible” in edge cases: the three-dot notation is a single construct tied to its explicit bounds, not something you peel apart as <span class="math inline">\(a_2+(\cdots+a_0)\)</span>. Read as a bounded sum, its index set is empty, hence the value <span class="math inline">\(0\)</span>. </p>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2 [01]</h3>
+<p>By Knuth’s convention, a restricted sum</p>
+<p><span class="math display">\[
+\sum_{R(j)} a_j
+\]</span></p>
+<p>means “sum <span class="math inline">\(a_j\)</span> over all <strong>integers</strong> <span class="math inline">\(j\)</span> that satisfy the condition <span class="math inline">\(R(j)\)</span>.” If no such integers exist, the sum is defined to be <span class="math inline">\(0\)</span>. </p>
+<p>Here <span class="math inline">\(R(j)\)</span> is <span class="math inline">\(1\le j\le n\)</span>. When <span class="math inline">\(n=3.14\)</span>, the integers <span class="math inline">\(j\)</span> with <span class="math inline">\(1\le j\le 3.14\)</span> are <span class="math inline">\(j=1,2,3\)</span>. Therefore</p>
+<p><span class="math display">\[
+\sum_{1\le j\le 3.14} a_j \;=\; a_1+a_2+a_3 \;=\; \sum_{j=1}^{3} a_j.
+\]</span></p>
+<p>(Equivalently, for any real <span class="math inline">\(n\)</span>, <span class="math inline">\(\sum_{1\le j\le n} a_j=\sum_{j=1}^{\lfloor n\rfloor} a_j\)</span>; this follows from the “sum over integers satisfying <span class="math inline">\(R(j)\)</span>” interpretation and the bracket-notation identity <span class="math inline">\(\sum_{R(j)} a_j=\sum_j a_j\,[R(j)]\)</span>.) </p>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3 [13]</h3>
+<p>Write out, <strong>without</strong> Σ-notation, the sums</p>
+<p><span class="math display">\[
+\sum_{0\le n\le 5}\frac1{2n+1}
+\qquad\text{and}\qquad
+\sum_{0\le n^2\le 5}\frac1{2n^2+1},
+\]</span></p>
+<p>then explain why the two results are different “in spite of rule (b)” (the change-of-variable rule).</p>
+<p>Step 1: Expand both sums explicitly</p>
+<ol type="1">
+<li><span class="math inline">\(\displaystyle \sum_{0\le n\le 5}\frac1{2n+1}\)</span> uses the integer indices <span class="math inline">\(n=0,1,2,3,4,5\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\frac1{1}+\frac1{3}+\frac1{5}+\frac1{7}+\frac1{9}+\frac1{11}.
+\]</span></p>
+<ol start="2" type="1">
+<li><span class="math inline">\(\displaystyle \sum_{0\le n^2\le 5}\frac1{2n^2+1}\)</span> uses all integers with square at most 5, i.e.&nbsp;<span class="math inline">\(n\in\{-2,-1,0,1,2\}\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\frac1{2\cdot 4+1}+\frac1{2\cdot 1+1}+\frac1{2\cdot 0+1}
++\frac1{2\cdot 1+1}+\frac1{2\cdot 4+1}
+= \frac1{9}+\frac1{3}+1+\frac1{3}+\frac1{9}
+= 1+\frac{2}{3}+\frac{2}{9}.
+\]</span></p>
+<p>(If you like a single value: the first sum ≈ 1.8782; the second equals <span class="math inline">\(17/9\approx 1.8889\)</span>.)</p>
+<p>Step 2: Why the results differ despite rule (b)</p>
+<p>Rule (b) says we may change the index variable via a <strong>permutation</strong> <span class="math inline">\(p(j)\)</span> of the relevant integers:</p>
+<p><span class="math display">\[
+\sum_{R(i)} a_i \;=\; \sum_{R(p(j))} a_{p(j)}.
+\]</span></p>
+<p>This requires <span class="math inline">\(p\)</span> to be one-to-one and onto the index set (a bijection). </p>
+<ul>
+<li>In the first sum, the index set is <span class="math inline">\(\{0,1,2,3,4,5\}\)</span> (six elements).</li>
+<li>In the second, the condition <span class="math inline">\(0\le n^2\le 5\)</span> yields the index set <span class="math inline">\(\{-2,-1,0,1,2\}\)</span> (five elements).</li>
+</ul>
+<p>Trying to “change variables” by <span class="math inline">\(m=n^2\)</span> is not a valid use of rule (b): the map <span class="math inline">\(n\mapsto n^2\)</span> is not a permutation of the integer indices—it is many-to-one (both <span class="math inline">\(+k\)</span> and <span class="math inline">\(-k\)</span> map to the same square), and it also changes the index set’s size and elements. Therefore the two sums legitimately come out different; rule (b) simply doesn’t apply here.</p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">4 [10]</h3>
+<p>Left-hand side (iterate <span class="math inline">\(i=1,2,3\)</span>, then <span class="math inline">\(j=1,\dots,i\)</span>)</p>
+<ul>
+<li><span class="math inline">\(i=1:\ j=1\Rightarrow a_{11}\)</span>.</li>
+<li><span class="math inline">\(i=2:\ j=1,2\Rightarrow a_{21}+a_{22}\)</span>.</li>
+<li><span class="math inline">\(i=3:\ j=1,2,3\Rightarrow a_{31}+a_{32}+a_{33}\)</span>.</li>
+</ul>
+<p>So the LHS is</p>
+<p><span class="math display">\[
+(a_{11})\;+\;(a_{21}+a_{22})\;+\;(a_{31}+a_{32}+a_{33}).
+\]</span></p>
+<p>Right-hand side (iterate <span class="math inline">\(j=1,2,3\)</span>, then <span class="math inline">\(i=j,\dots,3\)</span>)</p>
+<ul>
+<li><span class="math inline">\(j=1:\ i=1,2,3\Rightarrow a_{11}+a_{21}+a_{31}\)</span>.</li>
+<li><span class="math inline">\(j=2:\ i=2,3\Rightarrow a_{22}+a_{32}\)</span>.</li>
+<li><span class="math inline">\(j=3:\ i=3\Rightarrow a_{33}\)</span>.</li>
+</ul>
+<p>So the RHS is</p>
+<p><span class="math display">\[
+(a_{11}+a_{21}+a_{31})\;+\;(a_{22}+a_{32})\;+\;(a_{33}).
+\]</span></p>
+<p>Why they’re equal</p>
+<p>Both expressions list exactly the six terms with <span class="math inline">\(1\le j\le i\le3\)</span>: <span class="math inline">\(\{a_{11},a_{21},a_{22},a_{31},a_{32},a_{33}\}\)</span>. The LHS groups them by row <span class="math inline">\(i\)</span>; the RHS groups them by column <span class="math inline">\(j\)</span>. Since addition is commutative/associative, the total is the same—exactly what Eq. (10) formalizes.</p>
+</section>
+<section id="hm20" class="level3">
+<h3 class="anchored" data-anchor-id="hm20">5 [HM20]</h3>
+<p>Let the two series be convergent:</p>
+<p><span class="math display">\[
+A:=\sum_{R(i)} a_i \quad\text{and}\quad B:=\sum_{S(j)} b_j.
+\]</span></p>
+<p>Knuth’s definition of an infinite sum is “limit of partial sums” (with two–sided windows when needed). We will use that definition directly. </p>
+<p>Step 1: Constant-factor rule for convergent series</p>
+<p>Fix a constant <span class="math inline">\(c\)</span>. For the inner partial sums <span class="math inline">\(B_M:=\sum_{S_M(j)} b_j\)</span> (over any increasing finite domains <span class="math inline">\(S_M\)</span> that exhaust <span class="math inline">\(S\)</span>), we have</p>
+<p><span class="math display">\[
+\sum_{S_M(j)} (c\,b_j)=c\sum_{S_M(j)} b_j= c\,B_M
+\]</span></p>
+<p>by the finite distributive law. Taking limits as <span class="math inline">\(M\to\infty\)</span> and using convergence of <span class="math inline">\(\sum_{S(j)} b_j\)</span> gives</p>
+<p><span class="math display">\[
+\sum_{S(j)} (c\,b_j)= c\sum_{S(j)} b_j=c\,B.
+\]</span></p>
+<p>Thus constants can be pulled out of a convergent series.</p>
+<p>Step 2: Evaluate the inner sum</p>
+<p>For each fixed <span class="math inline">\(i\)</span>, <span class="math inline">\(a_i\)</span> is constant with respect to <span class="math inline">\(j\)</span>; hence</p>
+<p><span class="math display">\[
+\sum_{S(j)} a_i b_j \;=\; a_i \sum_{S(j)} b_j \;=\; a_i B,
+\]</span></p>
+<p>by Step 1.</p>
+<p>Step 3: Sum over <span class="math inline">\(i\)</span></p>
+<p>Now take partial sums over <span class="math inline">\(i\)</span> (finite domains <span class="math inline">\(R_N\)</span> that exhaust <span class="math inline">\(R\)</span>):</p>
+<p><span class="math display">\[
+\sum_{i\in R_N}\Bigl(\sum_{S(j)} a_i b_j\Bigr)
+= \sum_{i\in R_N} (a_i B)
+= B \sum_{i\in R_N} a_i
+=: B\,A_N,
+\]</span></p>
+<p>again using the finite distributive law (rule (a) in the finite case). Letting <span class="math inline">\(N\to\infty\)</span> and using the convergence of <span class="math inline">\(\sum_{R(i)} a_i\)</span> yields</p>
+<p><span class="math display">\[
+\sum_{R(i)}\sum_{S(j)} a_i b_j
+= \lim_{N\to\infty} B\,A_N
+= B\cdot A
+= \Bigl(\sum_{R(i)} a_i\Bigr)\Bigl(\sum_{S(j)} b_j\Bigr).
+\]</span></p>
+<p>This completes the proof that the distributive rule (a) extends from finite sums to convergent infinite series, precisely as stated in Eq. (4) of the text for the finite case.</p>
+</section>
+<section id="hm20-1" class="level3">
+<h3 class="anchored" data-anchor-id="hm20-1">6 [HM20]</h3>
+<p>Key identity (“cut rule”)</p>
+<p>The fundamental law of these half-open sums is the <strong>cut rule</strong> (this is the Eq. (3) you’re asked to use):</p>
+<p><span class="math display">\[
+S(a,b)\;=\;S(a,c)\;+\;S(c,b)\qquad\text{for any integers }a,c,b.
+\]</span></p>
+<p>It just partitions the index set <span class="math inline">\([a,b)\)</span> into the disjoint pieces <span class="math inline">\([a,c)\)</span> and <span class="math inline">\([c,b)\)</span>.</p>
+<p>Changing the lower limit</p>
+<p>Apply the cut rule and rearrange.</p>
+<p><strong>Case 1: <span class="math inline">\(a_0\le a_c\le b\)</span>.</strong></p>
+<p><span class="math display">\[
+S(a_0,b)=S(a_c,b)\;+\;S(a_0,a_c).
+\]</span></p>
+<p>So moving the lower limit <strong>up</strong> from <span class="math inline">\(a_0\)</span> to <span class="math inline">\(a_c\)</span> removes the block of terms with indices <span class="math inline">\(a_0\le k&lt;a_c\)</span>; to keep equality, you must <strong>add back</strong> exactly that block.</p>
+<p><strong>Case 2: <span class="math inline">\(a_c\le a_0\le b\)</span>.</strong></p>
+<p><span class="math display">\[
+S(a_0,b)=S(a_c,b)\;-\;S(a_c,a_0).
+\]</span></p>
+<p>Now moving the lower limit <strong>down</strong> from <span class="math inline">\(a_0\)</span> to <span class="math inline">\(a_c\)</span> includes the extra block <span class="math inline">\(a_c\le k&lt;a_0\)</span>; to compensate, you <strong>subtract</strong> that block.</p>
+<p>These two cases are the same rule written with the appropriate sign.</p>
+<p>Interchanging limits (the “reverse” rule)</p>
+<p>From the cut rule with <span class="math inline">\(b=a\)</span> you get the useful symmetry</p>
+<p><span class="math display">\[
+S(a,c)+S(c,a)=S(a,a)=0\quad\Longrightarrow\quad S(a,c)=-\,S(c,a).
+\]</span></p>
+<p>Thus when you <strong>swap the two limits</strong> in a half-open sum, the value changes sign, and “the terms between <span class="math inline">\(a_0\)</span> and <span class="math inline">\(a_c\)</span>” migrate from one side of the equality to the other—the precise content of the official hint.</p>
+<p>Worked micro-examples</p>
+<ol type="1">
+<li><span class="math inline">\(a_0=2,\ a_c=5,\ b=10\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{2\le k&lt;10}x_k=\sum_{5\le k&lt;10}x_k+\sum_{2\le k&lt;5}x_k.
+\]</span></p>
+<ol start="2" type="1">
+<li><span class="math inline">\(a_0=7,\ a_c=3,\ b=10\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{7\le k&lt;10}x_k=\sum_{3\le k&lt;10}x_k-\sum_{3\le k&lt;7}x_k.
+\]</span></p>
+<ol start="3" type="1">
+<li>Interchange <span class="math inline">\(a\)</span> and <span class="math inline">\(c\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{a\le k&lt;c}x_k=-\sum_{c\le k&lt;a}x_k.
+\]</span></p>
+</section>
+<section id="hm23" class="level3">
+<h3 class="anchored" data-anchor-id="hm23">7 [HM23]</h3>
+<ol type="1">
+<li>Use Iverson’s bracket definition of restricted sums</li>
+</ol>
+<p>Knuth defines a “restricted” sum by turning the restriction into a 0–1 factor:</p>
+<p><span class="math display">\[
+\sum_{R(j)} a_j \;=\; \sum_{j\in\mathbb Z} a_j\,[R(j)],
+\]</span></p>
+<p>where <span class="math inline">\([R(j)]\)</span> is 1 if the statement <span class="math inline">\(R(j)\)</span> is true and 0 otherwise. This lets us treat “sum over all <span class="math inline">\(j\)</span> satisfying <span class="math inline">\(R\)</span>” as a single sum over all integers with a filter. </p>
+<ol start="2" type="1">
+<li>Make the change of variables <span class="math inline">\(k = c - j\)</span></li>
+</ol>
+<p>The map <span class="math inline">\(j\mapsto c-j\)</span> is a bijection (indeed, an involution) on <span class="math inline">\(\mathbb Z\)</span>. Rename the dummy index in the all-integers sum using this bijection:</p>
+<p><span class="math display">\[
+\sum_{j\in\mathbb Z} a_j\,[R(j)]
+\;=\;
+\sum_{k\in\mathbb Z} a_{\,c-k}\,[R(c-k)].
+\]</span></p>
+<p>But the right-hand side is exactly the restricted-sum notation</p>
+<p><span class="math display">\[
+\sum_{R(c-k)} a_{\,c-k}.
+\]</span></p>
+<p>Since <span class="math inline">\(k\)</span> is just a dummy symbol, we can write it as <span class="math inline">\(j\)</span> again and obtain</p>
+<p><span class="math display">\[
+\sum_{R(j)} a_j \;=\; \sum_{R(c-j)} a_{\,c-j}.
+\]</span></p>
+<p>That is all that needs to be shown.</p>
+<p>Why this is valid “even if both series are infinite”</p>
+<p>The proof above <strong>does not</strong> rearrange the terms of a conditionally convergent series; it only <em>renames the index</em> inside a single “sum over all integers with a 0–1 filter.” That’s exactly what Knuth’s bracket notation is designed to permit. (In the text, this equivalence is also derived from the general “change of index by a permutation” rule; here the permutation is <span class="math inline">\(p(j)=c-j\)</span>. Knuth discusses change of index and shows, via brackets, how such a permutation yields the same restricted sum. ) </p>
+<ol start="3" type="1">
+<li>Quick sanity checks</li>
+</ol>
+<ul>
+<li><p><strong>Finite window:</strong> If <span class="math inline">\(R(j)\)</span> is <span class="math inline">\(0\le j\le n\)</span> then the result says <span class="math inline">\(\sum_{j=0}^{n} a_j = \sum_{0\le c-j\le n} a_{c-j} = \sum_{c-n\le j\le c} a_j,\)</span> i.e., just a shift of the index range—obviously true.</p></li>
+<li><p><strong>One-sided infinite:</strong> If <span class="math inline">\(R(j)\)</span> is <span class="math inline">\(j\ge 0\)</span> then</p>
+<p><span class="math display">\[
+\sum_{j\ge 0} a_j \;=\; \sum_{c-j\ge 0} a_{\,c-j} \;=\; \sum_{j\le c} a_j,
+\]</span></p>
+<p>which again follows directly from the bijection <span class="math inline">\(j\leftrightarrow c-j\)</span> inside the bracketed all-integers sum.</p></li>
+</ul>
+</section>
+<section id="hm25" class="level3">
+<h3 class="anchored" data-anchor-id="hm25">8 [HM25]</h3>
+<p>We’ll use Stirling’s expansion from the text:</p>
+<p><span class="math display">\[
+n! \;=\; \sqrt{2\pi n}\,\Big(\tfrac{n}{e}\Big)^n
+\Big(1+\tfrac{1}{12n}+O(n^{-2})\Big)
+\quad\Longrightarrow\quad
+\ln n!
+= n\ln n-n+\tfrac12\ln(2\pi n)+\tfrac{1}{12n}+O(n^{-2}).
+\]</span></p>
+<p>(See the displayed formulas just before and at (19).)</p>
+<p>Part A — <span class="math inline">\(\ln(an^2+bn)!\)</span> with absolute error <span class="math inline">\(O(n^{-2})\)</span></p>
+<p>Let <span class="math inline">\(m=an^2+bn\)</span> with fixed <span class="math inline">\(a&gt;0\)</span> and fixed <span class="math inline">\(b\)</span>. Since <span class="math inline">\(m\sim an^2\)</span>, the Stirling remainder terms beyond <span class="math inline">\(1/(12m)\)</span> are <span class="math inline">\(O(m^{-3})=O(n^{-6})\)</span>, which is (much) smaller than the requested <span class="math inline">\(O(n^{-2})\)</span>. Thus it suffices to expand</p>
+<p><span class="math display">\[
+\ln m! \;=\; m\ln m - m + \tfrac12\ln(2\pi m)+\tfrac{1}{12m} + O(n^{-6}).
+\]</span></p>
+<p>Write</p>
+<p><span class="math display">\[
+\ln m = \ln(an^2)+\ln\!\Bigl(1+\frac{b}{a\,n}\Bigr)
+= \ln a + 2\ln n + \frac{b}{a\,n}-\frac{b^2}{2a^2 n^2}+O(n^{-3}).
+\]</span></p>
+<p>Now expand the four pieces <span class="math inline">\(m\ln m\)</span>, <span class="math inline">\(-m\)</span>, <span class="math inline">\(\tfrac12\ln(2\pi m)\)</span>, <span class="math inline">\(\tfrac{1}{12m}\)</span> and collect terms through <span class="math inline">\(n^{-2}\)</span>. A straightforward computation gives</p>
+<p><span class="math display">\[
+\boxed{
+\begin{aligned}
+\ln(an^2+bn)!
+&amp;= a n^2\bigl(2\ln n+\ln a-1\bigr)
+  + b n\bigl(2\ln n+\ln a\bigr)\\
+&amp;\quad+ \tfrac12\bigl(2\ln n+\ln a+\ln(2\pi)\bigr)
+  + \frac{b^2}{2a}\\[2pt]
+&amp;\quad+ \frac{1}{n}\Bigl(\frac{b}{2a}-\frac{b^3}{2a^2}\Bigr)
+  + \frac{1}{n^2}\Bigl(\frac{1}{12a}-\frac{b^2}{4a^2}\Bigr)
+  \;+\; O(n^{-3}).
+\end{aligned}
+}
+\]</span></p>
+<p>Because the omitted terms are <span class="math inline">\(O(n^{-3})\)</span>, this approximation has <strong>absolute error <span class="math inline">\(O(n^{-2})\)</span></strong> as required.</p>
+<p><em>(Sanity check: setting <span class="math inline">\(b=0, a=1\)</span> reduces to <span class="math inline">\(m=n^2\)</span> and we recover <span class="math inline">\(\ln(n^2)! = 2n^2\ln n-n^2+\ln n+\tfrac12\ln(2\pi)+\tfrac{1}{12n^2}+O(n^{-4})\)</span>, which is Stirling with <span class="math inline">\(m=n^2\)</span>.)</em></p>
+<p>Part B — Asymptotics of <span class="math inline">\(\displaystyle \frac{\binom{c n^2}{n}}{c^{\,n}\binom{n^2}{n}}\)</span></p>
+<p>Write <span class="math inline">\(\binom{N}{n}=\dfrac{N!}{n!(N-n)!}\)</span> and take logs:</p>
+<p><span class="math display">\[
+\ln\binom{N}{n}=\ln N!-\ln n!-\ln(N-n)!.
+\]</span></p>
+<p>Put <span class="math inline">\(N=\alpha n^2\)</span> with <span class="math inline">\(\alpha&gt;0\)</span> (we will use <span class="math inline">\(\alpha=c\)</span> and <span class="math inline">\(\alpha=1\)</span>). Using the Stirling–log expansion to accuracy <span class="math inline">\(O(n^{-2})\)</span> (as above) and expanding in powers of <span class="math inline">\(1/n\)</span> with <span class="math inline">\(n\ll N\)</span>, one finds</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ln\binom{\alpha n^2}{n}
+&amp;= n\ln n + n\ln\alpha + n - \tfrac12\ln n
+   - \frac{1}{2\alpha}
+   + \frac{1}{n}\Bigl(\frac{1}{2\alpha}-\frac{1}{6\alpha^2}-\frac{1}{12}\Bigr)\\[-2pt]
+&amp;\quad + \frac{1}{n^2}\Bigl(\frac{1}{12\alpha^3}+\frac{1}{4\alpha^2}\Bigr)
+   + O(n^{-3}).
+\end{aligned}
+\]</span></p>
+<p>(Any <span class="math inline">\(\alpha\)</span>-independent <span class="math inline">\(O(1/n)\)</span> terms, e.g.&nbsp;<span class="math inline">\(-1/(12n)\)</span>, cancel when we form the ratio below.)</p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ln R
+&amp;:= \ln\frac{\binom{c n^2}{n}}{c^{\,n}\binom{n^2}{n}}
+= \Bigl[\ln\binom{c n^2}{n}-n\ln c\Bigr] - \ln\binom{n^2}{n}\\
+&amp;= \frac12\Bigl(1 - \frac{1}{c}\Bigr)
++ \frac{1}{n}\Bigl(\frac{1}{2c}-\frac{1}{6c^2}-\frac{1}{3}\Bigr)
++ \frac{1}{n^2}\Bigl(\frac{1}{12c^3}+\frac{1}{4c^2}-\frac{1}{12}-\frac{1}{4}\Bigr)
++ O(n^{-3}).
+\end{aligned}
+\]</span></p>
+<p>Exponentiating gives the asymptotic form</p>
+<p><span class="math display">\[
+\boxed{
+\frac{\binom{c n^2}{n}}{c^{\,n}\binom{n^2}{n}}
+= \exp\!\Bigl(\tfrac12\,(1-\tfrac1c)\Bigr)\,
+\Biggl[\,1+\frac{1}{n}\Bigl(\frac{1}{2c}-\frac{1}{6c^2}-\frac{1}{3}\Bigr)
++ O\!\Bigl(\frac{1}{n^2}\Bigr)\Biggr].
+}
+\]</span></p>
+<p>In particular, the <strong>asymptotic value</strong> (the limit as <span class="math inline">\(n\to\infty\)</span>) is the constant</p>
+<p><span class="math display">\[
+\boxed{\displaystyle \lim_{n\to\infty}\frac{\binom{c n^2}{n}}{c^{\,n}\binom{n^2}{n}}
+= \exp\!\Bigl(\tfrac12\,(1-\tfrac1c)\Bigr).}
+\]</span></p>
+<p>Checks: for <span class="math inline">\(c=1\)</span> the ratio is identically <span class="math inline">\(1\)</span>, and the limit gives <span class="math inline">\(e^{0}=1\)</span>; as <span class="math inline">\(c\to\infty\)</span>, the limit approaches <span class="math inline">\(e^{1/2}\)</span>.</p>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">9 [05]</h3>
+<p><strong>No.</strong> The <em>formula</em> still evaluates correctly when <span class="math inline">\(n=-1\)</span> (both sides are <span class="math inline">\(0\)</span>), but the <em>derivation</em> used in the text is not valid in that case because it relies on a step that implicitly assumes <span class="math inline">\(0\le 0 \le n\)</span> (i.e., <span class="math inline">\(n\ge 0\)</span>). </p>
+<p>Why the derivation breaks (but the identity remains true)</p>
+<ol type="1">
+<li><strong>What the derivation does for <span class="math inline">\(n\ge 0\)</span>.</strong> Let <span class="math inline">\(S:=\sum_{0\le j\le n} a x^{j}\)</span>. The text splits off the <span class="math inline">\(j=0\)</span> term and then reindexes:</li>
+</ol>
+<p><span class="math display">\[
+S \;=\; a \;+\; \sum_{1\le j\le n} a x^{j}
+\;=\; a \;+\; x\sum_{1\le j\le n} a x^{j-1}
+\;=\; a \;+\; x\sum_{0\le j\le n-1} a x^{j},
+\]</span></p>
+<p>then subtracts <span class="math inline">\(xS\)</span> and solves to get Eq. (14). Every equality there uses the summation manipulation rules from §1.2.3 and, crucially, the ability to <em>pull out</em> the <span class="math inline">\(j=0\)</span> term—i.e., that <span class="math inline">\(0\)</span> actually lies in the index set <span class="math inline">\(\{j\mid 0\le j\le n\}\)</span>, which requires <span class="math inline">\(n\ge 0\)</span>. </p>
+<ol start="2" type="1">
+<li><strong>What happens when <span class="math inline">\(n=-1\)</span>.</strong> The index set <span class="math inline">\(\{j\mid 0\le j\le -1\}\)</span> is empty, so</li>
+</ol>
+<p><span class="math display">\[
+\sum_{0\le j\le -1} a x^{j}=0\quad\text{(empty sum).}
+\]</span></p>
+<p>But the very first step of the derivation would write</p>
+<p><span class="math display">\[
+S \stackrel{?}= a + \sum_{1\le j\le -1} a x^{j},
+\]</span></p>
+<p>which incorrectly assumes that a <span class="math inline">\(j=0\)</span> term is present to “split off.” That step is invalid when <span class="math inline">\(n=-1\)</span>. (In Knuth’s rules this is the misuse of restriction/splitting (rule (d)) outside its preconditions.) Hence the <em>derivation</em> fails for <span class="math inline">\(n=-1\)</span>. </p>
+<ol start="3" type="1">
+<li><strong>Yet the formula itself still holds for <span class="math inline">\(n=-1\)</span>.</strong> Evaluate both sides directly:</li>
+</ol>
+<ul>
+<li>LHS: <span class="math inline">\(\sum_{0\le j\le -1} a x^j = 0\)</span> (empty sum).</li>
+<li>RHS: <span class="math inline">\(a\,\dfrac{1-x^{\,(-1)+1}}{1-x}=a\,\dfrac{1-x^{0}}{1-x}=a\,\dfrac{1-1}{1-x}=0\)</span>. So the identity is true at <span class="math inline">\(n=-1\)</span>; only the <em>particular derivation</em> is invalid there. (This is exactly the remark in the answers for §1.2.3.)</li>
+</ul>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">10 [05]</h3>
+<p>What Eq. (14) is and how it’s derived</p>
+<p>In §1.2.3 Knuth derives the finite geometric–series identity (for <span class="math inline">\(x\neq 1\)</span>)</p>
+<p><span class="math display">\[
+\sum_{j=0}^{n} x^{j}=\frac{x^{\,n+1}-1}{x-1}.
+\]</span></p>
+<p>A standard derivation is</p>
+<p><span class="math display">\[
+(x-1)\sum_{j=0}^{n}x^{j}
+=\sum_{j=0}^{n}(x^{j+1}-x^{j})
+=\Big(\sum_{k=1}^{n+1}x^{k}\Big)-\Big(\sum_{j=0}^{n}x^{j}\Big)
+=x^{n+1}-1,
+\]</span></p>
+<p>so dividing by <span class="math inline">\(x-1\)</span> (with <span class="math inline">\(x\ne 1\)</span>) gives Eq. (14). In this section Knuth also formalizes <em>conditional</em> sums using the characteristic–function/bracket notation <span class="math inline">\([R]\in\{0,1\}\)</span>, so that sums over an empty index set evaluate to <span class="math inline">\(0\)</span>. </p>
+<p>Check the edge cases <span class="math inline">\(n=-1\)</span> and <span class="math inline">\(n=-2\)</span></p>
+<ul>
+<li><p><strong>What the sum means for negative <span class="math inline">\(n\)</span>.</strong> In Knuth’s notation <span class="math inline">\(\sum_{0\le j\le n}(\cdots)\)</span> is a sum over integers <span class="math inline">\(j\)</span> satisfying <span class="math inline">\(0\le j\le n\)</span>. If <span class="math inline">\(n&lt;0\)</span>, there <em>are no such <span class="math inline">\(j\)</span></em>, so the sum is <strong>empty</strong> and therefore equals <strong>0</strong>. (This follows immediately from the conditional-sum/bracket setup in §1.2.3.) </p></li>
+<li><p><strong><span class="math inline">\(n=-1\)</span>.</strong> The left side is an empty sum <span class="math inline">\(=0\)</span>. The right side of Eq. (14) becomes <span class="math inline">\((x^{0}-1)/(x-1)=0\)</span>. So the identity happens to hold.</p></li>
+<li><p><strong><span class="math inline">\(n=-2\)</span>.</strong> The left side is again an empty sum <span class="math inline">\(=0\)</span>. But the right side of Eq. (14) becomes</p></li>
+</ul>
+<p><span class="math display">\[
+\frac{x^{-1}-1}{x-1}=\frac{1-x}{x(x-1)}=-\frac{1}{x}\neq 0\quad(\text{for }x\neq 1).
+\]</span></p>
+<p>Thus the <em>formula</em> of Eq. (14) does <strong>not</strong> match the meaning of the sum when <span class="math inline">\(n=-2\)</span>.</p>
+<p>Where the derivation breaks</p>
+<p>Look at the telescoping step</p>
+<p><span class="math display">\[
+\Big(\sum_{k=1}^{n+1}x^{k}\Big)-\Big(\sum_{j=0}^{n}x^{j}\Big)=x^{n+1}-1.
+\]</span></p>
+<p>This cancellation implicitly assumes there is an overlapping block <span class="math inline">\(1\le k\le n\)</span> to cancel—i.e., it assumes <span class="math inline">\(n\ge 0\)</span>. When <span class="math inline">\(n=-2\)</span> (indeed whenever <span class="math inline">\(n\le -2\)</span>), <strong>both sums are empty</strong>, so their difference is <span class="math inline">\(0\)</span>, not <span class="math inline">\(x^{n+1}-1\)</span>. The telescoping argument therefore fails, and the subsequent division to obtain Eq. (14) is not justified.</p>
+</section>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">11 [03]</h3>
+<ol type="1">
+<li><p><strong>Direct counting at <span class="math inline">\(x=1\)</span>.</strong> When <span class="math inline">\(x=1\)</span>, every term in the sum is just <span class="math inline">\(a\)</span>. There are <span class="math inline">\(n+1\)</span> terms (from <span class="math inline">\(j=0\)</span> to <span class="math inline">\(j=n\)</span>), so</p>
+<p><span class="math display">\[
+\sum_{j=0}^{n} a\,1^{j} = \underbrace{a+\cdots+a}_{n+1\ \text{terms}} = a(n+1).
+\]</span></p>
+<p>Therefore, the <em>value</em> of the sum at <span class="math inline">\(x=1\)</span> is <span class="math inline">\(a(n+1)\)</span>.</p></li>
+<li><p><strong>Consistent extension of Eq. (14).</strong> The closed form <span class="math inline">\(a(1-x^{n+1})/(1-x)\)</span> is undefined at <span class="math inline">\(x=1\)</span> (division by zero), but its <strong>limit</strong> exists. Rewrite the fraction as</p>
+<p><span class="math display">\[
+a\,\frac{x^{n+1}-1}{x-1}.
+\]</span></p>
+<p>Taking <span class="math inline">\(x \to 1\)</span> and using the standard difference-quotient identity (or L’Hôpital’s rule),</p>
+<p><span class="math display">\[
+\lim_{x\to 1}\frac{x^{n+1}-1}{x-1}=\left.\frac{d}{dx}x^{n+1}\right|_{x=1}=n+1.
+\]</span></p>
+<p>Hence the continuous extension of Eq. (14) at <span class="math inline">\(x=1\)</span> is <span class="math inline">\(a(n+1)\)</span>, agreeing with the direct count.</p></li>
+<li><p><strong>Polynomial identity check (no calculus).</strong> The identity</p>
+<p><span class="math display">\[
+x^{n+1}-1=(x-1)\,(1+x+\cdots+x^{n})
+\]</span></p>
+<p>holds for all <span class="math inline">\(x\)</span>. For <span class="math inline">\(x\neq 1\)</span> it implies Eq. (14); evaluating the polynomial <span class="math inline">\(1+x+\cdots+x^{n}\)</span> at <span class="math inline">\(x=1\)</span> gives <span class="math inline">\(n+1\)</span>. Thus the natural definition at <span class="math inline">\(x=1\)</span> is again <span class="math inline">\(a(n+1)\)</span>.</p></li>
+</ol>
+<p>Final answer</p>
+<p><span class="math display">\[
+\boxed{\,a(n+1)\,}
+\]</span></p>
+<p>That is, replace the right-hand side by <span class="math inline">\(a(n+1)\)</span> when <span class="math inline">\(x=1\)</span>. </p>
+</section>
+<section id="section-7" class="level3">
+<h3 class="anchored" data-anchor-id="section-7">12 [10]</h3>
+<p>This is a geometric series with first term <span class="math inline">\(a=1\)</span> and common ratio <span class="math inline">\(r=\tfrac17\)</span>.</p>
+<ol type="1">
+<li><p>Multiply by <span class="math inline">\(r\)</span>: <span class="math inline">\(rS_n=\tfrac17+\tfrac1{7^2}+\cdots+\tfrac1{7^{n+1}}\)</span>.</p></li>
+<li><p>Subtract: <span class="math inline">\(S_n-rS_n=1-\tfrac1{7^{\,n+1}}\)</span>.</p></li>
+<li><p>Factor: <span class="math inline">\((1-r)S_n=1-\tfrac1{7^{\,n+1}}\)</span>.</p></li>
+<li><p>Solve for <span class="math inline">\(S_n\)</span> using <span class="math inline">\(1-r=1-\tfrac17=\tfrac67\)</span>:</p></li>
+</ol>
+<p><span class="math display">\[
+S_n=\frac{1-(1/7)^{\,n+1}}{1-1/7}
+=\frac{1-(1/7)^{\,n+1}}{6/7}
+=\frac{7}{6}\Bigl(1-7^{-(n+1)}\Bigr).
+\]</span></p>
+<p>Equivalent closed forms you can use:</p>
+<p><span class="math display">\[
+S_n=\frac{7^{n+1}-1}{6\cdot 7^{\,n}}
+=\frac{7}{6}-\frac{1}{6\cdot 7^{\,n}}.
+\]</span></p>
+<p>Quick checks</p>
+<ul>
+<li><span class="math inline">\(n=0\)</span>: <span class="math inline">\(S_0=1\)</span>. Formula gives <span class="math inline">\(\frac{7}{6}-\frac{1}{6\cdot 7^0}=1\)</span>.</li>
+<li><span class="math inline">\(n=1\)</span>: <span class="math inline">\(S_1=1+\tfrac17=\tfrac87\)</span>. Formula gives <span class="math inline">\(\frac{7}{6}-\frac{1}{42}=\tfrac{56-1}{42}=\tfrac87\)</span>.</li>
+</ul>
+<p>(As a side note, <span class="math inline">\(\lim_{n\to\infty}S_n=\tfrac{7}{6}\)</span>.)</p>
+</section>
+<section id="section-8" class="level3">
+<h3 class="anchored" data-anchor-id="section-8">13 [10]</h3>
+<p>Tool: Eq. (15) from the text</p>
+<p>From the derivation of arithmetic–progression sums in §1.2.3, Eq. (15) gives</p>
+<p><span class="math display">\[
+\sum_{j=0}^{n} (a+bj)\;=\;a(n+1)\;+\;\frac{b\,n(n+1)}{2}.
+\]</span></p>
+<p>Setting <span class="math inline">\(a=0,\; b=1\)</span> yields the well-known identity</p>
+<p><span class="math display">\[
+\sum_{j=0}^{n} j \;=\; \frac{n(n+1)}{2}. \;\; \text{(from Eq. 15)}
+\]</span></p>
+<p>Compute <span class="math inline">\(\sum_{j=m}^{n} j\)</span></p>
+<p>Write the desired sum as a difference of two prefix sums:</p>
+<p><span class="math display">\[
+\sum_{j=m}^{n} j
+\;=\;
+\sum_{j=0}^{n} j \;-\; \sum_{j=0}^{m-1} j
+\;=\;
+\frac{n(n+1)}{2} \;-\; \frac{(m-1)m}{2}.
+\]</span></p>
+<p>So a compact closed form is</p>
+<p><span class="math display">\[
+\boxed{\displaystyle \sum_{j=m}^{n} j \;=\; \frac{n(n+1) - m(m-1)}{2}}
+\qquad (m\le n).
+\]</span></p>
+<p>Equivalent forms (sometimes convenient)</p>
+<p>Algebra gives a few interchangeable expressions:</p>
+<p><span class="math display">\[
+\sum_{j=m}^{n} j
+\;=\;
+\frac{(n-m+1)(m+n)}{2}
+\;=\;
+m(n-m+1)\;+\;\frac{(n-m)(n-m+1)}{2}.
+\]</span></p>
+<p>(The text’s answer lists these equivalent forms as well. ) </p>
+<p>Quick check: Example <span class="math inline">\(m=3,\;n=6\)</span>: <span class="math inline">\(3+4+5+6=18\)</span>. Formula: <span class="math inline">\(\tfrac{6\cdot7-3\cdot2}{2}= \tfrac{42-6}{2}=18\)</span>. ✓</p>
+</section>
+<section id="section-9" class="level3">
+<h3 class="anchored" data-anchor-id="section-9">14 [11]</h3>
+<p>Because <span class="math inline">\(j\)</span> does not depend on <span class="math inline">\(k\)</span>, the inner sum factors:</p>
+<p><span class="math display">\[
+\sum_{k=r}^{s} jk \;=\; j\sum_{k=r}^{s} k.
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+\sum_{j=m}^{n}\sum_{k=r}^{s} jk
+\;=\;
+\left(\sum_{j=m}^{n} j\right)\!\left(\sum_{k=r}^{s} k\right).
+\]</span></p>
+<p>Use the standard arithmetic–series formula from the previous exercise (with <span class="math inline">\(m\le n\)</span>, and analogously <span class="math inline">\(r\le s\)</span>):</p>
+<p><span class="math display">\[
+\sum_{j=m}^{n} j
+=
+\frac{n(n+1)}{2}-\frac{(m-1)m}{2}
+=
+\frac{(n-m+1)(m+n)}{2},
+\]</span></p>
+<p><span class="math display">\[
+\sum_{k=r}^{s} k
+=
+\frac{s(s+1)}{2}-\frac{(r-1)r}{2}
+=
+\frac{(s-r+1)(r+s)}{2}.
+\]</span></p>
+<p>(Exercise 13 asks you to derive <span class="math inline">\(\sum_{j=m}^{n} j\)</span> in this way.) </p>
+<p>Multiply the two results to get the closed form:</p>
+<p><span class="math display">\[
+\boxed{\displaystyle
+\sum_{j=m}^{n}\sum_{k=r}^{s} jk
+=
+\frac{(n-m+1)(m+n)\,(s-r+1)(r+s)}{4}
+}\qquad (m\le n,\ r\le s).
+\]</span></p>
+<p>If either range is empty (e.g., <span class="math inline">\(m&gt;n\)</span> or <span class="math inline">\(r&gt;s\)</span>), the corresponding sum is <span class="math inline">\(0\)</span>, so the whole double sum is <span class="math inline">\(0\)</span> by the conventions of §1.2.3. </p>
+<p>Quick check</p>
+<p>Take <span class="math inline">\(m=2,n=4,r=3,s=5\)</span>. Left side:</p>
+<p><span class="math display">\[
+\sum_{j=2}^{4}\sum_{k=3}^{5} jk
+=(2(3+4+5))+(3(3+4+5))+(4(3+4+5))=24+36+48=108.
+\]</span></p>
+<p>Right side:</p>
+<p><span class="math display">\[
+\frac{(4-2+1)(2+4)\,(5-3+1)(3+5)}{4}
+=\frac{(3)(6)\,(3)(8)}{4}=108.
+\]</span></p>
+<p>Matches perfectly.</p>
+</section>
+<section id="m22" class="level3">
+<h3 class="anchored" data-anchor-id="m22">15 [M22]</h3>
+<p>Step 1 — Small <span class="math inline">\(n\)</span> to spot the pattern</p>
+<p><span class="math display">\[
+\begin{aligned}
+S_1&amp;=2\\
+S_2&amp;=2+8=10\\
+S_3&amp;=2+8+24=34\\
+S_4&amp;=98,\qquad S_5=258
+\end{aligned}
+\]</span></p>
+<p>These suggest the closed form <span class="math inline">\(S_n=(n-1)2^{\,n+1}+2\)</span> (check: for <span class="math inline">\(n=5\)</span>, <span class="math inline">\(4\cdot 64+2=258\)</span>).</p>
+<p>Step 2 — Derive it with the “geometric-series manipulation”</p>
+<p>Let</p>
+<p><span class="math display">\[
+S_n=\sum_{k=1}^{n} k\,2^{k}.
+\]</span></p>
+<p>Multiply by 2 and reindex the first sum:</p>
+<p><span class="math display">\[
+2S_n=\sum_{k=1}^{n} k\,2^{k+1}=\sum_{j=2}^{n+1} (j-1)\,2^{j}.
+\]</span></p>
+<p>Subtract <span class="math inline">\(S_n=\sum_{j=1}^{n} j\,2^{j}\)</span> from this:</p>
+<p><span class="math display">\[
+\begin{aligned}
+2S_n-S_n
+&amp;=\biggl[\sum_{j=2}^{n+1} (j-1)2^{j}\biggr]-\biggl[\sum_{j=1}^{n} j\,2^{j}\biggr]\\
+&amp;=\;n\,2^{\,n+1}\;+\;\sum_{j=2}^{n}\!\bigl((j-1)-j\bigr)2^{j}\;-\;1\cdot 2\\
+&amp;=\;n\,2^{\,n+1}\;-\;\sum_{j=1}^{n}2^{j}.
+\end{aligned}
+\]</span></p>
+<p>Using the finite geometric sum <span class="math inline">\(\sum_{j=1}^{n}2^{j}=2^{n+1}-2\)</span> (the very Eq. (14)–style identity Knuth just derived earlier in §1.2.3), we get</p>
+<p><span class="math display">\[
+S_n=n\,2^{\,n+1}-\bigl(2^{\,n+1}-2\bigr)=(n-1)\,2^{\,n+1}+2.
+\]</span></p>
+<p>Final answer</p>
+<p><span class="math display">\[
+\boxed{\,\displaystyle \sum_{k=1}^{n} k\,2^{k}\;=\;(n-1)\,2^{\,n+1}+2\,}
+\]</span></p>
+<p>(For context, this exercise sits in §1.2.3 “Sums and Products,” right after the geometric-series derivation. )</p>
+</section>
+<section id="m22-1" class="level3">
+<h3 class="anchored" data-anchor-id="m22-1">16 [M22]</h3>
+<p>Step 1 — Set up a telescoping trick</p>
+<p>Let <span class="math inline">\(S=S_n(x)\)</span>. Then</p>
+<p><span class="math display">\[
+(1-x)S = S - xS \;=\; \sum_{j=0}^{n} jx^{j}\;-\;\sum_{j=0}^{n} jx^{j+1}.
+\]</span></p>
+<p>Change index in the second sum: put <span class="math inline">\(k=j+1\)</span>. Using the “change of variable” rule (rule (b) in §1.2.3),</p>
+<p><span class="math display">\[
+\sum_{j=0}^{n} jx^{j+1} \;=\; \sum_{k=1}^{n+1} (k-1)x^{k}.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+(1-x)S
+= \Big(\,0\,+\sum_{j=1}^{n} jx^{j}\Big) - \Big(\sum_{k=1}^{n} (k-1)x^{k} + n x^{n+1}\Big)
+= \sum_{j=1}^{n} \big(j-(j-1)\big)x^{j} - n x^{n+1}
+= \sum_{j=1}^{n} x^{j} - n x^{n+1}.
+\]</span></p>
+<p>(The index-shift is exactly the kind of manipulation formalized as rule (b).) </p>
+<p>Step 2 — Evaluate the geometric sum</p>
+<p>For <span class="math inline">\(x\neq 1\)</span>,</p>
+<p><span class="math display">\[
+\sum_{j=1}^{n} x^{j} \;=\; \frac{x - x^{\,n+1}}{1-x},
+\]</span></p>
+<p>the standard finite geometric progression with <span class="math inline">\(a=1\)</span>. </p>
+<p>Therefore</p>
+<p><span class="math display">\[
+(1-x)S \;=\; \frac{x - x^{\,n+1}}{1-x} - n x^{n+1}.
+\]</span></p>
+<p>Step 3 — Solve for <span class="math inline">\(S\)</span></p>
+<p>Multiply both sides by <span class="math inline">\(1-x\)</span> and simplify:</p>
+<p><span class="math display">\[
+(1-x)^{2} S \;=\; x - x^{\,n+1} - n x^{\,n+1}(1-x)
+= x - (n+1)x^{\,n+1} + n x^{\,n+2}.
+\]</span></p>
+<p>Thus</p>
+<p><span class="math display">\[
+\boxed{\; \displaystyle
+\sum_{j=0}^{n} j\,x^{j} \;=\; \frac{n x^{\,n+2} - (n+1) x^{\,n+1} + x}{(1-x)^{2}}
+\;=\; \frac{n x^{\,n+2} - (n+1) x^{\,n+1} + x}{(x-1)^{2}} \;}\qquad(x\neq 1).
+\]</span></p>
+<p>This matches the target identity stated in the exercise (and it was obtained without induction). </p>
+<p>Checks and remarks</p>
+<ul>
+<li>If <span class="math inline">\(x=1\)</span>, the sum is <span class="math inline">\(\sum_{j=0}^{n} j = n(n+1)/2\)</span> (consistent with the limit of the formula as <span class="math inline">\(x\to 1\)</span>).</li>
+<li>The proof used only the index-shift rule and the finite geometric sum derived in Example 3 of §1.2.3, as intended for this section.</li>
+</ul>
+<p>Start from</p>
+<p><span class="math display">\[
+S_n(x)=\sum_{j=0}^{n} j\,x^{j}.
+\]</span></p>
+<ol type="1">
+<li>Pull out a factor <span class="math inline">\(x\)</span> and shift:</li>
+</ol>
+<p><span class="math display">\[
+S_n(x)=x\sum_{j=1}^{n} j\,x^{j-1}=x\sum_{j=0}^{n-1}(j+1)x^{j}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Split the last sum:</li>
+</ol>
+<p><span class="math display">\[
+S_n(x)=x\sum_{j=0}^{n-1} j\,x^{j}+x\sum_{j=0}^{n-1} x^{j}
+= x\Bigl(\sum_{j=0}^{n} j\,x^{j}-n x^{n}\Bigr) \;+\; x\sum_{j=0}^{n-1} x^{j}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Recognize the geometric sum <span class="math inline">\(\sum_{j=0}^{n-1}x^{j}=\dfrac{1-x^{n}}{1-x}\)</span> (from §1.2.3) and solve for <span class="math inline">\(S_n\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+S_n(x) = x S_n(x) - n x^{n+1} + x\,\frac{1-x^{n}}{1-x}.
+\]</span></p>
+<p><span class="math display">\[
+(1-x)S_n(x)= -n x^{n+1} + x\,\frac{1-x^{n}}{1-x}.
+\]</span></p>
+<p><span class="math display">\[
+S_n(x)=\frac{x(1-x^{n})-n x^{n+1}(1-x)}{(1-x)^{2}}
+=\frac{x-(n+1)x^{n+1}+n x^{n+2}}{(1-x)^{2}}, \qquad (x\neq 1).
+\]</span></p>
+<p>This is exactly the result Exercise 20 later depends on (it rewrites <span class="math inline">\(\sum (n-k)b^k\)</span> via <span class="math inline">\(n\sum b^k-\sum k b^k\)</span>). </p>
+<p>Edge cases and checks</p>
+<ul>
+<li><strong><span class="math inline">\(x=1\)</span>.</strong> Take the limit <span class="math inline">\(x\to1\)</span> (or note directly from the definition): <span class="math inline">\(\displaystyle S_n(1)=\sum_{j=0}^{n} j=\frac{n(n+1)}{2}.\)</span></li>
+<li><strong>Polynomials.</strong> The identity holds over any ring where the algebra above makes sense; interpreted as polynomials in <span class="math inline">\(x\)</span>, both sides are identical for all <span class="math inline">\(x\neq 1\)</span>.</li>
+<li><strong>Book context.</strong> The technique matches §1.2.3’s emphasis on “manipulating sums” (including index shifts and basic identities) and is the same chain shown in the official “Key steps” for exercises 15–16.</li>
+</ul>
+<p>Final formula</p>
+<p><span class="math display">\[
+\boxed{\;\sum_{j=0}^{n} j\,x^{j}
+=\frac{x-(n+1)x^{n+1}+n x^{n+2}}{(1-x)^{2}}\quad (x\neq 1),\qquad
+\sum_{j=0}^{n} j=\frac{n(n+1)}{2}\; \text{when }x=1.\;}
+\]</span></p>
+</section>
+<section id="m00" class="level3">
+<h3 class="anchored" data-anchor-id="m00">17 [M00]</h3>
+<p>By definition, the index <span class="math inline">\(j\)</span> in <span class="math inline">\(\sum_{j\in S} 1\)</span> ranges over every element of <span class="math inline">\(S\)</span> exactly once, and the summand is the constant <span class="math inline">\(1\)</span> each time. Therefore the sum simply counts how many elements are in <span class="math inline">\(S\)</span>:</p>
+<p><span class="math display">\[
+\sum_{j\in S} 1 \;=\; |S|.
+\]</span></p>
+<p>This can also be written using Iverson’s bracket notation (introduced in §1.2.3):</p>
+<p><span class="math display">\[
+\sum_{j\in S} 1 \;=\; \sum_{j} [\,j\in S\,],
+\]</span></p>
+<p>and by Eq. (17) in the text,</p>
+<p><span class="math display">\[
+\sum_{R(j)} a_j \;=\; \sum_{j} a_j [\,R(j)\,],
+\]</span></p>
+<p>so with <span class="math inline">\(a_j\equiv 1\)</span> and <span class="math inline">\(R(j)\equiv (j\in S)\)</span> the right-hand side counts the number of <span class="math inline">\(j\)</span> making <span class="math inline">\(R(j)\)</span> true—i.e., <span class="math inline">\(|S|\)</span>. </p>
+<p><strong>Edge cases.</strong></p>
+<ul>
+<li>If <span class="math inline">\(S=\varnothing\)</span>, the sum is <span class="math inline">\(0\)</span>.</li>
+<li>If <span class="math inline">\(S\)</span> is finite with <span class="math inline">\(n\)</span> elements, the sum is <span class="math inline">\(n\)</span>.</li>
+<li>If <span class="math inline">\(S\)</span> is infinite, the (ordinary) sum does not converge in the usual sense; informally one may say it is <span class="math inline">\(+\infty\)</span>.</li>
+</ul>
+</section>
+<section id="m20" class="level3">
+<h3 class="anchored" data-anchor-id="m20">18 [M20]</h3>
+<p>We start from the general interchange law (Eq. (9)) for finite sums:</p>
+<p><span class="math display">\[
+\sum_{R(i)}\ \sum_{S(i,j)} a_{ij}
+\;=\;
+\sum_{S'(j)}\ \sum_{R'(i,j)} a_{ij},
+\]</span></p>
+<p>where <span class="math inline">\(S'(j)\)</span> is “there exists an <span class="math inline">\(i\)</span> such that both <span class="math inline">\(R(i)\)</span> and <span class="math inline">\(S(i,j)\)</span> hold,” and <span class="math inline">\(R'(i,j)\)</span> is “both <span class="math inline">\(R(i)\)</span> and <span class="math inline">\(S(i,j)\)</span> hold.” </p>
+<p>In this exercise we are told to take • <span class="math inline">\(R(i)\)</span>: “<span class="math inline">\(n\)</span> is a multiple of <span class="math inline">\(i\)</span>” (i.e., <span class="math inline">\(i\mid n\)</span>); • <span class="math inline">\(S(i,j)\)</span>: “<span class="math inline">\(1\le j&lt;i\)</span>.” </p>
+<p>Determine the new limits:</p>
+<ol type="1">
+<li>The outer relation <span class="math inline">\(S'(j)\)</span>. We need values of <span class="math inline">\(j\)</span> for which there exists some divisor <span class="math inline">\(i\)</span> of <span class="math inline">\(n\)</span> with <span class="math inline">\(1\le j&lt;i\)</span>. Taking <span class="math inline">\(i=n\)</span> (which always divides <span class="math inline">\(n\)</span>), this is possible exactly when <span class="math inline">\(1\le j\le n-1\)</span>. Thus</li>
+</ol>
+<p><span class="math display">\[
+S'(j)\; \equiv\; 1\le j\le n-1 .
+\]</span></p>
+<ol start="2" type="1">
+<li>The inner relation <span class="math inline">\(R'(i,j)\)</span>. This must enforce both original conditions for fixed <span class="math inline">\(j\)</span>: <span class="math inline">\(i\mid n\)</span> and <span class="math inline">\(1\le j&lt;i\)</span>. Equivalently,</li>
+</ol>
+<p><span class="math display">\[
+R'(i,j)\; \equiv\; i\mid n \ \text{ and }\ j&lt;i \ (\text{hence } j+1\le i\le n).
+\]</span></p>
+<p>Therefore the interchanged sum is</p>
+<p><span class="math display">\[
+\boxed{\;
+\sum_{\substack{i\mid n}}\ \sum_{j=1}^{\,i-1} a_{ij}
+\;=\;
+\sum_{j=1}^{\,n-1}\ \sum_{\substack{i\mid n\\ i&gt;j}} a_{ij}\; }.
+\]</span></p>
+<p>(That is exactly Eq. (9) specialized to these relations.) </p>
+<p>Quick sanity check (optional): with <span class="math inline">\(n=6\)</span> and <span class="math inline">\(a_{ij}\equiv 1\)</span>, the left side counts <span class="math inline">\((1-1)+(2-1)+(3-1)+(6-1)=8\)</span>. The right side counts, for <span class="math inline">\(j=1,2,3,4,5\)</span>, the number of divisors of <span class="math inline">\(6\)</span> exceeding <span class="math inline">\(j\)</span>, which are <span class="math inline">\(3,2,1,1,1\)</span>, again totaling <span class="math inline">\(8\)</span>. This confirms the limits are consistent.</p>
+</section>
+<section id="section-10" class="level3">
+<h3 class="anchored" data-anchor-id="section-10">19 [20]</h3>
+<p>Result</p>
+<p><span class="math display">\[
+\boxed{\displaystyle \sum_{j=m}^{n}\bigl(a_j-a_{j-1}\bigr)=a_n-a_{m-1}}
+\]</span></p>
+<p>(assuming <span class="math inline">\(m\le n\)</span>; if <span class="math inline">\(m&gt;n\)</span> the sum is empty and equals <span class="math inline">\(0\)</span>.)</p>
+<p>Why it works (two equivalent derivations)</p>
+<p><strong>1) Telescoping by expansion.</strong> Write out a few terms:</p>
+<p><span class="math display">\[
+(a_m-a_{m-1})+(a_{m+1}-a_m)+\cdots+(a_n-a_{n-1}),
+\]</span></p>
+<p>and cancel adjacent <span class="math inline">\(+a_k\)</span> with <span class="math inline">\(-a_k\)</span>. Everything cancels except the first “<span class="math inline">\(-a_{m-1}\)</span>” and the last “<span class="math inline">\(+a_n\)</span>”, yielding <span class="math inline">\(a_n-a_{m-1}\)</span>. (This is the classic telescoping effect; the exercise appears exactly as stated on p.&nbsp;35 of the section. )</p>
+<p><strong>2) Formal manipulation with Knuth’s summation rules.</strong> Let</p>
+<p><span class="math display">\[
+S=\sum_{j=m}^{n}(a_j-a_{j-1})
+=\sum_{j=m}^{n}a_j\;-\;\sum_{j=m}^{n}a_{j-1}\quad\text{(split a sum; cf. Eq. (8)).}
+\]</span></p>
+<p>Now change index <span class="math inline">\(k=j-1\)</span> in the second sum; as <span class="math inline">\(j\)</span> runs <span class="math inline">\(m\ldots n\)</span>, <span class="math inline">\(k\)</span> runs <span class="math inline">\((m-1)\ldots(n-1)\)</span> (index shift as in rule (b)). Thus</p>
+<p><span class="math display">\[
+S=\sum_{k=m}^{n}a_k-\sum_{k=m-1}^{\,n-1}a_k
+=(a_m+\cdots+a_n)-(a_{m-1}+\cdots+a_{n-1})=a_n-a_{m-1}.
+\]</span></p>
+<p>(See the linearity <span class="math inline">\(\sum(b_i+c_i)=\sum b_i+\sum c_i\)</span> as Eq. (8), and the standard index-shift technique used repeatedly in §1.2.3 examples. )</p>
+<p><strong>Remark on edge cases.</strong> Knuth’s convention allows indices over all integers (the bracket-notation discussion explicitly assumes <span class="math inline">\(a_j\)</span> is defined for all <span class="math inline">\(j\)</span>); with that convention, the identity above is exact for <span class="math inline">\(m\le n\)</span>, while for <span class="math inline">\(m&gt;n\)</span> the sum is <span class="math inline">\(0\)</span>. Using Iverson brackets one can write a single formula:</p>
+<p><span class="math display">\[
+\sum_{j=m}^{n}(a_j-a_{j-1})=[m\le n]\,(a_n-a_{m-1}),
+\]</span></p>
+<p>where <span class="math inline">\([P]\)</span> is <span class="math inline">\(1\)</span> if <span class="math inline">\(P\)</span> is true and <span class="math inline">\(0\)</span> otherwise.</p>
+</section>
+<section id="section-11" class="level3">
+<h3 class="anchored" data-anchor-id="section-11">20 [25]</h3>
+<ol type="a">
+<li>Decimal (<span class="math inline">\(b=10\)</span>) in <span class="math inline">\(\Sigma\)</span>-notation</li>
+</ol>
+<p>Let</p>
+<p><span class="math display">\[
+C_n \;=\; \underbrace{12\ldots n}_{\text{as a decimal integer}}
+\;=\;\sum_{j=1}^{n} j\,10^{\,n-j}.
+\]</span></p>
+<p>Then the observed pattern is the identity</p>
+<p><span class="math display">\[
+9\,C_n + (n+1)
+\;=\;\sum_{k=0}^{n} 10^k \;=\;\frac{10^{\,n+1}-1}{9}.
+\]</span></p>
+<p>Thus, in pure <span class="math inline">\(\Sigma\)</span>-form:</p>
+<p><span class="math display">\[
+9\sum_{j=1}^{n} j\,10^{\,n-j} + (n+1)
+\;=\;\sum_{k=0}^{n} 10^k .
+\]</span></p>
+<p>(These right-hand numbers are the length-<span class="math inline">\(n{+}1\)</span> “repunit” in base 10.)</p>
+<ol start="2" type="a">
+<li>Generalization to base <span class="math inline">\(b\)</span></li>
+</ol>
+<p>Define the “concatenation” number in base <span class="math inline">\(b\)</span></p>
+<p><span class="math display">\[
+C_n^{(b)} \;=\;\sum_{j=1}^{n} j\,b^{\,n-j}.
+\]</span></p>
+<p>Then for any <span class="math inline">\(b&gt;1\)</span>,</p>
+<p><span class="math display">\[
+(b-1)\,C_n^{(b)} + (n+1)
+\;=\;\sum_{k=0}^{n} b^k
+\;=\;\frac{b^{\,n+1}-1}{b-1}.
+\]</span></p>
+<p>(If you want the literal “digits <span class="math inline">\(1,2,\dots,n\)</span>” in base <span class="math inline">\(b\)</span>, you should take <span class="math inline">\(n\le b-1\)</span>; the identity itself is purely algebraic and holds for all <span class="math inline">\(n\)</span>.)</p>
+<ol start="3" type="a">
+<li>Proof using <span class="math inline">\(\sum jx^j\)</span></li>
+</ol>
+<p>We’ll use the standard finite power-sum identity (given in this section and also as Ex. 16): for <span class="math inline">\(x\ne 1\)</span>,</p>
+<p><span class="math display">\[
+\sum_{j=0}^{n} j\,x^j
+= \frac{n x^{n+2}-(n+1)x^{n+1}+x}{(x-1)^2}.
+\]</span></p>
+<p>(Notice the <span class="math inline">\(j=0\)</span> term is <span class="math inline">\(0\)</span>, so starting at <span class="math inline">\(j=1\)</span> is equivalent.) </p>
+<p>Let <span class="math inline">\(x=\frac{1}{b}\)</span> and compute</p>
+<p><span class="math display">\[
+S_n(b)\;:=\;\sum_{j=1}^{n} j\,b^{\,n-j}
+\;=\;b^n\sum_{j=1}^{n} j\,x^j.
+\]</span></p>
+<p>Plug the identity in:</p>
+<p><span class="math display">\[
+S_n(b)
+= b^n\,\frac{n x^{n+2}-(n+1)x^{n+1}+x}{(x-1)^2}.
+\]</span></p>
+<p>Since <span class="math inline">\(x=\tfrac{1}{b}\)</span>, we have</p>
+<p><span class="math display">\[
+b^n x^{n+2}=b^{-2},\quad
+b^n x^{n+1}=b^{-1},\quad
+b^n x = b^{\,n-1},
+\quad
+(x-1)^2=\frac{(b-1)^2}{b^2}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+S_n(b)
+= \frac{n - (n+1)b + b^{\,n+1}}{\,b-1\,}.
+\]</span></p>
+<p>Multiply by <span class="math inline">\((b-1)\)</span> and add <span class="math inline">\((n+1)\)</span>:</p>
+<p><span class="math display">\[
+(b-1)S_n(b) + (n+1)
+= \frac{b^{\,n+1}-1}{\,b-1\,}
+= \sum_{k=0}^{n} b^k,
+\]</span></p>
+<p>which is exactly the claimed formula from parts (a)–(b). QED.</p>
+<p>Quick check (decimal, <span class="math inline">\(n=4\)</span>)</p>
+<p><span class="math display">\[
+9\sum_{j=1}^{4} j\,10^{4-j} +5
+= 9(1\cdot10^3+2\cdot10^2+3\cdot10+4)+5
+=9\cdot1234+5=11111,
+\]</span></p>
+<p>and <span class="math inline">\(\sum_{k=0}^{4}10^k=11111\)</span>, as required.</p>
+</section>
+<section id="m25" class="level3">
+<h3 class="anchored" data-anchor-id="m25">21 [M25]</h3>
+<ol type="1">
+<li>Start from the left–hand side and use (17) to convert “conditioned” sums into ordinary sums with indicator brackets:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{R(j)} a_j+\sum_{S(j)} a_j
+=\sum_j a_j\,[R(j)]\;+\;\sum_j a_j\,[S(j)]. \quad \text{(by (17))} \; \; \; \;
+\]</span></p>
+<ol start="2" type="1">
+<li>Combine the two sums into one by distributivity over a sum of terms (use (8) with the “domain” being all integers <span class="math inline">\(j\)</span>):</li>
+</ol>
+<p><span class="math display">\[
+\sum_j a_j\,[R(j)]\;+\;\sum_j a_j\,[S(j)]
+=\sum_j a_j\big([R(j)]+[S(j)]\big). \quad \text{(by (8))}
+\]</span></p>
+<ol start="3" type="1">
+<li>Use the elementary identity for indicator (Iverson) brackets:</li>
+</ol>
+<p><span class="math display">\[
+[R]+[S] = [R\ \text{or}\ S] + [R\ \text{and}\ S].
+\]</span></p>
+<p>(This is checked case-by-case: if neither holds, both sides are <span class="math inline">\(0\)</span>; if exactly one holds, both sides are <span class="math inline">\(1\)</span>; if both hold, both sides are <span class="math inline">\(2\)</span>.)</p>
+<p>Thus</p>
+<p><span class="math display">\[
+\sum_j a_j\big([R(j)]+[S(j)]\big)
+= \sum_j a_j\big([R(j)\lor S(j)] + [R(j)\land S(j)]\big).
+\]</span></p>
+<ol start="4" type="1">
+<li>Split the sum again by (8), then convert back with (17):</li>
+</ol>
+<p><span class="math display">\[
+\sum_j a_j[\,R(j)\lor S(j)\,] + \sum_j a_j[\,R(j)\land S(j)\,]
+= \sum_{R(j)\ \text{or}\ S(j)} a_j + \sum_{R(j)\ \text{and}\ S(j)} a_j.
+\]</span></p>
+<p>This is exactly rule (d).</p>
+</section>
+<section id="section-12" class="level3">
+<h3 class="anchored" data-anchor-id="section-12">22 [20]</h3>
+<p>Product analogs</p>
+<ol type="1">
+<li>Change of variables (analog of Eq. (5)). If <span class="math inline">\(p\)</span> is a bijection on the relevant index set, then</li>
+</ol>
+<p><span class="math display">\[
+\prod_{R(i)} a_i
+\;=\;
+\prod_{R(j)} a_j
+\;=\;
+\prod_{R(p(j))} a_{p(j)}.
+\]</span></p>
+<p>This is the same reindexing principle as for sums; it just uses associativity/commutativity of multiplication instead of addition. (For infinite products, similar convergence caveats apply as noted for sums.) </p>
+<ol start="2" type="1">
+<li>Interchange of order (analog of Eq. (7)). For rectangular domains,</li>
+</ol>
+<p><span class="math display">\[
+\prod_{R(i)}\;\prod_{S(j)} a_{ij}
+\;=\;
+\prod_{S(j)}\;\prod_{R(i)} a_{ij}.
+\]</span></p>
+<p>For dependent domains (analog of Eq. (9)), if <span class="math inline">\(S(i,j)\)</span> constrains <span class="math inline">\((i,j)\)</span>, then</p>
+<p><span class="math display">\[
+\prod_{R(i)}\;\prod_{S(i,j)} a_{ij}
+\;=\;
+\prod_{S'(j)}\;\prod_{R'(i,j)} a_{ij},
+\]</span></p>
+<p>where <span class="math inline">\(S'(j)\)</span> is “there exists <span class="math inline">\(i\)</span> with <span class="math inline">\(R(i)\)</span> and <span class="math inline">\(S(i,j)\)</span>,” and <span class="math inline">\(R'(i,j)\)</span> is “<span class="math inline">\(R(i)\)</span> and <span class="math inline">\(S(i,j)\)</span>.” </p>
+<ol start="3" type="1">
+<li>Distributivity over termwise combination (analog of Eq. (8)). With products, the natural distributive law is</li>
+</ol>
+<p><span class="math display">\[
+\prod_{R(i)} \bigl(b_i c_i\bigr)
+\;=\;
+\Bigl(\prod_{R(i)} b_i\Bigr)\,
+\Bigl(\prod_{R(i)} c_i\Bigr).
+\]</span></p>
+<p>(This mirrors <span class="math inline">\(\sum_{R(i)}(b_i+c_i)=\sum_{R(i)}b_i+\sum_{R(i)}c_i\)</span> but with “<span class="math inline">\(+\)</span>” replaced by “<span class="math inline">\(\times\)</span>”.) </p>
+<ol start="4" type="1">
+<li>Domain manipulation (analog of Eq. (11)). For arbitrary relations <span class="math inline">\(R(j)\)</span> and <span class="math inline">\(S(j)\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+\Bigl(\prod_{R(j)} a_j\Bigr)\,\Bigl(\prod_{S(j)} a_j\Bigr)
+\;=\;
+\Bigl(\prod_{R(j)\,\text{or}\,S(j)} a_j\Bigr)\,
+\Bigl(\prod_{R(j)\,\text{and}\,S(j)} a_j\Bigr).
+\]</span></p>
+<p>Intuition: Elements in <span class="math inline">\(R\cap S\)</span> are multiplied twice on the left, so the right side is the product over the union (once) times the product over the intersection (once more). A crisp proof uses Iverson brackets: <span class="math inline">\(\prod_{R} a_j=\prod_j a_j^{[R(j)]}\)</span>, and the Boolean identity <span class="math inline">\([R]+[S]=[R\lor S]+[R\land S]\)</span>.</p>
+<p>These four identities are the exact multiplicative counterparts of Eqs. (5), (7), (8), and (11) in the text.</p>
+</section>
+<section id="section-13" class="level3">
+<h3 class="anchored" data-anchor-id="section-13">23 [10]</h3>
+<ol type="1">
+<li>Empty sum must be <span class="math inline">\(0\)</span></li>
+</ol>
+<p>Section 1.2.3 uses Iverson brackets to write, for any sequence <span class="math inline">\(a_j\)</span>,</p>
+<p><span class="math display">\[
+\sum_{R(j)} a_j \;=\; \sum_j a_j\,[R(j)],
+\]</span></p>
+<p>and one of the fundamental “set-algebra” rules for sums is</p>
+<p><span class="math display">\[
+\sum_{R(j)\lor S(j)} a_j
+= \sum_{R(j)} a_j + \sum_{S(j)} a_j - \sum_{R(j)\land S(j)} a_j.
+\]</span></p>
+<p>(This is a direct consequence of <span class="math inline">\([R]+[S]=[R\lor S]+[R\land S]\)</span>.) </p>
+<p>Take <span class="math inline">\(S\)</span> to be the <strong>always-false</strong> condition. Then <span class="math inline">\(R\lor S\)</span> is just <span class="math inline">\(R\)</span>, and <span class="math inline">\(R\land S\)</span> is false. Plugging in,</p>
+<p><span class="math display">\[
+\sum_{R(j)} a_j
+= \sum_{R(j)} a_j + \underbrace{\sum_{\text{false}} a_j}_{=\alpha}
+- \underbrace{\sum_{\text{false}} a_j}_{=\alpha}.
+\]</span></p>
+<p>This forces <span class="math inline">\(\alpha=0\)</span>. In words: to keep the union/splitting identity valid when one side is empty, the empty sum must be <span class="math inline">\(0\)</span>.</p>
+<ol start="2" type="1">
+<li>Empty product must be <span class="math inline">\(1\)</span></li>
+</ol>
+<p>Products satisfy completely analogous rules in §1.2.3 (see the product analogs noted right before Exercise 23): for any <span class="math inline">\(b_i, c_i\)</span>,</p>
+<p><span class="math display">\[
+\prod_{R(i)} b_i c_i \;=\; \Bigl(\prod_{R(i)} b_i\Bigr)\Bigl(\prod_{R(i)} c_i\Bigr),
+\]</span></p>
+<p>and for two conditions <span class="math inline">\(R,S\)</span>,</p>
+<p><span class="math display">\[
+\Bigl(\prod_{R(j)} a_j\Bigr)\Bigl(\prod_{S(j)} a_j\Bigr)
+\;=\;
+\Bigl(\prod_{R(j)\lor S(j)} a_j\Bigr)\Bigl(\prod_{R(j)\land S(j)} a_j\Bigr).
+\]</span></p>
+<p>Again set <span class="math inline">\(S\)</span> to <strong>false</strong>. Then <span class="math inline">\(R\lor S=R\)</span> and <span class="math inline">\(R\land S\)</span> is false, yielding</p>
+<p><span class="math display">\[
+\Bigl(\prod_{R(j)} a_j\Bigr)\, \underbrace{\prod_{\text{false}} a_j}_{=\beta}
+=
+\Bigl(\prod_{R(j)} a_j\Bigr)\, \underbrace{\prod_{\text{false}} a_j}_{=\beta}.
+\]</span></p>
+<p>This identity holds for any <span class="math inline">\(\beta\)</span>, so we need one more standard requirement: When we concatenate disjoint index sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, we want</p>
+<p><span class="math display">\[
+\prod_{j\in A\cup B} a_j = \Bigl(\prod_{j\in A} a_j\Bigr)\Bigl(\prod_{j\in B} a_j\Bigr)
+\quad\text{(even if \(A\) or \(B\) is empty).}
+\]</span></p>
+<p>Now take <span class="math inline">\(B=\varnothing\)</span>. Then</p>
+<p><span class="math display">\[
+\prod_{j\in A} a_j \;=\; \Bigl(\prod_{j\in A} a_j\Bigr)\,\underbrace{\prod_{j\in \varnothing} a_j}_{=\beta}
+\quad\text{for all sequences }\{a_j\}.
+\]</span></p>
+<p>Canceling <span class="math inline">\(\prod_{j\in A} a_j\)</span> (choose any <span class="math inline">\(A\)</span> with at least one index and <span class="math inline">\(a_j\neq 0\)</span> to make this cancellation indisputable), we get <span class="math inline">\(\beta=1\)</span>.</p>
+<p>(Equivalently, from <span class="math inline">\(\prod_{R(i)} b_i c_i = (\prod b_i)(\prod c_i)\)</span>, set <span class="math inline">\(R\)</span> false and <span class="math inline">\(b_i=c_i\)</span> to get <span class="math inline">\(\beta=\beta^2\)</span>, hence <span class="math inline">\(\beta\in\{0,1\}\)</span>; <span class="math inline">\(\beta=0\)</span> is impossible because it would make every product zero after adjoining an empty part, so <span class="math inline">\(\beta=1\)</span>.)</p>
+</section>
+<section id="section-14" class="level3">
+<h3 class="anchored" data-anchor-id="section-14">24 [20]</h3>
+<p>Proof (by induction on the number of indices that satisfy <span class="math inline">\(R\)</span>)</p>
+<p>Let <span class="math inline">\(S=\{j\in\mathbb{Z} : R(j)\}\)</span>. By hypothesis, <span class="math inline">\(|S|&lt;\infty\)</span>. We prove, for each <span class="math inline">\(m\ge 0\)</span>,</p>
+<p><span class="math display">\[
+\text{(P(m))}\qquad \forall S\ \text{with }|S|=m:\quad
+\log_b\!\Big(\prod_{j\in S} a_j\Big)=\sum_{j\in S}\log_b a_j .
+\]</span></p>
+<p><strong>Base case <span class="math inline">\(m=0\)</span>.</strong> If <span class="math inline">\(S=\varnothing\)</span>, then by the section’s convention the empty product is <span class="math inline">\(1\)</span> and the empty sum is <span class="math inline">\(0\)</span>. Hence</p>
+<p><span class="math display">\[
+\log_b\!\Big(\prod_{j\in\varnothing} a_j\Big)=\log_b(1)=0=\sum_{j\in\varnothing}\log_b a_j .
+\]</span></p>
+<p>This proves (P(0)). </p>
+<p><em>(If you prefer also to see <span class="math inline">\(m=1\)</span>: If <span class="math inline">\(S=\{j_0\}\)</span>, then <span class="math inline">\(\log_b(\prod_{j\in S}a_j)=\log_b(a_{j_0})=\sum_{j\in S}\log_b a_j\)</span>.)</em></p>
+<p><strong>Inductive step.</strong> Assume (P(m)) holds for some <span class="math inline">\(m\ge 0\)</span>. Let <span class="math inline">\(S\)</span> be any finite set with <span class="math inline">\(|S|=m+1\)</span>. Choose any <span class="math inline">\(j^{*}\in S\)</span> and set <span class="math inline">\(T=S\setminus\{j^{*}\}\)</span> (so <span class="math inline">\(|T|=m\)</span>). Then</p>
+<p><span class="math display">\[
+\prod_{j\in S} a_j \;=\; \Big(\prod_{j\in T} a_j\Big)\, a_{j^{*}}.
+\]</span></p>
+<p>Since all terms are positive, we can use <span class="math inline">\(\log_b(xy)=\log_b x+\log_b y\)</span>:</p>
+<p><span class="math display">\[
+\log_b\!\Big(\prod_{j\in S} a_j\Big)
+= \log_b\!\Big(\prod_{j\in T} a_j\Big) + \log_b(a_{j^{*}}).
+\]</span></p>
+<p>Apply the induction hypothesis (P(m)) to <span class="math inline">\(T\)</span>:</p>
+<p><span class="math display">\[
+\log_b\!\Big(\prod_{j\in T} a_j\Big)=\sum_{j\in T}\log_b a_j.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\log_b\!\Big(\prod_{j\in S} a_j\Big)
+= \sum_{j\in T}\log_b a_j \;+\; \log_b(a_{j^{*}})
+= \sum_{j\in S}\log_b a_j,
+\]</span></p>
+<p>as required. This proves (P(m+1)).</p>
+<p>By induction on <span class="math inline">\(|S|\)</span>, the identity holds for every finite <span class="math inline">\(S\)</span>.</p>
+</section>
+<section id="section-15" class="level3">
+<h3 class="anchored" data-anchor-id="section-15">25 [15]</h3>
+<p>Diagnosis, line by line</p>
+<ul>
+<li><strong>Line 1 (OK):</strong> <span class="math inline">\(\sum_{i=1}^{n}\sum_{j=1}^{n}1\)</span> is a perfectly good double sum: it counts <span class="math inline">\(n\)</span> terms of 1 for each of <span class="math inline">\(n\)</span> outer values.</li>
+<li><strong>Line 2 (Wrong – variable capture):</strong> Writing <span class="math inline">\(\sum_{i=1}^{n}\sum_{i=1}^{n}\)</span> uses <strong>the same dummy variable <span class="math inline">\(i\)</span> twice</strong>, once for the outer sum and again for the inner. Dummy (index) variables can be renamed arbitrarily, but they <strong>must be distinct</strong> when nested; otherwise the inner <span class="math inline">\(i\)</span> <em>shadows</em> the outer <span class="math inline">\(i\)</span> and changes the meaning. Proper use of dummy indices is discussed when Knuth introduces summation notation.</li>
+<li><strong>Line 3 (Wrong quantity):</strong> Even if we correct the indices to <span class="math inline">\(\sum_{i=1}^{n}\sum_{j=1}^{n}1\)</span>, the inner sum <span class="math inline">\(\sum_{j=1}^{n}1\)</span> equals the constant <span class="math inline">\(n\)</span>, <strong>not</strong> <span class="math inline">\(i\)</span>. So the third line should read <span class="math inline">\(\sum_{i=1}^{n} n\)</span>, not <span class="math inline">\(\sum_{i=1}^{n} i\)</span>. (This is exactly what the answer key hints at.) </li>
+<li><strong>Line 4 (OK in itself):</strong> <span class="math inline">\(\sum_{i=1}^{n} i = n(n+1)/2\)</span> is a correct identity—but it’s irrelevant here because line 3 was wrong.</li>
+</ul>
+<p>Correct derivation</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{n}1
+= \sum_{i=1}^{n}\bigl(\sum_{j=1}^{n}1\bigr)
+= \sum_{i=1}^{n} n
+= n\cdot n
+= n^{2}.
+\]</span></p>
+<p>Intuitively, you’re counting an <span class="math inline">\(n\times n\)</span> grid of ones: there are <span class="math inline">\(n^2\)</span> of them.</p>
+</section>
+<section id="section-16" class="level3">
+<h3 class="anchored" data-anchor-id="section-16">26 [25]</h3>
+<p><strong>Solution (counting exponents).</strong> Each factor <span class="math inline">\(a_k\)</span> appears in <span class="math inline">\(P\)</span> whenever a pair <span class="math inline">\((i,j)\)</span> uses index <span class="math inline">\(k\)</span> in either position.</p>
+<ul>
+<li>Pairs with <span class="math inline">\(i=k\)</span>: <span class="math inline">\(j\)</span> can be <span class="math inline">\(k,k+1,\dots,n\)</span> — that’s <span class="math inline">\(n-k+1\)</span> occurrences of <span class="math inline">\(a_k\)</span>.</li>
+<li>Pairs with <span class="math inline">\(j=k\)</span>: <span class="math inline">\(i\)</span> can be <span class="math inline">\(0,1,\dots,k\)</span> — that’s <span class="math inline">\(k+1\)</span> occurrences of <span class="math inline">\(a_k\)</span>.</li>
+</ul>
+<p>These counts are disjoint except at <span class="math inline">\((i,j)=(k,k)\)</span>; but that pair contributes <span class="math inline">\(a_k^2\)</span>, exactly accounting for being “seen” once in each count. Hence the total exponent of <span class="math inline">\(a_k\)</span> in <span class="math inline">\(P\)</span> is</p>
+<p><span class="math display">\[
+(n-k+1)+(k+1)=n+2.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+P=\prod_{k=0}^n a_k^{\,n+2} \;=\; \Bigl(\prod_{k=0}^n a_k\Bigr)^{\,n+2}.
+\]</span></p>
+<p>This is the closed form. </p>
+<p><strong>Alternative derivation (triangular-to-rectangular reindexing).</strong> Rewrite the triangular product as</p>
+<p><span class="math display">\[
+P=\prod_{i=0}^n\;\prod_{j=i}^n (a_i a_j)
+=\Bigl(\prod_{i=0}^n a_i^{\,n-i+1}\Bigr)\Bigl(\prod_{j=0}^n a_j^{\,j+1}\Bigr)
+=\prod_{k=0}^n a_k^{\,(n-k+1)+(k+1)}
+=\Bigl(\prod_{k=0}^n a_k\Bigr)^{\,n+2}.
+\]</span></p>
+<p>This “flip the order” maneuver mirrors the technique shown in <strong>Example 2</strong> of §1.2.3, where a triangular double sum is rearranged by interchanging the roles of the indices. The same idea works verbatim for products. </p>
+<p><strong>Sanity check (small <span class="math inline">\(n\)</span>).</strong> For <span class="math inline">\(n=2\)</span> the pairs <span class="math inline">\((i,j)\)</span> with <span class="math inline">\(i\le j\)</span> are <span class="math inline">\((0,0),(0,1),(0,2),(1,1),(1,2),(2,2)\)</span>. The product is <span class="math inline">\((a_0^2)\,(a_0a_1)\,(a_0a_2)\,(a_1^2)\,(a_1a_2)\,(a_2^2) = a_0^{4}a_1^{4}a_2^{4}=(a_0a_1a_2)^{4}\)</span>, and <span class="math inline">\(n+2=4\)</span>, matching the formula.</p>
+<p><strong>Answer.</strong></p>
+<p><span class="math display">\[
+\boxed{\displaystyle \prod_{0\le i\le j\le n} (a_i\,a_j)
+=\left(\prod_{k=0}^n a_k\right)^{n+2}.}
+\]</span></p>
+</section>
+<section id="m20-1" class="level3">
+<h3 class="anchored" data-anchor-id="m20-1">27 [M20]</h3>
+<p>Proof by induction on <span class="math inline">\(n\)</span></p>
+<p><strong>Base case (<span class="math inline">\(n=1\)</span>).</strong> <span class="math inline">\((1-a_1)=1-a_1\)</span>. The inequality holds with equality.</p>
+<p><strong>Inductive step.</strong> Assume for some <span class="math inline">\(n-1\ge1\)</span> that</p>
+<p><span class="math display">\[
+\prod_{j=1}^{n-1}(1-a_j)\;\ge\;1-\sum_{j=1}^{n-1}a_j.
+\]</span></p>
+<p>Multiply both sides by the positive quantity <span class="math inline">\((1-a_n)\)</span> (valid since <span class="math inline">\(0&lt;a_n&lt;1\)</span>):</p>
+<p><span class="math display">\[
+\prod_{j=1}^{n}(1-a_j)
+\;\ge\;
+\bigl(1-\sum_{j=1}^{n-1}a_j\bigr)(1-a_n)
+=
+1-\sum_{j=1}^{n}a_j
+\;+\;
+\Bigl(\sum_{j=1}^{n-1}a_j\Bigr)a_n.
+\]</span></p>
+<p>Because each <span class="math inline">\(a_j&gt;0\)</span>, the last term is nonnegative (indeed positive when <span class="math inline">\(n\ge2\)</span>), hence</p>
+<p><span class="math display">\[
+\prod_{j=1}^{n}(1-a_j)\;\ge\;1-\sum_{j=1}^{n}a_j.
+\]</span></p>
+<p>This completes the induction. Moreover, when <span class="math inline">\(n\ge2\)</span> the inequality is <strong>strict</strong> because <span class="math inline">\(\bigl(\sum_{j=1}^{n-1}a_j\bigr)a_n&gt;0\)</span>.</p>
+<p>Alternative (algebraic) view</p>
+<p>Expanding the product,</p>
+<p><span class="math display">\[
+\prod_{j=1}^n (1-a_j)
+=1-\sum_j a_j+\sum_{i&lt;j}a_ia_j-\sum_{i&lt;j&lt;k}a_ia_ja_k+\cdots+(-1)^n a_1\cdots a_n.
+\]</span></p>
+<p>All squarefree monomials have positive coefficients in absolute value, and since every <span class="math inline">\(a_j\in(0,1)\)</span>, each monomial is nonnegative. Dropping the alternating tail <span class="math inline">\(\sum_{i&lt;j}a_ia_j-\sum_{i&lt;j&lt;k}\cdots\)</span> (which equals <span class="math inline">\(\bigl(\sum_{j=1}^{n-1}a_j\bigr)a_n\)</span> plus further nonnegative combinations after a regrouping) gives the same lower bound <span class="math inline">\(1-\sum_j a_j\)</span>.</p>
+<p>Remarks and tightness</p>
+<ul>
+<li>Equality holds for <span class="math inline">\(n=1\)</span>. For <span class="math inline">\(n\ge2\)</span> and <span class="math inline">\(0&lt;a_j&lt;1\)</span>, the inequality is strict.</li>
+<li>Intuition (probabilistic): If <span class="math inline">\(a_j\)</span> are “failure probabilities” of independent events, <span class="math inline">\(\prod (1-a_j)\)</span> is the probability that <strong>none</strong> occur, while <span class="math inline">\(1-\sum a_j\)</span> is the classical union bound lower estimate. The algebraic inequality above mirrors that bound.</li>
+</ul>
+</section>
+<section id="m22-2" class="level3">
+<h3 class="anchored" data-anchor-id="m22-2">28 [M22]</h3>
+<p>Factor each term:</p>
+<p><span class="math display">\[
+1-\frac{1}{j^{2}}
+=\frac{j^{2}-1}{j^{2}}
+=\frac{(j-1)(j+1)}{j\cdot j}
+=\frac{j-1}{j}\cdot\frac{j+1}{j}.
+\]</span></p>
+<p>Thus the product splits into two telescoping products:</p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}\Bigl(1-\frac{1}{j^{2}}\Bigr)
+=\Bigl(\prod_{j=2}^{n}\frac{j-1}{j}\Bigr)\Bigl(\prod_{j=2}^{n}\frac{j+1}{j}\Bigr).
+\]</span></p>
+<p>Compute each:</p>
+<ul>
+<li><p>First:</p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}\frac{j-1}{j}
+=\frac{1}{2}\cdot\frac{2}{3}\cdot\frac{3}{4}\cdots\frac{n-1}{n}
+=\frac{1}{n}\quad\text{(complete cancellation)}.
+\]</span></p></li>
+<li><p>Second:</p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}\frac{j+1}{j}
+=\frac{3}{2}\cdot\frac{4}{3}\cdot\frac{5}{4}\cdots\frac{n+1}{n}
+=\frac{n+1}{2}.
+\]</span></p></li>
+</ul>
+<p>Multiply:</p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}\Bigl(1-\frac{1}{j^{2}}\Bigr)=\frac{1}{n}\cdot\frac{n+1}{2}
+=\boxed{\frac{n+1}{2n}}.
+\]</span></p>
+<p>Quick checks:</p>
+<ul>
+<li><span class="math inline">\(n=2\)</span>: <span class="math inline">\((1-\tfrac14)=\tfrac34\)</span>, and <span class="math inline">\((2+1)/(2\cdot2)=\tfrac34\)</span>.</li>
+<li><span class="math inline">\(n=3\)</span>: <span class="math inline">\((1-\tfrac14)(1-\tfrac19)=\tfrac34\cdot\tfrac89=\tfrac23\)</span>, and <span class="math inline">\((3+1)/(2\cdot3)=\tfrac23\)</span>.</li>
+</ul>
+<p>As a corollary, letting <span class="math inline">\(n\to\infty\)</span> gives <span class="math inline">\(\prod_{j=2}^{\infty}\bigl(1-\tfrac{1}{j^{2}}\bigr)=\tfrac12\)</span>.</p>
+</section>
+<section id="m30" class="level3">
+<h3 class="anchored" data-anchor-id="m30">29 [M30]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+A \;=\; \sum_{1\le i\le j\le k\le n} x_i x_j x_k,\qquad
+T \;=\; \Bigl(\sum_{r=1}^n x_r\Bigr)^3=\sum_{i=1}^n\sum_{j=1}^n\sum_{k=1}^n x_i x_j x_k,
+\]</span></p>
+<p>and <span class="math inline">\(S_m=\sum_{r=1}^n x_r^m\)</span> as above.</p>
+<p>We’ll classify the monomials in the full expansion of <span class="math inline">\(T\)</span> by how many indices are equal.</p>
+<p><strong>1) All three indices distinct <span class="math inline">\((i,j,k\ \text{all different})\)</span>.</strong> Each unordered triple <span class="math inline">\(\{i,j,k\}\)</span> with <span class="math inline">\(i&lt;j&lt;k\)</span> appears <span class="math inline">\(3!=6\)</span> times in <span class="math inline">\(T\)</span>. If we denote</p>
+<p><span class="math display">\[
+D=\sum_{1\le i&lt;j&lt;k\le n} x_i x_j x_k,
+\]</span></p>
+<p>then the contribution of this class to <span class="math inline">\(T\)</span> is <span class="math inline">\(6D\)</span>.</p>
+<p><strong>2) Exactly two indices equal (say <span class="math inline">\(i=j\ne k\)</span>, or permutations).</strong> For each ordered pair <span class="math inline">\((i,k)\)</span> with <span class="math inline">\(i\ne k\)</span>, one gets a term <span class="math inline">\(x_i^2 x_k\)</span>. There are <span class="math inline">\(3\)</span> choices for which index is the singleton, so the total contribution is</p>
+<p><span class="math display">\[
+3\sum_{i\ne k} x_i^2 x_k
+\;=\; 3\bigl(S_1S_2 - S_3\bigr),
+\]</span></p>
+<p>because <span class="math inline">\(S_1S_2=\sum_{i,k}x_i^2x_k\)</span> and subtracting the <span class="math inline">\(i=k\)</span> terms (<span class="math inline">\(\sum_i x_i^3=S_3\)</span>) leaves <span class="math inline">\(\sum_{i\ne k}x_i^2x_k\)</span>.</p>
+<p><strong>3) All three indices equal.</strong> The contribution is <span class="math inline">\(\sum_{i=1}^n x_i^3 = S_3\)</span>.</p>
+<p>Combining the three cases gives</p>
+<p><span class="math display">\[
+T \;=\; 6D \;+\; 3(S_1S_2 - S_3) \;+\; S_3
+\;=\; 6D \;+\; 3S_1S_2 \;-\; 2S_3,
+\]</span></p>
+<p>hence</p>
+<p><span class="math display">\[
+D \;=\; \frac{T - 3S_1S_2 + 2S_3}{6}.
+\tag{★}
+\]</span></p>
+<p>Now relate <span class="math inline">\(A\)</span> to <span class="math inline">\(D\)</span>. The sum <span class="math inline">\(A\)</span> (with <span class="math inline">\(i\le j\le k\)</span>) counts:</p>
+<ul>
+<li>each distinct triple <span class="math inline">\(x_i x_j x_k\)</span> (<span class="math inline">\(i&lt;j&lt;k\)</span>) <strong>once</strong> ⇒ contributes <span class="math inline">\(D\)</span>;</li>
+<li>each “two equal” monomial <strong>once</strong> (either <span class="math inline">\(x_i^2x_k\)</span> with <span class="math inline">\(i&lt;k\)</span> or <span class="math inline">\(x_ix_j^2\)</span> with <span class="math inline">\(i&lt;j\)</span>). Summed over all pairs, these contribute exactly <span class="math inline">\(\sum_{i\ne k}x_i^2x_k = S_1S_2 - S_3\)</span>;</li>
+<li>each “all equal” monomial <strong>once</strong> ⇒ contributes <span class="math inline">\(S_3\)</span>.</li>
+</ul>
+<p>Therefore</p>
+<p><span class="math display">\[
+A \;=\; D \;+\; (S_1S_2 - S_3) \;+\; S_3 \;=\; D + S_1S_2.
+\]</span></p>
+<p>Insert <span class="math inline">\((★)\)</span> to eliminate <span class="math inline">\(D\)</span>:</p>
+<p><span class="math display">\[
+A \;=\; \frac{T - 3S_1S_2 + 2S_3}{6} \;+\; S_1S_2
+= \frac{T}{6} + \frac{S_1S_2}{2} + \frac{S_3}{3}.
+\]</span></p>
+<p>Recalling <span class="math inline">\(T=S_1^3\)</span>, we obtain the desired closed form:</p>
+<p><span class="math display">\[
+\boxed{\displaystyle
+\sum_{1\le i\le j\le k\le n} x_i x_j x_k
+= \frac{1}{6}\,S_1^{\,3}\;+\;\frac{1}{2}\,S_1S_2\;+\;\frac{1}{3}\,S_3.}
+\]</span></p>
+<p>This matches the formula Knuth cites when referring back to Exercise 1.2.3–29. </p>
+<p>Context / cross-check</p>
+<p>Section 1.2.3 proves the analogous 2-index identity</p>
+<p><span class="math display">\[
+\sum_{0\le i\le j\le n} a_i a_j
+=\tfrac12\Bigl(\bigl(\sum_{i=0}^n a_i\bigr)^2+\sum_{i=0}^n a_i^2\Bigr),
+\]</span></p>
+<p>using the same “count the multiplicities” idea; our argument is its 3-index analogue. </p>
+<p><em>(Optional generalization.)</em> The generating-function method in §1.2.9 shows that the complete homogeneous symmetric sums <span class="math inline">\(h_m=\sum_{1\le j_1\le\cdots\le j_m\le n} x_{j_1}\cdots x_{j_m}\)</span> satisfy</p>
+<p><span class="math display">\[
+\sum_{m\ge 0} h_m z^m
+=\exp\!\Bigl(\sum_{k\ge 1} \frac{S_k}{k} z^k\Bigr),
+\]</span></p>
+<p>from which one can derive <span class="math inline">\(h_2\)</span> and <span class="math inline">\(h_3\)</span> as above (and a recurrence <span class="math inline">\(h_n=\frac1n\sum_{k=1}^n S_k h_{n-k}\)</span>). </p>
+</section>
+<section id="m23" class="level3">
+<h3 class="anchored" data-anchor-id="m23">30 [M23]</h3>
+<p>Write</p>
+<p><span class="math display">\[
+A=\sum_i a_i c_i,\quad
+B=\sum_i b_i d_i,\quad
+C=\sum_i a_i d_i,\quad
+D=\sum_i b_i c_i.
+\]</span></p>
+<p>We want <span class="math inline">\(AB-CD\)</span>.</p>
+<p>Consider the double sum</p>
+<p><span class="math display">\[
+S\;=\;\tfrac12\sum_{i=0}^{n-1}\sum_{j=0}^{n-1}
+\bigl(a_i b_j-a_j b_i\bigr)\bigl(c_i d_j-c_j d_i\bigr).
+\]</span></p>
+<p>Expand the product inside:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bigl(a_i b_j-a_j b_i\bigr)\bigl(c_i d_j-c_j d_i\bigr)
+&amp;= a_i b_j c_i d_j \;-\; a_i b_j c_j d_i \\
+&amp;\quad - a_j b_i c_i d_j \;+\; a_j b_i c_j d_i.
+\end{aligned}
+\]</span></p>
+<p>Sum over <span class="math inline">\(i,j\)</span> and group terms:</p>
+<p><span class="math display">\[
+\sum_{i,j} a_i b_j c_i d_j = \Bigl(\sum_i a_i c_i\Bigr)\Bigl(\sum_j b_j d_j\Bigr)=AB,
+\]</span></p>
+<p><span class="math display">\[
+\sum_{i,j} a_i b_j c_j d_i = \Bigl(\sum_i a_i d_i\Bigr)\Bigl(\sum_j b_j c_j\Bigr)=CD,
+\]</span></p>
+<p>and by swapping dummy indices <span class="math inline">\(i\leftrightarrow j\)</span> you see the other two double–sum terms are identical to these. Hence</p>
+<p><span class="math display">\[
+S=\tfrac12\bigl(AB-CD-AB+CD\bigr)+\tfrac12\bigl(AB-CD\bigr)=AB-CD.
+\]</span></p>
+<p>Finally, note that the summand is <strong>antisymmetric</strong> in <span class="math inline">\(i,j\)</span>, so the <span class="math inline">\(i=j\)</span> terms vanish and every unordered pair <span class="math inline">\(\{i,j\}\)</span> with <span class="math inline">\(i\ne j\)</span> appears twice with the same value. Therefore</p>
+<p><span class="math display">\[
+AB-CD
+= \sum_{0\le i&lt;j&lt;n}\bigl(a_i b_j-a_j b_i\bigr)\bigl(c_i d_j-c_j d_i\bigr),
+\]</span></p>
+<p>which is the desired identity.</p>
+</section>
+<section id="m20-2" class="level3">
+<h3 class="anchored" data-anchor-id="m20-2">31 [M20]</h3>
+<p>Using Binet’s identity (one-line derivation)</p>
+<p>Binet’s formula states</p>
+<p><span class="math display">\[
+\Big(\sum_j a_jx_j\Big)\Big(\sum_j b_jy_j\Big)
+=\Big(\sum_j a_jy_j\Big)\Big(\sum_j b_jx_j\Big)
++\sum_{1\le j&lt;k\le n}(a_jb_k-a_kb_j)(x_jy_k-x_ky_j).
+\]</span></p>
+<p>Choose</p>
+<p><span class="math display">\[
+a_j=1,\qquad b_j=u_j,\qquad x_j=1,\qquad y_j=v_j.
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+(a_jb_k-a_kb_j)=(u_k-u_j)=-(u_j-u_k),\qquad
+(x_jy_k-x_ky_j)=(v_k-v_j)=-(v_j-v_k),
+\]</span></p>
+<p>so the product in Binet’s last sum equals <span class="math inline">\((u_j-u_k)(v_j-v_k)\)</span>. Therefore</p>
+<p><span class="math display">\[
+\sum_{1\le j&lt;k\le n}(u_j-u_k)(v_j-v_k)
+=\Big(\sum_j a_jx_j\Big)\Big(\sum_j b_jy_j\Big)
+-\Big(\sum_j a_jy_j\Big)\Big(\sum_j b_jx_j\Big).
+\]</span></p>
+<p>With our choices,</p>
+<p><span class="math display">\[
+\sum_j a_jx_j=n,\quad
+\sum_j b_jy_j=\sum_{j=1}^n u_jv_j,\quad
+\sum_j a_jy_j=\sum_{j=1}^n v_j,\quad
+\sum_j b_jx_j=\sum_{j=1}^n u_j.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\boxed{\;
+\sum_{1\le j&lt;k\le n}(u_j-u_k)(v_j-v_k)
+= n\sum_{j=1}^n u_jv_j-\Big(\sum_{j=1}^n u_j\Big)\Big(\sum_{j=1}^n v_j\Big)\; }.
+\]</span></p>
+<p>(This applies Binet exactly as suggested in the exercise statement.) </p>
+<p>Sanity check and interpretation</p>
+<p>Write <span class="math inline">\(\bar u=\frac1n\sum u_j\)</span> and <span class="math inline">\(\bar v=\frac1n\sum v_j\)</span>. Then the right-hand side is</p>
+<p><span class="math display">\[
+n\sum_{j=1}^n\big(u_j-\bar u\big)\big(v_j-\bar v\big),
+\]</span></p>
+<p>so the exercise’s sum equals <span class="math inline">\(n\)</span> times the (unnormalized) cross-deviation from the means—consistent with the case <span class="math inline">\(n=2\)</span>, <span class="math inline">\((u_1-u_2)(v_1-v_2)=2(u_1-\bar u)(v_1-\bar v)+2(u_2-\bar u)(v_2-\bar v)\)</span>.</p>
+<p>(Optional) Direct expansion (no Binet)</p>
+<p>Expanding and regrouping,</p>
+<p><span class="math display">\[
+\begin{aligned}
+S
+&amp;=\sum_{j&lt;k}(u_jv_j+u_kv_k-u_jv_k-u_kv_j) \\
+&amp;=\underbrace{\sum_{j&lt;k}u_jv_j+\sum_{j&lt;k}u_kv_k}_{(n-1)\sum u_jv_j}
+\;-\;\underbrace{\bigg(\sum_{j&lt;k}u_jv_k+\sum_{j&lt;k}u_kv_j\bigg)}_{\sum_{j\ne k}u_jv_k=(\sum u)(\sum v)-\sum uv}\\[2mm]
+&amp;=(n-1)\sum u_jv_j-\Big((\sum u)(\sum v)-\sum u_jv_j\Big) \\
+&amp;=n\sum u_jv_j-(\sum u)(\sum v).
+\end{aligned}
+\]</span></p>
+<p>Same result, as expected.</p>
+</section>
+<section id="m20-3" class="level3">
+<h3 class="anchored" data-anchor-id="m20-3">32 [M20]</h3>
+<p>Direct (distributive) proof</p>
+<p>Expand the product of <span class="math inline">\(n\)</span> sums by repeated use of distributivity:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\prod_{j=1}^{n}\left(\sum_{i=1}^{m} a_{ij}\right)
+&amp;=\left(\sum_{i_1=1}^{m} a_{i_1\,1}\right)\!\left(\sum_{i_2=1}^{m} a_{i_2\,2}\right)\cdots\left(\sum_{i_n=1}^{m} a_{i_n\,n}\right)\\
+&amp;=\sum_{i_1=1}^{m}\sum_{i_2=1}^{m}\cdots\sum_{i_n=1}^{m}
+\;a_{i_1\,1}a_{i_2\,2}\cdots a_{i_n\,n}\\
+&amp;=\sum_{1\le i_1,\ldots,i_n\le m}\;\prod_{j=1}^{n} a_{i_j\,j}.
+\end{aligned}
+\]</span></p>
+<p>At each step you “pull” a sum out of a product via distributivity; after doing this <span class="math inline">\(n\)</span> times, you get a nested sum over all <span class="math inline">\(n\)</span>-tuples <span class="math inline">\((i_1,\ldots,i_n)\in\{1,\ldots,m\}^n\)</span>, with term <span class="math inline">\(a_{i_1\,1}\cdots a_{i_n\,n}\)</span>. This is exactly the right-hand side.</p>
+<p>Induction on <span class="math inline">\(n\)</span> (equally rigorous)</p>
+<p>Base case <span class="math inline">\(n=1\)</span> is immediate: <span class="math inline">\(\displaystyle \prod_{j=1}^{1}\sum_{i=1}^{m}a_{ij}=\sum_{i=1}^{m}a_{i1}\)</span> matches <span class="math inline">\(\displaystyle \sum_{1\le i_1\le m} a_{i_1\,1}\)</span>.</p>
+<p>Inductive step: Assume the identity holds for <span class="math inline">\(n\)</span>. For <span class="math inline">\(n+1\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\prod_{j=1}^{n+1}\left(\sum_{i=1}^{m} a_{ij}\right)
+&amp;=\left(\prod_{j=1}^{n}\sum_{i=1}^{m} a_{ij}\right)\left(\sum_{i=1}^{m} a_{i,n+1}\right)\\
+&amp;=\left(\sum_{1\le i_1,\ldots,i_n\le m}\prod_{j=1}^{n} a_{i_j\,j}\right)\left(\sum_{i_{n+1}=1}^{m} a_{i_{n+1},\,n+1}\right)\\
+&amp;=\sum_{1\le i_1,\ldots,i_{n+1}\le m}\prod_{j=1}^{n+1} a_{i_j\,j},
+\end{aligned}
+\]</span></p>
+<p>using distributivity once more. Thus the statement holds for all <span class="math inline">\(n\)</span>.</p>
+<p>Combinatorial viewpoint (why it’s “obvious”)</p>
+<p>Think of choosing one term from each factor <span class="math inline">\(\sum_{i=1}^m a_{ij}\)</span>. A complete choice is exactly an <span class="math inline">\(n\)</span>-tuple <span class="math inline">\((i_1,\ldots,i_n)\)</span>, contributing the product <span class="math inline">\(a_{i_1\,1}\cdots a_{i_n\,n}\)</span>. Summing over all choices (left side expanded) equals summing those products over all <span class="math inline">\(m^n\)</span> tuples (right side).</p>
+<p>Small sanity check (example)</p>
+<p>Let <span class="math inline">\(m=2,n=3\)</span>. Then</p>
+<p><span class="math display">\[
+\left(a_{11}+a_{21}\right)\left(a_{12}+a_{22}\right)\left(a_{13}+a_{23}\right)
+\]</span></p>
+<p>expands to the eight terms</p>
+<p><span class="math display">\[
+a_{11}a_{12}a_{13}+a_{11}a_{12}a_{23}+a_{11}a_{22}a_{13}+a_{11}a_{22}a_{23}
++a_{21}a_{12}a_{13}+a_{21}a_{12}a_{23}+a_{21}a_{22}a_{13}+a_{21}a_{22}a_{23},
+\]</span></p>
+<p>which are precisely <span class="math inline">\(\sum_{(i_1,i_2,i_3)\in\{1,2\}^3} a_{i_1\,1}a_{i_2\,2}a_{i_3\,3}\)</span>.</p>
+<p>Notes and useful generalizations</p>
+<ol type="1">
+<li>Different upper bounds per column. For integers <span class="math inline">\(m_j\ge1\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+\prod_{j=1}^{n}\left(\sum_{i=1}^{m_j} a_{ij}\right)
+=\sum_{1\le i_j\le m_j\;\forall j}\;\prod_{j=1}^{n} a_{i_j\,j}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Knuth’s conditional-sum notation. In §1.2.3, sums/products over integer indices subject to relations are written <span class="math inline">\(\sum_{R(k)}\)</span> and <span class="math inline">\(\prod_{R(k)}\)</span>; the right-hand side is a multi-index sum over the relation “<span class="math inline">\(1\le i_j\le m\)</span> for all <span class="math inline">\(j\)</span>.”</li>
+<li>Infinite versions require convergence assumptions; with finite <span class="math inline">\(m,n\)</span> no issues arise.</li>
+</ol>
+</section>
+<section id="m30-1" class="level3">
+<h3 class="anchored" data-anchor-id="m30-1">33 [M30]</h3>
+<p>We’ll prove a clean general law using <strong>Lagrange interpolation</strong>.</p>
+<ol type="1">
+<li>Lagrange basis and a key coefficient identity</li>
+</ol>
+<p>Let</p>
+<p><span class="math display">\[
+w(t)=\prod_{k=1}^{n}(t-x_k)
+\qquad\text{and}\qquad
+L_j(t)=\frac{\displaystyle\prod_{k\ne j}(t-x_k)}{\displaystyle\prod_{k\ne j}(x_j-x_k)}.
+\]</span></p>
+<p>The polynomials <span class="math inline">\(L_j\)</span> are the <strong>Lagrange basis</strong>: <span class="math inline">\(L_j(x_i)=\delta_{ij}\)</span>. Hence every polynomial <span class="math inline">\(p\)</span> of degree <span class="math inline">\(\le n-1\)</span> satisfies the interpolation formula</p>
+<p><span class="math display">\[
+p(t)=\sum_{j=1}^n p(x_j)\,L_j(t).
+\]</span></p>
+<p>Look at the coefficient of <span class="math inline">\(t^{\,n-1}\)</span> on both sides. Since</p>
+<p><span class="math display">\[
+L_j(t)=\frac{t^{\,n-1}+\text{(lower degree terms)}}{\prod_{k\ne j}(x_j-x_k)},
+\]</span></p>
+<p>the coefficient of <span class="math inline">\(t^{\,n-1}\)</span> in <span class="math inline">\(L_j\)</span> is exactly <span class="math inline">\(\displaystyle\frac{1}{\prod_{k\ne j}(x_j-x_k)}\)</span>. Therefore:</p>
+<blockquote class="blockquote">
+<p><strong>Lemma.</strong> For any polynomial <span class="math inline">\(p\)</span> of degree <span class="math inline">\(\le n-1\)</span>,</p>
+<p><span class="math display">\[
+[t^{n-1}]\,p(t)\;=\;\sum_{j=1}^{n}\frac{p(x_j)}{\displaystyle\prod_{k\ne j}(x_j-x_k)}.
+\tag{∗}
+\]</span></p>
+</blockquote>
+<p>This one-line identity is the engine of the whole exercise.</p>
+<ol start="2" type="1">
+<li>Apply the lemma to <span class="math inline">\(p(t)=t^r\)</span></li>
+</ol>
+<p>Case A: <span class="math inline">\(0\le r\le n-2\)</span></p>
+<p>Here <span class="math inline">\(\deg p=r&lt;n-1\)</span>, so the coefficient of <span class="math inline">\(t^{n-1}\)</span> in <span class="math inline">\(p(t)=t^r\)</span> is <span class="math inline">\(0\)</span>. By (∗),</p>
+<p><span class="math display">\[
+\sum_{j=1}^{n}\frac{x_j^{\,r}}{\prod_{k\ne j}(x_j-x_k)}=0.
+\]</span></p>
+<p>Case B: <span class="math inline">\(r=n-1\)</span></p>
+<p>Now <span class="math inline">\([t^{n-1}]\,t^{n-1}=1\)</span>. Applying (∗),</p>
+<p><span class="math display">\[
+\sum_{j=1}^{n}\frac{x_j^{\,n-1}}{\prod_{k\ne j}(x_j-x_k)}=1.
+\]</span></p>
+<p>So far we’ve settled all <span class="math inline">\(r\le n-1\)</span>.</p>
+<ol start="3" type="1">
+<li>Handle <span class="math inline">\(r=n\)</span></li>
+</ol>
+<p>When <span class="math inline">\(r=n\)</span>, <span class="math inline">\(\deg t^n=n\)</span> so we can’t apply (∗) directly. Write <span class="math inline">\(t^n\)</span> as</p>
+<p><span class="math display">\[
+t^n = w(t) + R(t),
+\]</span></p>
+<p>where <span class="math inline">\(R(t)\)</span> is the remainder of the division of <span class="math inline">\(t^n\)</span> by <span class="math inline">\(w(t)\)</span>. Then <span class="math inline">\(\deg R\le n-1\)</span> and, crucially, <span class="math inline">\(R(x_j)=t^n\!\big|_{t=x_j}=x_j^n\)</span> for each <span class="math inline">\(j\)</span>.</p>
+<p>Therefore, applying (∗) to <span class="math inline">\(R\)</span>,</p>
+<p><span class="math display">\[
+\sum_{j=1}^{n}\frac{x_j^{\,n}}{\prod_{k\ne j}(x_j-x_k)}
+=\sum_{j=1}^{n}\frac{R(x_j)}{\prod_{k\ne j}(x_j-x_k)}
+=[t^{n-1}]\,R(t).
+\]</span></p>
+<p>But we also know the explicit leading terms of <span class="math inline">\(w(t)\)</span> by Viète’s formulas:</p>
+<p><span class="math display">\[
+w(t)=\prod_{k=1}^{n}(t-x_k)
+=t^{n}-\Big(\sum_{k=1}^{n}x_k\Big)\,t^{n-1}+\cdots .
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+R(t)=t^n-w(t)=\Big(\sum_{k=1}^{n}x_k\Big)\,t^{n-1}+\cdots ,
+\]</span></p>
+<p>so <span class="math inline">\([t^{n-1}]\,R(t)=\sum_{k=1}^{n}x_k\)</span>. Therefore</p>
+<p><span class="math display">\[
+\sum_{j=1}^{n}\frac{x_j^{\,n}}{\prod_{k\ne j}(x_j-x_k)}=\sum_{j=1}^{n}x_j,
+\]</span></p>
+<p>as required.</p>
+<p>This proves all three cases.</p>
+<ol start="4" type="1">
+<li>Checks against the <span class="math inline">\(n=3\)</span> “Dr.&nbsp;Matrix” identities</li>
+</ol>
+<p>For <span class="math inline">\(n=3\)</span>, the denominators are <span class="math inline">\((a-b)(a-c)\)</span>, <span class="math inline">\((b-a)(b-c)\)</span>, <span class="math inline">\((c-a)(c-b)\)</span>. Our general result gives:</p>
+<ul>
+<li><span class="math inline">\(r=0,1\)</span>: sums equal <span class="math inline">\(0\)</span>.</li>
+<li><span class="math inline">\(r=2\)</span>: sum equals <span class="math inline">\(1\)</span>.</li>
+<li><span class="math inline">\(r=3\)</span>: sum equals <span class="math inline">\(a+b+c\)</span>.</li>
+</ul>
+<p>These match the four displayed identities in the problem statement.</p>
+</section>
+<section id="m25-1" class="level3">
+<h3 class="anchored" data-anchor-id="m25-1">34 [M25]</h3>
+<p>Write the denominator in a closed form. For fixed <span class="math inline">\(k\)</span>,</p>
+<p><span class="math display">\[
+\prod_{\substack{1\le r\le n\\ r\ne k}}(k-r)
+=\Bigl(\prod_{r=1}^{k-1}(k-r)\Bigr)\Bigl(\prod_{r=k+1}^{n}(k-r)\Bigr)
+=(k-1)!\,(-1)^{\,n-k}(n-k)! .
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\frac{1}{\prod_{r\ne k}(k-r)}
+=\frac{(-1)^{\,n-k}}{(k-1)!(n-k)!}
+=\frac{1}{(n-1)!}\,(-1)^{\,n-k}\binom{n-1}{k-1}.
+\]</span></p>
+<p>Define the polynomial in <span class="math inline">\(k\)</span> (with <span class="math inline">\(x,m\)</span> treated as parameters)</p>
+<p><span class="math display">\[
+p(k)\;:=\;\prod_{\substack{1\le r\le n\\ r\ne m}}(x+k-r).
+\]</span></p>
+<p>This is a monic polynomial of degree <span class="math inline">\(n-1\)</span> in <span class="math inline">\(k\)</span>.</p>
+<p>With the weight above, the left-hand side becomes</p>
+<p><span class="math display">\[
+S(x)=\sum_{k=1}^{n}\frac{p(k)}{\prod_{r\ne k}(k-r)}
+=\frac{1}{(n-1)!}\sum_{k=1}^{n}(-1)^{\,n-k}\binom{n-1}{k-1}\,p(k).
+\]</span></p>
+<p>But the binomial-weighted sum is exactly a forward difference:</p>
+<p><span class="math display">\[
+\Delta^{\,n-1}p(1)
+=\sum_{j=0}^{n-1}(-1)^{\,n-1-j}\binom{n-1}{j}\,p(1+j)
+=\sum_{k=1}^{n}(-1)^{\,n-k}\binom{n-1}{k-1}\,p(k).
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+S(x)=\frac{\Delta^{\,n-1}p(1)}{(n-1)!}.
+\]</span></p>
+<p>Finally, since <span class="math inline">\(p(k)\)</span> is <strong>monic of degree <span class="math inline">\(n-1\)</span></strong>, its <span class="math inline">\((n-1)\)</span>-st forward difference is the constant <span class="math inline">\((n-1)!\)</span> (discrete analogue of “the <span class="math inline">\((n-1)\)</span>-st derivative of a monic degree <span class="math inline">\(n-1\)</span> polynomial is <span class="math inline">\((n-1)!\)</span>”). Hence</p>
+<p><span class="math display">\[
+S(x)=\frac{(n-1)!}{(n-1)!}=1,
+\]</span></p>
+<p>which proves the identity.</p>
+</section>
+<section id="hm20-2" class="level3">
+<h3 class="anchored" data-anchor-id="hm20-2">35 [HM20]</h3>
+<p>Knuth introduces the supremum notation <span class="math inline">\(\displaystyle \sup_{R(j)} a_j\)</span> (least upper bound of the <span class="math inline">\(a_j\)</span> with <span class="math inline">\(R(j)\)</span> true) and asks you to adapt the four basic sum-manipulation rules (a)–(d) from §1.2.3 to this notation. In particular, discuss the analogue of rule (a)</p>
+<p><span class="math display">\[
+\bigl(\sup_{R(i)} a_i\bigr)+\bigl(\sup_{S(j)} b_j\bigr)=\sup_{R(i)}\sup_{S(j)}(a_i+b_j),
+\]</span></p>
+<p>and specify what <span class="math inline">\(\sup_{R(j)} a_j\)</span> should mean when no <span class="math inline">\(j\)</span> satisfies <span class="math inline">\(R\)</span>.</p>
+<p>Throughout, it is convenient to work in the <strong>extended real line</strong> <span class="math inline">\(\overline{\mathbb{R}}=\mathbb{R}\cup\{-\infty,+\infty\}\)</span>.</p>
+<ol type="1">
+<li>Definition for the empty index set</li>
+</ol>
+<p>To keep all identities well-behaved (especially the “union” rule below), define</p>
+<p><span class="math display">\[
+\sup_{R(j)} a_j \;=\; -\infty \quad\text{if no }j\text{ satisfies }R(j).
+\]</span></p>
+<p>This mirrors the way <span class="math inline">\(\sum_{R(j)} a_j\)</span> is defined to be <span class="math inline">\(0\)</span> when the set is empty; for sups, <span class="math inline">\(-\infty\)</span> is the neutral element for <span class="math inline">\(\max\)</span>. With this choice, every rule below continues to hold even in degenerate cases. (Knuth’s official answer also adopts <span class="math inline">\(-\infty\)</span>.) </p>
+<ol start="2" type="1">
+<li>Analogue of rule (a): “distributive law” over addition</li>
+</ol>
+<p>For sums, rule (a) states <span class="math inline">\((\sum_{R(i)} a_i)(\sum_{S(j)} b_j)=\sum_{R(i)}\sum_{S(j)} a_i b_j\)</span> (Eq. (4)). For suprema, the correct additive analogue is</p>
+<p><span class="math display">\[
+\boxed{\;\bigl(\sup_{R(i)} a_i\bigr)+\bigl(\sup_{S(j)} b_j\bigr)
+\;=\; \sup_{R(i)}\sup_{S(j)}\bigl(a_i+b_j\bigr)\;}
+\tag{A}
+\]</span></p>
+<p><strong>Proof.</strong> Let <span class="math inline">\(A=\{a_i: R(i)\}\)</span> and <span class="math inline">\(B=\{b_j: S(j)\}\)</span>.</p>
+<ul>
+<li><p>For any <span class="math inline">\(i,j\)</span>, <span class="math inline">\(a_i\le\sup A\)</span> and <span class="math inline">\(b_j\le\sup B\)</span>, hence <span class="math inline">\(a_i+b_j\le \sup A+\sup B\)</span>. Taking the supremum over all <span class="math inline">\(i,j\)</span> gives <span class="math inline">\(\sup_{i,j}(a_i+b_j)\le \sup A+\sup B\)</span>.</p></li>
+<li><p>Conversely, fix <span class="math inline">\(\varepsilon&gt;0\)</span> and pick <span class="math inline">\(i_0\)</span> with <span class="math inline">\(a_{i_0} &gt; \sup A-\varepsilon/2\)</span> and <span class="math inline">\(j_0\)</span> with <span class="math inline">\(b_{j_0} &gt; \sup B-\varepsilon/2\)</span>. Then <span class="math inline">\(a_{i_0}+b_{j_0} &gt; \sup A+\sup B-\varepsilon\)</span>, so <span class="math inline">\(\sup_{i,j}(a_i+b_j)\ge \sup A+\sup B-\varepsilon\)</span>. Let <span class="math inline">\(\varepsilon\to0\)</span>.</p></li>
+</ul>
+<p>If <span class="math inline">\(\sup A=+\infty\)</span> or <span class="math inline">\(\sup B=+\infty\)</span>, both sides are <span class="math inline">\(+\infty\)</span>; if one set is empty, <span class="math inline">\(\sup A=-\infty\)</span> etc., and both sides evaluate to <span class="math inline">\(-\infty\)</span> in <span class="math inline">\(\overline{\mathbb{R}}\)</span>. For <strong>finite</strong> sets, (A) becomes the trivial identity <span class="math inline">\(a+\max(b,c)=\max(a+b,a+c)\)</span>. (Knuth hints at exactly this reduction.) </p>
+<p>A closely related multiplicative variant (useful later) also holds:</p>
+<blockquote class="blockquote">
+<p>If all <span class="math inline">\(a_i,b_j\ge 0\)</span>, then <span class="math inline">\(\displaystyle \bigl(\sup_{R(i)} a_i\bigr)\bigl(\sup_{S(j)} b_j\bigr)
+\;=\; \sup_{R(i)}\sup_{S(j)} (a_i b_j).\)</span></p>
+</blockquote>
+<p>(Again, prove both inequalities; nonnegativity is essential.) This is the supremum analogue of the product-of-sums law (Eq. (4)). </p>
+<ol start="3" type="1">
+<li>Analogue of rule (b): change of variable</li>
+</ol>
+<p>For sums, rule (b) allows <span class="math inline">\(\sum_{R(i)} a_i=\sum_{R(j)} a_j=\sum_{R(p(j))} a_{p(j)}\)</span> when <span class="math inline">\(p\)</span> is a permutation of the relevant indices (Eq. (5)). For sups:</p>
+<p><span class="math display">\[
+\boxed{\;\sup_{R(i)} a_i \;=\; \sup_{R(j)} a_j \;=\; \sup_{R(p(j))} a_{p(j)}\;}
+\tag{B}
+\]</span></p>
+<p>provided <span class="math inline">\(p\)</span> is a <strong>bijection</strong> on the index set <span class="math inline">\(\{i:R(i)\}\)</span>. The proof is immediate because the set of values being “supremed over” is unchanged under such a relabeling. (If <span class="math inline">\(p\)</span> misses some relevant <span class="math inline">\(i\)</span>, you only get “<span class="math inline">\(\le\)</span>”.) </p>
+<ol start="4" type="1">
+<li>Analogue of rule (c): interchanging order</li>
+</ol>
+<p>For sums, rule (c) says <span class="math inline">\(\sum_{R(i)}\sum_{S(j)} a_{ij} = \sum_{S(j)}\sum_{R(i)} a_{ij}\)</span> (Eq. (7), and the more general Eq. (9)). For sups:</p>
+<p><span class="math display">\[
+\boxed{\;\sup_{R(i)}\sup_{S(j)} c_{ij}
+\;=\; \sup_{S(j)}\sup_{R(i)} c_{ij}
+\;=\; \sup_{\substack{R(i)\\ S(j)}} c_{ij}\;}
+\tag{C}
+\]</span></p>
+<p>because all three expressions are the least upper bound of the same set <span class="math inline">\(\{c_{ij}:R(i)\land S(j)\}\)</span>. (No absolute-convergence caveats are needed for sups.) </p>
+<ol start="5" type="1">
+<li>Analogue of rule (d): manipulating the domain (union/intersection)</li>
+</ol>
+<p>For sums, rule (d) is the inclusion–exclusion style identity</p>
+<p><span class="math display">\[
+\sum_{R(j)} a_j + \sum_{S(j)} a_j
+= \sum_{R(j)\,\text{or}\,S(j)} a_j + \sum_{R(j)\,\text{and}\,S(j)} a_j
+\quad\text{(Eq. (11)).}
+\]</span></p>
+<p>For <strong>suprema</strong>, double-counting is irrelevant, and the rule simplifies to</p>
+<p><span class="math display">\[
+\boxed{\;\sup_{R(j)\,\text{or}\,S(j)} a_j
+\;=\; \max\Bigl(\sup_{R(j)} a_j,\ \sup_{S(j)} a_j\Bigr). \;}
+\tag{D}
+\]</span></p>
+<p>This is simply the fact that the supremum over a union of sets equals the maximum of the individual suprema; with our convention <span class="math inline">\(\sup\varnothing=-\infty\)</span>, it holds even when one condition selects nothing. (Knuth’s answer states exactly this simplification.)</p>
+</section>
+<section id="m23-1" class="level3">
+<h3 class="anchored" data-anchor-id="m23-1">36 [M23]</h3>
+<p>Solution 1 — Elementary row/column operations (no eigenvalues)</p>
+<p>Write the rows of <span class="math inline">\(A\)</span> as</p>
+<p><span class="math display">\[
+R_1=[x{+}y,\,y,\,\dots,\,y],\qquad
+R_i=[y,\,\dots,\,\underset{i}{x{+}y},\,\dots,\,y]\ (i\ge2).
+\]</span></p>
+<ol type="1">
+<li><strong>Make the matrix sparse.</strong> For each <span class="math inline">\(i=2,\dots,n\)</span> replace <span class="math inline">\(R_i\leftarrow R_i-R_1\)</span>. This preserves the determinant.</li>
+</ol>
+<ul>
+<li><p>In the new rows <span class="math inline">\(i\ge2\)</span>:</p>
+<ul>
+<li>Column <span class="math inline">\(1\)</span>: <span class="math inline">\(y-(x+y)=-x\)</span>.</li>
+<li>Column <span class="math inline">\(i\)</span>: <span class="math inline">\((x+y)-y= x\)</span>.</li>
+<li>Other columns: <span class="math inline">\(y-y=0\)</span>.</li>
+</ul></li>
+</ul>
+<p>So each <span class="math inline">\(R_i\)</span> (for <span class="math inline">\(i\ge2\)</span>) now has exactly two nonzeros: <span class="math inline">\(-x\)</span> in column 1 and <span class="math inline">\(x\)</span> in column <span class="math inline">\(i\)</span>.</p>
+<ol start="2" type="1">
+<li><strong>Factor <span class="math inline">\(x\)</span> from rows <span class="math inline">\(2,\dots,n\)</span>.</strong> Pulling a common factor <span class="math inline">\(x\)</span> from each of those <span class="math inline">\(n-1\)</span> rows multiplies the determinant by <span class="math inline">\(x^{n-1}\)</span>. After factoring, replace each such row by <span class="math inline">\([-1\ \ 0\ \dots\ 1\text{ at col }i\ \dots\ 0]\)</span>.</li>
+</ol>
+<p>At this point the matrix has the form</p>
+<p><span class="math display">\[
+B=
+\begin{bmatrix}
+x+y &amp; y &amp; y &amp; \cdots &amp; y \\
+-1  &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
+-1  &amp; 0 &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; &amp; \ddots &amp; \vdots \\
+-1  &amp; 0 &amp; 0 &amp; \cdots &amp; 1
+\end{bmatrix},
+\qquad
+\det A = x^{n-1}\det B.
+\]</span></p>
+<ol start="3" type="1">
+<li><strong>Column sweep.</strong> Add columns <span class="math inline">\(2,3,\dots,n\)</span> into column <span class="math inline">\(1\)</span> (an operation that does <strong>not</strong> change the determinant):</li>
+</ol>
+<p><span class="math display">\[
+C_1 \leftarrow C_1 + \sum_{j=2}^{n} C_j.
+\]</span></p>
+<ul>
+<li>First-row, first-column entry becomes <span class="math inline">\((x+y)+(n-1)y=x+ny\)</span>.</li>
+<li>For each <span class="math inline">\(i\ge2\)</span>, the first-column entry <span class="math inline">\(-1\)</span> is increased by the <span class="math inline">\(1\)</span> sitting in column <span class="math inline">\(i\)</span> of row <span class="math inline">\(i\)</span>, giving <span class="math inline">\(0\)</span>.</li>
+</ul>
+<p>Thus</p>
+<p><span class="math display">\[
+B'=
+\begin{bmatrix}
+x+ny &amp; y &amp; y &amp; \cdots &amp; y \\
+0    &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
+0    &amp; 0 &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; &amp; \ddots &amp; \vdots \\
+0    &amp; 0 &amp; 0 &amp; \cdots &amp; 1
+\end{bmatrix}.
+\]</span></p>
+<p>Now <span class="math inline">\(B'\)</span> is block–upper–triangular with the lower-right block <span class="math inline">\(I_{n-1}\)</span>. Hence</p>
+<p><span class="math display">\[
+\det B' = (x+ny)\cdot \det(I_{n-1}) = x+ny.
+\]</span></p>
+<p>Combining with step 2:</p>
+<p><span class="math display">\[
+\boxed{\det A = x^{n-1}(x+ny)}.
+\]</span></p>
+<p><strong>Edge cases.</strong></p>
+<ul>
+<li><span class="math inline">\(n=1\)</span>: <span class="math inline">\(\det[x+y]=x+y\)</span>, and the formula gives <span class="math inline">\(x^{0}(x+1\cdot y)=x+y\)</span>.</li>
+<li><span class="math inline">\(x=0\)</span>: <span class="math inline">\(A=y\mathbf{1}\mathbf{1}^\top\)</span> has rank <span class="math inline">\(1\)</span> for <span class="math inline">\(n&gt;1\)</span>, so <span class="math inline">\(\det A=0\)</span>; the formula gives <span class="math inline">\(0^{n-1}(0+ny)=0\)</span> (for <span class="math inline">\(n&gt;1\)</span>), consistent.</li>
+</ul>
+<p>Solution 2 — One-line spectral proof</p>
+<p>Write <span class="math inline">\(A=xI+yJ\)</span>, where <span class="math inline">\(J=\mathbf{1}\mathbf{1}^\top\)</span> is the all-ones matrix. <span class="math inline">\(J\)</span> has eigenvalue <span class="math inline">\(n\)</span> on <span class="math inline">\(\mathbf{1}\)</span> and <span class="math inline">\(0\)</span> on the <span class="math inline">\((n{-}1)\)</span>-dimensional subspace orthogonal to <span class="math inline">\(\mathbf{1}\)</span>. Therefore the eigenvalues of <span class="math inline">\(A\)</span> are</p>
+<p><span class="math display">\[
+x+ny \quad(\text{once}), \qquad x \quad(\text{multiplicity }n-1).
+\]</span></p>
+<p>Thus <span class="math inline">\(\det A\)</span> (product of eigenvalues) equals <span class="math inline">\(x^{n-1}(x+ny)\)</span> as claimed.</p>
+</section>
+<section id="m24" class="level3">
+<h3 class="anchored" data-anchor-id="m24">37 [M24]</h3>
+<p>The exercise defines the Vandermonde matrix by <span class="math inline">\(a_{ij}=x_j^{\,i}\)</span> (so the first row is <span class="math inline">\(x_1,\dots,x_n\)</span>; the second row <span class="math inline">\(x_1^2,\dots,x_n^2\)</span>; …; the <span class="math inline">\(n\)</span>th row <span class="math inline">\(x_1^n,\dots,x_n^n\)</span>) and asks you to show that</p>
+<p><span class="math display">\[
+\det(a_{ij})=\Bigl(\prod_{j=1}^n x_j\Bigr)\;\prod_{1\le i&lt;j\le n}(x_j-x_i).
+\]</span></p>
+<p>Step 0: Reduce to the “classical” Vandermonde</p>
+<p>Factor <span class="math inline">\(x_j\)</span> out of column <span class="math inline">\(j\)</span> for each <span class="math inline">\(j\)</span>. Determinants scale by a column factor, so</p>
+<p><span class="math display">\[
+\det\!\bigl[x_j^{\,i}\bigr]_{i,j=1}^n
+=\Bigl(\prod_{j=1}^n x_j\Bigr)\;\det\!\bigl[x_j^{\,i-1}\bigr]_{i,j=1}^n.
+\]</span></p>
+<p>Thus it suffices to prove the classical Vandermonde formula</p>
+<p><span class="math display">\[
+\Delta_n(x_1,\dots,x_n)\;:=\;\det\!\bigl[x_j^{\,i-1}\bigr]_{i,j=1}^n
+\;=\;\prod_{1\le i&lt;j\le n}(x_j-x_i).
+\tag{★}
+\]</span></p>
+<p>Step 1: Structure of <span class="math inline">\(\Delta_n\)</span></p>
+<p>Two immediate properties of <span class="math inline">\(\Delta_n\)</span>:</p>
+<ol type="1">
+<li><p>Alternation. Swapping <span class="math inline">\(x_p\)</span> and <span class="math inline">\(x_q\)</span> swaps two columns and flips the sign of the determinant; hence <span class="math inline">\(\Delta_n\)</span> is alternating in the <span class="math inline">\(x_j\)</span>’s.</p></li>
+<li><p>Vanishing on collisions. If <span class="math inline">\(x_p=x_q\)</span> with <span class="math inline">\(p\neq q\)</span>, columns <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> coincide, so <span class="math inline">\(\Delta_n=0\)</span>. Therefore each factor <span class="math inline">\((x_q-x_p)\)</span> must divide <span class="math inline">\(\Delta_n\)</span> as a polynomial.</p></li>
+</ol>
+<p>By unique factorization in <span class="math inline">\(\mathbb{R}[x_1,\dots,x_n]\)</span> (or <span class="math inline">\(\mathbb{C}[x_1,\dots,x_n]\)</span>), these two facts together imply that there exists a constant <span class="math inline">\(C_n\)</span> (depending only on <span class="math inline">\(n\)</span>) with</p>
+<p><span class="math display">\[
+\Delta_n(x_1,\dots,x_n)=C_n\prod_{1\le i&lt;j\le n}(x_j-x_i).
+\tag{1}
+\]</span></p>
+<p>Step 2: Determine <span class="math inline">\(C_n\)</span> by leading-term comparison</p>
+<p>View <span class="math inline">\(\Delta_n\)</span> as a polynomial in the single variable <span class="math inline">\(x_n\)</span> (with parameters <span class="math inline">\(x_1,\dots,x_{n-1}\)</span>). Expanding <span class="math inline">\(\det[x_j^{\,i-1}]\)</span> along the last column shows that the coefficient of <span class="math inline">\(x_n^{\,n-1}\)</span> is exactly <span class="math inline">\(\Delta_{n-1}(x_1,\dots,x_{n-1})\)</span>: only the entry <span class="math inline">\(x_n^{\,n-1}\)</span> in the bottom row contributes to that top degree, and its cofactor is the <span class="math inline">\((n-1)\times(n-1)\)</span> classical Vandermonde on the first <span class="math inline">\(n-1\)</span> variables.</p>
+<p>On the right side of (1), as a polynomial in <span class="math inline">\(x_n\)</span>,</p>
+<p><span class="math display">\[
+\prod_{1\le i&lt;j\le n}(x_j-x_i)
+=\Bigl(\prod_{1\le i&lt;j\le n-1}(x_j-x_i)\Bigr)\cdot\prod_{k=1}^{n-1}(x_n-x_k),
+\]</span></p>
+<p>whose coefficient of <span class="math inline">\(x_n^{\,n-1}\)</span> is <span class="math inline">\(\prod_{1\le i&lt;j\le n-1}(x_j-x_i)=\Delta_{n-1}(x_1,\dots,x_{n-1})\)</span> by the induction hypothesis.</p>
+<p>Comparing the top-degree coefficients on both sides of (1) gives</p>
+<p><span class="math display">\[
+\Delta_{n-1}(x_1,\dots,x_{n-1}) \;=\; C_n\;\Delta_{n-1}(x_1,\dots,x_{n-1}),
+\]</span></p>
+<p>hence <span class="math inline">\(C_n=1\)</span>. (The base <span class="math inline">\(n=1\)</span> is <span class="math inline">\(\Delta_1=1\)</span>, and <span class="math inline">\(n=2\)</span> gives <span class="math inline">\(\Delta_2=x_2-x_1\)</span>, so the induction anchors are immediate.)</p>
+<p>Therefore (★) holds:</p>
+<p><span class="math display">\[
+\Delta_n(x_1,\dots,x_n)=\prod_{1\le i&lt;j\le n}(x_j-x_i).
+\]</span></p>
+<p>Step 3: Restore the factored <span class="math inline">\(x_j\)</span>’s</p>
+<p>Returning to the original matrix with <span class="math inline">\(a_{ij}=x_j^{\,i}\)</span>,</p>
+<p><span class="math display">\[
+\det[a_{ij}]
+=\Bigl(\prod_{j=1}^n x_j\Bigr)\;\det[x_j^{\,i-1}]
+=\Bigl(\prod_{j=1}^n x_j\Bigr)\;\prod_{1\le i&lt;j\le n}(x_j-x_i),
+\]</span></p>
+<p>which is exactly what the exercise asked to show. </p>
+<p>Quick checks (sanity)</p>
+<ul>
+<li><span class="math inline">\(n=2\)</span>: <span class="math inline">\(\det\begin{pmatrix}x_1&amp;x_2\\ x_1^2&amp;x_2^2\end{pmatrix}=x_1x_2(x_2-x_1)\)</span>.</li>
+<li><span class="math inline">\(n=3\)</span>: factoring <span class="math inline">\(x_1x_2x_3\)</span> from columns and using the classical <span class="math inline">\(3\times3\)</span> Vandermonde yields <span class="math inline">\(x_1x_2x_3(x_2-x_1)(x_3-x_1)(x_3-x_2)\)</span>.</li>
+</ul>
+</section>
+<section id="m25-2" class="level3">
+<h3 class="anchored" data-anchor-id="m25-2">38 [M25]</h3>
+<p>We proceed by induction on <span class="math inline">\(n\)</span>.</p>
+<p><strong>Base <span class="math inline">\(n=1\)</span>.</strong> <span class="math inline">\(\det[1/(x_1+y_1)]=1/(x_1+y_1)\)</span>. The right-hand side also equals <span class="math inline">\(1/(x_1+y_1)\)</span> (empty products are <span class="math inline">\(1\)</span>). ✓</p>
+<p><strong>Inductive step.</strong> Assume the formula for size <span class="math inline">\(n-1\)</span>. For the <span class="math inline">\(n\times n\)</span> matrix:</p>
+<ol type="1">
+<li><strong>Make columns <span class="math inline">\(2,\dots,n\)</span> differenced against column 1.</strong> Replace <span class="math inline">\(C_j\leftarrow C_j-C_1\)</span> for <span class="math inline">\(j=2,\dots,n\)</span>. Entrywise,</li>
+</ol>
+<p><span class="math display">\[
+\frac{1}{x_i+y_j}-\frac{1}{x_i+y_1}
+= \frac{y_1-y_j}{(x_i+y_j)(x_i+y_1)}.
+\]</span></p>
+<p>Factor <span class="math inline">\((y_1-y_j)\)</span> from each column <span class="math inline">\(j\ge2\)</span>, and then factor <span class="math inline">\((x_i+y_1)^{-1}\)</span> from each row <span class="math inline">\(i\)</span>. After these factorizations the matrix becomes</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+1 &amp; \dfrac{1}{x_1+y_2} &amp; \cdots &amp; \dfrac{1}{x_1+y_n}\\[4pt]
+1 &amp; \dfrac{1}{x_2+y_2} &amp; \cdots &amp; \dfrac{1}{x_2+y_n}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+1 &amp; \dfrac{1}{x_n+y_2} &amp; \cdots &amp; \dfrac{1}{x_n+y_n}
+\end{bmatrix}
+\]</span></p>
+<p>and we have pulled out the factor</p>
+<p><span class="math display">\[
+\Biggl(\prod_{j=2}^n (y_1-y_j)\Biggr)\Biggl(\prod_{i=1}^n \frac{1}{x_i+y_1}\Biggr).
+\]</span></p>
+<p>(These are exactly the operations hinted in Knuth’s answer: subtract column 1 from the others, factor the <span class="math inline">\(y\)</span>-differences and the <span class="math inline">\((x_i+y_1)^{-1}\)</span>s. )</p>
+<ol start="2" type="1">
+<li><strong>Zero out the first column below the top.</strong> Replace <span class="math inline">\(R_i\leftarrow R_i-R_1\)</span> for <span class="math inline">\(i=2,\dots,n\)</span>. In columns <span class="math inline">\(j\ge2\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+\frac{1}{x_i+y_j}-\frac{1}{x_1+y_j}
+= \frac{x_1-x_i}{(x_i+y_j)(x_1+y_j)}.
+\]</span></p>
+<p>Expand along the first column (which now has a <span class="math inline">\(1\)</span> on top and zeros below). The remaining <span class="math inline">\((n-1)\times(n-1)\)</span> block <span class="math inline">\(B=(b_{ij})_{2\le i,j\le n}\)</span> has</p>
+<p><span class="math display">\[
+b_{ij}=\frac{x_1-x_i}{(x_i+y_j)(x_1+y_j)}.
+\]</span></p>
+<p>Factor <span class="math inline">\((x_1-x_i)\)</span> from each row <span class="math inline">\(i=2,\dots,n\)</span> and <span class="math inline">\((x_1+y_j)^{-1}\)</span> from each column <span class="math inline">\(j=2,\dots,n\)</span>. The block reduces to <span class="math inline">\(\bigl(1/(x_i+y_j)\bigr)_{2\le i,j\le n}\)</span>, i.e.&nbsp;the same Cauchy form on the smaller sets <span class="math inline">\(\{x_2,\dots,x_n\}\)</span>, <span class="math inline">\(\{y_2,\dots,y_n\}\)</span>. The factor you have pulled out in this step is</p>
+<p><span class="math display">\[
+\Biggl(\prod_{i=2}^n (x_1-x_i)\Biggr)\Biggl(\prod_{j=2}^n \frac{1}{x_1+y_j}\Biggr).
+\]</span></p>
+<p>(These are the “subtract row 1 from the others; factor <span class="math inline">\(x\)</span>-differences and <span class="math inline">\((x_1+y_j)^{-1}\)</span>” steps; after them only a smaller Cauchy determinant remains. )</p>
+<p>Putting the two stages together,</p>
+<p><span class="math display">\[
+\det_n(\{x\},\{y\})
+= \frac{\displaystyle\prod_{i=2}^n (x_1-x_i)\;\prod_{j=2}^n (y_1-y_j)}
+       {\displaystyle\Bigl(\prod_{i=1}^n (x_i+y_1)\Bigr)\Bigl(\prod_{j=2}^n (x_1+y_j)\Bigr)}
+\;\det_{n-1}(\{x_2,\dots,x_n\},\{y_2,\dots,y_n\}).
+\]</span></p>
+<p>By the induction hypothesis,</p>
+<p><span class="math display">\[
+\det_{n-1}
+= \frac{\displaystyle\prod_{2\le i&lt;k\le n}(x_i-x_k)\;\prod_{2\le j&lt;\ell\le n}(y_j-y_\ell)}
+       {\displaystyle\prod_{i=2}^n\prod_{j=2}^n (x_i+y_j)}.
+\]</span></p>
+<p>Multiplying the factors and simplifying yields</p>
+<p><span class="math display">\[
+\det_n
+= \frac{\displaystyle\prod_{1\le i&lt;k\le n}(x_i-x_k)\;\prod_{1\le j&lt;\ell\le n}(y_j-y_\ell)}
+       {\displaystyle\prod_{i=1}^n\prod_{j=1}^n (x_i+y_j)},
+\]</span></p>
+<p>which is precisely the claimed formula. This completes the induction. ∎</p>
+<p>Quick check for <span class="math inline">\(n=2\)</span></p>
+<p><span class="math display">\[
+\det\!\begin{bmatrix}
+\frac1{x_1+y_1} &amp; \frac1{x_1+y_2}\\[2pt]
+\frac1{x_2+y_1} &amp; \frac1{x_2+y_2}
+\end{bmatrix}
+= \frac{(x_1-x_2)(y_1-y_2)}{(x_1+y_1)(x_1+y_2)(x_2+y_1)(x_2+y_2)}.
+\]</span></p>
+<p>Matches the formula.</p>
+</section>
+<section id="m23-2" class="level3">
+<h3 class="anchored" data-anchor-id="m23-2">39 [M23]</h3>
+<p>Here “combinatorial matrix” means the <span class="math inline">\(n\times n\)</span> matrix</p>
+<p><span class="math display">\[
+A=(a_{ij}),\qquad a_{ij}=y+\delta_{ij}x,
+\]</span></p>
+<p>i.e., every off–diagonal entry is <span class="math inline">\(y\)</span> and every diagonal entry is <span class="math inline">\(x+y\)</span>. Equivalently</p>
+<p><span class="math display">\[
+A=xI+yJ,
+\]</span></p>
+<p>where <span class="math inline">\(I\)</span> is the identity and <span class="math inline">\(J\)</span> is the all-ones matrix. (Definition and exercise are in §1.2.3.) </p>
+<p>We will show that <span class="math inline">\(A^{-1}\)</span> also has the “combinatorial” form <span class="math inline">\(B=(b_{ij})\)</span> with</p>
+<p><span class="math display">\[
+b_{ij}=\frac{-\,y+\delta_{ij}(x+ny)}{x(x+ny)}.
+\]</span></p>
+<p>(That is exactly what the exercise asks you to prove.) </p>
+<p>Two basic facts about <span class="math inline">\(J\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(J\)</span> commutes with <span class="math inline">\(I\)</span> (trivial) and with any polynomial in <span class="math inline">\(J\)</span>.</li>
+<li><span class="math inline">\(J^2=nJ\)</span> (since each entry of <span class="math inline">\(J^2\)</span> is the sum of <span class="math inline">\(n\)</span> ones).</li>
+</ol>
+<p>Because <span class="math inline">\(A=xI+yJ\)</span> lies in the 2-dimensional commutative algebra <span class="math inline">\(\{aI+bJ\}\)</span> closed under multiplication, its inverse—if it exists—must also lie in that algebra. So make the ansatz</p>
+<p><span class="math display">\[
+A^{-1}=aI+bJ
+\]</span></p>
+<p>for scalars <span class="math inline">\(a,b\)</span>. Multiply and use <span class="math inline">\(J^2=nJ\)</span>:</p>
+<p><span class="math display">\[
+(xI+yJ)(aI+bJ)
+=xa\,I+(xb+ya+nyb)\,J.
+\]</span></p>
+<p>For this to be the identity <span class="math inline">\(I\)</span>, we must have the coefficient of <span class="math inline">\(I\)</span> equal to 1 and the coefficient of <span class="math inline">\(J\)</span> equal to 0:</p>
+<p><span class="math display">\[
+xa=1,\qquad xb+ya+nyb=0.
+\]</span></p>
+<p>Solve:</p>
+<p><span class="math display">\[
+a=\frac{1}{x},\qquad b=-\,\frac{ya}{x+ny}=-\,\frac{y}{x(x+ny)}.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+A^{-1}= \frac{1}{x}\,I-\frac{y}{x(x+ny)}\,J.
+\]</span></p>
+<p>Reading off entries (remember <span class="math inline">\(J\)</span> has all ones),</p>
+<p><span class="math display">\[
+b_{ij}= -\,\frac{y}{x(x+ny)}+\delta_{ij}\,\frac{1}{x}
+= \frac{-\,y+\delta_{ij}(x+ny)}{x(x+ny)}.
+\]</span></p>
+<p>Thus <span class="math inline">\(A^{-1}\)</span> has constant off-diagonal entries <span class="math inline">\(-y/\{x(x+ny)\}\)</span> and constant diagonal entries <span class="math inline">\(\{-y+(x+ny)\}/\{x(x+ny)\}=(x+(n-1)y)/\{x(x+ny)\}\)</span>, i.e., it is again a combinatorial matrix with the stated formula.</p>
+<p>Remarks</p>
+<ul>
+<li>Invertibility requires <span class="math inline">\(x\neq 0\)</span> and <span class="math inline">\(x+ny\neq 0\)</span>. This matches the eigenvalue view: <span class="math inline">\(A\)</span> has eigenvalue <span class="math inline">\(x\)</span> on the <span class="math inline">\((n-1)\)</span>-dimensional subspace orthogonal to <span class="math inline">\(\mathbf{1}\)</span>, and eigenvalue <span class="math inline">\(x+ny\)</span> on <span class="math inline">\(\operatorname{span}\{\mathbf{1}\}\)</span>.</li>
+<li>A compact way to remember the result for any <span class="math inline">\(A=\alpha I+\beta J\)</span> is</li>
+</ul>
+<p><span class="math display">\[
+(\alpha I+\beta J)^{-1}=\frac{1}{\alpha}I-\frac{\beta}{\alpha(\alpha+n\beta)}\,J,
+\]</span></p>
+<p>from which the exercise follows by <span class="math inline">\(\alpha=x,\ \beta=y\)</span>.</p>
+</section>
+<section id="m24-1" class="level3">
+<h3 class="anchored" data-anchor-id="m24-1">40 [M24]</h3>
+<p>View each row <span class="math inline">\(i\)</span> of <span class="math inline">\(B\)</span> as the coefficients of a polynomial</p>
+<p><span class="math display">\[
+p_i(x)\;=\;\sum_{t=1}^n b_{it}\,x^{t}.
+\]</span></p>
+<p>The condition <span class="math inline">\(BA=I\)</span> is exactly</p>
+<p><span class="math display">\[
+\sum_{t=1}^n b_{it}\,x_j^{\,t} \;=\; \delta_{ij}\qquad(1\le i,j\le n).
+\]</span></p>
+<p>So we want a degree–<span class="math inline">\(\le n\)</span> polynomial <span class="math inline">\(p_i\)</span> that satisfies <span class="math inline">\(p_i(x_j)=\delta_{ij}\)</span> at the <span class="math inline">\(n\)</span> distinct nodes <span class="math inline">\(x_j\)</span>. By Lagrange interpolation, the unique choice is</p>
+<p><span class="math display">\[
+p_i(x)\;=\;\frac{x}{x_i}\,L_i(x),
+\qquad
+L_i(x)\;=\;\prod_{\substack{1\le k\le n\\ k\ne i}}
+\frac{x-x_k}{x_i-x_k}.
+\]</span></p>
+<p>Indeed, <span class="math inline">\(p_i(x_j)=0\)</span> if <span class="math inline">\(j\ne i\)</span> (since a factor <span class="math inline">\(x_j-x_k\)</span> vanishes), and <span class="math inline">\(p_i(x_i)=(x_i/x_i)\cdot 1=1\)</span> as required.</p>
+<p>Therefore the entries of <span class="math inline">\(B\)</span> are <em>the coefficients of <span class="math inline">\(x/x_i\cdot L_i(x)\)</span></em>:</p>
+<p><span class="math display">\[
+\boxed{\;
+b_{it}=\big[ x^{\,t}\big]\!\left(\frac{x}{x_i}\prod_{\substack{k=1\\ k\ne i}}^{n}
+\frac{x-x_k}{x_i-x_k}\right)\;}\qquad (t=1,\dots,n).
+\]</span></p>
+<p>Closed form using elementary symmetric polynomials</p>
+<p>Write</p>
+<p><span class="math display">\[
+\prod_{\substack{k=1\\k\ne i}}^{n}\,(x-x_k)
+=\sum_{m=0}^{n-1}(-1)^{\,n-1-m}\,e_{\,n-1-m}^{(i)}\,x^{m},
+\]</span></p>
+<p>where <span class="math inline">\(e_{r}^{(i)}\)</span> is the <span class="math inline">\(r\)</span>-th elementary symmetric polynomial in the <span class="math inline">\(n-1\)</span> variables <span class="math inline">\(\{x_1,\dots,x_{i-1},x_{i+1},\dots,x_n\}\)</span>, with <span class="math inline">\(e_0^{(i)}=1\)</span>. Then</p>
+<p><span class="math display">\[
+p_i(x)=\frac{x}{x_i\prod_{k\ne i}(x_i-x_k)}\;
+\sum_{m=0}^{n-1}(-1)^{\,n-1-m}e_{\,n-1-m}^{(i)}x^{m},
+\]</span></p>
+<p>and the coefficient of <span class="math inline">\(x^{t}\)</span> (for <span class="math inline">\(t=1,\dots,n\)</span>) is</p>
+<p><span class="math display">\[
+\boxed{\;
+b_{it}
+=\frac{(-1)^{\,n-t}\,e_{\,n-t}^{(i)}}
+{x_i\;\prod\limits_{k\ne i}(x_i-x_k)}\;}.
+\]</span></p>
+</section>
+<section id="m26" class="level3">
+<h3 class="anchored" data-anchor-id="m26">41 [M26]</h3>
+<p>Let <span class="math inline">\(A=(a_{ij})_{1\le i,j\le n}\)</span> with</p>
+<p><span class="math display">\[
+a_{ij}=\frac{1}{x_i+y_j}.
+\]</span></p>
+<p>Define <span class="math inline">\(B=(b_{tj})\)</span> by</p>
+<p><span class="math display">\[
+\boxed{\displaystyle
+b_{tj}:=\frac{\Bigl(\prod_{k=1}^{n}(x_k+y_t)\Bigr)\Bigl(\prod_{k\ne t}(x_j+y_k)\Bigr)}
+{\Bigl(\prod_{k\ne j}(x_j-x_k)\Bigr)\Bigl(\prod_{k\ne t}(y_t-y_k)\Bigr)}\;.
+}
+\]</span></p>
+<p>We will prove that <span class="math inline">\(AB=I\)</span>, i.e.</p>
+<p><span class="math display">\[
+\sum_{t=1}^{n}\frac{1}{x_i+y_t}\,b_{tj}=\delta_{ij}\qquad(1\le i,j\le n).
+\]</span></p>
+<p>Proof by Lagrange–interpolation trick</p>
+<p>Fix <span class="math inline">\(i,j\)</span> and consider the function of a dummy variable <span class="math inline">\(x\)</span></p>
+<p><span class="math display">\[
+F_{ij}(x):=\sum_{t=1}^{n}
+\frac{\prod_{k\ne t}(x_j+y_k-x)\;\prod_{k\ne i}(x_k+y_t)}
+{\prod_{k\ne j}(x_j-x_k)\;\prod_{k\ne t}(y_t-y_k)}.
+\]</span></p>
+<p>Observe:</p>
+<ol type="1">
+<li><p><strong>Degree bound.</strong> The factor <span class="math inline">\(\prod_{k\ne t}(x_j+y_k-x)\)</span> has degree <span class="math inline">\(n-1\)</span> in <span class="math inline">\(x\)</span>; everything else is independent of <span class="math inline">\(x\)</span>. Hence <span class="math inline">\(F_{ij}(x)\)</span> is a polynomial in <span class="math inline">\(x\)</span> of degree <span class="math inline">\(\le n-1\)</span>.</p></li>
+<li><p><strong>Values at <span class="math inline">\(n\)</span> distinct points.</strong> For each <span class="math inline">\(s\in\{1,\dots,n\}\)</span>, plug <span class="math inline">\(x=x_j+y_s\)</span>. Then every summand in <span class="math inline">\(F_{ij}(x)\)</span> vanishes except the one with <span class="math inline">\(t=s\)</span>, because <span class="math inline">\(\prod_{k\ne t}(x_j+y_k-(x_j+y_s))\)</span> is zero unless <span class="math inline">\(t=s\)</span>. For that surviving term we get</p></li>
+</ol>
+<p><span class="math display">\[
+F_{ij}(x_j+y_s)
+=\frac{\prod_{k\ne i}(x_k+y_s)}{\prod_{k\ne j}(x_j-x_k)}
+=\frac{\prod_{k\ne j}(x_j-x_k-(x))}{\prod_{k\ne j}(x_j-x_k)}\Bigg|_{x=x_j+y_s-x_j}
+\]</span></p>
+<p>(the last rewrite is only to highlight the polynomial nature used below).</p>
+<ol start="3" type="1">
+<li><strong>Equality of polynomials.</strong> Two polynomials of degree <span class="math inline">\(\le n-1\)</span> that agree at the <span class="math inline">\(n\)</span> distinct points <span class="math inline">\(x=x_j+y_s\)</span> must be identical. Hence the value at <span class="math inline">\(x=0\)</span> is</li>
+</ol>
+<p><span class="math display">\[
+F_{ij}(0)
+=\frac{\prod_{k\ne i}(x_k+y_0)}{\prod_{k\ne j}(x_j-x_k)}\Bigg|_{y_0=0}
+=\frac{\prod_{k\ne i}(x_j-x_k)}{\prod_{k\ne j}(x_j-x_k)}
+=\delta_{ij},
+\]</span></p>
+<p>since the numerator contains the factor <span class="math inline">\(x_j-x_j=0\)</span> when <span class="math inline">\(i\ne j\)</span>, and is identical to the denominator when <span class="math inline">\(i=j\)</span>.</p>
+<p>Finally, notice that</p>
+<p><span class="math display">\[
+\frac{1}{x_i+y_t}\,b_{tj}
+=\frac{\prod_{k\ne t}(x_j+y_k)\;\prod_{k\ne i}(x_k+y_t)}
+{\prod_{k\ne j}(x_j-x_k)\;\prod_{k\ne t}(y_t-y_k)}
+=F_{ij}(0)\quad\text{term-by-term},
+\]</span></p>
+<p>so summing over <span class="math inline">\(t\)</span> gives <span class="math inline">\(\sum_t a_{it}b_{tj}=F_{ij}(0)=\delta_{ij}\)</span>. Therefore <span class="math inline">\(AB=I\)</span> and <span class="math inline">\(B\)</span> is indeed <span class="math inline">\(A^{-1}\)</span>. This is exactly the identity Knuth hints at and then proves directly via the same interpolation idea.</p>
+</section>
+<section id="m18" class="level3">
+<h3 class="anchored" data-anchor-id="m18">42 [M18]</h3>
+<p>Let <span class="math inline">\(I\)</span> be the <span class="math inline">\(n\times n\)</span> identity matrix and <span class="math inline">\(J\)</span> the <span class="math inline">\(n\times n\)</span> all-ones matrix. For scalars <span class="math inline">\(x,y\)</span> with <span class="math inline">\(x\neq 0\)</span> and <span class="math inline">\(x+ny\neq 0\)</span>, find the <strong>sum of all entries</strong> of <span class="math inline">\((xI+yJ)^{-1}\)</span>.</p>
+<p>Solution 1 — Eigenvector (one-liner once you see it)</p>
+<p>Observe that the all-ones vector <span class="math inline">\(\mathbf{1}=(1,1,\dots,1)^{\mathsf T}\)</span> is an eigenvector of <span class="math inline">\(J\)</span> with eigenvalue <span class="math inline">\(n\)</span>, hence of <span class="math inline">\(xI+yJ\)</span> with eigenvalue</p>
+<p><span class="math display">\[
+(xI+yJ)\mathbf{1}=x\mathbf{1}+y\,J\mathbf{1}=x\mathbf{1}+y(n\mathbf{1})=(x+ny)\mathbf{1}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+(xI+yJ)^{-1}\mathbf{1}=\frac{1}{x+ny}\,\mathbf{1}.
+\]</span></p>
+<p>The <strong>sum of the entries in row <span class="math inline">\(i\)</span> of <span class="math inline">\((xI+yJ)^{-1}\)</span></strong> is exactly the <span class="math inline">\(i\)</span>-th component of <span class="math inline">\((xI+yJ)^{-1}\mathbf{1}\)</span>, i.e.&nbsp;<span class="math inline">\(1/(x+ny)\)</span>. Summing those row-sums over all <span class="math inline">\(n\)</span> rows gives</p>
+<p><span class="math display">\[
+\boxed{\;\sum_{i,j} \big((xI+yJ)^{-1}\big)_{ij} \;=\; \frac{n}{x+ny}\; }.
+\]</span></p>
+<p>This matches the book’s answer. </p>
+<p>Solution 2 — Sherman–Morrison / explicit inverse (and cross-check)</p>
+<p>Use the rank-one inverse identity with <span class="math inline">\(A=xI\)</span>, <span class="math inline">\(u=v=\sqrt{y}\,\mathbf{1}\)</span>:</p>
+<p><span class="math display">\[
+(A+uv^{\mathsf T})^{-1}
+= A^{-1}-\frac{A^{-1}u\,v^{\mathsf T}A^{-1}}{1+v^{\mathsf T}A^{-1}u}
+\;=\; \frac1x I - \frac{y}{x^2}\cdot \frac{\mathbf{1}\mathbf{1}^{\mathsf T}}{1+\frac{y}{x}\, \mathbf{1}^{\mathsf T}\mathbf{1}}
+\;=\; \frac1x I - \frac{y}{x(x+ny)}\,\mathbf{1}\mathbf{1}^{\mathsf T}.
+\]</span></p>
+<p>Summing all entries:</p>
+<p><span class="math display">\[
+\sum_{i,j}\Big(\frac1x I\Big)_{ij} = \frac{n}{x},\qquad
+\sum_{i,j}\Big(\frac{y}{x(x+ny)}\,\mathbf{1}\mathbf{1}^{\mathsf T}\Big)_{ij} = \frac{y}{x(x+ny)}\,n^2,
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+\sum_{i,j} (xI+yJ)^{-1}_{ij} = \frac{n}{x} - \frac{y n^2}{x(x+ny)} = \frac{n}{x+ny}.
+\]</span></p>
+<p>(As a related identity appearing in the exercise cluster, Knuth notes <span class="math inline">\((xI+yJ)\big((x+ny)I-yJ\big)=x(x+ny)I\)</span>, from which the inverse formula is immediate. )</p>
+<p>Checks and conditions</p>
+<ul>
+<li><strong>Invertibility</strong>: requires <span class="math inline">\(x\neq 0\)</span> and <span class="math inline">\(x+ny\neq 0\)</span> (these are exactly the eigenvalues).</li>
+<li><strong>Sanity checks</strong>: • If <span class="math inline">\(y=0\)</span>, matrix is <span class="math inline">\(xI\Rightarrow\)</span> inverse is <span class="math inline">\((1/x)I\Rightarrow\)</span> sum <span class="math inline">\(=n/x\)</span>, which equals <span class="math inline">\(n/(x+0\cdot n)\)</span>. • If <span class="math inline">\(n=1\)</span>, matrix is <span class="math inline">\([x+y]\Rightarrow\)</span> inverse has sum <span class="math inline">\(=1/(x+y)=n/(x+ny)\)</span>.</li>
+</ul>
+<p>Thus the sum of all entries of <span class="math inline">\((xI+yJ)^{-1}\)</span> is indeed <span class="math inline">\(\boxed{n/(x+ny)}\)</span>.</p>
+</section>
+<section id="m24-2" class="level3">
+<h3 class="anchored" data-anchor-id="m24-2">43 [M24]</h3>
+<p>Let <span class="math inline">\(V\)</span> be the <span class="math inline">\(n\times n\)</span> Vandermonde matrix</p>
+<p><span class="math display">\[
+V=\big[x_j^{\,i}\big]_{1\le i,j\le n}
+\quad\text{(so its rows are }(x_1,\dots,x_n),(x_1^2,\dots,x_n^2),\dots,(x_1^n,\dots,x_n^n)\text{).}
+\]</span></p>
+<p>What is the sum of all <span class="math inline">\(n^2\)</span> entries of <span class="math inline">\(V^{-1}\)</span>?</p>
+<p>Step 1: A usable formula for <span class="math inline">\(V^{-1}\)</span></p>
+<p>A convenient description (stated in Ex. 40) is</p>
+<p><span class="math display">\[
+(V^{-1})_{ij}
+=\frac{[x^{\,j-1}]\;\displaystyle\prod_{k\ne i}(x_k-x)}{x_i\;\displaystyle\prod_{k\ne i}(x_k-x_i)}\,,
+\quad 1\le i,j\le n,
+\]</span></p>
+<p>i.e.&nbsp;the numerator is the coefficient of <span class="math inline">\(x^{j-1}\)</span> in <span class="math inline">\(\prod_{k\ne i}(x_k-x)\)</span>. (This is exactly the “coefficient of <span class="math inline">\(x^{j-1}\)</span>” description given under Ex. 40.)</p>
+<p>Step 2: Sum across each row</p>
+<p>For fixed <span class="math inline">\(i\)</span>, the row-sum is</p>
+<p><span class="math display">\[
+R_i=\sum_{j=1}^n (V^{-1})_{ij}
+=\frac{\sum_{j=1}^n [x^{\,j-1}]\prod_{k\ne i}(x_k-x)}{x_i\prod_{k\ne i}(x_k-x_i)}
+=\frac{\left.\prod_{k\ne i}(x_k-x)\right|_{x=1}}{x_i\prod_{k\ne i}(x_k-x_i)}
+=\frac{\prod_{k\ne i}(x_k-1)}{x_i\prod_{k\ne i}(x_k-x_i)}.
+\]</span></p>
+<p>(The sum of coefficients of a polynomial equals its value at <span class="math inline">\(x=1\)</span>.)</p>
+<p>Step 3: Sum all entries and simplify (Lagrange view)</p>
+<p>Hence the total sum is</p>
+<p><span class="math display">\[
+S=\sum_{i=1}^n R_i
+=\sum_{i=1}^n \frac{1}{x_i}\,\frac{\prod_{k\ne i}(x_k-1)}{\prod_{k\ne i}(x_k-x_i)}
+=\sum_{i=1}^n \frac{1}{x_i}\,L_i(1),
+\]</span></p>
+<p>where <span class="math inline">\(L_i(t)=\prod_{k\ne i}\dfrac{t-x_k}{x_i-x_k}\)</span> are the Lagrange basis polynomials.</p>
+<p>Consider the degree-<span class="math inline">\(\le n-1\)</span> polynomial</p>
+<p><span class="math display">\[
+g(t)=\sum_{i=1}^n \frac{1}{x_i}\,L_i(t).
+\]</span></p>
+<p>By construction, <span class="math inline">\(g(x_i)=\frac1{x_i}\)</span> for all <span class="math inline">\(i\)</span>. The polynomial</p>
+<p><span class="math display">\[
+h(t)=\frac{1-\prod_{k=1}^n\left(1-\frac{t}{x_k}\right)}{t}
+\]</span></p>
+<p>also has degree <span class="math inline">\(\le n-1\)</span> and satisfies <span class="math inline">\(h(x_i)=\frac1{x_i}\)</span> (the product vanishes at <span class="math inline">\(t=x_i\)</span>). Therefore <span class="math inline">\(g\equiv h\)</span> by uniqueness of Lagrange interpolation (cf.&nbsp;the Lagrange-sum identities highlighted in Ex. 33). Evaluating at <span class="math inline">\(t=1\)</span> gives</p>
+<p><span class="math display">\[
+S=g(1)=h(1)
+=1-\prod_{k=1}^n\Bigl(1-\frac{1}{x_k}\Bigr)
+=1-\frac{\prod_{k=1}^n(x_k-1)}{\prod_{k=1}^n x_k}.
+\]</span></p>
+<p>(Ex. 33 sets up exactly these Lagrange-basis manipulations. )</p>
+<p>Final result (two equivalent forms)</p>
+<p><span class="math display">\[
+\boxed{\,\displaystyle
+\sum_{i=1}^n\sum_{j=1}^n (V^{-1})_{ij}
+=1-\prod_{k=1}^n\!\left(1-\frac{1}{x_k}\right)
+= \sum_{r=1}^{n}(-1)^{r-1}\!\!\sum_{1\le i_1&lt;\cdots&lt;i_r\le n}\frac{1}{x_{i_1}\cdots x_{i_r}}\,.
+}
+\]</span></p>
+<p>The first form is the clean product; the second is the alternating sum of the elementary symmetric functions in <span class="math inline">\(1/x_k\)</span>.</p>
+<p>Sanity check (small <span class="math inline">\(n\)</span>)</p>
+<p>For <span class="math inline">\(n=2\)</span>, <span class="math inline">\(V=\begin{bmatrix}x_1&amp;x_2\\ x_1^2&amp;x_2^2\end{bmatrix}\)</span>. One computes</p>
+<p><span class="math display">\[
+\sum (V^{-1})_{ij}=1-\Bigl(1-\tfrac1{x_1}\Bigr)\Bigl(1-\tfrac1{x_2}\Bigr)=\frac{1}{x_1}+\frac{1}{x_2}-\frac{1}{x_1x_2},
+\]</span></p>
+<p>matching the boxed formula.</p>
+</section>
+<section id="m26-1" class="level3">
+<h3 class="anchored" data-anchor-id="m26-1">44 [M26]</h3>
+<p>Let <span class="math inline">\(A\)</span> be the <span class="math inline">\(n\times n\)</span> <strong>Cauchy matrix</strong></p>
+<p><span class="math display">\[
+A_{ij}=\frac{1}{x_i+y_j}\qquad (1\le i,j\le n),
+\]</span></p>
+<p>with all <span class="math inline">\(x_i\)</span> distinct, all <span class="math inline">\(y_j\)</span> distinct, and <span class="math inline">\(x_i+y_j\neq0\)</span>. Find the sum of all <span class="math inline">\(n^2\)</span> entries of <span class="math inline">\(A^{-1}\)</span>. </p>
+<p>Tooling you’re allowed to use</p>
+<p>Exercise 41 on the same page gives the entries of the inverse of a Cauchy matrix:</p>
+<p><span class="math display">\[
+(A^{-1})_{ij}
+=\frac{\displaystyle\prod_{k=1}^n(x_j+y_k)\;\prod_{k=1}^n(x_k+y_i)}
+{(x_j+y_i)\;\displaystyle\prod_{k\ne j}(x_j-x_k)\;\prod_{k\ne i}(y_i-y_k)}.
+\tag{★}
+\]</span></p>
+<p>We’ll use this formula as a starting point.</p>
+<p>Step 1: Separate variables</p>
+<p>From (★) define</p>
+<p><span class="math display">\[
+\mu_j=\frac{\prod_{k=1}^n(x_j+y_k)}{\prod_{k\ne j}(x_j-x_k)},
+\qquad
+\nu_i=\frac{\prod_{k=1}^n(x_k+y_i)}{\prod_{k\ne i}(y_i-y_k)}.
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+(A^{-1})_{ij}=\frac{\mu_j\,\nu_i}{x_j+y_i}.
+\]</span></p>
+<p>Hence the sum of all entries is</p>
+<p><span class="math display">\[
+S=\sum_{i=1}^n\sum_{j=1}^n (A^{-1})_{ij}
+=\sum_{j=1}^n \mu_j\,\Bigl(\sum_{i=1}^n \frac{\nu_i}{x_j+y_i}\Bigr).
+\tag{1}
+\]</span></p>
+<p>Step 2: A barycentric/Lagrange identity</p>
+<p>Set</p>
+<p><span class="math display">\[
+\Phi_x(t)=\prod_{k=1}^n (t-x_k),\qquad
+\Phi_y(t)=\prod_{k=1}^n (t+y_k).
+\]</span></p>
+<p>Consider the rational function</p>
+<p><span class="math display">\[
+F(t)=\sum_{i=1}^n \frac{\nu_i}{t+y_i}.
+\]</span></p>
+<p>Multiplying by <span class="math inline">\(\Phi_y(t)\)</span> gives a degree-<span class="math inline">\(\le n-1\)</span> polynomial</p>
+<p><span class="math display">\[
+\Phi_y(t)F(t)=\sum_{i=1}^n \nu_i\!\!\prod_{k\ne i}(t+y_k),
+\]</span></p>
+<p>which is the Lagrange interpolation polynomial that equals <span class="math inline">\(\Phi_x(-y_i)\)</span> at the points <span class="math inline">\(t=-y_i\)</span>. Because <span class="math inline">\(\Phi_x\)</span> and <span class="math inline">\(\Phi_y\)</span> are both monic of degree <span class="math inline">\(n\)</span>, the remainder of <span class="math inline">\(\Phi_x(t)\)</span> on division by <span class="math inline">\(\Phi_y(t)\)</span> is <span class="math inline">\(\Phi_x(t)-\Phi_y(t)\)</span>. Thus</p>
+<p><span class="math display">\[
+\Phi_y(t)F(t)=\Phi_x(t)-\Phi_y(t)\quad\Rightarrow\quad
+F(t)=1-\frac{\Phi_x(t)}{\Phi_y(t)}.
+\]</span></p>
+<p>Evaluating at <span class="math inline">\(t=x_j\)</span> gives <span class="math inline">\(F(x_j)=1\)</span>, since <span class="math inline">\(\Phi_x(x_j)=0\)</span>. Plugging into (1),</p>
+<p><span class="math display">\[
+S=\sum_{j=1}^n \mu_j. \tag{2}
+\]</span></p>
+<p>Step 3: Sum of the <span class="math inline">\(\mu_j\)</span></p>
+<p>By Lagrange’s formula,</p>
+<p><span class="math display">\[
+\mu_j=\frac{\Phi_y(x_j)}{\Phi_x'(x_j)}.
+\]</span></p>
+<p>A standard coefficient trick now yields</p>
+<p><span class="math display">\[
+\sum_{j=1}^n \mu_j
+=\text{(coefficient of }t^{\,n-1}\text{ in }\Phi_y(t)-\Phi_x(t)).
+\]</span></p>
+<p>But</p>
+<p><span class="math display">\[
+\Phi_y(t)=t^n+\Bigl(\sum_{k=1}^n y_k\Bigr)t^{n-1}+\cdots,
+\qquad
+\Phi_x(t)=t^n-\Bigl(\sum_{k=1}^n x_k\Bigr)t^{n-1}+\cdots,
+\]</span></p>
+<p>so the <span class="math inline">\(t^{n-1}\)</span>-coefficient of <span class="math inline">\(\Phi_y-\Phi_x\)</span> is</p>
+<p><span class="math display">\[
+\sum_{k=1}^n y_k+\sum_{k=1}^n x_k.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+S=\sum_{i,j}(A^{-1})_{ij}=\sum_{k=1}^n x_k+\sum_{k=1}^n y_k.
+\]</span></p>
+<p>Result (and a check)</p>
+<p><span class="math display">\[
+\boxed{\displaystyle \sum_{i=1}^n\sum_{j=1}^n (A^{-1})_{ij}
+=\Bigl(\sum_{i=1}^n x_i\Bigr)+\Bigl(\sum_{j=1}^n y_j\Bigr).}
+\]</span></p>
+<p>As a sanity check, Exercise 45 asks for the Hilbert case <span class="math inline">\(A_{ij}=1/(i+j-1)\)</span>, which corresponds to <span class="math inline">\(x_i=i-1,\;y_j=j\)</span>. The formula gives</p>
+<p><span class="math display">\[
+\sum (A^{-1})_{ij}=\sum_{i=1}^n(i-1)+\sum_{j=1}^n j
+=\frac{n(n-1)}{2}+\frac{n(n+1)}{2}=n^2,
+\]</span></p>
+<p>matching the stated result.</p>
+</section>
+<section id="m25-3" class="level3">
+<h3 class="anchored" data-anchor-id="m25-3">45 [M25]</h3>
+</section>
+<section id="m30-2" class="level3">
+<h3 class="anchored" data-anchor-id="m30-2">46 [M30]</h3>
+<p>For an <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(A\)</span> and an <span class="math inline">\(n\times m\)</span> matrix <span class="math inline">\(B\)</span>,</p>
+<p><span class="math display">\[
+\det(AB)
+=\sum_{1\le j_1&lt;\cdots&lt;j_m\le n}
+\det\!\big(A_{j_1\ldots j_m}\big)\,
+\det\!\big(B_{j_1\ldots j_m}\big),
+\]</span></p>
+<p>where <span class="math inline">\(A_{j_1\ldots j_m}\)</span> is the <span class="math inline">\(m\times m\)</span> submatrix of <span class="math inline">\(A\)</span> formed by columns <span class="math inline">\(j_1,\ldots,j_m\)</span> and <span class="math inline">\(B_{j_1\ldots j_m}\)</span> is the <span class="math inline">\(m\times m\)</span> submatrix of <span class="math inline">\(B\)</span> formed by rows <span class="math inline">\(j_1,\ldots,j_m\)</span>. (See the statement in the book for the same notation and suggested special cases.) </p>
+<p>Proof (by multilinearity and alternation of the determinant)</p>
+<p>Let <span class="math inline">\(C=AB\)</span> (so <span class="math inline">\(C\)</span> is <span class="math inline">\(m\times m\)</span>). Denote the <span class="math inline">\(k\)</span>-th column of <span class="math inline">\(A\)</span> by <span class="math inline">\(A^{(k)}\)</span>, and the <span class="math inline">\(r\)</span>-th column of <span class="math inline">\(C\)</span> by <span class="math inline">\(C^{(r)}\)</span>. Because matrix multiplication forms columns as linear combinations of the columns of <span class="math inline">\(A\)</span>,</p>
+<p><span class="math display">\[
+C^{(r)}=\sum_{k=1}^{n} b_{k r}\,A^{(k)}\qquad(1\le r\le m),
+\]</span></p>
+<p>where <span class="math inline">\(b_{kr}\)</span> are the entries of <span class="math inline">\(B\)</span>.</p>
+<p>Using that the determinant is multilinear in the columns,</p>
+<p><span class="math display">\[
+\det(C)
+=\det\!\big(C^{(1)},\ldots,C^{(m)}\big)
+=\sum_{k_1,\ldots,k_m=1}^{n}
+\Big(\prod_{r=1}^{m} b_{k_r r}\Big)\,
+\det\!\big(A^{(k_1)},\ldots,A^{(k_m)}\big).
+\tag{*}
+\]</span></p>
+<ol type="1">
+<li><p><strong>Only distinct index <span class="math inline">\(m\)</span>-tuples contribute.</strong> If any two of <span class="math inline">\(k_1,\ldots,k_m\)</span> coincide, two columns in <span class="math inline">\(\det\big(A^{(k_1)},\ldots,A^{(k_m)}\big)\)</span> are equal, so that term is <span class="math inline">\(0\)</span> by alternation. Hence we may restrict to <span class="math inline">\(m\)</span>-tuples with <em>distinct</em> indices.</p></li>
+<li><p><strong>Group by the unordered set <span class="math inline">\(J=\{j_1&lt;\cdots&lt;j_m\}\)</span>.</strong> Fix such a set <span class="math inline">\(J\)</span>. The surviving terms in <span class="math inline">\((*)\)</span> that use exactly these indices are parameterized by permutations <span class="math inline">\(\pi\in S_m\)</span>:</p></li>
+</ol>
+<p><span class="math display">\[
+\det\!\big(A^{(j_{\pi(1)})},\ldots,A^{(j_{\pi(m)})}\big)\,
+\prod_{r=1}^{m} b_{j_{\pi(r)}\, r}.
+\]</span></p>
+<p>By alternation,</p>
+<p><span class="math display">\[
+\det\!\big(A^{(j_{\pi(1)})},\ldots,A^{(j_{\pi(m)})}\big)
+=\operatorname{sgn}(\pi)\,\det\!\big(A^{(j_{1})},\ldots,A^{(j_{m})}\big).
+\]</span></p>
+<ol start="3" type="1">
+<li><strong>Recognize a determinant of a submatrix of <span class="math inline">\(B\)</span>.</strong> Let <span class="math inline">\(M(J)\)</span> be the <span class="math inline">\(m\times m\)</span> matrix with entries <span class="math inline">\(M(J)_{s,r}=b_{j_s\, r}\)</span> (i.e., the submatrix of <span class="math inline">\(B\)</span> consisting of rows <span class="math inline">\(j_1,\ldots,j_m\)</span>; this is exactly <span class="math inline">\(B_{j_1\ldots j_m}\)</span>). Then</li>
+</ol>
+<p><span class="math display">\[
+\det\big(M(J)\big)
+=\sum_{\pi\in S_m}\operatorname{sgn}(\pi)\prod_{r=1}^{m} b_{j_{\pi(r)}\, r}.
+\]</span></p>
+<p>Therefore the total contribution from the fixed set <span class="math inline">\(J\)</span> equals</p>
+<p><span class="math display">\[
+\det\!\big(A_{j_1\ldots j_m}\big)\cdot\det\!\big(B_{j_1\ldots j_m}\big).
+\]</span></p>
+<ol start="4" type="1">
+<li><strong>Sum over all <span class="math inline">\(J\)</span>.</strong> Summing these contributions over all <span class="math inline">\(1\le j_1&lt;\cdots&lt;j_m\le n\)</span> yields precisely the right-hand side of the identity, proving the formula.</li>
+</ol>
+<p><span class="math inline">\(\square\)</span></p>
+<p>Sanity checks / special cases</p>
+<ul>
+<li><strong><span class="math inline">\(m=n\)</span>.</strong> There is only the single set <span class="math inline">\(J=\{1,\ldots,n\}\)</span>, so the identity reduces to <span class="math inline">\(\det(AB)=\det(A)\det(B)\)</span>.</li>
+<li><strong><span class="math inline">\(m=1\)</span>.</strong> Then <span class="math inline">\(\det(AB)\)</span> equals the dot product of the <span class="math inline">\(1\times n\)</span> row of <span class="math inline">\(A\)</span> with the <span class="math inline">\(n\times 1\)</span> column of <span class="math inline">\(B\)</span>; the right side is <span class="math inline">\(\sum_{j=1}^{n} a_{1j}b_{j1}\)</span>.</li>
+<li><strong><span class="math inline">\(B=A^{\mathsf T}\)</span>.</strong> We get <span class="math inline">\(\det(AA^{\mathsf T})=\displaystyle\sum_{J}\big(\det A_{J}\big)^2\)</span>, the classic Gram determinant identity.</li>
+<li><strong><span class="math inline">\(m&gt;n\)</span>.</strong> There are no <span class="math inline">\(m\)</span>-subsets <span class="math inline">\(J\)</span> of <span class="math inline">\(\{1,\dots,n\}\)</span>, so the sum is empty (0); indeed <span class="math inline">\(\operatorname{rank}(AB)\le n&lt;m\Rightarrow \det(AB)=0\)</span>.</li>
+<li><strong><span class="math inline">\(m=2\)</span>.</strong> The formula becomes <span class="math inline">\(\det(AB)=\sum_{1\le i&lt;j\le n}\det(A^{(i)},A^{(j)})\,\det\big(\text{rows }i,j\text{ of }B\big)\)</span>, helpful when expanding by <span class="math inline">\(2\times2\)</span> minors.</li>
+</ul>
+</section>
+<section id="m27" class="level3">
+<h3 class="anchored" data-anchor-id="m27">47 [M27]</h3>
+<p>For an integer <span class="math inline">\(k\)</span>, prove</p>
+<p><span class="math display">\[
+\binom{r}{k}\binom{r-\tfrac12}{k}
+= \frac{1}{4^k}\binom{2r}{k}\binom{2r-k}{k}
+= \frac{1}{4^k}\binom{2r}{2k}\binom{2k}{k},
+\]</span></p>
+<p>and give a simpler closed form when <span class="math inline">\(r=-\tfrac12\)</span>. </p>
+<p>We use the product (falling–factorial) definition of generalized binomial coefficients for real <span class="math inline">\(r\)</span> and integer <span class="math inline">\(k\ge0\)</span>:</p>
+<p><span class="math display">\[
+\binom{r}{k}=\frac{r(r-1)\cdots(r-k+1)}{k!}.
+\]</span></p>
+<ol type="1">
+<li>Multiply the two binomials and pair terms:</li>
+</ol>
+<p><span class="math display">\[
+\binom{r}{k}\binom{r-\tfrac12}{k}
+=\frac{\displaystyle\prod_{j=0}^{k-1}(r-j)(r-\tfrac12-j)}{(k!)^2}.
+\]</span></p>
+<p>For each <span class="math inline">\(j\)</span>,</p>
+<p><span class="math display">\[
+(r-j)\Bigl(r-\tfrac12-j\Bigr)
+=\frac{\bigl(2r-2j\bigr)\bigl(2r-(2j+1)\bigr)}{4}.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\binom{r}{k}\binom{r-\tfrac12}{k}
+=\frac{1}{4^k}\cdot
+\frac{\displaystyle\prod_{j=0}^{k-1}(2r-2j)(2r-(2j+1))}{(k!)^2}.
+\]</span></p>
+<p>But</p>
+<p><span class="math display">\[
+\prod_{j=0}^{k-1}(2r-2j)(2r-(2j+1))
+=\prod_{m=0}^{2k-1}(2r-m)=(2r)^{\underline{2k}},
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+\binom{r}{k}\binom{r-\tfrac12}{k}
+=\frac{1}{4^k}\cdot\frac{(2r)^{\underline{2k}}}{(k!)^2}
+=\frac{1}{4^k}\binom{2r}{2k}\cdot\frac{(2k)!}{(k!)^2}
+=\frac{1}{4^k}\binom{2r}{2k}\binom{2k}{k}.
+\]</span></p>
+<p>This proves the right-hand equality.</p>
+<ol start="2" type="1">
+<li>Convert <span class="math inline">\(\binom{2r}{2k}\binom{2k}{k}\)</span> to <span class="math inline">\(\binom{2r}{k}\binom{2r-k}{k}\)</span> using the standard identity</li>
+</ol>
+<p><span class="math display">\[
+\binom{r}{m}\binom{m}{k}=\binom{r}{k}\binom{r-k}{m-k}
+\qquad(\text{integers }m,k),
+\]</span></p>
+<p>with <span class="math inline">\(r\mapsto 2r\)</span> and <span class="math inline">\(m\mapsto 2k\)</span>. Thus</p>
+<p><span class="math display">\[
+\binom{2r}{2k}\binom{2k}{k}
+=\binom{2r}{k}\binom{2r-k}{k},
+\]</span></p>
+<p>giving the left-hand equality as well. </p>
+<ol start="3" type="1">
+<li>Special case <span class="math inline">\(r=-\tfrac12\)</span>. Plugging <span class="math inline">\(r=-\tfrac12\)</span> into the proven formula,</li>
+</ol>
+<p><span class="math display">\[
+\binom{-\tfrac12}{k}\binom{-1}{k}
+=\frac{1}{4^k}\binom{-1}{2k}\binom{2k}{k}.
+\]</span></p>
+<p>For integers <span class="math inline">\(n\ge0\)</span>, <span class="math inline">\(\binom{-1}{n}=(-1)^n\)</span>. Hence <span class="math inline">\(\binom{-1}{2k}=1\)</span> and <span class="math inline">\(\binom{-1}{k}=(-1)^k\)</span>. Therefore</p>
+<p><span class="math display">\[
+\binom{-\tfrac12}{k}\,(-1)^k=\frac{1}{4^k}\binom{2k}{k}
+\quad\Longrightarrow\quad
+\boxed{\displaystyle \binom{-\tfrac12}{k}=(-1)^k\,\frac{1}{4^k}\binom{2k}{k}}.
+\]</span></p>
+<p>This is the desired “simpler formula” in the <span class="math inline">\(r=-\tfrac12\)</span> case. (It is also the well-known central-binomial closed form used repeatedly later.)</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.2.2.html" class="pagination-link" aria-label="1.2.2 Numbers, powers, and logarithms">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.2.4.html" class="pagination-link" aria-label="1.2.4 Integer functions and elementary number theory">
+        <span class="nav-page-text"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

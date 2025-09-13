@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.2.5 Permutations and factorials – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.2.6.html" rel="next">
+<link href="../vol-1/1.2.4.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.2.5.html"><span class="chapter-title">1.2.5 Permutations and factorials</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [00]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [10]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3 [10]</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4 [13]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">5 [15]</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">6 [17]</a></li>
+  <li><a href="#m10" id="toc-m10" class="nav-link" data-scroll-target="#m10">7 [M10]</a></li>
+  <li><a href="#hm15" id="toc-hm15" class="nav-link" data-scroll-target="#hm15">8 [HM15]</a></li>
+  <li><a href="#m10-1" id="toc-m10-1" class="nav-link" data-scroll-target="#m10-1">9 [M10]</a></li>
+  <li><a href="#hm20" id="toc-hm20" class="nav-link" data-scroll-target="#hm20">10 [HM20]</a></li>
+  <li><a href="#m15" id="toc-m15" class="nav-link" data-scroll-target="#m15">11 [M15]</a></li>
+  <li><a href="#m22" id="toc-m22" class="nav-link" data-scroll-target="#m22">12 [M22]</a></li>
+  <li><a href="#check" id="toc-check" class="nav-link" data-scroll-target="#check">Check</a></li>
+  <li><a href="#m22-1" id="toc-m22-1" class="nav-link" data-scroll-target="#m22-1">13 [M22]</a></li>
+  <li><a href="#m28" id="toc-m28" class="nav-link" data-scroll-target="#m28">14 [M28]</a></li>
+  <li><a href="#hm15-1" id="toc-hm15-1" class="nav-link" data-scroll-target="#hm15-1">15 [HM15]</a></li>
+  <li><a href="#hm15-2" id="toc-hm15-2" class="nav-link" data-scroll-target="#hm15-2">16 [HM15]</a></li>
+  <li><a href="#hm20-1" id="toc-hm20-1" class="nav-link" data-scroll-target="#hm20-1">17 [HM20]</a></li>
+  <li><a href="#m20" id="toc-m20" class="nav-link" data-scroll-target="#m20">18 [M20]</a></li>
+  <li><a href="#hm22" id="toc-hm22" class="nav-link" data-scroll-target="#hm22">19 [HM22]</a></li>
+  <li><a href="#hm21" id="toc-hm21" class="nav-link" data-scroll-target="#hm21">20 [HM21]</a></li>
+  <li><a href="#hm25" id="toc-hm25" class="nav-link" data-scroll-target="#hm25">21 [HM25]</a></li>
+  <li><a href="#hm20-2" id="toc-hm20-2" class="nav-link" data-scroll-target="#hm20-2">22 [HM20]</a></li>
+  <li><a href="#hm20-3" id="toc-hm20-3" class="nav-link" data-scroll-target="#hm20-3">23 [HM20]</a></li>
+  <li><a href="#hm21-1" id="toc-hm21-1" class="nav-link" data-scroll-target="#hm21-1">24 [HM21]</a></li>
+  <li><a href="#m20-1" id="toc-m20-1" class="nav-link" data-scroll-target="#m20-1">25 [M20]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.2.5 Permutations and factorials</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1 [00]</h3>
+<p>Think of building the deck from top to bottom:</p>
+<ul>
+<li>For the first position you can choose any of the 52 cards.</li>
+<li>For the second position you can choose any of the remaining 51 cards.</li>
+<li>…</li>
+<li>For the last position only 1 card remains.</li>
+</ul>
+<p>By the rule of product, the total number of permutations is</p>
+<p><span class="math display">\[
+52 \times 51 \times 50 \times \cdots \times 2 \times 1 \;=\; 52!\,.
+\]</span></p>
+<p>That is the exact count.</p>
+<p>(Optional) Sanity checks &amp; useful facts</p>
+<ul>
+<li><p><strong>Exact integer (computed):</strong></p>
+<p><span class="math display">\[
+52! = 80658175170943878571660636856403766975289505440883277824000000000000.
+\]</span></p></li>
+<li><p><strong>Number of digits:</strong> <span class="math inline">\(52!\)</span> has 68 decimal digits.</p></li>
+<li><p><strong>Trailing zeros:</strong> The number of trailing zeros equals the number of factors of 5 in <span class="math inline">\(52!\)</span>:</p>
+<p><span class="math display">\[
+\left\lfloor \frac{52}{5} \right\rfloor + \left\lfloor \frac{52}{25} \right\rfloor
+= 10 + 2 = 12,
+\]</span></p>
+<p>so <span class="math inline">\(52!\)</span> ends with 12 zeros.</p></li>
+<li><p><strong>Magnitude (Stirling’s approximation):</strong></p>
+<p><span class="math display">\[
+52! \approx \sqrt{2\pi\cdot 52}\,\Big(\frac{52}{e}\Big)^{52}
+\approx 8.0658\times 10^{67},
+\]</span></p>
+<p>which agrees with the leading digits shown above.</p></li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2 [10]</h3>
+<p>Claim (the recurrence)</p>
+<p><span class="math display">\[
+p_n^k \;=\; p_n^{\,k-1}\,(n-k+1).
+\]</span></p>
+<p>Combinatorial proof</p>
+<p>Build a <span class="math inline">\(k\)</span>-long arrangement left to right.</p>
+<ul>
+<li>First fill the first <span class="math inline">\(k-1\)</span> positions in any valid way; there are <span class="math inline">\(p_n^{\,k-1}\)</span> such partial arrangements by definition.</li>
+<li>After placing <span class="math inline">\(k-1\)</span> <em>distinct</em> objects, exactly <span class="math inline">\(n-(k-1)=n-k+1\)</span> objects remain unused, and any of them can go to the last position.</li>
+</ul>
+<p>By the multiplication principle,</p>
+<p><span class="math display">\[
+p_n^k = \bigl(\text{\# ways to fill first \(k-1\) spots}\bigr)\times \bigl(\text{\# choices for last spot}\bigr)
+= p_n^{\,k-1}(n-k+1),
+\]</span></p>
+<p>as claimed.</p>
+<p>Inductive derivation of the closed form</p>
+<p>Using the recurrence repeatedly,</p>
+<p><span class="math display">\[
+p_n^k
+= (n-k+1)\,p_n^{\,k-1}
+= (n-k+1)(n-k+2)\,p_n^{\,k-2}
+= \cdots
+= n(n-1)\cdots(n-k+1).
+\]</span></p>
+<p>Equivalently,</p>
+<p><span class="math display">\[
+p_n^k = \frac{n!}{(n-k)!}.
+\]</span></p>
+<p>Special case <span class="math inline">\(k=n\)</span></p>
+<p>When arranging <strong>all</strong> <span class="math inline">\(n\)</span> objects, the recurrence gives</p>
+<p><span class="math display">\[
+p_n^n = p_n^{\,n-1}(n-n+1)=p_n^{\,n-1}\cdot 1,
+\]</span></p>
+<p>which reflects the simple fact: <em>once the first <span class="math inline">\(n-1\)</span> places are fixed, the last object is forced (only one possibility remains).</em></p>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3 [10]</h3>
+<p>Method 1 (insert <span class="math inline">\(n\)</span> in every position)</p>
+<p><strong>Rule.</strong> Given a permutation <span class="math inline">\(a_1a_2\cdots a_{n-1}\)</span> of <span class="math inline">\(\{1,\dots,n-1\}\)</span>, insert <span class="math inline">\(n\)</span> in each of the <span class="math inline">\(n\)</span> possible positions. This yields <span class="math inline">\(n\)</span> permutations of <span class="math inline">\(\{1,\dots,n\}\)</span>. </p>
+<p>Apply to <span class="math inline">\(3\,1\,2\,4\)</span> with <span class="math inline">\(n=5\)</span> (five insertion positions):</p>
+<ol type="1">
+<li>before 3: <strong>5 3 1 2 4</strong></li>
+<li>between 3 and 1: <strong>3 5 1 2 4</strong></li>
+<li>between 1 and 2: <strong>3 1 5 2 4</strong></li>
+<li>between 2 and 4: <strong>3 1 2 5 4</strong></li>
+<li>after 4: <strong>3 1 2 4 5</strong></li>
+</ol>
+<p>So Method 1 produces: <strong>5 3 1 2 4, 3 5 1 2 4, 3 1 5 2 4, 3 1 2 5 4, 3 1 2 4 5.</strong></p>
+<p>Method 2 (order-preserving relabel + append <span class="math inline">\(k\)</span>)</p>
+<p><strong>Rule (equivalent forms).</strong> For each <span class="math inline">\(k\in\{1,\dots,n\}\)</span>, take a permutation <span class="math inline">\(a_1\cdots a_{n-1}\)</span> of <span class="math inline">\(\{1,\dots,n-1\}\)</span> and:</p>
+<ul>
+<li>increase by 1 every entry <span class="math inline">\(a_j\)</span> with <span class="math inline">\(a_j\ge k\)</span>; this relabels <span class="math inline">\(\{1,\dots,n-1\}\)</span> into <span class="math inline">\(\{1,\dots,k-1,k+1,\dots,n\}\)</span> <strong>while preserving order</strong>,</li>
+<li>then append <span class="math inline">\(k\)</span>. This yields <span class="math inline">\(n\)</span> permutations from each starting permutation. </li>
+</ul>
+<p>Apply to <span class="math inline">\(3\,1\,2\,4\)</span> (with <span class="math inline">\(n=5\)</span>):</p>
+<ul>
+<li><span class="math inline">\(k=1\)</span>: add 1 to all (since all <span class="math inline">\(\ge1\)</span>) → <span class="math inline">\(4\,2\,3\,5\)</span>; append 1 → <strong>4 2 3 5 1</strong></li>
+<li><span class="math inline">\(k=2\)</span>: add 1 to entries <span class="math inline">\(\ge2\)</span> → <span class="math inline">\(4\,1\,3\,5\)</span>; append 2 → <strong>4 1 3 5 2</strong></li>
+<li><span class="math inline">\(k=3\)</span>: add 1 to entries <span class="math inline">\(\ge3\)</span> → <span class="math inline">\(4\,1\,2\,5\)</span>; append 3 → <strong>4 1 2 5 3</strong></li>
+<li><span class="math inline">\(k=4\)</span>: add 1 to entries <span class="math inline">\(\ge4\)</span> → <span class="math inline">\(3\,1\,2\,5\)</span>; append 4 → <strong>3 1 2 5 4</strong></li>
+<li><span class="math inline">\(k=5\)</span>: no change → <span class="math inline">\(3\,1\,2\,4\)</span>; append 5 → <strong>3 1 2 4 5</strong></li>
+</ul>
+<p>So Method 2 produces: <strong>4 2 3 5 1, 4 1 3 5 2, 4 1 2 5 3, 3 1 2 5 4, 3 1 2 4 5.</strong></p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">4 [13]</h3>
+<ol type="1">
+<li>Number of decimal digits of <span class="math inline">\(1000!\)</span></li>
+</ol>
+<p>For any positive integer <span class="math inline">\(N\)</span>, the number of base-10 digits is</p>
+<p><span class="math display">\[
+\big\lfloor \log_{10} N \big\rfloor + 1.
+\]</span></p>
+<p>With <span class="math inline">\(N=1000!\)</span>,</p>
+<p><span class="math display">\[
+\log_{10}(1000!)=\sum_{k=1}^{1000}\log_{10}k.
+\]</span></p>
+<p>Evaluating (e.g., by high-precision arithmetic or tight Stirling bounds) gives</p>
+<p><span class="math display">\[
+\log_{10}(1000!) \approx 2567.604644\ldots
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+\text{digits} = \lfloor 2567.604644\ldots \rfloor + 1 = 2568.
+\]</span></p>
+<p>(You can also get this from Stirling’s formula with error bounds, which nails the integer part in this case; the book develops Stirling earlier in §1.2.5.)</p>
+<ol start="2" type="1">
+<li>Leading digit of <span class="math inline">\(1000!\)</span></li>
+</ol>
+<p>Write</p>
+<p><span class="math display">\[
+\log_{10}(1000!) = I + f, \quad I=\big\lfloor \log_{10}(1000!) \big\rfloor,\; f\in[0,1).
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+1000! = 10^{I+f} = 10^{I}\cdot 10^{f},\quad 10^{f}\in[1,10).
+\]</span></p>
+<p>The leading digit is <span class="math inline">\(\big\lfloor 10^{f}\big\rfloor\)</span>. From above <span class="math inline">\(f\approx 0.604644\)</span>, so <span class="math inline">\(10^{f}\approx 4.0238726\)</span>, hence the first digit is <span class="math inline">\(4\)</span>.</p>
+<p>(Heuristically, this matches the book’s remark that the mantissa is a bit above <span class="math inline">\(\log_{10}4\approx 0.60206\)</span>, therefore the leading digit is <span class="math inline">\(4\)</span>.)</p>
+<ol start="3" type="1">
+<li>Number of trailing zeros of <span class="math inline">\(1000!\)</span></li>
+</ol>
+<p>Trailing zeros in base 10 are contributed by factors of <span class="math inline">\(10=2\cdot 5\)</span>. In <span class="math inline">\(n!\)</span>, twos are plentiful, so the count is the exponent of <span class="math inline">\(5\)</span> in <span class="math inline">\(n!\)</span>:</p>
+<p><span class="math display">\[
+\nu_{5}(n!)=\sum_{k\ge 1}\left\lfloor \frac{n}{5^{k}}\right\rfloor.
+\]</span></p>
+<p>(This is the standard prime–power valuation formula developed as Eq. (8) in §1.2.5. )</p>
+<p>Compute for <span class="math inline">\(n=1000\)</span>:</p>
+<p><span class="math display">\[
+\left\lfloor \frac{1000}{5}\right\rfloor=200,\quad
+\left\lfloor \frac{1000}{25}\right\rfloor=40,\quad
+\left\lfloor \frac{1000}{125}\right\rfloor=8,\quad
+\left\lfloor \frac{1000}{625}\right\rfloor=1,
+\]</span></p>
+<p>and higher powers give <span class="math inline">\(0\)</span>. Summing:</p>
+<p><span class="math display">\[
+\nu_{5}(1000!)=200+40+8+1=249.
+\]</span></p>
+<p>Therefore <span class="math inline">\(1000!\)</span> ends with exactly <span class="math inline">\(249\)</span> zeros.</p>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">5 [15]</h3>
+<p>We’re asked to estimate <span class="math inline">\(8!\)</span> using the refined Stirling approximation</p>
+<p><span class="math display">\[
+n! \;\approx\; \sqrt{2\pi n}\,\Bigl(\frac{n}{e}\Bigr)^{n}\!\Bigl(1+\frac{1}{12n}\Bigr),
+\]</span></p>
+<p>Step 1: Base Stirling term</p>
+<p>For <span class="math inline">\(n=8\)</span>,</p>
+<p><span class="math display">\[
+\sqrt{2\pi n}\Bigl(\frac{n}{e}\Bigr)^n
+= \sqrt{16\pi}\,\Bigl(\frac{8}{e}\Bigr)^8
+\approx 39{,}902.395\;.
+\]</span></p>
+<p>(Indeed, Knuth’s numerical example rounds this to <span class="math inline">\(39902\)</span>.)</p>
+<p>Step 2: First correction factor</p>
+<p>The first correction multiplies by <span class="math inline">\(1+\dfrac{1}{12n}=1+\dfrac{1}{96}=\dfrac{97}{96}\)</span>:</p>
+<p><span class="math display">\[
+\widehat{8!}
+\;=\;
+\Bigl[\sqrt{2\pi n}\Bigl(\frac{n}{e}\Bigr)^n\Bigr]
+\Bigl(1+\frac{1}{12n}\Bigr)
+\;\approx\; 39{,}902.395\times\frac{97}{96}
+\;\approx\; 40{,}318.045\;.
+\]</span></p>
+<p>Rounding sensibly gives <span class="math inline">\(\boxed{40{,}318}\)</span>.</p>
+<p>Accuracy check</p>
+<p>The true value is <span class="math inline">\(8!=40{,}320\)</span>. Thus the error is about <span class="math inline">\(-1.955\)</span> (roughly <span class="math inline">\(-2\)</span>), i.e.,</p>
+<p><span class="math display">\[
+\frac{|\widehat{8!}-8!|}{8!}\;\approx\;4.85\times 10^{-5},
+\]</span></p>
+<p>a dramatic improvement over the <span class="math inline">\(\sim1\%\)</span> error of the uncorrected term.</p>
+<p>So the requested refined Stirling estimate for <span class="math inline">\(8!\)</span> is <span class="math inline">\(40{,}318\)</span>, within two of the exact value.</p>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">6 [17]</h3>
+<p>For a prime <span class="math inline">\(p\)</span>, the exponent <span class="math inline">\(\mu_p\)</span> of <span class="math inline">\(p\)</span> in <span class="math inline">\(n!\)</span> is</p>
+<p><span class="math display">\[
+\mu_p=\sum_{k&gt;0}\Big\lfloor \frac{n}{p^k}\Big\rfloor,
+\]</span></p>
+<p>i.e., count how many multiples of <span class="math inline">\(p,p^2,p^3,\dots\)</span> are <span class="math inline">\(\le n\)</span> and add them. (Eq. (8). )</p>
+<p>We apply this with <span class="math inline">\(n=20\)</span> and primes <span class="math inline">\(p\le 20\)</span>: <span class="math inline">\(2,3,5,7,11,13,17,19\)</span>.</p>
+<ul>
+<li><span class="math inline">\(p=2:\ \lfloor20/2\rfloor+\lfloor20/4\rfloor+\lfloor20/8\rfloor+\lfloor20/16\rfloor=10+5+2+1=18.\)</span></li>
+<li><span class="math inline">\(p=3:\ \lfloor20/3\rfloor+\lfloor20/9\rfloor=6+2=8.\)</span></li>
+<li><span class="math inline">\(p=5:\ \lfloor20/5\rfloor=4.\)</span></li>
+<li><span class="math inline">\(p=7:\ \lfloor20/7\rfloor=2.\)</span></li>
+<li><span class="math inline">\(p=11:\ \lfloor20/11\rfloor=1.\)</span></li>
+<li><span class="math inline">\(p=13:\ \lfloor20/13\rfloor=1.\)</span></li>
+<li><span class="math inline">\(p=17:\ \lfloor20/17\rfloor=1.\)</span></li>
+<li><span class="math inline">\(p=19:\ \lfloor20/19\rfloor=1.\)</span></li>
+</ul>
+<p>All higher powers contribute <span class="math inline">\(0\)</span>.</p>
+<p>Therefore the prime factorization is</p>
+<p><span class="math display">\[
+\boxed{20! = 2^{18}\,3^{8}\,5^{4}\,7^{2}\,11\,13\,17\,19.}
+\]</span></p>
+<p>This is exactly what the exercise asks for, using Eq. (8) from §1.2.5.</p>
+</section>
+<section id="m10" class="level3">
+<h3 class="anchored" data-anchor-id="m10">7 [M10]</h3>
+<ol type="1">
+<li>Convert the given datum to gamma notation. Since <span class="math inline">\(\left(\tfrac12\right)! = \Gamma\!\left(\tfrac32\right)\)</span>, the assumption gives</li>
+</ol>
+<p><span class="math display">\[
+\Gamma\!\left(\tfrac32\right) \;=\; \frac{\sqrt{\pi}}{2}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Use the recurrence <span class="math inline">\(\Gamma(x+1)=x\,\Gamma(x)\)</span> with <span class="math inline">\(x=\tfrac12\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\Gamma\!\left(\tfrac32\right) \;=\; \tfrac12\,\Gamma\!\left(\tfrac12\right).
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\Gamma\!\left(\tfrac12\right) \;=\; 2\,\Gamma\!\left(\tfrac32\right) \;=\; 2\cdot\frac{\sqrt{\pi}}{2} \;=\; \boxed{\sqrt{\pi}}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Use the same recurrence with <span class="math inline">\(x=-\tfrac12\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\Gamma\!\left(\tfrac12\right) \;=\; \Bigl(-\tfrac12\Bigr)\,\Gamma\!\left(-\tfrac12\right),
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+\Gamma\!\left(-\tfrac12\right) \;=\; \frac{\Gamma\!\left(\tfrac12\right)}{-\tfrac12}
+\;=\; \frac{\sqrt{\pi}}{-\tfrac12}
+\;=\; \boxed{-2\sqrt{\pi}}.
+\]</span></p>
+<p>These match Knuth’s official answers for §1.2.5–7 (“<span class="math inline">\(\sqrt{\pi}\)</span> and <span class="math inline">\(-2\sqrt{\pi}\)</span>”; this exercise uses the recurrence in Ex. 10). </p>
+<p>Optional intuition:</p>
+<p>Many texts justify the given value <span class="math inline">\(\left(\tfrac12\right)! = \Gamma(\tfrac32) = \sqrt{\pi}/2\)</span> via the Gaussian integral:</p>
+<p><span class="math display">\[
+\Gamma\!\left(\tfrac12\right)=\int_{0}^{\infty} e^{-t} t^{-1/2}\,dt
+= 2\int_{0}^{\infty} e^{-u^{2}}\,du=\sqrt{\pi},
+\]</span></p>
+<p>then apply the recurrence to get <span class="math inline">\(\Gamma(\tfrac32)=\tfrac12\Gamma(\tfrac12)=\sqrt{\pi}/2\)</span>. (Here we only needed the latter as a given.)</p>
+</section>
+<section id="hm15" class="level3">
+<h3 class="anchored" data-anchor-id="hm15">8 [HM15]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+A_m(n)\;=\;\frac{m^n\,m!}{(n+1)(n+2)\cdots(n+m)}.
+\]</span></p>
+<ol type="1">
+<li>Use the identity <span class="math inline">\((n+1)(n+2)\cdots(n+m) = \dfrac{(n+m)!}{n!}\)</span>. Then</li>
+</ol>
+<p><span class="math display">\[
+A_m(n)=\frac{m^n\,m!\,n!}{(n+m)!}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Recognize a binomial coefficient:</li>
+</ol>
+<p><span class="math display">\[
+\binom{n+m}{n}=\frac{(n+m)!}{n!\,m!}
+\quad\Longrightarrow\quad
+\frac{n!\,m!}{(n+m)!}=\frac{1}{\binom{n+m}{n}}.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+A_m(n)=\frac{m^n}{\binom{n+m}{n}}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Rewrite <span class="math inline">\(\binom{n+m}{n}\)</span> in a way that exposes a finite product of <span class="math inline">\(n\)</span> factors:</li>
+</ol>
+<p><span class="math display">\[
+\binom{n+m}{n}
+=\frac{(m+1)(m+2)\cdots(m+n)}{n!}
+=\frac{m^n}{n!}\prod_{k=1}^{n}\left(1+\frac{k}{m}\right).
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+A_m(n)=\frac{m^n}{\binom{n+m}{n}}
+=\frac{m^n}{\dfrac{m^n}{n!}\prod_{k=1}^{n}\left(1+\frac{k}{m}\right)}
+=\frac{n!}{\displaystyle\prod_{k=1}^{n}\left(1+\frac{k}{m}\right)}.
+\]</span></p>
+<ol start="4" type="1">
+<li>Take the limit as <span class="math inline">\(m\to\infty\)</span>. For each fixed <span class="math inline">\(k\le n\)</span>, <span class="math inline">\(\left(1+\frac{k}{m}\right)\to 1\)</span>. The product has only <span class="math inline">\(n\)</span> factors, so</li>
+</ol>
+<p><span class="math display">\[
+\lim_{m\to\infty}A_m(n)
+=
+\frac{n!}{\displaystyle\prod_{k=1}^{n}\lim_{m\to\infty}\left(1+\frac{k}{m}\right)}
+=\frac{n!}{1}=n!.
+\]</span></p>
+<ol start="5" type="1">
+<li>Edge case <span class="math inline">\(n=0\)</span>: By definition,</li>
+</ol>
+<p><span class="math display">\[
+A_m(0)=\frac{m^0\,m!}{1\cdot2\cdots m}=1=0!,
+\]</span></p>
+<p>so the limit is also <span class="math inline">\(0!\)</span>.</p>
+<p>Thus, Euler’s limit indeed equals <span class="math inline">\(n!\)</span> for every nonnegative integer <span class="math inline">\(n\)</span>.</p>
+</section>
+<section id="m10-1" class="level3">
+<h3 class="anchored" data-anchor-id="m10-1">9 [M10]</h3>
+<p>Knuth defines <span class="math inline">\(n! = \Gamma(n+1)\)</span> and uses the gamma functional equation</p>
+<p><span class="math display">\[
+\Gamma(x+1)=x\,\Gamma(x).
+\]</span></p>
+<p>Hence <span class="math inline">\((\tfrac12)! = \Gamma(\tfrac32)\)</span>. </p>
+<ol type="1">
+<li>Compute <span class="math inline">\(\Gamma(\tfrac12)\)</span>.</li>
+</ol>
+<p>From the given <span class="math inline">\((\tfrac12)! = \Gamma(\tfrac32)=\sqrt{\pi}/2\)</span> and the recurrence with <span class="math inline">\(x=\tfrac12\)</span>:</p>
+<p><span class="math display">\[
+\Gamma\!\left(\tfrac32\right)=\tfrac12\,\Gamma\!\left(\tfrac12\right).
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\Gamma\!\left(\tfrac12\right)=2\,\Gamma\!\left(\tfrac32\right)=2\cdot\frac{\sqrt{\pi}}{2}=\boxed{\sqrt{\pi}}.
+\]</span></p>
+<p>(Consistency check, optional: the reflection formula <span class="math inline">\(\Gamma(z)\Gamma(1-z)=\dfrac{\pi}{\sin \pi z}\)</span> gives <span class="math inline">\(\Gamma(\tfrac12)^2=\pi\Rightarrow \Gamma(\tfrac12)=\sqrt{\pi}\)</span>.) </p>
+<ol start="2" type="1">
+<li>Compute <span class="math inline">\(\Gamma(-\tfrac12)\)</span>.</li>
+</ol>
+<p>Apply the recurrence backward at <span class="math inline">\(x=-\tfrac12\)</span>:</p>
+<p><span class="math display">\[
+\Gamma\!\left(\tfrac12\right)=\left(-\tfrac12\right)\Gamma\!\left(-\tfrac12\right)
+\quad\Longrightarrow\quad
+\Gamma\!\left(-\tfrac12\right)=\frac{\Gamma(\tfrac12)}{-\tfrac12}
+= -2\,\Gamma\!\left(\tfrac12\right)
+= \boxed{-2\sqrt{\pi}}.
+\]</span></p>
+<p>Thus</p>
+<p><span class="math display">\[
+\boxed{\Gamma\!\left(\tfrac12\right)=\sqrt{\pi}},\qquad
+\boxed{\Gamma\!\left(-\tfrac12\right)=-2\sqrt{\pi}}.
+\]</span></p>
+</section>
+<section id="hm20" class="level3">
+<h3 class="anchored" data-anchor-id="hm20">10 [HM20]</h3>
+<p>Background (what Γ means here)</p>
+<p>Knuth/Euler define the gamma function via Euler’s limit (valid for real/complex x except at non-positive integers, where poles occur):</p>
+<p><span class="math display">\[
+\Gamma(x)\;=\;\lim_{m\to\infty}\frac{m^{\,x}\,m!}{x(x+1)\cdots(x+m)}.
+\]</span></p>
+<p>This is equation (15) in the text. </p>
+<p>There is also the integral form (for x&gt;0), proved a few exercises later:</p>
+<p><span class="math display">\[
+\Gamma(x)=\int_0^\infty e^{-t}\,t^{x-1}\,dt.
+\]</span></p>
+<p>Conclusion</p>
+<p><strong>Yes—except when <span class="math inline">\(x\)</span> is 0 or a negative integer.</strong> At those points Γ has poles, so the identity is not meaningful there.</p>
+<p>Proof 1 (from Euler’s limit; works wherever Γ is defined)</p>
+<p>Start from the defining limit with <span class="math inline">\(x\mapsto x+1\)</span>:</p>
+<p><span class="math display">\[
+\Gamma(x+1)\;=\;\lim_{m\to\infty}\frac{m^{\,x+1}\,m!}{(x+1)(x+2)\cdots(x+m+1)}.
+\]</span></p>
+<p>Factor a convenient term:</p>
+<p><span class="math display">\[
+\Gamma(x+1)
+=\lim_{m\to\infty}\frac{m}{x+m+1}\cdot\frac{m^{\,x}\,m!}{(x+1)\cdots(x+m)}.
+\]</span></p>
+<p>But</p>
+<p><span class="math display">\[
+x\,\Gamma(x)=x\cdot\lim_{m\to\infty}\frac{m^{\,x}\,m!}{x(x+1)\cdots(x+m)}
+=\lim_{m\to\infty}\frac{m^{\,x}\,m!}{(x+1)\cdots(x+m)}.
+\]</span></p>
+<p>Since <span class="math inline">\(\frac{m}{x+m+1}\to 1\)</span> as <span class="math inline">\(m\to\infty\)</span>, the two limits are equal:</p>
+<p><span class="math display">\[
+\Gamma(x+1)=x\,\Gamma(x).
+\]</span></p>
+<p>This algebra is the essence of the official solution in the book. </p>
+<p><strong>Domain caveat.</strong> The products <span class="math inline">\((x+j)\)</span> in the denominator hit zero exactly when <span class="math inline">\(x\in\{0,-1,-2,\dots\}\)</span>; that is where Γ has poles, so the identity isn’t asserted there. Everywhere else (real x not a non-positive integer), the argument goes through.</p>
+<p>Proof 2 (for <span class="math inline">\(x&gt;0\)</span> only, via the integral)</p>
+<p>Using <span class="math inline">\(\Gamma(x)=\int_0^\infty e^{-t}t^{x-1}dt\)</span> and integration by parts:</p>
+<p><span class="math display">\[
+\Gamma(x+1)=\int_0^\infty e^{-t}t^{x}\,dt
+=\Big[-e^{-t}t^{x}\Big]_0^\infty + x\int_0^\infty e^{-t}t^{x-1}\,dt
+=x\,\Gamma(x),
+\]</span></p>
+<p>since the boundary term vanishes for <span class="math inline">\(x&gt;0\)</span>. This gives the same recurrence on <span class="math inline">\((0,\infty)\)</span>. </p>
+<p>Remarks</p>
+<ul>
+<li>Together with <span class="math inline">\(\Gamma(1)=1\)</span>, the recurrence yields <span class="math inline">\(\Gamma(n+1)=n!\)</span> for positive integers <span class="math inline">\(n\)</span>, matching the factorial rule.</li>
+<li>In the complex plane, <span class="math inline">\(\Gamma\)</span> is meromorphic with simple poles at <span class="math inline">\(0,-1,-2,\dots\)</span>; the same functional equation holds on its domain. (TAOCP also records the related reflection identity (16).)</li>
+</ul>
+</section>
+<section id="m15" class="level3">
+<h3 class="anchored" data-anchor-id="m15">11 [M15]</h3>
+<p>Proof via Legendre’s formula (one line, then a tidy sum)</p>
+<p>By Legendre’s formula the exponent of a prime <span class="math inline">\(p\)</span> in <span class="math inline">\(n!\)</span> is</p>
+<p><span class="math display">\[
+v_p(n!)=\sum_{k\ge 1}\Big\lfloor \frac{n}{p^k}\Big\rfloor.
+\]</span></p>
+<p>For <span class="math inline">\(p=2\)</span>,</p>
+<p><span class="math display">\[
+v_2(n!)=\sum_{k\ge 1}\Big\lfloor \frac{n}{2^k}\Big\rfloor. \tag{★}
+\]</span></p>
+<p>(This is exactly the “prime–power multiplicity” identity stated in the text.) </p>
+<p>Now use the binary form of <span class="math inline">\(n\)</span>. Since <span class="math inline">\(n=\sum_{j=1}^r 2^{e_j}\)</span>,</p>
+<p><span class="math display">\[
+\Big\lfloor\frac{n}{2}\Big\rfloor=\sum_{j:e_j\ge 1}2^{e_j-1},\quad
+\Big\lfloor\frac{n}{4}\Big\rfloor=\sum_{j:e_j\ge 2}2^{e_j-2},\quad
+\Big\lfloor\frac{n}{8}\Big\rfloor=\sum_{j:e_j\ge 3}2^{e_j-3},\ \ldots
+\]</span></p>
+<p>Summing these rows termwise (exactly the series (★)) yields, for each fixed <span class="math inline">\(j\)</span>,</p>
+<p><span class="math display">\[
+2^{e_j-1}+2^{e_j-2}+\cdots+2+1=2^{e_j}-1.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+v_2(n!)=\sum_{k\ge 1}\Big\lfloor \frac{n}{2^k}\Big\rfloor
+=\sum_{j=1}^r (2^{e_j}-1)
+=\Big(\sum_{j=1}^r 2^{e_j}\Big)-r
+=n-r.
+\]</span></p>
+<p>So <span class="math inline">\(n!\)</span> contains exactly <span class="math inline">\(n-r\)</span> factors of 2—equivalently <span class="math inline">\(2^{\,n-r}\mid n!\)</span> but <span class="math inline">\(2^{\,n-r+1}\nmid n!\)</span>, as required. ✓</p>
+<p>Tiny numerical check</p>
+<p>Take <span class="math inline">\(n=13=(1101)_2\)</span> so <span class="math inline">\(r=3\)</span>. Then</p>
+<p><span class="math display">\[
+v_2(13!)=\left\lfloor\frac{13}{2}\right\rfloor+\left\lfloor\frac{13}{4}\right\rfloor+\left\lfloor\frac{13}{8}\right\rfloor=6+3+1=10
+=13-3.
+\]</span></p>
+<p>So <span class="math inline">\(2^{10}\mid 13!\)</span> but <span class="math inline">\(2^{11}\nmid 13!\)</span>, matching the claim.</p>
+<p>(Optional) Broader view</p>
+<p>Exactly the same argument shows for any prime <span class="math inline">\(p\)</span> that</p>
+<p><span class="math display">\[
+v_p(n!)=\frac{n-s_p(n)}{p-1},
+\]</span></p>
+<p>where <span class="math inline">\(s_p(n)\)</span> is the sum of the base-<span class="math inline">\(p\)</span> digits of <span class="math inline">\(n\)</span>. The present exercise is the special case <span class="math inline">\(p=2\)</span>, where <span class="math inline">\(s_2(n)=r\)</span>.</p>
+</section>
+<section id="m22" class="level3">
+<h3 class="anchored" data-anchor-id="m22">12 [M22]</h3>
+<p>Let <span class="math inline">\(p\)</span> be prime and write <span class="math inline">\(n\)</span> in base <span class="math inline">\(p\)</span> as</p>
+<p><span class="math display">\[
+n=a_kp^k+a_{k-1}p^{k-1}+\cdots+a_1p+a_0\qquad(0\le a_i&lt;p).
+\]</span></p>
+<p>If <span class="math inline">\(\mu\)</span> denotes the exponent of <span class="math inline">\(p\)</span> in <span class="math inline">\(n!\)</span> (i.e., <span class="math inline">\(\mu=\sum_{j\ge1}\big\lfloor n/p^j\big\rfloor\)</span> from Eq. (8)), express <span class="math inline">\(\mu\)</span> in a simple formula involving <span class="math inline">\(n\)</span>, <span class="math inline">\(p\)</span>, and the digits <span class="math inline">\(a_i\)</span>.</p>
+<p>Let <span class="math inline">\(S_p(n)=a_0+a_1+\cdots+a_k\)</span> be the sum of the base-<span class="math inline">\(p\)</span> digits of <span class="math inline">\(n\)</span>.</p>
+<ol type="1">
+<li>For each <span class="math inline">\(i\ge 1\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+\Big\lfloor \frac{n}{p^i}\Big\rfloor
+=\sum_{j=i}^{k} a_j p^{\,j-i}
+\]</span></p>
+<p>because dividing by <span class="math inline">\(p^i\)</span> in base <span class="math inline">\(p\)</span> just drops the <span class="math inline">\(i\)</span> least-significant digits.</p>
+<ol start="2" type="1">
+<li>Sum over <span class="math inline">\(i=1,\dots,k\)</span> and swap the order of summation:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{i=1}^{k}\Big\lfloor \frac{n}{p^i}\Big\rfloor
+=\sum_{i=1}^{k}\sum_{j=i}^{k} a_j p^{\,j-i}
+=\sum_{j=1}^{k} a_j \sum_{i=1}^{j} p^{\,j-i}
+=\sum_{j=1}^{k} a_j \frac{p^{\,j}-1}{p-1}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Simplify:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{j=1}^{k} a_j \frac{p^{\,j}-1}{p-1}
+=\frac{1}{p-1}\left(\sum_{j=1}^{k} a_j p^{\,j}-\sum_{j=1}^{k} a_j\right)
+=\frac{1}{p-1}\left((n-a_0)-(S_p(n)-a_0)\right)
+=\frac{n-S_p(n)}{p-1}.
+\]</span></p>
+<p>But the left-hand side is exactly <span class="math inline">\(\mu\)</span> by Eq. (8). Therefore</p>
+<p><span class="math display">\[
+\boxed{\;\mu \;=\; \dfrac{n - S_p(n)}{\,p-1\,}\;}
+\]</span></p>
+<p>which is Legendre’s (de Polignac’s) formula.</p>
+</section>
+<section id="check" class="level3">
+<h3 class="anchored" data-anchor-id="check">Check</h3>
+<p>For <span class="math inline">\(n=1000\)</span> and <span class="math inline">\(p=3\)</span>, <span class="math inline">\(1000\)</span> in base 3 is <span class="math inline">\(1\,1\,0\,1\,0\,0\,1\)</span> so <span class="math inline">\(S_3(1000)=4\)</span>. Hence</p>
+<p><span class="math display">\[
+\mu=\frac{1000-4}{3-1}=498,
+\]</span></p>
+<p>matching the worked value obtained by summing <span class="math inline">\(\big\lfloor 1000/3^j\big\rfloor\)</span>.</p>
+<p>This also recovers Exercise 11’s binary special case: when <span class="math inline">\(p=2\)</span>, <span class="math inline">\(S_2(n)\)</span> is the number of 1s in the binary expansion, so <span class="math inline">\(v_2(n!)=n-S_2(n)\)</span>.</p>
+</section>
+<section id="m22-1" class="level3">
+<h3 class="anchored" data-anchor-id="m22-1">13 [M22]</h3>
+<p>Proof (pairing multiplicative inverses)</p>
+<ol type="1">
+<li><p><strong>Every nonzero residue has a unique inverse mod <span class="math inline">\(p\)</span>.</strong> For each <span class="math inline">\(n\in\{1,2,\dots,p-1\}\)</span> there exists a unique <span class="math inline">\(n'\)</span> with</p>
+<p><span class="math display">\[
+nn' \equiv 1 \pmod p,
+\]</span></p>
+<p>because <span class="math inline">\(\gcd(n,p)=1\)</span> when <span class="math inline">\(p\)</span> is prime (Bezout’s identity gives existence; uniqueness follows since <span class="math inline">\(n(a-b)\equiv0\pmod p\Rightarrow a\equiv b\)</span>). Also, applying “take the inverse” twice gives <span class="math inline">\((n')'=n\)</span>.</p></li>
+<li><p><strong>Only <span class="math inline">\(1\)</span> and <span class="math inline">\(p-1\)</span> are self-inverse.</strong> If <span class="math inline">\(n'=n\)</span>, then <span class="math inline">\(n^2\equiv1\pmod p\)</span>, so <span class="math inline">\((n-1)(n+1)\equiv0\pmod p\)</span>. A prime <span class="math inline">\(p\)</span> can divide at most one factor, hence <span class="math inline">\(n\equiv1\)</span> or <span class="math inline">\(n\equiv -1\equiv p-1\pmod p\)</span>. Thus among <span class="math inline">\(\{1,2,\dots,p-1\}\)</span>, exactly the two elements <span class="math inline">\(1\)</span> and <span class="math inline">\(p-1\)</span> satisfy <span class="math inline">\(n'=n\)</span>.</p></li>
+<li><p><strong>Pair everything else.</strong> Partition <span class="math inline">\(\{1,2,\dots,p-1\}\)</span> into disjoint pairs <span class="math inline">\(\{n,n'\}\)</span> with <span class="math inline">\(n\neq n'\)</span>, together with the two singletons <span class="math inline">\(\{1\}\)</span> and <span class="math inline">\(\{p-1\}\)</span>. Each paired product is</p>
+<p><span class="math display">\[
+n\cdot n' \equiv 1 \pmod p.
+\]</span></p></li>
+<li><p><strong>Multiply all residues.</strong> Taking the product of all elements <span class="math inline">\(1\cdot2\cdot\ldots\cdot(p-1)\)</span> and grouping by pairs,</p>
+<p><span class="math display">\[
+(p-1)! \equiv \big(\prod_{\text{pairs } \{n,n'\}} nn'\big)\cdot 1\cdot(p-1) \equiv 1\cdot(p-1) \equiv -1 \pmod p.
+\]</span></p>
+<p>This is exactly the desired congruence.</p></li>
+</ol>
+</section>
+<section id="m28" class="level3">
+<h3 class="anchored" data-anchor-id="m28">14 [M28]</h3>
+<p>We work with the <strong>unit part</strong> of <span class="math inline">\(n!\)</span> (i.e., <span class="math inline">\(n!/p^{\mu}\)</span>) modulo <span class="math inline">\(p\)</span>.</p>
+<ol type="1">
+<li>Block decomposition of <span class="math inline">\(1,2,\dots,n\)</span>. Split <span class="math inline">\(\{1,\dots,n\}\)</span> into:</li>
+</ol>
+<ul>
+<li><p>all <strong>multiples of <span class="math inline">\(p\)</span></strong>: <span class="math inline">\(p,2p,\dots,\lfloor n/p\rfloor p\)</span>, whose product is <span class="math inline">\(p^{\lfloor n/p\rfloor}\cdot \lfloor n/p\rfloor!\)</span>;</p></li>
+<li><p>all <strong>nonmultiples of <span class="math inline">\(p\)</span></strong>, further grouped into consecutive blocks</p>
+<p><span class="math display">\[
+\{mp+1, mp+2,\dots, mp+p-1\}\quad (m=0,1,\dots,\lfloor n/p\rfloor-1),
+\]</span></p>
+<p>plus a final tail <span class="math inline">\(\{ \lfloor n/p\rfloor p+1,\dots,\lfloor n/p\rfloor p+a_0\}\)</span> of length <span class="math inline">\(a_0\)</span>.</p></li>
+</ul>
+<ol start="2" type="1">
+<li><p>Product of a complete block of nonmultiples. Modulo <span class="math inline">\(p\)</span> each complete block is congruent to <span class="math inline">\(1\cdot 2\cdots (p-1)=(p-1)!\equiv -1\pmod p\)</span> by Wilson’s theorem. Hence the product over all complete blocks contributes a factor <span class="math inline">\((-1)^{\lfloor n/p\rfloor}\)</span>. (Wilson’s theorem is Ex. 13.)</p></li>
+<li><p>Product of the tail. The last incomplete block contributes</p></li>
+</ol>
+<p><span class="math display">\[
+(\lfloor n/p\rfloor p+1)\cdots(\lfloor n/p\rfloor p+a_0)\equiv 1\cdot 2\cdots a_0 \equiv a_0!\pmod p.
+\]</span></p>
+<ol start="4" type="1">
+<li>First recurrence for the unit part. Let <span class="math inline">\(U(n):=n!/p^{\nu_p(n!)}\)</span> be the unit part of <span class="math inline">\(n!\)</span>. Using the split above,</li>
+</ol>
+<p><span class="math display">\[
+U(n)\equiv (-1)^{\lfloor n/p\rfloor}\,a_0!\cdot U\big(\lfloor n/p\rfloor\big)\pmod p,
+\]</span></p>
+<p>because the multiples of <span class="math inline">\(p\)</span> contribute <span class="math inline">\(p^{\lfloor n/p\rfloor}\cdot \lfloor n/p\rfloor!\)</span>, and after dividing by the corresponding power of <span class="math inline">\(p\)</span> we are left with the <strong>unit part</strong> <span class="math inline">\(U(\lfloor n/p\rfloor)\)</span>.</p>
+<ol start="5" type="1">
+<li>Iterate the recurrence. Apply Step 4 to <span class="math inline">\(\lfloor n/p\rfloor\)</span>, then to <span class="math inline">\(\lfloor n/p^2\rfloor\)</span>, and so on, until reaching <span class="math inline">\(0\)</span>. Writing the base-<span class="math inline">\(p\)</span> digits explicitly,</li>
+</ol>
+<p><span class="math display">\[
+\lfloor n/p\rfloor = a_k p^{k-1} + \cdots + a_2 p + a_1,\quad
+\lfloor n/p^2\rfloor = a_k p^{k-2} + \cdots + a_2,\ \dots
+\]</span></p>
+<p>the iteration yields</p>
+<p><span class="math display">\[
+U(n)\equiv \Big(\prod_{j\ge 1} (-1)^{\lfloor n/p^j\rfloor}\Big)\cdot
+\Big(\prod_{i=0}^k a_i!\Big)\pmod p.
+\]</span></p>
+<p>But <span class="math inline">\(\sum_{j\ge 1}\lfloor n/p^j\rfloor = \mu\)</span> (Legendre’s formula), hence</p>
+<p><span class="math display">\[
+\boxed{\ \displaystyle \frac{n!}{p^{\mu}} \equiv (-1)^{\mu}\, a_0!\,a_1!\cdots a_k! \pmod p\ }.
+\]</span></p>
+<p>This is exactly the Stickelberger congruence requested.</p>
+<p>Quick check (example)</p>
+<p>Take <span class="math inline">\(p=5\)</span>, <span class="math inline">\(n=47\)</span>. Base-5: <span class="math inline">\(47=1\cdot 5^2+4\cdot 5+2\)</span> so <span class="math inline">\((a_2,a_1,a_0)=(1,4,2)\)</span>. <span class="math inline">\(\mu=\lfloor 47/5\rfloor+\lfloor 47/25\rfloor=9+1=10\)</span>. RHS: <span class="math inline">\((-1)^{10}\cdot (2!\cdot 4!\cdot 1!)\equiv 1\cdot (2\cdot 24)\equiv 48\equiv 3\pmod 5\)</span>. Indeed <span class="math inline">\(47!/5^{\mu}\equiv 3\pmod 5\)</span>.</p>
+</section>
+<section id="hm15-1" class="level3">
+<h3 class="anchored" data-anchor-id="hm15-1">15 [HM15]</h3>
+<p>Let <span class="math inline">\(A\)</span> be the <span class="math inline">\(n\times n\)</span> matrix with entries <span class="math inline">\(A_{ij}=i\cdot j\)</span> (so it’s the multiplication table <span class="math inline">\(1,2,\dots,n\)</span> by <span class="math inline">\(1,2,\dots,n\)</span>). Compute the <strong>permanent</strong> of <span class="math inline">\(A\)</span>,</p>
+<p><span class="math display">\[
+\operatorname{perm}(A)\;=\;\sum_{\sigma\in S_n}\ \prod_{i=1}^n A_{i,\sigma(i)}\,.
+\]</span></p>
+<p>Solution 1 (rank-1 factorization → one-line evaluation)</p>
+<p>Observe that <span class="math inline">\(A\)</span> factors as an outer product:</p>
+<p><span class="math display">\[
+A = u\,v^{\mathsf T},\qquad
+u=\begin{bmatrix}1\\2\\ \vdots\\ n\end{bmatrix},\quad
+v=\begin{bmatrix}1\\2\\ \vdots\\ n\end{bmatrix}.
+\]</span></p>
+<p>Hence <span class="math inline">\(A_{i,\sigma(i)}=u_i\,v_{\sigma(i)}=i\cdot \sigma(i)\)</span>. For any rank-1 matrix <span class="math inline">\(u v^{\mathsf T}\)</span>,</p>
+<p><span class="math display">\[
+\operatorname{perm}(u v^{\mathsf T})
+=\sum_{\sigma\in S_n}\ \prod_{i=1}^n u_i\,v_{\sigma(i)}
+=\Bigl(\prod_{i=1}^n u_i\Bigr)\ \sum_{\sigma\in S_n}\ \prod_{i=1}^n v_{\sigma(i)}.
+\]</span></p>
+<p>But <span class="math inline">\(\prod_{i=1}^n v_{\sigma(i)}\)</span> equals <span class="math inline">\(\prod_{j=1}^n v_j\)</span> (a product is order-independent), so every one of the <span class="math inline">\(n!\)</span> terms is the same. Therefore</p>
+<p><span class="math display">\[
+\operatorname{perm}(u v^{\mathsf T})
+= n!\;\Bigl(\prod_{i=1}^n u_i\Bigr)\;\Bigl(\prod_{j=1}^n v_j\Bigr).
+\]</span></p>
+<p>Plugging <span class="math inline">\(u_i=i\)</span> and <span class="math inline">\(v_j=j\)</span> gives <span class="math inline">\(\prod_{i=1}^n u_i=n!\)</span> and <span class="math inline">\(\prod_{j=1}^n v_j=n!\)</span>. Hence</p>
+<p><span class="math display">\[
+\boxed{\ \operatorname{perm}(A)=(n!)^3\ }.
+\]</span></p>
+<p>Solution 2 (direct term-by-term reasoning)</p>
+<p>Expand the permanent by definition:</p>
+<p><span class="math display">\[
+\operatorname{perm}(A)=\sum_{\sigma\in S_n}\ \prod_{i=1}^n (i\cdot \sigma(i)).
+\]</span></p>
+<p>For any fixed <span class="math inline">\(\sigma\)</span>,</p>
+<p><span class="math display">\[
+\prod_{i=1}^n (i\cdot \sigma(i))
+=\Bigl(\prod_{i=1}^n i\Bigr)\,\Bigl(\prod_{i=1}^n \sigma(i)\Bigr)
+=(n!)\cdot(n!)=(n!)^2,
+\]</span></p>
+<p>since <span class="math inline">\(\{\sigma(1),\dots,\sigma(n)\}=\{1,\dots,n\}\)</span>. There are <span class="math inline">\(n!\)</span> permutations <span class="math inline">\(\sigma\)</span>, and every term is the same, so</p>
+<p><span class="math display">\[
+\operatorname{perm}(A)=n!\cdot (n!)^2=(n!)^3.
+\]</span></p>
+<p>Quick sanity checks</p>
+<ul>
+<li><span class="math inline">\(n=1\)</span>: <span class="math inline">\(\begin{bmatrix}1\end{bmatrix}\)</span>, permanent <span class="math inline">\(=1=(1!)^3\)</span>.</li>
+<li><span class="math inline">\(n=2\)</span>: <span class="math inline">\(\begin{bmatrix}1&amp;2\\2&amp;4\end{bmatrix}\)</span>, permanent <span class="math inline">\(=1\cdot4+2\cdot2=8=(2!)^3\)</span>.</li>
+<li><span class="math inline">\(n=3\)</span>: each term is <span class="math inline">\((3!)^2=36\)</span>; <span class="math inline">\(6\)</span> terms <span class="math inline">\(\Rightarrow 6\cdot36=216=(3!)^3\)</span>.</li>
+</ul>
+</section>
+<section id="hm15-2" class="level3">
+<h3 class="anchored" data-anchor-id="hm15-2">16 [HM15]</h3>
+<p>Write the coefficient of the <span class="math inline">\(k\)</span>-th falling factorial as</p>
+<p><span class="math display">\[
+c_k \;:=\; \sum_{j=0}^{k}\frac{(-1)^j}{j!}\,.
+\]</span></p>
+<p>These are the partial sums of the Taylor series of <span class="math inline">\(e^{-1}\)</span>, hence</p>
+<p><span class="math display">\[
+c_k \xrightarrow[k\to\infty]{} e^{-1}\neq 0,
+\]</span></p>
+<p>so in particular <span class="math inline">\(|c_k|\)</span> stays bounded away from <span class="math inline">\(0\)</span> for large <span class="math inline">\(k\)</span>.</p>
+<p>Now consider the general term</p>
+<p><span class="math display">\[
+T_k(n)\;=\;c_k\; n^{\underline{k}}=c_k\,\prod_{r=0}^{k-1}(n-r).
+\]</span></p>
+<p>We separate three cases.</p>
+<ol type="1">
+<li><p><span class="math inline">\(n\in\{0,1,2,\dots\}\)</span> (nonnegative integer). Then <span class="math inline">\(n^{\underline{k}}=0\)</span> for all <span class="math inline">\(k&gt;n\)</span> (the product has the factor <span class="math inline">\(n-n=0\)</span>), so the series truncates at <span class="math inline">\(k=n\)</span>. Hence it certainly converges (indeed, equals <span class="math inline">\(n!\)</span>). This is exactly the circumstance noted under Eq. (11). </p></li>
+<li><p><span class="math inline">\(n=-m\)</span> with <span class="math inline">\(m\in\{1,2,3,\dots\}\)</span> (negative integer). Then</p></li>
+</ol>
+<p><span class="math display">\[
+(-m)^{\underline{k}}
+= (-m)(-m-1)\cdots(-m-k+1)
+= (-1)^k\,m(m+1)\cdots(m+k-1)
+= (-1)^k\frac{(m+k-1)!}{(m-1)!}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+|T_k(-m)|=|c_k|\cdot\frac{(m+k-1)!}{(m-1)!}\;\xrightarrow{k\to\infty}\;\infty,
+\]</span></p>
+<p>because <span class="math inline">\(|c_k|\to e^{-1}\)</span> and the factorial grows without bound. In particular the term <span class="math inline">\(T_k(n)\)</span> does <strong>not</strong> tend to <span class="math inline">\(0\)</span>, so the series diverges.</p>
+<ol start="3" type="1">
+<li><span class="math inline">\(n\notin\mathbb{Z}\)</span> (non-integer real). Choose an integer <span class="math inline">\(A&gt;\lvert n\rvert\)</span>. For all <span class="math inline">\(k\ge A+1\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+\bigl|n^{\underline{k}}\bigr|
+=\prod_{r=0}^{k-1}\lvert n-r\rvert
+\;\ge\;\prod_{r=A}^{k-1}(r-\lvert n\rvert)
+\;=\;\frac{\Gamma(k-\lvert n\rvert)}{\Gamma(A-\lvert n\rvert)}\,.
+\]</span></p>
+<p>The right-hand side <span class="math inline">\(\to\infty\)</span> with <span class="math inline">\(k\)</span> (since <span class="math inline">\(\Gamma(x)\to\infty\)</span> as <span class="math inline">\(x\to\infty\)</span>). Hence <span class="math inline">\(\lvert n^{\underline{k}}\rvert\to\infty\)</span>. Because <span class="math inline">\(|c_k|\to e^{-1}&gt;0\)</span>, we get</p>
+<p><span class="math display">\[
+\lvert T_k(n)\rvert=|c_k|\,\lvert n^{\underline{k}}\rvert \;\xrightarrow{k\to\infty}\;\infty,
+\]</span></p>
+<p>so again the general term does <strong>not</strong> go to <span class="math inline">\(0\)</span>, and the series diverges.</p>
+<p>(If you prefer a closed form: for non-integer <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+n^{\underline{k}}=\frac{\Gamma(n+1)}{\Gamma(n+1-k)},
+\]</span></p>
+<p>and by the reflection identity one can write <span class="math inline">\(\Gamma(n+1-k)^{-1}\)</span> in terms of <span class="math inline">\(\Gamma(k-n)\)</span>; since <span class="math inline">\(\Gamma(k-n)\to\infty\)</span> as <span class="math inline">\(k\to\infty\)</span>, the same conclusion follows. The truncation only occurs when <span class="math inline">\(n\)</span> is a nonnegative integer because then one factor <span class="math inline">\(n-r\)</span> is zero.)</p>
+<p>Therefore, the only values of <span class="math inline">\(n\)</span> for which the series in Eq. (11) converges are the nonnegative integers, precisely those for which the “infinite” series terminates.</p>
+</section>
+<section id="hm20-1" class="level3">
+<h3 class="anchored" data-anchor-id="hm20-1">17 [HM20]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+P_m\;=\;\prod_{n=1}^{m}\frac{(n+\alpha_1)\cdots(n+\alpha_k)}{(n+\beta_1)\cdots(n+\beta_k)}.
+\]</span></p>
+<p>We’ll evaluate <span class="math inline">\(\lim_{m\to\infty}P_m\)</span>.</p>
+<p>Knuth defines the gamma function via the limit (for real/complex <span class="math inline">\(x\)</span>):</p>
+<p><span class="math display">\[
+\Gamma(x)\;=\;\lim_{m\to\infty}\frac{m^{\,x}\,m!}{x(x+1)\cdots(x+m)}.
+\]</span></p>
+<p>Equivalently, for each fixed <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display">\[
+\prod_{n=1}^{m}(n+x)\;=\;\frac{m^{\,x}\,m!}{A_m(x)},\quad\text{where }A_m(x)\xrightarrow[m\to\infty]{}\Gamma(1+x).
+\]</span></p>
+<p>(This is just algebraic rearrangement of the defining limit.) </p>
+<p>Apply this to each <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\beta_i\)</span>:</p>
+<p><span class="math display">\[
+\prod_{n=1}^{m}(n+\alpha_i)=\frac{m^{\alpha_i}m!}{A_m(\alpha_i)},\qquad
+\prod_{n=1}^{m}(n+\beta_i)=\frac{m^{\beta_i}m!}{A_m(\beta_i)}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+P_m
+=\frac{\prod_{i=1}^k \frac{m^{\alpha_i}m!}{A_m(\alpha_i)}}
+        {\prod_{i=1}^k \frac{m^{\beta_i}m!}{A_m(\beta_i)}}
+= m^{\sum_i\alpha_i-\sum_i\beta_i}
+  \cdot
+  \frac{\prod_{i=1}^k A_m(\beta_i)}{\prod_{i=1}^k A_m(\alpha_i)}.
+\]</span></p>
+<p>By hypothesis <span class="math inline">\(\sum_i\alpha_i=\sum_i\beta_i\)</span>, so the power of <span class="math inline">\(m\)</span> cancels. Passing to the limit and using <span class="math inline">\(A_m(x)\to\Gamma(1+x)\)</span>,</p>
+<p><span class="math display">\[
+\lim_{m\to\infty}P_m
+=\frac{\prod_{i=1}^k \Gamma(1+\beta_i)}{\prod_{i=1}^k \Gamma(1+\alpha_i)}.
+\]</span></p>
+<p>This is exactly the claimed value of the infinite product.</p>
+<p>Why the product converges (quick check)</p>
+<p>For large <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+\log\frac{\prod_i(n+\alpha_i)}{\prod_i(n+\beta_i)}
+=\sum_i\left(\frac{\alpha_i-\beta_i}{n}\right)+O\!\left(\frac{1}{n^2}\right).
+\]</span></p>
+<p>The <span class="math inline">\(1/n\)</span> term vanishes by <span class="math inline">\(\sum\alpha_i=\sum\beta_i\)</span>, so <span class="math inline">\(\sum_n O(1/n^2)\)</span> converges; hence the infinite product converges to a nonzero finite limit. The restriction that no <span class="math inline">\(\beta_i\)</span> is a negative integer prevents a zero factor in the denominator (and matches the fact <span class="math inline">\(\Gamma(1+\beta_i)\)</span> would otherwise have a pole).</p>
+</section>
+<section id="m20" class="level3">
+<h3 class="anchored" data-anchor-id="m20">18 [M20]</h3>
+<p>Show that</p>
+<p><span class="math display">\[
+\prod_{k=1}^{\infty}\frac{4k^{2}}{4k^{2}-1}=\frac{\pi}{2}.
+\]</span></p>
+<ol type="1">
+<li>Set up the key integral and its recurrence</li>
+</ol>
+<p>Let</p>
+<p><span class="math display">\[
+I_n\;:=\;\int_{0}^{\pi/2}\!\sin^{n}x\,dx\qquad(n\ge 0).
+\]</span></p>
+<p>Basic values: <span class="math inline">\(I_0=\pi/2\)</span> and <span class="math inline">\(I_1=1\)</span>. Integration by parts (take <span class="math inline">\(u=\sin^{n-1}x,\;dv=\sin x\,dx\)</span>) gives the standard two-step recurrence</p>
+<p><span class="math display">\[
+I_n=\frac{n-1}{n}\,I_{n-2}\qquad(n\ge 2).
+\]</span></p>
+<p>Iterating this with the bases yields the closed forms</p>
+<p><span class="math display">\[
+I_{2n}=\frac{(2n-1)!!}{(2n)!!}\cdot\frac{\pi}{2}
+\quad\text{and}\quad
+I_{2n+1}=\frac{(2n)!!}{(2n+1)!!}\,.
+\]</span></p>
+<p>(Here <span class="math inline">\(m!!\)</span> denotes the double factorial.)</p>
+<p>Using <span class="math inline">\((2n)!!=2^{\,n}n!\)</span> and <span class="math inline">\((2n-1)!!=\dfrac{(2n)!}{2^{\,n}n!}\)</span>, we also have the handy identity</p>
+<p><span class="math display">\[
+I_{2n}=\frac{\binom{2n}{n}}{4^n}\cdot\frac{\pi}{2}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Express a finite Wallis product via <span class="math inline">\(I_{2n}\)</span> and <span class="math inline">\(I_{2n+1}\)</span></li>
+</ol>
+<p>Consider the finite product</p>
+<p><span class="math display">\[
+P_n:=\prod_{k=1}^{n}\frac{4k^2}{4k^2-1}
+=\frac{(2n)!!^{\,2}}{(2n-1)!!\,(2n+1)!!}.
+\]</span></p>
+<p>Using the relations above,</p>
+<p><span class="math display">\[
+\frac{(2n-1)!!}{(2n)!!}=\frac{2I_{2n}}{\pi},\qquad
+\frac{(2n+1)!!}{(2n)!!}=\frac{1}{I_{2n+1}},
+\]</span></p>
+<p>hence</p>
+<p><span class="math display">\[
+\frac{1}{P_n}
+=\frac{(2n-1)!!\,(2n+1)!!}{(2n)!!^{\,2}}
+=\Bigl(\frac{2I_{2n}}{\pi}\Bigr)\!\cdot\!\Bigl(\frac{1}{I_{2n+1}}\Bigr)
+=\frac{2}{\pi}\cdot\frac{I_{2n}}{I_{2n+1}}.
+\]</span></p>
+<p>Equivalently,</p>
+<p><span class="math display">\[
+P_n=\frac{\pi}{2}\cdot\frac{I_{2n+1}}{I_{2n}}.
+\tag{★}
+\]</span></p>
+<ol start="3" type="1">
+<li>Show <span class="math inline">\(\displaystyle \lim_{n\to\infty}\frac{I_{2n+1}}{I_{2n}}=1\)</span></li>
+</ol>
+<p>Write <span class="math inline">\(y=\cos x\)</span> (so <span class="math inline">\(x\in[0,\pi/2]\iff y\in[0,1]\)</span>). Then</p>
+<p><span class="math display">\[
+I_{2n}=\int_{0}^{1}(1-y^2)^{n}\,dy,\qquad
+I_{2n+1}=\int_{0}^{1}(1-y^2)^{n}\sqrt{1-y^2}\,dy.
+\]</span></p>
+<p>On <span class="math inline">\([0,1]\)</span> we have <span class="math inline">\(1\ge \sqrt{1-y^2}\ge 1-\tfrac{1}{2}y^2\)</span>. Thus</p>
+<p><span class="math display">\[
+I_{2n}\;\ge\;I_{2n+1}\;\ge\;I_{2n}-\frac12\int_{0}^{1}y^2(1-y^2)^{n}\,dy.
+\]</span></p>
+<p>The “error” integral is <span class="math inline">\(O\!\big(\tfrac{1}{n}\,I_{2n}\big)\)</span> (e.g., by a routine Beta-integral estimate), so</p>
+<p><span class="math display">\[
+0\le 1-\frac{I_{2n+1}}{I_{2n}} \;\longrightarrow\; 0,
+\qquad\text{i.e.}\qquad
+\frac{I_{2n+1}}{I_{2n}}\xrightarrow[n\to\infty]{}1.
+\]</span></p>
+<p>(Heuristically: the density proportional to <span class="math inline">\(\sin^{2n}x\)</span> concentrates near <span class="math inline">\(x=\pi/2\)</span>, where <span class="math inline">\(\sin x\approx 1\)</span>, so inserting one extra factor of <span class="math inline">\(\sin x\)</span> barely changes the integral.)</p>
+<ol start="4" type="1">
+<li>Take limits in (★)</li>
+</ol>
+<p>From (★) and the limit above,</p>
+<p><span class="math display">\[
+\lim_{n\to\infty} P_n
+=\frac{\pi}{2}\cdot \lim_{n\to\infty}\frac{I_{2n+1}}{I_{2n}}
+=\frac{\pi}{2}\cdot 1
+=\frac{\pi}{2}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\boxed{\displaystyle
+\prod_{k=1}^{\infty}\frac{4k^{2}}{4k^{2}-1}=\frac{\pi}{2}}
+\]</span></p>
+<p>as claimed.</p>
+</section>
+<section id="hm22" class="level3">
+<h3 class="anchored" data-anchor-id="hm22">19 [HM22]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+\Gamma(x)=\lim_{m\to\infty}\frac{m^x\,m!}{x(x+1)\cdots(x+m)}\qquad(\text{Eq.\ (15) in the book})
+\]</span></p>
+<p>and denote the <span class="math inline">\(m\)</span>-th finite approximant by</p>
+<p><span class="math display">\[
+\Gamma_m(x)\;=\;\frac{m^x\,m!}{x(x+1)\cdots(x+m)}.
+\]</span></p>
+<p>Show that for <span class="math inline">\(x&gt;0\)</span>,</p>
+<p><span class="math display">\[
+\Gamma_m(x)\;=\;\int_{0}^{m}\!\Bigl(1-\tfrac{t}{m}\Bigr)^{m} t^{x-1}\,dt
+\;=\; m^{x}\!\int_{0}^{1}\!(1-u)^{m}u^{\,x-1}\,du.
+\]</span></p>
+<p>Define</p>
+<p><span class="math display">\[
+I_m(x)\;:=\;\int_{0}^{m}\!\Bigl(1-\tfrac{t}{m}\Bigr)^{m} t^{x-1}\,dt\qquad(x&gt;0).
+\]</span></p>
+<p>Step 1: Change of variables</p>
+<p>Let <span class="math inline">\(t = m u\)</span> (so <span class="math inline">\(dt = m\,du\)</span>, <span class="math inline">\(u\in[0,1]\)</span>). Then</p>
+<p><span class="math display">\[
+I_m(x)
+= \int_{0}^{1}\!(1-u)^{m}\,(m u)^{x-1}\,m\,du
+= m^{x}\!\int_{0}^{1}\!(1-u)^{m}u^{\,x-1}\,du.
+\]</span></p>
+<p>This proves the second equality in the exercise. </p>
+<p>Set</p>
+<p><span class="math display">\[
+J(x,m)\;:=\;\int_{0}^{1}\!(1-u)^{m}u^{\,x-1}\,du\qquad(x&gt;0,\;m\in\mathbb{Z}_{\ge0}),
+\]</span></p>
+<p>so <span class="math inline">\(I_m(x)=m^{x}J(x,m)\)</span>.</p>
+<p>Step 2: Integration by parts recurrence</p>
+<p>Integrate <span class="math inline">\(J(x,m)\)</span> by parts, choosing</p>
+<p><span class="math display">\[
+a=(1-u)^{m},\quad db=u^{x-1}du,
+\]</span></p>
+<p>so that</p>
+<p><span class="math display">\[
+da=-m(1-u)^{m-1}du,\quad b=\frac{u^{x}}{x}.
+\]</span></p>
+<p>Boundary terms vanish (since <span class="math inline">\(u^{x}\to 0\)</span> as <span class="math inline">\(u\to 0^+\)</span> when <span class="math inline">\(x&gt;0\)</span>, and <span class="math inline">\((1-u)^m\to 0\)</span> as <span class="math inline">\(u\to 1^-\)</span>), hence</p>
+<p><span class="math display">\[
+J(x,m)=\frac{m}{x}\int_{0}^{1}\!u^{x}(1-u)^{m-1}\,du
+=\frac{m}{x}\,J(x+1,m-1).
+\]</span></p>
+<p>Iterating this <span class="math inline">\(m\)</span> times yields</p>
+<p><span class="math display">\[
+J(x,m)=\frac{m}{x}\cdot\frac{m-1}{x+1}\cdot\frac{m-2}{x+2}\cdots\frac{1}{x+m-1}\,J(x+m,0).
+\]</span></p>
+<p>But <span class="math inline">\(J(x+m,0)=\int_{0}^{1}u^{x+m-1}\,du=\frac{1}{x+m}\)</span>. Therefore</p>
+<p><span class="math display">\[
+J(x,m)=\frac{m!}{x(x+1)\cdots (x+m)}.
+\]</span></p>
+<p>Step 3: Identify with <span class="math inline">\(\Gamma_m(x)\)</span></p>
+<p>Finally,</p>
+<p><span class="math display">\[
+I_m(x)=m^{x}\,J(x,m)
+= m^{x}\,\frac{m!}{x(x+1)\cdots(x+m)}
+= \Gamma_m(x),
+\]</span></p>
+<p>which is exactly the desired identity.</p>
+<p>This derivation matches Knuth’s suggested approach (“change of variable <span class="math inline">\(t=mu\)</span>, integration by parts, and induction”).</p>
+<p>Remarks</p>
+<ol type="1">
+<li>The integral <span class="math inline">\(J(x,m)\)</span> is the beta integral <span class="math inline">\(B(x,m+1)\)</span>, so the result can be summarized as</li>
+</ol>
+<p><span class="math display">\[
+\Gamma_m(x)=m^{x}B(x,m+1)\qquad(x&gt;0),
+\]</span></p>
+<p>consistent with the notation and surrounding discussion in §1.2.5. </p>
+<ol start="2" type="1">
+<li>In the very next exercise (20), this representation is used to prove the standard Euler integral formula</li>
+</ol>
+<p><span class="math display">\[
+\Gamma(x)=\int_{0}^{\infty}e^{-t}t^{x-1}\,dt\qquad(x&gt;0)
+\]</span></p>
+<p>by bounding <span class="math inline">\(\Gamma(x)-\Gamma_m(x)\)</span> and letting <span class="math inline">\(m\to\infty\)</span>.</p>
+</section>
+<section id="hm21" class="level3">
+<h3 class="anchored" data-anchor-id="hm21">20 [HM21]</h3>
+<p>Fix <span class="math inline">\(a&gt;0\)</span>, and for each integer <span class="math inline">\(m\ge 1\)</span> define</p>
+<p><span class="math display">\[
+I_m(a)\;:=\;\int_{0}^{\infty} \frac{t^{a-1}}{\bigl(1+t/m\bigr)^{\,m+1}}\,dt.
+\tag{1}
+\]</span></p>
+<p>Step 1: Evaluate <span class="math inline">\(I_m(a)\)</span> exactly (beta–gamma algebra)</p>
+<p>Make the substitution <span class="math inline">\(u=\frac{t}{m+t}\)</span> (so <span class="math inline">\(t=\frac{mu}{1-u}\)</span>, <span class="math inline">\(dt=\frac{m\,du}{(1-u)^2}\)</span>). Then</p>
+<p><span class="math display">\[
+\begin{aligned}
+I_m(a)
+&amp;=\int_{0}^{1} m^a\,u^{a-1}(1-u)^{m-a}\,du
+= m^a\,B\!\left(a,\,m+1-a\right)\\[4pt]
+&amp;= m^a\,\frac{\Gamma(a)\,\Gamma(m+1-a)}{\Gamma(m+1)}.
+\end{aligned}
+\tag{2}
+\]</span></p>
+<p>(This is the standard beta integral <span class="math inline">\(B(x,y)=\int_0^1 u^{x-1}(1-u)^{y-1}du\)</span> and <span class="math inline">\(B(x,y)=\Gamma(x)\Gamma(y)/\Gamma(x+y)\)</span>; see the beta–gamma relation discussed around the §1.2.5 exercises.) </p>
+<p>Step 2: Take the limit <span class="math inline">\(m\to\infty\)</span></p>
+<p>Use the basic gamma–ratio asymptotic (a one-line consequence of Stirling’s formula): for fixed <span class="math inline">\(a\)</span>,</p>
+<p><span class="math display">\[
+\frac{\Gamma(m+1-a)}{\Gamma(m+1)}\;\sim\; m^{-a}\qquad(m\to\infty).
+\]</span></p>
+<p>Hence from (2),</p>
+<p><span class="math display">\[
+I_m(a)=m^a\,\Gamma(a)\,\frac{\Gamma(m+1-a)}{\Gamma(m+1)}\;\longrightarrow\;\Gamma(a).
+\tag{3}
+\]</span></p>
+<p>(Stirling’s approximation for <span class="math inline">\(\Gamma\)</span> in §1.2.5/§1.2.11 justifies the ratio $ (m+1-a)/(m+1)m^{-a}$.) </p>
+<p>Step 3: Identify the pointwise limit of the integrand</p>
+<p>For each fixed <span class="math inline">\(t\ge 0\)</span>,</p>
+<p><span class="math display">\[
+\frac{1}{\bigl(1+t/m\bigr)^{\,m+1}} \;\xrightarrow[m\to\infty]{}\; e^{-t}.
+\]</span></p>
+<p>Thus the integrands in (1) converge pointwise to <span class="math inline">\(e^{-t} t^{a-1}\)</span>.</p>
+<p>A standard compact–tail argument (or dominated convergence with a routine bound using Stirling/ratio as above) lets us pass the limit through the integral, so the limit of <span class="math inline">\(I_m(a)\)</span> is the integral of the limit:</p>
+<p><span class="math display">\[
+\lim_{m\to\infty} I_m(a)=\int_{0}^{\infty} e^{-t}\,t^{a-1}\,dt.
+\tag{4}
+\]</span></p>
+<p>Step 4: Conclude</p>
+<p>From (3) and (4),</p>
+<p><span class="math display">\[
+\Gamma(a)=\int_{0}^{\infty} e^{-t}\,t^{a-1}\,dt,
+\]</span></p>
+<p>which is Euler’s integral representation of the gamma function—exactly the statement <span class="math inline">\(\gamma(a,\infty)=\Gamma(a)\)</span>. (Knuth points to this identity right where he introduces the incomplete gamma function.) </p>
+<p>Remarks</p>
+<ol type="1">
+<li>For integer <span class="math inline">\(a=n\ge1\)</span>, the integral reduces to <span class="math inline">\(\int_0^\infty e^{-t} t^{n-1}dt=(n-1)!\)</span>, consistent with <span class="math inline">\(\Gamma(n)=(n-1)!\)</span>.</li>
+<li>The same proof works for complex <span class="math inline">\(a\)</span> with <span class="math inline">\(\Re(a)&gt;0\)</span>, giving the standard domain of Euler’s integral.</li>
+</ol>
+</section>
+<section id="hm25" class="level3">
+<h3 class="anchored" data-anchor-id="hm25">21 [HM25]</h3>
+<p>Proof via Taylor expansions (partial Bell polynomials)</p>
+<p>Write the Taylor expansions around <span class="math inline">\(x\)</span> and around <span class="math inline">\(u(x)\)</span>:</p>
+<p><span class="math display">\[
+u(x+t)=u(x)+\sum_{i\ge1}\frac{u^{(i)}(x)}{i!}\,t^i,
+\qquad
+W\bigl(u(x)+y\bigr)=\sum_{j\ge0}\frac{W^{(j)}(u(x))}{j!}\,y^j.
+\]</span></p>
+<p>Set <span class="math inline">\(g(t)=W(u(x+t))\)</span>. Then</p>
+<p><span class="math display">\[
+g(t)=\sum_{j\ge0}\frac{W^{(j)}(u(x))}{j!}\Bigl(u(x+t)-u(x)\Bigr)^{\!j}
+=\sum_{j\ge0}\frac{W^{(j)}(u)}{j!}\Bigl(\sum_{i\ge1} a_i t^i\Bigr)^{\!j},
+\]</span></p>
+<p>where <span class="math inline">\(a_i=u^{(i)}(x)/i!\)</span>.</p>
+<p>Expand the <span class="math inline">\(j\)</span>-th power by the multinomial theorem. The coefficient of <span class="math inline">\(t^n\)</span> in <span class="math inline">\(\bigl(\sum_{i\ge1} a_i t^i\bigr)^j\)</span> is</p>
+<p><span class="math display">\[
+\sum_{\substack{k_1+\cdots+k_n=j\\ 1k_1+\cdots+nk_n=n}}
+\frac{j!}{k_1!\cdots k_n!}\;
+a_1^{k_1}\cdots a_n^{k_n}
+=
+\sum_{\substack{k}}
+\frac{j!}{k_1!\cdots k_n!}\;
+\prod_{i=1}^n \Bigl(\frac{u^{(i)}(x)}{i!}\Bigr)^{k_i}.
+\]</span></p>
+<p>Therefore the coefficient of <span class="math inline">\(t^n\)</span> in <span class="math inline">\(g(t)\)</span> is</p>
+<p><span class="math display">\[
+\sum_{j=0}^{n}\sum_{\substack{k}}
+\frac{W^{(j)}(u)}{j!}\cdot
+\frac{j!}{k_1!\cdots k_n!}\;
+\prod_{i=1}^n \Bigl(\frac{u^{(i)}(x)}{i!}\Bigr)^{k_i}.
+\]</span></p>
+<p>But <span class="math inline">\(g(t)=\sum_{n\ge0}\dfrac{D_x^{\,n}w}{n!}\,t^n\)</span>. Equating coefficients of <span class="math inline">\(t^n\)</span> and multiplying by <span class="math inline">\(n!\)</span> gives</p>
+<p><span class="math display">\[
+D_x^{\,n} w
+=\sum_{j=0}^{n}\sum_{\substack{k_1+\cdots+k_n=j\\ 1k_1+\cdots+nk_n=n}}
+\frac{n!}{k_1!\cdots k_n!}\;
+\prod_{i=1}^n \Bigl(\frac{u^{(i)}(x)}{i!}\Bigr)^{k_i}
+\, W^{(j)}(u),
+\]</span></p>
+<p>which is exactly the required formula after grouping the <span class="math inline">\((i!)^{-k_i}\)</span> into the denominator. This also shows the well-known form</p>
+<p><span class="math display">\[
+\frac{d^n}{dx^n}W(u(x))
+=\sum_{j=0}^{n} W^{(j)}(u)\,B_{n,j}\bigl(u',u'',\dots,u^{(n-j+1)}\bigr),
+\]</span></p>
+<p>where <span class="math inline">\(B_{n,j}\)</span> is the partial Bell polynomial; expanding <span class="math inline">\(B_{n,j}\)</span> yields the same coefficients.</p>
+<p>Quick sanity checks</p>
+<ul>
+<li><p><span class="math inline">\(n=2\)</span>: admissible <span class="math inline">\((k_1,k_2)\)</span> are <span class="math inline">\((2,0)\)</span> with <span class="math inline">\(j=2\)</span> and <span class="math inline">\((0,1)\)</span> with <span class="math inline">\(j=1\)</span>.</p>
+<p><span class="math display">\[
+D_x^2 w = W''(u)\,(u')^2 + W'(u)\,u'',
+\]</span></p>
+<p>the familiar second-derivative chain rule.</p></li>
+<li><p><span class="math inline">\(n=3\)</span>: terms <span class="math inline">\((k_1,k_2,k_3)=(3,0,0),(1,1,0),(0,0,1)\)</span> give</p>
+<p><span class="math display">\[
+D_x^3 w = W'''(u)\,(u')^3 + 3W''(u)\,u' u'' + W'(u)\,u''',
+\]</span></p>
+<p>as expected.</p></li>
+</ul>
+<p>This completes the proof.</p>
+</section>
+<section id="hm20-2" class="level3">
+<h3 class="anchored" data-anchor-id="hm20-2">22 [HM20]</h3>
+<p>Guess a rule for the ratio <span class="math inline">\((n+x)!/n!\)</span> as <span class="math inline">\(n\to\infty\)</span>. Check it for integer <span class="math inline">\(x\)</span>. Then say what it suggests for the “right” definition of <span class="math inline">\(x!\)</span> when <span class="math inline">\(x\)</span> isn’t an integer.</p>
+<p>For fixed <span class="math inline">\(x\)</span>, a very natural guess is</p>
+<p><span class="math display">\[
+\boxed{\;\lim_{n\to\infty}\frac{(n+x)!}{n!\,n^{x}}=1\;}\qquad(\star)
+\]</span></p>
+<p>This says <span class="math inline">\((n+x)!\)</span> grows like <span class="math inline">\(n!\,n^{x}\)</span> when <span class="math inline">\(n\)</span> is large.</p>
+<p>Check for integer <span class="math inline">\(x\)</span></p>
+<p>Let <span class="math inline">\(x=k\in\mathbb Z_{\ge 0}\)</span>. Then</p>
+<p><span class="math display">\[
+\frac{(n+k)!}{n!\,n^{k}}
+=\prod_{i=1}^{k}\frac{n+i}{n}
+=\prod_{i=1}^{k}\Bigl(1+\frac{i}{n}\Bigr)\xrightarrow[n\to\infty]{}1,
+\]</span></p>
+<p>so <span class="math inline">\((\star)\)</span> is true.</p>
+<p>If <span class="math inline">\(x=-k\)</span> with <span class="math inline">\(k\in\mathbb Z_{\ge 0}\)</span>,</p>
+<p><span class="math display">\[
+\frac{(n-k)!}{n!\,n^{-k}}
+=\frac{n^{k}}{n(n-1)\cdots(n-k+1)}
+=\prod_{i=0}^{k-1}\frac{1}{1-\frac{i}{n}}\xrightarrow[n\to\infty]{}1,
+\]</span></p>
+<p>so <span class="math inline">\((\star)\)</span> also holds for negative integers. Thus the hypothesis is correct for all integer <span class="math inline">\(x\)</span>.</p>
+<p>What it suggests for non-integers</p>
+<p>Assume the extension of factorial should keep the basic recursion</p>
+<p><span class="math display">\[
+x! = x\,(x-1)! \quad \text{for all }x
+\]</span></p>
+<p>(the same functional equation used to define <span class="math inline">\(\Gamma\)</span>). Then, writing</p>
+<p><span class="math display">\[
+(n+x)! = x!\,(x+1)(x+2)\cdots(x+n),
+\]</span></p>
+<p>and dividing by <span class="math inline">\(n!\,n^{x}\)</span>, the hypothesis <span class="math inline">\((\star)\)</span> gives</p>
+<p><span class="math display">\[
+1=\lim_{n\to\infty}\frac{(n+x)!}{n!\,n^{x}}
+= x!\,\lim_{n\to\infty}\frac{(x+1)(x+2)\cdots(x+n)}{n!\,n^{x}}.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\boxed{\;x! \;=\; \lim_{n\to\infty}\frac{n^{x}\,n!}{(x+1)(x+2)\cdots(x+n)}\;}
+\]</span></p>
+<p>This is exactly Euler’s limit definition of the factorial for noninteger <span class="math inline">\(x\)</span> (equivalently, <span class="math inline">\(\Gamma(x+1)\)</span>), as given in the text:</p>
+<p><span class="math display">\[
+n!\;=\;\lim_{m\to\infty}\frac{m^{\,n}\,m!}{(n+1)(n+2)\cdots(n+m)}
+\quad\Longleftrightarrow\quad
+\Gamma(x+1)=\lim_{m\to\infty}\frac{m^{\,x}\,m!}{(x+1)\cdots(x+m)}.
+\]</span></p>
+<p>So the hypothesis not only matches integers; it directly suggests the correct extension <span class="math inline">\(x!:=\Gamma(x+1)\)</span>. </p>
+<p>(Optional) Why <span class="math inline">\((\star)\)</span> actually holds for all real <span class="math inline">\(x\)</span></p>
+<p>Using Stirling’s approximation <span class="math inline">\(n!\sim \sqrt{2\pi n}\,(n/e)^{n}\)</span>, we get, for fixed real <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display">\[
+\frac{(n+x)!}{n!\,n^{x}}
+=\frac{\Gamma(n+x+1)}{\Gamma(n+1)\,n^{x}}
+\;\xrightarrow[n\to\infty]{}\;1,
+\]</span></p>
+<p>since <span class="math inline">\(\Gamma(n+a)/\Gamma(n+b)\sim n^{a-b}\)</span>. Thus <span class="math inline">\((\star)\)</span> is universally valid and fully consistent with Euler’s definition of <span class="math inline">\(\Gamma\)</span>.</p>
+</section>
+<section id="hm20-3" class="level3">
+<h3 class="anchored" data-anchor-id="hm20-3">23 [HM20]</h3>
+<p>Show the reflection identity</p>
+<p><span class="math display">\[
+(-z)!\,\Gamma(z)=\frac{\pi}{\sin(\pi z)}\qquad(z\notin\mathbb Z),
+\]</span></p>
+<p>given the Euler product for sine</p>
+<p><span class="math display">\[
+\sin(\pi z)=\pi z\prod_{n=1}^{\infty}\!\left(1-\frac{z^{2}}{n^{2}}\right).
+\]</span></p>
+<ol type="1">
+<li>Start from the limit definition of the gamma function (Knuth’s Eq. (15)):</li>
+</ol>
+<p><span class="math display">\[
+\Gamma(x)=\lim_{m\to\infty}\frac{m^{x}\,m!}{x(x+1)\cdots(x+m)}.
+\]</span></p>
+<p>Apply this with <span class="math inline">\(x=1+z\)</span> and <span class="math inline">\(x=1-z\)</span>:</p>
+<p><span class="math display">\[
+\Gamma(1+z)=\lim_{m\to\infty}\frac{m^{1+z}m!}{(1+z)(2+z)\cdots(m+1+z)},\qquad
+\Gamma(1-z)=\lim_{m\to\infty}\frac{m^{1-z}m!}{(1-z)(2-z)\cdots(m+1-z)}.
+\]</span></p>
+<p>Multiplying gives</p>
+<p><span class="math display">\[
+\Gamma(1+z)\Gamma(1-z)
+=\lim_{m\to\infty}\frac{m^{2}(m!)^{2}}
+{\displaystyle\prod_{n=1}^{m+1}\bigl((n+z)(n-z)\bigr)}
+=\lim_{m\to\infty}\frac{m^{2}(m!)^{2}}
+{\displaystyle\prod_{n=1}^{m+1}(n^{2}-z^{2})}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Factor out <span class="math inline">\(n^{2}\)</span> in the denominator:</li>
+</ol>
+<p><span class="math display">\[
+\prod_{n=1}^{m+1}(n^{2}-z^{2})
+=\Bigl(\prod_{n=1}^{m+1}n^{2}\Bigr)\prod_{n=1}^{m+1}\Bigl(1-\frac{z^{2}}{n^{2}}\Bigr)
+=((m+1)!)^{2}\prod_{n=1}^{m+1}\Bigl(1-\frac{z^{2}}{n^{2}}\Bigr).
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\Gamma(1+z)\Gamma(1-z)
+=\lim_{m\to\infty}\frac{m^{2}}{(m+1)^{2}}\cdot
+\frac{1}{\displaystyle\prod_{n=1}^{m+1}\Bigl(1-\frac{z^{2}}{n^{2}}\Bigr)}
+=\prod_{n=1}^{\infty}\Bigl(1-\frac{z^{2}}{n^{2}}\Bigr)^{-1},
+\]</span></p>
+<p>since <span class="math inline">\(m^{2}/(m+1)^{2}\to1\)</span>.</p>
+<ol start="3" type="1">
+<li>Use the given Euler sine product (the exercise’s premise):</li>
+</ol>
+<p><span class="math display">\[
+\sin(\pi z)=\pi z\prod_{n=1}^{\infty}\Bigl(1-\frac{z^{2}}{n^{2}}\Bigr)
+\quad\Longrightarrow\quad
+\prod_{n=1}^{\infty}\Bigl(1-\frac{z^{2}}{n^{2}}\Bigr)^{-1}
+=\frac{\pi z}{\sin(\pi z)}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\Gamma(1+z)\Gamma(1-z)=\frac{\pi z}{\sin(\pi z)}.
+\]</span></p>
+<ol start="4" type="1">
+<li>Convert to Knuth’s factorial notation. Using <span class="math inline">\(\Gamma(1+z)=z\,\Gamma(z)\)</span> and <span class="math inline">\((-z)!=\Gamma(1-z)\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+z\,(-z)!\,\Gamma(z)=\frac{\pi z}{\sin(\pi z)}\quad\Longrightarrow\quad
+(-z)!\,\Gamma(z)=\frac{\pi}{\sin(\pi z)},
+\]</span></p>
+<p>as desired (valid for noninteger <span class="math inline">\(z\)</span> where both sides are finite). </p>
+</section>
+<section id="hm21-1" class="level3">
+<h3 class="anchored" data-anchor-id="hm21-1">24 [HM21]</h3>
+<p>The key idea is to compare the sum <span class="math inline">\(\ln(n!)=\sum_{k=1}^{n}\ln k\)</span> with the area under the increasing function <span class="math inline">\(\ln x\)</span>.</p>
+<p>Because <span class="math inline">\(\ln x\)</span> is increasing on <span class="math inline">\([1,\infty)\)</span>,</p>
+<p><span class="math display">\[
+\int_{1}^{n}\!\ln x\,dx\;\le\;\sum_{k=1}^{n}\ln k
+\;\le\;\int_{1}^{n}\!\ln x\,dx+\ln n .
+\]</span></p>
+<p>(Left inequality: on each interval <span class="math inline">\([k,k+1)\)</span>, <span class="math inline">\(\ln x\ge \ln k\)</span>; summing gives the integral <span class="math inline">\(\le\)</span> the sum. Right inequality: write <span class="math inline">\(\sum_{k=1}^{n}\ln k=\ln n+\sum_{k=1}^{n-1}\ln k\le \ln n+\int_{1}^{n}\ln x\,dx\)</span>.)</p>
+<p>Evaluate the integral:</p>
+<p><span class="math display">\[
+\int_{1}^{n}\!\ln x\,dx=\bigl[x\ln x-x\bigr]_{1}^{n}
+= n\ln n-n+1 .
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+n\ln n-n+1 \;\le\; \ln(n!) \;\le\; (n+1)\ln n-n+1 .
+\]</span></p>
+<p>Exponentiating gives exactly</p>
+<p><span class="math display">\[
+\boxed{\;\dfrac{n^{\,n}}{e^{\,n-1}}\;\le\; n!\;\le\;\dfrac{n^{\,n+1}}{e^{\,n-1}}\;}
+\]</span></p>
+<p>for all integers <span class="math inline">\(n\ge 1\)</span>.</p>
+<p>How the hint connects (optional intuition)</p>
+<p>From <span class="math inline">\(1+x\le e^{x}\)</span> we get</p>
+<p><span class="math display">\[
+\frac{k+1}{k}\le e^{1/k}
+\quad\text{and}\quad
+e^{1/k}\le \frac{k}{k-1}\qquad(k\ge2).
+\]</span></p>
+<p>Multiplying the first inequality for <span class="math inline">\(k=1,\dots,n-1\)</span> yields</p>
+<p><span class="math display">\[
+n=\prod_{k=1}^{n-1}\frac{k+1}{k}\le \exp\!\Bigl(\sum_{k=1}^{n-1}\frac1k\Bigr),
+\]</span></p>
+<p>so <span class="math inline">\(\ln n\le H_{n-1}\)</span>. Multiplying the second for <span class="math inline">\(k=2,\dots,n\)</span> gives</p>
+<p><span class="math display">\[
+\exp\!\Bigl(\sum_{k=2}^{n}\frac1k\Bigr)\le \prod_{k=2}^{n}\frac{k}{k-1}=n,
+\]</span></p>
+<p>so <span class="math inline">\(H_n\le 1+\ln n\)</span>. These classical bounds (<span class="math inline">\(\ln n\le H_{n-1}&lt;H_n\le 1+\ln n\)</span>) are the discrete counterpart of the integral comparisons above; integrating <span class="math inline">\(\ln x\)</span> is simply the cleanest way to turn them into bounds on <span class="math inline">\(\ln(n!)\)</span>.</p>
+<p>Tightness and context</p>
+<p>These inequalities are crude but <em>uniformly valid</em> for all <span class="math inline">\(n\ge1\)</span>. They’re consistent with Stirling’s formula <span class="math inline">\(n!\sim \sqrt{2\pi n}\,(n/e)^n\)</span>, which refines both sides by the missing <span class="math inline">\(\sqrt{2\pi n}\)</span> factor and lower-order terms; our bounds differ only by a factor of <span class="math inline">\(n\)</span> in front and match the same dominant <span class="math inline">\((n/e)^n\)</span> behavior.</p>
+</section>
+<section id="m20-1" class="level3">
+<h3 class="anchored" data-anchor-id="m20-1">25 [M20]</h3>
+<p>Definitions</p>
+<ul>
+<li><p>Falling factorial (a.k.a. “to the <span class="math inline">\(n\)</span> falling”):</p>
+<p><span class="math display">\[
+x^{\underline n}=x(x-1)(x-2)\cdots(x-n+1)\quad(n\ge 0).
+\]</span></p></li>
+<li><p>Rising factorial (a.k.a. Pochhammer symbol):</p>
+<p><span class="math display">\[
+x^{\overline n}=x(x+1)(x+2)\cdots(x+n-1)\quad(n\ge 0).
+\]</span></p></li>
+</ul>
+<p>Knuth also records the useful gamma–function forms</p>
+<p><span class="math display">\[
+x^{\underline n}=\frac{\Gamma(x+1)}{\Gamma(x+1-n)},\qquad
+x^{\overline n}=\frac{\Gamma(x+n)}{\Gamma(x)}.
+\]</span></p>
+<p>Proofs for integers <span class="math inline">\(m,n\ge 0\)</span></p>
+<p>Falling factorial</p>
+<p><span class="math display">\[
+\begin{aligned}
+x^{\underline{m+n}}
+&amp;=\prod_{j=0}^{m+n-1}(x-j)
+=\left(\prod_{j=0}^{m-1}(x-j)\right)\left(\prod_{j=m}^{m+n-1}(x-j)\right)\\
+&amp;=x^{\underline m}\cdot \prod_{j=0}^{n-1}\bigl((x-m)-j\bigr)
+= x^{\underline m}\,(x-m)^{\underline n}.
+\end{aligned}
+\]</span></p>
+<p>Rising factorial</p>
+<p><span class="math display">\[
+\begin{aligned}
+x^{\overline{m+n}}
+&amp;=\prod_{j=0}^{m+n-1}(x+j)
+=\left(\prod_{j=0}^{m-1}(x+j)\right)\left(\prod_{j=m}^{m+n-1}(x+j)\right)\\
+&amp;=x^{\overline m}\cdot \prod_{j=0}^{n-1}\bigl((x+m)+j\bigr)
+= x^{\overline m}\,(x+m)^{\overline n}.
+\end{aligned}
+\]</span></p>
+<p>These are just regroupings of consecutive factors.</p>
+<p>Extension to noninteger <span class="math inline">\(m,n\)</span></p>
+<p>Using the gamma–function definitions (valid wherever the gamma function is defined), we have</p>
+<p><span class="math display">\[
+\begin{aligned}
+x^{\underline{m+n}}
+&amp;=\frac{\Gamma(x+1)}{\Gamma(x+1-(m+n))}
+=\frac{\Gamma(x+1)}{\Gamma(x+1-m)}\cdot\frac{\Gamma(x+1-m)}{\Gamma(x+1-m-n)}\\
+&amp;=x^{\underline m}\,(x-m)^{\underline n},
+\\[6pt]
+x^{\overline{m+n}}
+&amp;=\frac{\Gamma(x+m+n)}{\Gamma(x)}
+=\frac{\Gamma(x+m+n)}{\Gamma(x+m)}\cdot\frac{\Gamma(x+m)}{\Gamma(x)}\\
+&amp;=(x+m)^{\overline n}\,x^{\overline m}.
+\end{aligned}
+\]</span></p>
+<p>Thus the identities hold for real (indeed complex) <span class="math inline">\(m,n\)</span> and <span class="math inline">\(x\)</span>, subject only to avoiding poles of the gamma function (i.e., where the denominators would be <span class="math inline">\(\Gamma\)</span> at nonpositive integers). This is exactly the extension Knuth alludes to. </p>
+<p>Quick sanity check</p>
+<p>Take <span class="math inline">\(x=7\)</span>, <span class="math inline">\(m=3\)</span>, <span class="math inline">\(n=2\)</span>.</p>
+<ul>
+<li>Falling: <span class="math inline">\(7^{\underline{5}}=7\cdot6\cdot5\cdot4\cdot3\)</span>. Right side: <span class="math inline">\(7^{\underline 3}(7-3)^{\underline 2}=(7\cdot6\cdot5)(4\cdot3)\)</span>. Same product.</li>
+<li>Rising: <span class="math inline">\(7^{\overline{5}}=7\cdot8\cdot9\cdot10\cdot11\)</span>. Right side: <span class="math inline">\(7^{\overline 3}(7+3)^{\overline 2}=(7\cdot8\cdot9)(10\cdot11)\)</span>. Same product.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.2.4.html" class="pagination-link" aria-label="1.2.4 Integer functions and elementary number theory">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.2.6.html" class="pagination-link" aria-label="1.2.6 Binomial coefficients">
+        <span class="nav-page-text"><span class="chapter-title">1.2.6 Binomial coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

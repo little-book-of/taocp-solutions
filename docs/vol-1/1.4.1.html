@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.4.1 Subroutines – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.4.2.html" rel="next">
+<link href="../vol-1/1.3.3.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.4.1.html"><span class="chapter-title">1.4.1 Subroutines</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [10]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [10]</a></li>
+  <li><a href="#m15" id="toc-m15" class="nav-link" data-scroll-target="#m15">3 [M15]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">4 [21]</a>
+  <ul class="collapse">
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">5 [21]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">5 [21]</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">6 [26]</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">7 [20]</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.4.1 Subroutines</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1 [10]</h3>
+<p>Calling sequence (two entrances)</p>
+<ul>
+<li>Special case <span class="math inline">\(n=100\)</span>: <code>JMP MAX100</code> (sets <span class="math inline">\(rI3 \leftarrow 100\)</span> internally via <code>ENT3 100</code> in (5)). </li>
+<li>General case <span class="math inline">\(n\)</span> arbitrary: <code>ENT3 n</code> ; <code>JMP MAXN</code> (caller supplies <span class="math inline">\(n\)</span> in <span class="math inline">\(rI3\)</span>, then enters at <code>MAXN</code>). </li>
+</ul>
+<p>Entry conditions</p>
+<ul>
+<li>For <code>MAX100</code> entrance: No register precondition for <span class="math inline">\(n\)</span>; the subroutine itself performs <code>ENT3 100</code>.</li>
+<li>For <code>MAXN</code> entrance: <span class="math inline">\(rI3 = n\)</span> with <span class="math inline">\(n \ge 1\)</span>. (These mirror the role of <span class="math inline">\(n\)</span> in the general MAXIMUM spec given in (4), but with <span class="math inline">\(rI3\)</span> used as the parameter in this version.) </li>
+</ul>
+<p>Exit conditions (functional result and register effects)</p>
+<p>Let <span class="math inline">\(X\)</span> be the base address used by the code (as in the MAX programs), and let the table be <span class="math inline">\(X+1,\dots,X+n\)</span>. Then on return:</p>
+<ul>
+<li>Result: <span class="math inline">\(rA \;=\; \max_{1 \le k \le n} \mathrm{CONTENTS}(X+k)\)</span> and <span class="math inline">\(\mathrm{CONTENTS}(X+rI2) = rA\)</span> (so <span class="math inline">\(rI2\)</span> gives a position at which the maximum occurs). (Same functional contract as in (4).) </li>
+<li>Loop index cleanup: <span class="math inline">\(rI3 = 0\)</span> on exit (as in (4)). </li>
+<li>Other status: <span class="math inline">\(rJ\)</span> (the jump register) and the comparison indicator (CI) are affected by the subroutine call/return sequence (as noted in (4)). </li>
+<li>No external stores implied: The specification does not imply changes to memory outside the subroutine’s own locations; in (4) Knuth notes we may conclude nothing has been stored externally when the contract doesn’t say so. </li>
+</ul>
+<p>Linkage notes (how (5) returns)</p>
+<ul>
+<li><ol start="5" type="1">
+<li>saves the return address with <code>STJ EXIT</code> at entry (for <code>MAXN</code>) and returns with <code>EXIT JMP *</code>, which jumps back to the instruction following the caller’s <code>JMP</code>. For the <code>MAX100</code> entrance, <code>ENT3 100</code> is done first, but the same <code>EXIT</code> return is used; <code>ENT3</code> doesn’t disturb <span class="math inline">\(rJ\)</span>. </li>
+</ol></li>
+</ul>
+<p>Compact spec (in the exact style of (4))</p>
+<ul>
+<li><p>Calling sequence: <code>JMP MAX100</code>  or  <code>ENT3 n ; JMP MAXN</code>. </p></li>
+<li><p>Entry conditions: For <code>MAX100</code>: none (internally sets <span class="math inline">\(rI3 \leftarrow 100\)</span>). For <code>MAXN</code>: <span class="math inline">\(rI3 = n\)</span>, assume <span class="math inline">\(n \ge 1\)</span>.</p></li>
+<li><p>Exit conditions: <span class="math inline">\(rA = \displaystyle \max_{1 \le k \le n} \mathrm{CONTENTS}(X+k) = \mathrm{CONTENTS}(X+rI2)\)</span>; <span class="math inline">\(rI3 = 0\)</span>; <span class="math inline">\(rJ\)</span> and CI are also affected; no other state is changed. </p></li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2 [10]</h3>
+<p>Replace this use of <code>JSJ</code> (jump without altering <code>rJ</code>) with ordinary instructions.</p>
+<p>Solution</p>
+<p>Use the same two-instruction prologue that label <code>MAXN</code> uses—save the return address and jump into the body—then set the parameter and continue:</p>
+<pre><code>MAX50  STJ  EXIT    ; save caller's return address (rJ) where MAXN would save it
+       ENT3 50      ; set rI3 = 50 (parameter n = 50)
+       JMP  2F      ; continue at the same point as other entries</code></pre>
+<p>Why this works</p>
+<ul>
+<li>At entry <code>MAXN</code>, the subroutine begins by <code>STJ EXIT</code> then <code>JMP 2F</code> to the body. By duplicating those two actions at <code>MAX50</code>, we avoid needing a <code>JSJ</code>.</li>
+<li><code>ENT3</code> <em>does not</em> change the J-register (Knuth notes this explicitly), so you may place <code>ENT3 50</code> before or after <code>STJ EXIT</code>; either way the saved return address is the caller’s, as desired.</li>
+<li>After <code>JMP 2F</code>, execution is identical to the other entrances; the subroutine eventually returns via the saved address at <code>EXIT</code>.</li>
+</ul>
+<p>This exactly satisfies the exercise’s request to substitute for (6) without using <code>JSJ</code>.</p>
+</section>
+<section id="m15" class="level3">
+<h3 class="anchored" data-anchor-id="m15">3 [M15]</h3>
+<p>Knuth’s spec (4) for <code>MAXIMUM</code> is (summarizing):</p>
+<p>Calling sequence: <code>JMP MAXIMUM</code>. Entry: <code>rI1 = n</code> (assume <code>n ≥ 1</code>). Exit: <code>rA = max_{1≤k≤n} X[k] = X[rI2]</code>, and <code>rI3 = 0</code>. It notes that “<code>rJ</code> and CI are also affected” but leaves them unspecified. </p>
+<p>The code pattern is the usual “find max” loop, with a return via <code>EXIT JMP *</code>. (See the <code>MAX100</code> variant (1) and the generalized forms in the same section.) </p>
+<p>Precisely: effect on <code>rJ</code></p>
+<ul>
+<li>On entry (caller does <code>JMP MAXIMUM</code>), <code>rJ</code> holds the caller’s return address (the location after the call), per MIX jump semantics.</li>
+<li>On exit the subroutine executes <code>JMP *</code> at label <code>EXIT</code>. In MIX, <code>JMP *</code> returns to the address currently in <code>rJ</code> and stores the address of the instruction following <code>EXIT</code> (i.e., <code>EXIT+1</code>) into <code>rJ</code> as part of the jump.</li>
+<li>Net effect seen by the caller: control returns to “after the call”, but <code>rJ</code> is clobbered to an internal address (<code>EXIT+1</code> from inside the callee). Thus <code>rJ</code> is not preserved by the subroutine. (This is why (4) warned that <code>rJ</code> is affected.) </li>
+</ul>
+<p>Precisely: effect on the comparison indicator (CI)</p>
+<p>Look at the inner loop for <code>MAXIMUM</code>/<code>MAX100</code> (labels M3–M5): each iteration does a <code>CMPA X,3</code> and possibly updates the running maximum, then decrements the loop index and exits when it is no longer positive. Therefore, the last instruction that sets CI before return is the final <code>CMPA</code> in the loop.</p>
+<ul>
+<li>At exit, <code>rA</code> holds the maximum <code>m</code>, and the final CI equals the result of comparing <code>m</code> with the last element that was compared (namely <code>X[1]</code> in the typical 1-downward loop).</li>
+<li>Consequently, CI is data-dependent: it is “=” (equal) iff <code>X[1]</code> equals the maximum, otherwise “&gt;” (greater) if the maximum is strictly larger than that last compared value. In general, the subroutine does not define/sanitize CI; it simply leaves whatever CI arose from the last <code>CMPA</code>.</li>
+</ul>
+<p>(That is exactly why (4) omitted CI by default: it isn’t a stable, caller-useful postcondition unless explicitly specified.)</p>
+<p>If the precondition <code>n ≥ 1</code> is violated (<code>rI1</code> not positive)</p>
+<p>The code initializes with <code>j ← n; m ← X[n]; k ← n−1;</code> and then loops while <code>k &gt; 0</code>. If <code>n ≤ 0</code>, the loop body is skipped immediately, and the routine returns without doing a proper “maximum of 1..n”:</p>
+<ul>
+<li>It will have loaded <code>rA</code> from <code>X[n]</code> and set <code>rI2 ← n</code>, then exit with <code>rI3 = n−1 ≤ 0</code> (so the advertised <code>rI3 = 0</code> postcondition in (4) fails).</li>
+<li>If <code>n = 0</code>, you actually get the value at <code>X[0]</code>; if <code>n &lt; 0</code>, you fetch from <code>X + n</code> (a location before <code>X[1]</code>). This is precisely why the spec’s precondition “assume <code>n ≥ 1</code>” is essential; otherwise the behavior is out of spec and effectively undefined for the intended task. </li>
+</ul>
+<p>Completed specification addendum to (4)</p>
+<p>Add the following to the “Exit conditions” of (4):</p>
+<ul>
+<li><code>rJ</code> after return: contains the address <code>EXIT+1</code> (inside the subroutine), not the caller’s return address; therefore <code>rJ</code> is modified.</li>
+<li>Comparison indicator (CI): equals the result of the final <code>CMPA</code> executed in the loop (i.e., comparison of the final maximum with the last element tested). Its value is not fixed by the specification and must not be relied upon by callers.</li>
+<li>If <code>rI1 ≤ 0</code> at entry: the routine returns immediately after loading <code>rA ← X[n]</code>, with <code>rI2 ← n</code> and <code>rI3 = n−1 ≤ 0</code>; the semantics “max of the first <code>n</code> elements” does not hold in this case. </li>
+</ul>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">4 [21]</h2>
+<p>Generalize the <code>MAX</code> subroutine so it can scan an array with an arbitrary stride <code>r&gt;0</code> instead of consecutive elements. Provide two entry points:</p>
+<ul>
+<li><code>SMAX</code> — general case (caller supplies <code>r</code>),</li>
+<li><code>SMAX1</code> — fast special case for <code>r=1</code>.</li>
+</ul>
+<p>Assume the array base is the memory label <code>X</code>, the caller supplies the length <code>n&gt;0</code> in index register <code>I3</code>, and (for <code>SMAX</code>) the stride <code>r&gt;0</code> in index register <code>I1</code>. On return put the maximum into <code>A</code> and the position where it occurs into <code>I2</code>. (Context: the fixed-length <code>MAX100</code> subroutine and Knuth’s subroutine conventions appear in §1.4.1. )</p>
+<p>Knuth’s official answer states the exit conditions precisely, including the final value of <code>I3</code>; we’ll derive those below.</p>
+<p>The original <code>MAX100</code> scans <code>X+100, X+99, …, X+1</code> by keeping the current offset in <code>I3</code> and doing <code>DEC3 1</code> each pass. To scan every <code>r</code>-th element, do exactly the same but replace the decrement by <code>DEC3 0,1</code>, which subtracts <code>r</code> (the contents of <code>I1</code>) from <code>I3</code>. The loop terminates when <code>I3 ≤ 0</code>. (This is the classic one-entry, one-exit MIX subroutine scheme with <code>STJ EXIT</code>/<code>EXIT JMP *</code> linkage. )</p>
+<pre><code>* MAXIMUM OVER X[n], X[n−r], X[n−2r], ...
+* Calling:
+*   SMAX : rI3 = n (&gt;0), rI1 = r (&gt;0)
+*   SMAX1: rI3 = n (&gt;0), and r = 1 by convention
+* Returns:
+*   rA  = max of inspected elements
+*   rI2 = offset k (so that element is X + k)
+*   rI3 = ((n−1) mod r) + 1 − r   (derived below)
+
+SMAX    STJ  EXIT          * Save return address
+        JMP  INIT          * General case (stride in rI1)
+
+SMAX1   STJ  EXIT          * Fast path when r = 1
+        JMP  INIT1
+
+* ---- initialization: A ← X + I3, I2 ← I3, then step once ----
+
+INIT    ENT2 0,3           * rI2 ← I3
+        LDA  X,3           * rA  ← X + I3
+        DEC3 0,1           * I3 ← I3 − r   (r = rI1)
+        J3P  LOOP          * if I3 &gt; 0, examine more
+        EXIT JMP *         * single element case
+
+INIT1   ENT2 0,3
+        LDA  X,3
+        DEC3 1             * I3 ← I3 − 1   (r = 1)
+        J3P  LOOP1
+        EXIT JMP *
+
+* ---- main loop: compare, possibly update (A,I2), then step ----
+
+LOOP    CMPA X,3           * compare A with X + I3
+        JGE  STEP
+        ENT2 0,3           * remember where the new max is
+        LDA  X,3           * take the new max into A
+STEP    DEC3 0,1           * I3 ← I3 − r
+        J3P  LOOP
+        EXIT JMP *
+
+LOOP1   CMPA X,3
+        JGE  STEP1
+        ENT2 0,3
+        LDA  X,3
+STEP1   DEC3 1
+        J3P  LOOP1
+        EXIT JMP *</code></pre>
+<p>This mirrors the pattern of <code>MAX100</code> (initialize by loading the first candidate, then loop), but changes the decrement to <code>r</code> when entered via <code>SMAX</code>. (Compare with the <code>MAX100</code> listing shown in the text. )</p>
+<p>Preconditions and postconditions</p>
+<ul>
+<li><p>Entry <code>I3 = n &gt; 0</code>. For <code>SMAX</code>, <code>I1 = r &gt; 0</code>; for <code>SMAX1</code>, <code>r</code> is understood to be 1.</p></li>
+<li><p>Exit</p>
+<ul>
+<li><code>A = max { CONTENTS(X + n − k r) : k = 0,1,2,…, ⌊(n−1)/r⌋ }</code>. Equivalently, the maximum over <code>X+n, X+n−r, X+n−2r, …</code> while the offset stays positive.</li>
+<li><code>I2</code> is the offset at which that maximum was found (so the element is <code>CONTENTS(X + I2)</code>).</li>
+<li><code>I3 = n − r ⌈n/r⌉ = ( (n−1) mod r ) + 1 − r = −((−n) mod r)</code>. (Knuth states this compactly in the official answer; the algebra appears below. )</li>
+</ul></li>
+<li><p>Registers preserved As with <code>MAX100</code>, the code doesn’t touch <code>X</code> or <code>I1</code> (except that <code>SMAX1</code> never needs to set <code>I1</code>). The return address is handled by <code>STJ EXIT</code>/<code>EXIT JMP *</code> per §1.4.1 conventions. </p></li>
+</ul>
+<p>Correctness (loop invariant)</p>
+<p>Let <code>k</code> denote the current value of <code>I3</code> <em>at the top of</em> <code>LOOP/LOOP1</code>.</p>
+<p>Invariant: After each comparison step, <code>A = max { CONTENTS(X + t) : t ∈ { n, n−r, n−2r, …, k+r } }</code> and <code>I2</code> is a value <code>t</code> realizing that maximum.</p>
+<ul>
+<li>Initialization (<code>INIT/INIT1</code>): We set <code>A ← CONTENTS(X + n)</code> and <code>I2 ← n</code>; the set <code>{n}</code> makes the invariant true.</li>
+<li>Preservation: If <code>A ≥ CONTENTS(X + k)</code>, we keep <code>(A,I2)</code>; otherwise we set <code>A ← CONTENTS(X + k)</code>, <code>I2 ← k</code>. Either way, after stepping <code>k ← k − r</code> we’ve incorporated the element at offset <code>k</code> into the set.</li>
+<li>Termination: The loop stops when <code>k ≤ 0</code>. Then all offsets <code>n, n−r, …, &gt;0</code> have been examined, so <code>A</code> is the desired maximum and <code>I2</code> its position.</li>
+</ul>
+<p>Final value of <code>I3</code></p>
+<p>Starting with <code>I3 = n</code> and repeatedly doing <code>I3 ← I3 − r</code> until <code>I3 ≤ 0</code> gives, after <code>q = ⌈n/r⌉</code> decrements,</p>
+<pre><code>I3_final = n − q r = n − r ⌈n/r⌉.</code></pre>
+<p>Using <code>⌈n/r⌉ = ⌊(n−1)/r⌋ + 1</code>,</p>
+<pre><code>I3_final = n − r ( ⌊(n−1)/r⌋ + 1 )
+         = (n − r ⌊(n−1)/r⌋) − r
+         = ((n−1) mod r + 1) − r,</code></pre>
+<p>which matches Knuth’s succinct form <code>−((−n) mod r)</code>. </p>
+<p>Cost</p>
+<p>Let <code>m = ⌈n/r⌉</code> be the number of elements inspected. Each pass is a constant number of MIX instructions (one compare, a conditional 2-instruction update, one decrement, one test), so the running time is Θ(m) = Θ(⌈n/r⌉), reducing work by a factor of about <code>r</code> relative to a unit-stride scan.</p>
+<p>Sanity check (small example)</p>
+<p>Take <code>n=7</code>, <code>r=3</code>. The offsets visited are <code>7, 4, 1</code>; the next would be <code>−2</code>, so we stop. The final <code>I3</code> equals <code>−2</code>, and the formula gives</p>
+<pre><code>((7−1) mod 3) + 1 − 3 = (6 mod 3) + 1 − 3 = 0 + 1 − 3 = −2.</code></pre>
+<p>Consistent.</p>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">5 [21]</h3>
+<ol type="1">
+<li>Calling code</li>
+</ol>
+<p>Load the return address (the word immediately after the call) into a non-J register—say <code>rA</code>—then jump to the subroutine:</p>
+<pre><code>      ENTA *+2        ; rA ← address of the next instruction (the return point)
+      JMP  MAX100     ; enter the subroutine
+; ... execution resumes here after the subroutine returns</code></pre>
+<p><code>*+2</code> is the location two words ahead: the word after <code>JMP MAX100</code> is the resume point, and MIX’s address computation makes <code>ENTA *+2</code> exactly that. (We use two words because the <code>JMP</code> itself occupies one word.) The subroutine does not rely on A’s initial value, since it initializes A before the first compare (see below), so there are no entry conditions to worry about. </p>
+<ol start="2" type="1">
+<li>Subroutine prologue/epilogue</li>
+</ol>
+<p>Replace the <code>STJ</code> prologue with a store from the register you chose (here <code>rA</code>) into the address field of <code>EXIT</code>:</p>
+<pre class="mixal"><code>* MAXIMUM OF X[1..100]  (abbreviated body)
+MAX100  STA  EXIT(0:2)   ; linkage via rA: store sign+2-byte address into EXIT
+        ENT3 100         ; M1. Initialize
+        JMP  2F
+
+1H      CMPA X,3         ; M3. Compare
+        JGE  *+3
+2H      ENT2 0,3         ; M4. Change m
+        LDA  X,3         ;     New maximum found
+        DEC3 1           ; M5. Decrease k
+        J3P  1B          ; M2. All tested?
+EXIT    JMP  *           ; return using the address we stored</code></pre>
+<ul>
+<li><code>EXIT(0:2)</code> targets the address part (sign + two bytes) of the <code>JMP *</code> at <code>EXIT</code>, leaving its index/field/opcode bytes undisturbed—exactly what <code>STJ</code> would have done with <code>rJ</code>, but now with <code>rA</code>.</li>
+<li>The rest of <code>MAX100</code> is unchanged; crucially, it re-initializes <code>rA</code> before the first <code>CMPA</code>, so seeding <code>rA</code> with the return address in the caller does not affect correctness. </li>
+</ul>
+<blockquote class="blockquote">
+<p>You could equally well choose another register: <code>STX EXIT(0:2)</code>, or <code>ST1 EXIT(0:2)</code>, … provided the subroutine uses that register to write the address field at entry and doesn’t need its incoming value for anything else.</p>
+</blockquote>
+<p>Why this works</p>
+<ul>
+<li>In MIX, the instruction word at <code>EXIT</code> is <code>JMP *</code>. The address field of that instruction is where the return address lives during the call.</li>
+<li>The standard scheme writes <code>rJ</code> there with <code>STJ EXIT</code>; our scheme writes whatever register we like (here <code>rA</code>) using a store with field spec <code>(0:2)</code>, so that only the address field is changed.</li>
+<li>Control returns by executing <code>EXIT  JMP *</code>, which now jumps to the address we just stored.</li>
+</ul>
+<p>Knuth’s answer for this exercise confirms the key point—any other register can be used, and one simple way to arrange the call is:</p>
+<pre><code>ENTA *+2
+JMP  MAX100</code></pre>
+<p>with no entry conditions. Our small prologue tweak (<code>STA EXIT(0:2)</code>) is the corresponding change inside the subroutine that makes <code>rA</code> the active linkage register instead of <code>rJ</code>.</p>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">5 [21]</h3>
+<p>Section 1.4.1 presents a simple MIX subroutine <code>MAX100</code> that returns to the caller via the J-register using the standard prologue/epilogue:</p>
+<ul>
+<li>Prologue: <code>STJ EXIT</code> (store the caller’s return address into the address field of the instruction at label <code>EXIT</code>)</li>
+<li>Epilogue: <code>EXIT  JMP *</code> (jump to the stored return address)</li>
+</ul>
+<p>The exercise asks you to show that you don’t have to use <code>rJ</code> for linkage—you can use any other register to convey the return address to <code>EXIT</code>. Knuth’s official line for this exercise is simply: “Any other register can be used,” with an example calling sequence <code>ENTA *+2 ; JMP MAX100</code> (no special entry conditions). </p>
+<p>Construction (one explicit way to do it)</p>
+<ol type="1">
+<li>Calling code</li>
+</ol>
+<p>Load the return address (the word immediately after the call) into a non-J register—say <code>rA</code>—then jump to the subroutine:</p>
+<pre><code>      ENTA *+2        ; rA ← address of the next instruction (the return point)
+      JMP  MAX100     ; enter the subroutine
+; ... execution resumes here after the subroutine returns</code></pre>
+<p><code>*+2</code> is the location two words ahead: the word after <code>JMP MAX100</code> is the resume point, and MIX’s address computation makes <code>ENTA *+2</code> exactly that. (We use two words because the <code>JMP</code> itself occupies one word.) The subroutine does not rely on A’s initial value, since it initializes A before the first compare (see below), so there are no entry conditions to worry about. </p>
+<ol start="2" type="1">
+<li>Subroutine prologue/epilogue</li>
+</ol>
+<p>Replace the <code>STJ</code> prologue with a store from the register you chose (here <code>rA</code>) into the address field of <code>EXIT</code>:</p>
+<pre class="mixal"><code>* MAXIMUM OF X[1..100]  (abbreviated body)
+MAX100  STA  EXIT(0:2)   ; linkage via rA: store sign+2-byte address into EXIT
+        ENT3 100         ; M1. Initialize
+        JMP  2F
+
+1H      CMPA X,3         ; M3. Compare
+        JGE  *+3
+2H      ENT2 0,3         ; M4. Change m
+        LDA  X,3         ;     New maximum found
+        DEC3 1           ; M5. Decrease k
+        J3P  1B          ; M2. All tested?
+EXIT    JMP  *           ; return using the address we stored</code></pre>
+<ul>
+<li><code>EXIT(0:2)</code> targets the address part (sign + two bytes) of the <code>JMP *</code> at <code>EXIT</code>, leaving its index/field/opcode bytes undisturbed—exactly what <code>STJ</code> would have done with <code>rJ</code>, but now with <code>rA</code>.</li>
+<li>The rest of <code>MAX100</code> is unchanged; crucially, it re-initializes <code>rA</code> before the first <code>CMPA</code>, so seeding <code>rA</code> with the return address in the caller does not affect correctness. </li>
+</ul>
+<blockquote class="blockquote">
+<p>You could equally well choose another register: <code>STX EXIT(0:2)</code>, or <code>ST1 EXIT(0:2)</code>, … provided the subroutine uses that register to write the address field at entry and doesn’t need its incoming value for anything else.</p>
+</blockquote>
+<p>Why this works</p>
+<ul>
+<li>In MIX, the instruction word at <code>EXIT</code> is <code>JMP *</code>. The address field of that instruction is where the return address lives during the call.</li>
+<li>The standard scheme writes <code>rJ</code> there with <code>STJ EXIT</code>; our scheme writes whatever register we like (here <code>rA</code>) using a store with field spec <code>(0:2)</code>, so that only the address field is changed.</li>
+<li>Control returns by executing <code>EXIT  JMP *</code>, which now jumps to the address we just stored.</li>
+</ul>
+<p>Knuth’s answer for this exercise confirms the key point—any other register can be used, and one simple way to arrange the call is:</p>
+<pre><code>ENTA *+2
+JMP  MAX100</code></pre>
+<p>with no entry conditions. Our small prologue tweak (<code>STA EXIT(0:2)</code>) is the corresponding change inside the subroutine that makes <code>rA</code> the active linkage register instead of <code>rJ</code>. </p>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">6 [26]</h3>
+<p>Below is a clean MIXAL subroutine that emulates the hardware operator MOVE using the calling sequence</p>
+<pre><code>JMP  MOVE
+NOP  A,I(F)</code></pre>
+<p>It copies exactly F words from the source block starting at the effective address M(A,I) to the destination block starting at rI1, word-by-word, and when finished increments rI1 by F. All other registers (A, X, I2–I6, overflow toggle, comparison indicator) are restored to their entry values, so the only externally visible differences from a real MOVE are (1) register J (as with any subroutine call) and (2) time/space. This matches the definition of MIX’s MOVE (C=7: “the number of words specified by F is moved… and rI1 is increased by the value of F at the end”), including the documented “one-word-at-a-time” behavior on overlap.</p>
+<p>The subroutine also follows the Section 1.4.1 convention of passing arguments in the word <em>after</em> the jump (we read the NOP A,I(F) via rJ, which points at that word), then returning to that NOP so execution continues with the caller’s next instruction.</p>
+<p>MOVE (software) — MIXAL</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode asm code-with-copy"><code class="sourceCode fasm"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>* MOVE — software emulation of hardware MOVE</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>* <span class="cf">Call</span><span class="op">:</span>   JMP MOVE</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>*         <span class="bu">NOP</span> A<span class="op">,</span>I<span class="op">(</span>F<span class="op">)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>* Effect<span class="op">:</span> Copy F words from M<span class="op">(</span>A<span class="op">,</span>I<span class="op">)</span> <span class="op">-&gt;</span> <span class="op">[</span>rI1 <span class="op">..</span> rI1<span class="op">+</span>F<span class="op">-</span><span class="dv">1</span><span class="op">]</span><span class="co">; then rI1 := rI1 + F.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>* Notes<span class="op">:</span>  Preserves rA<span class="op">,</span> rX<span class="op">,</span> rI2<span class="op">..</span>rI6<span class="op">,</span> CI<span class="op">,</span> overflow<span class="co">; only rI1 (and rJ) differ.</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>MOVE    STJ     RET           Save return <span class="op">(</span>address of the NOP A<span class="op">,</span>I<span class="op">(</span>F<span class="op">))</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        * Save registers we will clobber</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        STA     SAVEA</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        ST1     SAVE1</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        ST2     SAVE2</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        ST3     SAVE3</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        ST4     SAVE4</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        * rJ points to the parameter <span class="dt">word</span> <span class="op">(</span>NOP A<span class="op">,</span>I<span class="op">(</span>F<span class="op">)).</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        STJ     JADDR</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        LD2     JADDR         rI2 <span class="op">&lt;-</span> rJ  <span class="op">(</span>an address we can index from<span class="op">)</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>        * Decode A<span class="op">,</span> I<span class="op">,</span> F from that instruction <span class="dt">word</span><span class="op">.</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>        LDA     <span class="dv">0</span><span class="op">,</span><span class="dv">2</span><span class="op">(</span><span class="dv">0</span><span class="op">:</span><span class="dv">2</span><span class="op">)</span>      rA <span class="op">&lt;-</span> A <span class="op">(</span>±AA<span class="op">)</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        STA     SRC           save base address A</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        LD4     <span class="dv">0</span><span class="op">,</span><span class="dv">2</span><span class="op">(</span><span class="dv">3</span><span class="op">:</span><span class="dv">3</span><span class="op">)</span>      rI4 <span class="op">&lt;-</span> I <span class="op">(</span><span class="fl">0.</span><span class="op">.</span><span class="dv">6</span><span class="op">)</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>        LD3     <span class="dv">0</span><span class="op">,</span><span class="dv">2</span><span class="op">(</span><span class="dv">5</span><span class="op">:</span><span class="dv">5</span><span class="op">)</span>      rI3 <span class="op">&lt;-</span> F <span class="op">(</span>count<span class="op">)</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        * Build source pointer<span class="op">:</span> rI2 <span class="op">:=</span> A <span class="op">+</span> rIi <span class="op">(</span>using index arith<span class="op">.</span> only<span class="co">;</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        * INCi does <span class="op">not</span> affect the overflow toggle<span class="op">).</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        LD2     SRC           rI2 <span class="op">&lt;-</span> A</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        J4Z     SRC_OK        if I <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> no indexing needed</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>        * <span class="bu">Add</span> the selected index register to rI2</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>ISELECT DEC4    <span class="dv">1</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>        J4Z     ADDI1</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        DEC4    <span class="dv">1</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        J4Z     ADDI2</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>        DEC4    <span class="dv">1</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>        J4Z     ADDI3</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        DEC4    <span class="dv">1</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>        J4Z     ADDI4</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        DEC4    <span class="dv">1</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        J4Z     ADDI5</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        * must be <span class="dv">6</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>        ST6     TMP</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">JMP</span>     ADDI</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>ADDI1   <span class="kw">ST1</span>     TMP</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">JMP</span>     ADDI</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>ADDI2   <span class="kw">ST2</span>     TMP</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">JMP</span>     ADDI</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>ADDI3   <span class="kw">ST3</span>     TMP</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">JMP</span>     ADDI</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>ADDI4   <span class="kw">ST4</span>     TMP</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">JMP</span>     ADDI</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>ADDI5   <span class="kw">ST5</span>     TMP</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>ADDI    INC2    TMP           rI2 <span class="op">+=</span> rIi</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>SRC_OK  NOP</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>        * Main loop<span class="op">:</span> move F words<span class="op">,</span> advancing both pointers</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="cf">LOOP</span>    J3Z     DONE          if F <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> nothing to do</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>        LDA     <span class="dv">0</span><span class="op">,</span><span class="dv">2</span>           rA <span class="op">:=</span> CONTENTS<span class="op">(</span>rI2<span class="op">)</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>        STA     <span class="dv">0</span><span class="op">,</span><span class="dv">1</span>           CONTENTS<span class="op">(</span>rI1<span class="op">)</span> <span class="op">:=</span> rA</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>        INC2    <span class="dv">1</span>             rI2<span class="op">++</span></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>        INC1    <span class="dv">1</span>             rI1<span class="op">++</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>        DEC3    <span class="dv">1</span>             F<span class="op">--</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">JMP</span>     LOOP</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>DONE    <span class="op">*</span> rI1 has been advanced by original F <span class="op">(</span>as required<span class="op">)</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>        * <span class="pp">Restore</span> preserved registers <span class="op">(</span>except rI1<span class="op">)</span></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>        LDA     SAVEA</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>        LD2     SAVE2</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>        LD3     SAVE3</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>        LD4     SAVE4</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>        LD1     SAVE1</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="cf">RET</span>     JMP     <span class="op">*</span>             Return to the NOP<span class="co">; it executes and control</span></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>                              * falls through to the caller’s next instr<span class="op">.</span></span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>* ------- locals <span class="op">-------</span></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>SAVEA   CON     <span class="dv">0</span></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>SAVE1   CON     <span class="dv">0</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>SAVE2   CON     <span class="dv">0</span></span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>SAVE3   CON     <span class="dv">0</span></span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>SAVE4   CON     <span class="dv">0</span></span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>JADDR   CON     <span class="dv">0</span></span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>SRC     CON     <span class="dv">0</span></span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>TMP     CON     <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Why this matches the hardware MOVE</p>
+<ol type="1">
+<li><p>Source/destination and count. We take A and I from the parameter and compute M(A,I) for the source; F is the count. The loop copies one word at a time in increasing address order, exactly like the hardware (so overlapping ranges behave the same), and rI1 advances by F total.</p></li>
+<li><p>Register effects. MOVE shouldn’t alter rA, rX, rI2–rI6, CI, or the overflow toggle. We therefore save/restore those we touch and use INCi (not ADD/INCA) to avoid toggling overflow. Only rI1 changes (by F), and rJ is different because of the call/return—exactly as the exercise requests.</p></li>
+<li><p>Calling/returning. Section 1.4.1’s “arguments after the jump” convention is used: we read the NOP A,I(F) via rJ; returning with <code>JMP *</code> lands on that NOP, which executes (doing nothing) and then the caller proceeds to the next instruction.</p></li>
+</ol>
+<p>If you’d like, I can also show a branch-table version that packs the six <code>ADDIk</code> cases tighter, or a self-modifying variant that patches the I-field of a template <code>LDA</code> to avoid the small <code>ISELECT</code> chain.</p>
+</section>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">7 [20]</h3>
+<p>Here’s a concise, exam-style answer with enough depth for TAOCP.</p>
+<p>Knuth’s MIX used self-modifying code for subroutine linkage (e.g., storing the return address into the instruction stream), but he already notes that “newer computers…keep [such] information in registers or in a special array, not within the program itself” (see the note in §1.4.1 that points you to this exercise). The reasons modern systems discourage self-modification include:</p>
+<ol type="1">
+<li><p>Security policies (W⊕X). Operating systems increasingly enforce <em>write-xor-execute</em>: a page may be writable or executable, not both. That prevents code injection and many exploit techniques; it also means ordinary programs can’t (and shouldn’t) patch their own instruction bytes.</p></li>
+<li><p>OS/ABI design: text is shared and read-only. Executable code (“text”) pages are mapped read-only and commonly shared among processes for memory efficiency. Letting programs write into those pages would break sharing and isolation.</p></li>
+<li><p>Performance costs on modern CPUs. Pipelines and split instruction/data caches mean that when code <em>is</em> changed, the CPU must perform special synchronization/serialization and cache/TLB maintenance to make the modification visible to instruction fetch. That’s slow and error-prone if mishandled. Vendors explicitly warn about penalties and coherence requirements for self-modifying code.</p></li>
+<li><p>Concurrency and reentrancy hazards. Multiple threads may execute the same code simultaneously. Patching instructions in place introduces race conditions, tears, and undefined behavior unless you add heavyweight synchronization—further eroding any perceived benefit. (Read-only text plus normal call/return linkage avoids this.)</p></li>
+<li><p>Optimization, tooling, and maintainability. Compilers, linkers, profilers, verifiers, and JITs assume code is immutable at run time; immutability enables aggressive optimization, code signing, control-flow integrity, and reliable debugging. Self-modification undermines those assumptions and complicates reasoning about correctness.</p></li>
+<li><p>Better idioms exist. Modern linkage stores return addresses in a register/stack frame (or a link register), not in the instruction stream; parameter passing and multiple exits are handled by calling conventions and structured control flow, so the MIX-style “patch the code to return here” is unnecessary. (Knuth foreshadows exactly this shift.)</p></li>
+</ol>
+<p>Bottom line. What was once a practical trick on simple machines is now a liability: it conflicts with OS security and memory models, harms performance on cached/pipelined CPUs, breaks reentrancy, and fights today’s toolchains. Hence modern advice—and practice—is to avoid self-modifying code. The exercise list where this appears is on p.&nbsp;193.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.3.3.html" class="pagination-link" aria-label="1.3.3 Applications to Permutation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.3.3 Applications to Permutation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.4.2.html" class="pagination-link" aria-label="1.4.2 Coroutines">
+        <span class="nav-page-text"><span class="chapter-title">1.4.2 Coroutines</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

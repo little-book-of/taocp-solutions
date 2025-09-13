@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.2.7 Harmonic numbers – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.2.8.html" rel="next">
+<link href="../vol-1/1.2.6.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.2.7.html"><span class="chapter-title">1.2.7 Harmonic numbers</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [01]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [13]</a></li>
+  <li><a href="#m21" id="toc-m21" class="nav-link" data-scroll-target="#m21">3 [M21]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">4 [10]</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">5 [15]</a></li>
+  <li><a href="#m15" id="toc-m15" class="nav-link" data-scroll-target="#m15">6 [M15]</a></li>
+  <li><a href="#m21-1" id="toc-m21-1" class="nav-link" data-scroll-target="#m21-1">7 [M21]</a></li>
+  <li><a href="#hm18" id="toc-hm18" class="nav-link" data-scroll-target="#hm18">8 [HM18]</a></li>
+  <li><a href="#m18" id="toc-m18" class="nav-link" data-scroll-target="#m18">9 [M18]</a></li>
+  <li><a href="#m20" id="toc-m20" class="nav-link" data-scroll-target="#m20">10 [M20]</a></li>
+  <li><a href="#m21-2" id="toc-m21-2" class="nav-link" data-scroll-target="#m21-2">11 [M21]</a></li>
+  <li><a href="#m10" id="toc-m10" class="nav-link" data-scroll-target="#m10">12 [M10]</a></li>
+  <li><a href="#m22" id="toc-m22" class="nav-link" data-scroll-target="#m22">13 [M22]</a></li>
+  <li><a href="#m22-1" id="toc-m22-1" class="nav-link" data-scroll-target="#m22-1">14 [M22]</a></li>
+  <li><a href="#m23" id="toc-m23" class="nav-link" data-scroll-target="#m23">15 [M23]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">16 [18]</a></li>
+  <li><a href="#m24" id="toc-m24" class="nav-link" data-scroll-target="#m24">17 [M24]</a></li>
+  <li><a href="#m33" id="toc-m33" class="nav-link" data-scroll-target="#m33">18 [M33]</a></li>
+  <li><a href="#m30" id="toc-m30" class="nav-link" data-scroll-target="#m30">19 [M30]</a></li>
+  <li><a href="#hm22" id="toc-hm22" class="nav-link" data-scroll-target="#hm22">20 [HM22]</a></li>
+  <li><a href="#m24-1" id="toc-m24-1" class="nav-link" data-scroll-target="#m24-1">21 [M24]</a></li>
+  <li><a href="#m28" id="toc-m28" class="nav-link" data-scroll-target="#m28">22 [M28]</a></li>
+  <li><a href="#hm20" id="toc-hm20" class="nav-link" data-scroll-target="#hm20">23 [HM20]</a></li>
+  <li><a href="#hm21" id="toc-hm21" class="nav-link" data-scroll-target="#hm21">24 [HM21]</a></li>
+  <li><a href="#m21-3" id="toc-m21-3" class="nav-link" data-scroll-target="#m21-3">25 [M21]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.2.7 Harmonic numbers</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1 [01]</h3>
+<p>Here “harmonic numbers” are defined by <span class="math inline">\(H_n=\sum_{k=1}^{n}\frac1k\)</span> for integers <span class="math inline">\(n\ge 0\)</span>. (So <span class="math inline">\(H_0\)</span> is the empty sum.)</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>. The sum has no terms, so by the standard convention for empty sums it equals <span class="math inline">\(0\)</span>. This also matches the recurrence <span class="math inline">\(H_n=H_{n-1}+\frac1n\)</span>: plugging <span class="math inline">\(n=1\)</span> gives <span class="math inline">\(H_1=H_0+1\)</span>, so <span class="math inline">\(H_0\)</span> must be <span class="math inline">\(0\)</span>.</li>
+<li><span class="math inline">\(H_1\)</span>. One term: <span class="math inline">\(H_1=\frac11=1\)</span>.</li>
+<li><span class="math inline">\(H_2\)</span>. Two terms: <span class="math inline">\(H_2=\frac11+\frac12=1+\tfrac12=\tfrac32=1.5\)</span>.</li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2 [13]</h3>
+<p>Proof (matching the “simple argument” style)</p>
+<p>Observe how <span class="math inline">\(H_{2m}\)</span> changes when <span class="math inline">\(m\)</span> increases by 1:</p>
+<p><span class="math display">\[
+H_{2m+2}-H_{2m}\;=\;\frac1{2m+1}+\frac1{2m+2}
+\;&lt;\; \frac1{2m+1}+\frac1{2m+1}\;=\;\frac{2}{2m+1}\;\le\;1.
+\]</span></p>
+<p>Thus, each time we extend from <span class="math inline">\(2m\)</span> to <span class="math inline">\(2m+2\)</span> terms, the harmonic sum rises by less than 1.</p>
+<p>Use induction on <span class="math inline">\(m\)</span>.</p>
+<ul>
+<li><p>Base case. <span class="math inline">\(H_2=1+\tfrac12=\tfrac32\le 2=1+1\)</span>.</p></li>
+<li><p>Inductive step. If <span class="math inline">\(H_{2m}\le 1+m\)</span>, then</p>
+<p><span class="math display">\[
+H_{2(m+1)}=H_{2m+2}\;=\;H_{2m}+\bigl(H_{2m+2}-H_{2m}\bigr)
+\;\le\; (1+m)+1 \;=\; 2+m \;=\;1+(m+1).
+\]</span></p></li>
+</ul>
+<p>Hence <span class="math inline">\(H_{2m}\le 1+m\)</span> for all <span class="math inline">\(m\ge 1\)</span>.</p>
+<p>This mirrors the text’s earlier “step-size” reasoning for the lower bound <span class="math inline">\(H_{2m}\ge 1+\frac m2\)</span> (there, each step from <span class="math inline">\(2m\)</span> to <span class="math inline">\(2m+2\)</span> adds at least <span class="math inline">\(\tfrac12\)</span>); here we note each step adds at most 1.</p>
+<p>One-line alternative (even slightly stronger)</p>
+<p>After the first term, every summand is <span class="math inline">\(\le \tfrac12\)</span>:</p>
+<p><span class="math display">\[
+H_{2m}
+=1+\sum_{k=2}^{2m}\frac1k
+\;\le\; 1+(2m-1)\cdot \frac12
+\;=\; m+\tfrac12
+\;\le\; 1+m.
+\]</span></p>
+<p>This yields <span class="math inline">\(H_{2m}\le m+\tfrac12\)</span>, which is stronger than <span class="math inline">\(1+m\)</span>.</p>
+</section>
+<section id="m21" class="level3">
+<h3 class="anchored" data-anchor-id="m21">3 [M21]</h3>
+<p>For <span class="math inline">\(r&gt;1\)</span>, show the generalized harmonic partial sums</p>
+<p><span class="math display">\[
+H_n^{(r)}\;=\;\sum_{k=1}^{n}\frac{1}{k^{\,r}}
+\]</span></p>
+<p>remain bounded for all <span class="math inline">\(n\)</span>, and find an upper bound.</p>
+<p>Solution (dyadic-block argument, generalizing Ex. 2)</p>
+<p>Group the terms into blocks whose lengths double each time (powers of two), exactly as in the proof for ordinary harmonic numbers:</p>
+<ul>
+<li><p>For <span class="math inline">\(j\ge 0\)</span>, let the <span class="math inline">\(j\)</span>-th block be the indices</p>
+<p><span class="math display">\[
+B_j=\{2^{\,j}+1,\;2^{\,j}+2,\;\dots,\;\min(2^{\,j+1},\,n)\}.
+\]</span></p>
+<p>Every <span class="math inline">\(k\in B_j\)</span> satisfies <span class="math inline">\(k&gt;2^{\,j}\)</span>, hence</p>
+<p><span class="math display">\[
+\frac{1}{k^{\,r}}\;&lt;\;\frac{1}{(2^{\,j})^{r}}\,.
+\]</span></p></li>
+<li><p>The block <span class="math inline">\(B_j\)</span> contains at most <span class="math inline">\(2^{\,j}\)</span> terms, therefore the contribution of <span class="math inline">\(B_j\)</span> to the sum is bounded by</p>
+<p><span class="math display">\[
+\sum_{k\in B_j}\frac{1}{k^{\,r}}\;\le\;2^{\,j}\cdot \frac{1}{(2^{\,j})^{r}}
+\;=\;2^{\,j(1-r)}.
+\]</span></p></li>
+</ul>
+<p>Now split off the <span class="math inline">\(k=1\)</span> term and sum these bounds over all blocks up to <span class="math inline">\(\lfloor \log_2 n\rfloor\)</span>:</p>
+<p><span class="math display">\[
+H_n^{(r)}=\frac{1}{1^{\,r}}+\sum_{j=0}^{\lfloor\log_2 n\rfloor}\;\sum_{k\in B_j}\frac{1}{k^{\,r}}
+\;\le\;1+\sum_{j=0}^{\lfloor\log_2 n\rfloor}2^{\,j(1-r)}
+\;\le\;1+\sum_{j=0}^{\infty}2^{\,j(1-r)}.
+\]</span></p>
+<p>Because <span class="math inline">\(r&gt;1\)</span>, the ratio <span class="math inline">\(q=2^{\,1-r}\)</span> satisfies <span class="math inline">\(0&lt;q&lt;1\)</span>, so the geometric series converges:</p>
+<p><span class="math display">\[
+\sum_{j=0}^{\infty}2^{\,j(1-r)}=\frac{1}{1-2^{\,1-r}}=\frac{2^{\,r-1}}{\,2^{\,r-1}-1\,}.
+\]</span></p>
+<p>Therefore, for every <span class="math inline">\(n\ge 1\)</span>,</p>
+<p><span class="math display">\[
+\boxed{\;H_n^{(r)}\;\le\;1+\frac{1}{1-2^{\,1-r}}
+\;=\;1+\frac{2^{\,r-1}}{\,2^{\,r-1}-1\,}\;}
+\]</span></p>
+<p>which is a constant depending only on <span class="math inline">\(r\)</span> (hence the sequence of partial sums is bounded).</p>
+<p>Examples:</p>
+<ul>
+<li><span class="math inline">\(r=2:\;H_n^{(2)}\le 1+\frac{1}{1-\tfrac12}=3\)</span>.</li>
+<li><span class="math inline">\(r=3:\;H_n^{(3)}\le 1+\frac{1}{1-\tfrac14}=\tfrac73\)</span>.</li>
+</ul>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">4 [10]</h3>
+<p>Preliminaries</p>
+<ul>
+<li>Harmonic numbers are defined by <span class="math inline">\(H_n=\sum_{k=1}^n \tfrac1k\)</span> (with <span class="math inline">\(H_0=0\)</span>). </li>
+<li>Euler’s constant is <span class="math inline">\(\gamma=\lim_{n\to\infty}(H_n-\ln n)\)</span> (so <span class="math inline">\(H_n=\ln n+\gamma+o(1)\)</span>).</li>
+</ul>
+<p>Two standard integral bounds</p>
+<p>Because <span class="math inline">\(x\mapsto 1/x\)</span> is decreasing on <span class="math inline">\([1,\infty)\)</span>,</p>
+<p><span class="math display">\[
+\int_{k}^{k+1}\frac{dx}{x}\;\le\;\frac1k\;\le\;\int_{k-1}^{k}\frac{dx}{x}\qquad(k\ge1).
+\]</span></p>
+<p>Summing:</p>
+<p><span class="math display">\[
+\boxed{\ \ln(n+1)\le H_n\le 1+\ln n\ \ } \qquad(n\ge1).
+\]</span></p>
+<p>From these alone we already see <span class="math inline">\(H_n&gt;\ln n\)</span>. (We’ll use these bounds in parts (a)–(b).)</p>
+<p>Decisions</p>
+<ol type="a">
+<li><span class="math inline">\(H_n&lt;\ln n\)</span> — False.</li>
+</ol>
+<p>Take <span class="math inline">\(n=1\)</span>: <span class="math inline">\(H_1=1&gt;\ln 1=0\)</span>. In fact, the lower bound above shows <span class="math inline">\(H_n\ge \ln(n+1)&gt;\ln n\)</span> for every <span class="math inline">\(n\ge1\)</span>, so the claimed inequality never holds.</p>
+<ol start="2" type="a">
+<li><span class="math inline">\(H_n&gt;\ln n\)</span> — True.</li>
+</ol>
+<p>From the same bound,</p>
+<p><span class="math display">\[
+H_n\;\ge\;\ln(n+1)\;&gt;\;\ln n\qquad(n\ge1).
+\]</span></p>
+<ol start="3" type="a">
+<li><span class="math inline">\(H_n&gt;\ln n+\gamma\)</span> — True.</li>
+</ol>
+<p>Let <span class="math inline">\(\gamma_n:=H_n-\ln n\)</span>. Then</p>
+<p><span class="math display">\[
+\gamma_{n+1}-\gamma_n
+= \Bigl(H_n+\frac1{n+1}-\ln(n+1)\Bigr)-(H_n-\ln n)
+= \frac1{n+1}-\ln\!\Bigl(1+\frac1n\Bigr).
+\]</span></p>
+<p>Since for <span class="math inline">\(x&gt;0\)</span> the function <span class="math inline">\(f(x)=\ln(1+x)-\frac{x}{1+x}\)</span> satisfies <span class="math inline">\(f'(x)=\frac{x}{(1+x)^2}&gt;0\)</span> and <span class="math inline">\(f(0)=0\)</span>, we have</p>
+<p><span class="math display">\[
+\ln(1+x)&gt;\frac{x}{1+x}\quad(x&gt;0).
+\]</span></p>
+<p>With <span class="math inline">\(x=1/n\)</span> this gives <span class="math inline">\(\ln(1+\tfrac1n)&gt;\tfrac1{n+1}\)</span>, hence <span class="math inline">\(\gamma_{n+1}-\gamma_n&lt;0\)</span>. So <span class="math inline">\(\{\gamma_n\}\)</span> is strictly decreasing. Because <span class="math inline">\(\gamma=\lim_{n\to\infty}\gamma_n\)</span> exists, every term lies above the limit:</p>
+<p><span class="math display">\[
+\gamma_n&gt;\gamma\qquad(n\ge1).
+\]</span></p>
+<p>Equivalently, <span class="math inline">\(H_n&gt;\ln n+\gamma\)</span> for all <span class="math inline">\(n\)</span>. (This is also consistent with the asymptotic expansion <span class="math inline">\(H_n=\ln n+\gamma+\tfrac1{2n}-\tfrac1{12n^2}+\tfrac1{120n^4}-\varepsilon\)</span> with <span class="math inline">\(0&lt;\varepsilon&lt;\tfrac1{252n^6}\)</span>, which shows the excess over <span class="math inline">\(\ln n+\gamma\)</span> is positive. )</p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">5 [15]</h3>
+<p>Knuth gives the Euler–Maclaurin expansion for <span class="math inline">\(H_n\)</span>:</p>
+<p><span class="math display">\[
+H_n=\ln n+\gamma+\frac{1}{2n}-\frac{1}{12n^2}+\frac{1}{120n^4}-\varepsilon,\qquad
+0&lt;\varepsilon&lt;\frac{1}{252\,n^6}.
+\]</span></p>
+<p>This makes high-precision evaluation straightforward for large <span class="math inline">\(n\)</span>. </p>
+<p>Computation for <span class="math inline">\(n=10{,}000\)</span></p>
+<p>Use constants from Appendix A (or any high-precision source):</p>
+<ul>
+<li><span class="math inline">\(\ln 10000 = 4\ln 10 = 9.210340371976182736\ldots\)</span></li>
+<li><span class="math inline">\(\gamma = 0.577215664901532860\ldots\)</span></li>
+</ul>
+<p>Now add the correction terms:</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_{10000}
+&amp;=\underbrace{(\ln 10000+\gamma)}_{9.787556036877715596\ldots}
++\underbrace{\frac{1}{2n}}_{0.000050000000000000}
+-\underbrace{\frac{1}{12n^2}}_{0.000000000833333333\ldots}
++\underbrace{\frac{1}{120n^4}}_{0.0000000000000000008\ldots}\\[2pt]
+&amp;= 9.7876060360443822641784779\ldots
+\end{aligned}
+\]</span></p>
+<p>The neglected remainder is <span class="math inline">\(&lt;\dfrac{1}{252\cdot 10^{24}}\approx 4.0\times10^{-27}\)</span>, far below the <span class="math inline">\(10^{-15}\)</span> level, so rounding at 15 decimals is safe.</p>
+</section>
+<section id="m15" class="level3">
+<h3 class="anchored" data-anchor-id="m15">6 [M15]</h3>
+<p>Proof A (via the Stirling-number recurrence; “algebraic/inductive”)</p>
+<p>Facts we’ll use (from §1.2.6):</p>
+<ol type="1">
+<li>The unsigned Stirling numbers of the first kind convert falling powers to ordinary powers:</li>
+</ol>
+<p><span class="math display">\[
+(x)_{m}=\sum_{k=0}^{m}(-1)^{\,m-k}\,\bigl[\!\begin{smallmatrix} m\\ k\end{smallmatrix}\!\bigr]\,x^k.
+\]</span></p>
+<p>From <span class="math inline">\((x)_{n+1}=(x-n)(x)_n\)</span>, comparing coefficients yields the standard recurrence</p>
+<p><span class="math display">\[
+\bigl[\!\begin{smallmatrix} n+1\\ k\end{smallmatrix}\!\bigr]
+= n\,\bigl[\!\begin{smallmatrix} n\\ k\end{smallmatrix}\!\bigr]
++ \bigl[\!\begin{smallmatrix} n\\ k-1\end{smallmatrix}\!\bigr].
+\tag{★}
+\]</span></p>
+<p>Also <span class="math inline">\(\bigl[\!\begin{smallmatrix} n\\ 1\end{smallmatrix}\!\bigr]=(n-1)!\)</span>. </p>
+<p>Define <span class="math inline">\(a_n:=\dfrac{\bigl[\!\begin{smallmatrix} n+1\\ 2\end{smallmatrix}\!\bigr]}{n!}\)</span>. Apply (★) with <span class="math inline">\(k=2\)</span>:</p>
+<p><span class="math display">\[
+\bigl[\!\begin{smallmatrix} n+1\\ 2\end{smallmatrix}\!\bigr]
+= n\,\bigl[\!\begin{smallmatrix} n\\ 2\end{smallmatrix}\!\bigr]
++ \bigl[\!\begin{smallmatrix} n\\ 1\end{smallmatrix}\!\bigr]
+= n\,\bigl[\!\begin{smallmatrix} n\\ 2\end{smallmatrix}\!\bigr]
++ (n-1)! .
+\]</span></p>
+<p>Divide by <span class="math inline">\(n!\)</span>:</p>
+<p><span class="math display">\[
+a_n
+= \frac{\bigl[\!\begin{smallmatrix} n\\ 2\end{smallmatrix}\!\bigr]}{(n-1)!}
++ \frac{1}{n}
+= a_{n-1} + \frac{1}{n}.
+\]</span></p>
+<p>The initial value is <span class="math inline">\(a_1=\dfrac{\bigl[\!\begin{smallmatrix}2\\2\end{smallmatrix}\!\bigr]}{1!}=1\)</span>. Hence <span class="math inline">\(a_n=1+\frac12+\cdots+\frac1n=H_n\)</span> by induction, proving the claim.</p>
+<p>Proof B (combinatorial; “count permutations with two cycles”)</p>
+<p>A classical interpretation: <span class="math inline">\(\bigl[\!\begin{smallmatrix} m\\ k\end{smallmatrix}\!\bigr]\)</span> counts permutations of <span class="math inline">\(m\)</span> elements with exactly <span class="math inline">\(k\)</span> cycles in the cycle decomposition. Thus <span class="math inline">\(\bigl[\!\begin{smallmatrix} n+1\\ 2\end{smallmatrix}\!\bigr]\)</span> counts permutations of <span class="math inline">\(\{1,\dots,n+1\}\)</span> having two cycles. </p>
+<p>Count such permutations by the length <span class="math inline">\(\ell\)</span> (with <span class="math inline">\(1\le \ell \le n\)</span>) of the cycle that contains <span class="math inline">\(n+1\)</span>:</p>
+<ul>
+<li>Choose the other <span class="math inline">\(\ell-1\)</span> members of that cycle: <span class="math inline">\(\binom{n}{\ell-1}\)</span> ways.</li>
+<li>Arrange those <span class="math inline">\(\ell\)</span> elements in a cycle with <span class="math inline">\(n+1\)</span> present: <span class="math inline">\((\ell-1)!\)</span> ways.</li>
+<li>Arrange the remaining <span class="math inline">\(n+1-\ell\)</span> elements into one cycle: <span class="math inline">\((n-\ell)!\)</span> ways.</li>
+</ul>
+<p>Total:</p>
+<p><span class="math display">\[
+\sum_{\ell=1}^{n}
+\binom{n}{\ell-1}(\ell-1)!(n-\ell)!
+=\sum_{j=0}^{n-1}\binom{n}{j}j!(n-j-1)!
+=\sum_{j=0}^{n-1}\frac{n!}{n-j}
+= n!\sum_{k=1}^{n}\frac{1}{k}
+= n!\,H_n.
+\]</span></p>
+<p>Hence <span class="math inline">\(\bigl[\!\begin{smallmatrix} n+1\\ 2\end{smallmatrix}\!\bigr]=n!\,H_n\)</span>, i.e.&nbsp;<span class="math inline">\(H_n=\bigl[\!\begin{smallmatrix} n+1\\ 2\end{smallmatrix}\!\bigr]/n!\)</span>.</p>
+</section>
+<section id="m21-1" class="level3">
+<h3 class="anchored" data-anchor-id="m21-1">7 [M21]</h3>
+<ol type="a">
+<li>Monotonicity in each argument</li>
+</ol>
+<p>Fix <span class="math inline">\(n\)</span> and compare <span class="math inline">\(T(m+1,n)\)</span> to <span class="math inline">\(T(m,n)\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+T(m+1,n)-T(m,n)
+&amp;=\bigl(H_{m+1}-H_m\bigr)-\bigl(H_{(m+1)n}-H_{mn}\bigr)\\
+&amp;=\frac{1}{m+1}-\sum_{k=1}^{n}\frac{1}{mn+k}.
+\end{aligned}
+\]</span></p>
+<p>Since the <span class="math inline">\(n\)</span> denominators <span class="math inline">\(mn+1,\dots,mn+n\)</span> are at most <span class="math inline">\((m+1)n\)</span>, we have</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{1}{mn+k}\;\ge\; n\cdot\frac{1}{(m+1)n}\;=\;\frac{1}{m+1}.
+\]</span></p>
+<p>Hence <span class="math inline">\(T(m+1,n)-T(m,n)\le 0\)</span>. Equality holds iff <span class="math inline">\(n=1\)</span>; otherwise the sum is strictly larger than <span class="math inline">\(\frac1{m+1}\)</span>, so the difference is strictly negative. By symmetry, the same argument (swapping <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span>) shows <span class="math inline">\(T(m,n)\)</span> is also nonincreasing in <span class="math inline">\(n\)</span> (strictly unless <span class="math inline">\(m=1\)</span>).</p>
+<p>Conclusion. <span class="math inline">\(T\)</span> is nonincreasing in each variable (strictly unless the other variable equals <span class="math inline">\(1\)</span>).</p>
+<ol start="2" type="a">
+<li>Extremal values for <span class="math inline">\(m,n&gt;0\)</span></li>
+</ol>
+<p>Maximum. For any <span class="math inline">\(n\ge 1\)</span>,</p>
+<p><span class="math display">\[
+T(1,n)=H_1+H_n-H_{1\cdot n}=1+H_n-H_n=1,
+\]</span></p>
+<p>and by part (a), increasing either argument cannot increase <span class="math inline">\(T\)</span>. Thus the maximum value is <span class="math inline">\(1\)</span>, attained whenever <span class="math inline">\(m=1\)</span> or <span class="math inline">\(n=1\)</span> (in particular at <span class="math inline">\((1,1)\)</span>).</p>
+<p>Minimum / infimum. Using the asymptotic expansion from the section,</p>
+<p><span class="math display">\[
+H_m=\ln m+\gamma+R_m,\quad H_n=\ln n+\gamma+R_n,\quad H_{mn}=\ln(mn)+\gamma+R_{mn},
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+T(m,n)=\gamma+\bigl(R_m+R_n-R_{mn}\bigr).
+\]</span></p>
+<p>From the displayed expansion (with positive leading term <span class="math inline">\(\tfrac{1}{2k}\)</span>), <span class="math inline">\(R_k&gt;0\)</span> and <span class="math inline">\(R_k\to 0\)</span> as <span class="math inline">\(k\to\infty\)</span>; more precisely,</p>
+<p><span class="math display">\[
+R_k=\frac{1}{2k}-\frac{1}{12k^2}+O\!\left(\frac{1}{k^4}\right).
+\]</span></p>
+<p>Therefore for finite <span class="math inline">\(m,n\)</span>,</p>
+<p><span class="math display">\[
+T(m,n)\;=\;\gamma+\left(\frac{1}{2m}+\frac{1}{2n}-\frac{1}{2mn}\right)+O\!\left(\frac{1}{m^2}+\frac{1}{n^2}\right) \;&gt;\;\gamma,
+\]</span></p>
+<p>and letting <span class="math inline">\(m,n\to\infty\)</span> gives <span class="math inline">\(T(m,n)\downarrow \gamma\)</span>.</p>
+<ul>
+<li>There is no minimum over positive integers (the value <span class="math inline">\(\gamma\)</span> is not attained by any finite <span class="math inline">\(m,n\)</span>).</li>
+<li>The infimum is <span class="math inline">\(\gamma\approx 0.57721\)</span>, and <span class="math inline">\(T(m,n)\in(\gamma,1]\)</span> for all integers <span class="math inline">\(m,n\ge 1\)</span>.</li>
+</ul>
+</section>
+<section id="hm18" class="level3">
+<h3 class="anchored" data-anchor-id="hm18">8 [HM18]</h3>
+<p>Estimate, as a function of <span class="math inline">\(n\)</span>, the difference</p>
+<p><span class="math display">\[
+\Delta_n \;=\; \sum_{k=1}^n H_k \;-\; \sum_{k=1}^n \ln k \;=\; \sum_{k=1}^n H_k \;-\; \ln(n!).
+\]</span></p>
+<p>Step 1: Reduce with Eq. (8) Section 1.2.7 establishes</p>
+<p><span class="math display">\[
+\sum_{k=1}^n H_k \;=\; (n+1)H_n - n.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\Delta_n \;=\; (n+1)H_n \;-\; n \;-\; \ln(n!). \tag{★}
+\]</span></p>
+<p>Step 2: Use standard asymptotics for <span class="math inline">\(H_n\)</span> and <span class="math inline">\(\ln(n!)\)</span></p>
+<p>From 1.2.7 (derived via Euler’s summation formula in 1.2.11.2), for fixed <span class="math inline">\(m\)</span> we have</p>
+<p><span class="math display">\[
+H_n \;=\; \ln n + \gamma + \frac{1}{2n} - \frac{1}{12n^2} + O\!\left(\frac{1}{n^4}\right).
+\]</span></p>
+<p>(Here <span class="math inline">\(\gamma\)</span> is Euler’s constant.) </p>
+<p>Stirling’s expansion (also obtained in 1.2.11.2) gives</p>
+<p><span class="math display">\[
+\ln(n!) \;=\; \Bigl(n+\tfrac12\Bigr)\ln n \;-\; n \;+\; \tfrac12\ln(2\pi)
+\;+\; \frac{1}{12n} \;-\; \frac{1}{360n^3} \;+\; O\!\left(\frac{1}{n^5}\right).
+\]</span></p>
+<p>(Using <span class="math inline">\(e^{\sigma}=\sqrt{2\pi}\)</span> for Stirling’s constant.) </p>
+<p>Step 3: Combine in (★)</p>
+<p>Insert the two expansions into (★) and simplify:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta_n
+&amp;= (n+1)\!\left(\ln n+\gamma+\frac{1}{2n}-\frac{1}{12n^2}+O\!\left(\frac{1}{n^4}\right)\right)
+\;-\; n \\
+&amp;\qquad -\left(\Bigl(n+\tfrac12\Bigr)\ln n - n + \tfrac12\ln(2\pi)
++ \frac{1}{12n} - \frac{1}{360n^3} + O\!\left(\frac{1}{n^5}\right)\right) \\[4pt]
+&amp;= \underbrace{\tfrac12\ln n}_{\text{from logs}}
+\;+\; \underbrace{(n+1)\gamma}_{\text{linear}}
+\;-\; \tfrac12\ln(2\pi)
+\;+\; \underbrace{\Bigl(\tfrac12 + \frac{1}{3n}\Bigr)}_{\text{from small terms}}
+\;+\; O\!\left(\frac{1}{n^2}\right).
+\end{aligned}
+\]</span></p>
+<p>Thus a convenient and accurate estimate is</p>
+<p><span class="math display">\[
+\boxed{\;
+\Delta_n \;=\; n\gamma \;+\; \tfrac12\ln n \;+\; \Bigl(\gamma + \tfrac12 - \tfrac12\ln(2\pi)\Bigr)
+\;+\; \frac{1}{3n} \;+\; O\!\left(\frac{1}{n^2}\right)
+\;}
+\]</span></p>
+<p>so the leading growth is linear with slope <span class="math inline">\(\gamma\)</span>, with a secondary <span class="math inline">\(\tfrac12\ln n\)</span> term.</p>
+<p>Numerically, the constant</p>
+<p><span class="math display">\[
+C \;=\; \gamma + \tfrac12 - \tfrac12\ln(2\pi) \;\approx\; 0.158277132\ldots
+\]</span></p>
+<p>Hence, for practical purposes,</p>
+<p><span class="math display">\[
+\Delta_n \;\approx\; n\gamma + \tfrac12\ln n + 0.158277132 + \frac{1}{3n}.
+\]</span></p>
+<p>Takeaway</p>
+<p>Comparing Eq. (8) with <span class="math inline">\(\sum_{k=1}^n \ln k\)</span> shows</p>
+<p><span class="math display">\[
+\sum_{k=1}^n H_k - \sum_{k=1}^n \ln k
+\;=\; n\gamma + \tfrac12\ln n + \Theta(1),
+\]</span></p>
+<p>with the constant and first correction explicitly given above.</p>
+</section>
+<section id="m18" class="level3">
+<h3 class="anchored" data-anchor-id="m18">9 [M18]</h3>
+<p>Theorem A in §1.2.7 analyzes the sum <span class="math inline">\(\sum_{k=1}^{n} \binom{n}{k} x^{k} H_k\)</span> for <span class="math inline">\(x&gt;0\)</span>. The exercise asks for the value when <span class="math inline">\(x=-1\)</span>; i.e.,</p>
+<p><span class="math display">\[
+S_n\;=\;\sum_{k=1}^{n} \binom{n}{k}(-1)^k H_k\;=?
+\]</span></p>
+<p>Solution 1 (double–sum “H_k expansion”)</p>
+<p>Write <span class="math inline">\(H_k=\sum_{j=1}^{k}\frac1j\)</span>, then interchange the order of summation:</p>
+<p><span class="math display">\[
+S_n=\sum_{k=1}^{n}\binom{n}{k}(-1)^k\!\sum_{j=1}^{k}\frac1j
+=\sum_{j=1}^{n}\frac1j\sum_{k=j}^{n}\binom{n}{k}(-1)^k .
+\]</span></p>
+<p>Use the standard partial alternating–binomial identity</p>
+<p><span class="math display">\[
+\sum_{k=j}^{n}(-1)^k\binom{n}{k}=(-1)^j\binom{n-1}{\,j-1\,},
+\]</span></p>
+<p>(which follows, e.g., from <span class="math inline">\(\sum_{k=0}^{m}(-1)^k\binom{n}{k}=(-1)^m\binom{n-1}{m}\)</span> by induction or Pascal’s rule). Hence</p>
+<p><span class="math display">\[
+S_n=\sum_{j=1}^{n}\frac{(-1)^j}{j}\binom{n-1}{\,j-1\,}.
+\]</span></p>
+<p>Now use <span class="math inline">\(\binom{n}{j}=\frac{n}{j}\binom{n-1}{\,j-1\,}\)</span>, giving</p>
+<p><span class="math display">\[
+S_n=\frac1n\sum_{j=1}^{n}(-1)^j\binom{n}{j}.
+\]</span></p>
+<p>Finally, <span class="math inline">\(\sum_{j=0}^{n}(-1)^j\binom{n}{j}=(1-1)^n=0\)</span>, so <span class="math inline">\(\sum_{j=1}^{n}(-1)^j\binom{n}{j}=-1\)</span>. Therefore</p>
+<p><span class="math display">\[
+\boxed{\,S_n=-\frac1n\,}.
+\]</span></p>
+<p>Solution 2 (integral representation of <span class="math inline">\(H_k\)</span>)</p>
+<p>Use <span class="math inline">\(H_k=\displaystyle\int_{0}^{1}\frac{1-t^{k}}{1-t}\,dt\)</span> (from integrating <span class="math inline">\(\sum_{i=0}^{k-1}t^i=\frac{1-t^k}{1-t}\)</span> termwise). Then</p>
+<p><span class="math display">\[
+S_n=\int_{0}^{1}\frac{1}{1-t}\sum_{k=1}^{n}\binom{n}{k}(-1)^k(1-t^k)\,dt.
+\]</span></p>
+<p>But <span class="math inline">\(\sum_{k=1}^{n}\binom{n}{k}(-1)^k=-1\)</span> and <span class="math inline">\(\sum_{k=1}^{n}\binom{n}{k}(-t)^k=(1-t)^n-1\)</span>. Hence the bracket equals</p>
+<p><span class="math display">\[
+-1-\bigl((1-t)^n-1\bigr)=-(1-t)^n,
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+S_n=-\int_{0}^{1}(1-t)^{n-1}\,dt=-\frac{1}{n}.
+\]</span></p>
+<p>Thus, although Theorem A is stated only for <span class="math inline">\(x&gt;0\)</span>, the alternating case at <span class="math inline">\(x=-1\)</span> has the exact closed form</p>
+<p><span class="math display">\[
+\boxed{\displaystyle \sum_{k=1}^{n}\binom{n}{k}(-1)^k H_k=-\frac{1}{n}}.
+\]</span></p>
+<p>(Checks: <span class="math inline">\(n=1,2,3\)</span> give <span class="math inline">\(-1,-\tfrac12,-\tfrac13\)</span>, respectively.)</p>
+</section>
+<section id="m20" class="level3">
+<h3 class="anchored" data-anchor-id="m20">10 [M20]</h3>
+<p>Proof (telescoping via a discrete product rule)</p>
+<p>Start from the discrete analogue of the product rule, obtained by adding and subtracting <span class="math inline">\(a_{k+1}b_k\)</span>:</p>
+<p><span class="math display">\[
+a_{k+1}b_{k+1}-a_k b_k
+= a_{k+1}(b_{k+1}-b_k) + (a_{k+1}-a_k)b_k.
+\]</span></p>
+<p>Now sum this equality for <span class="math inline">\(k=1,2,\dots,n-1\)</span>. The left-hand side telescopes:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n-1}\bigl(a_{k+1}b_{k+1}-a_k b_k\bigr)
+= a_n b_n - a_1 b_1.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+a_n b_n - a_1 b_1
+= \sum_{k=1}^{n-1} a_{k+1}(b_{k+1}-b_k)
+  + \sum_{k=1}^{n-1} (a_{k+1}-a_k)b_k.
+\]</span></p>
+<p>Rearrange to isolate the desired sum:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n-1} (a_{k+1}-a_k)b_k
+= a_n b_n - a_1 b_1
+  - \sum_{k=1}^{n-1} a_{k+1}(b_{k+1}-b_k).
+\]</span></p>
+<p>This is exactly the required identity. ∎</p>
+<p>Remarks and equivalent forms</p>
+<ol type="1">
+<li>Abel’s summation (discrete integration by parts). If <span class="math inline">\(A_k=\sum_{j=1}^k a_j\)</span> and we set <span class="math inline">\(a_{k+1}-a_k:=a_{k+1}\)</span>, the identity becomes the well-known Abel transform:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{k=1}^{n} a_k\, b_k
+= A_n b_n - \sum_{k=1}^{n-1} A_k\,(b_{k+1}-b_k).
+\]</span></p>
+<ol start="2" type="1">
+<li>Symmetric variant. By shifting indices one also gets</li>
+</ol>
+<p><span class="math display">\[
+\sum_{k=1}^{n} a_k\,(b_k-b_{k-1})
+= a_n b_n - \sum_{k=1}^{n-1} b_k\,(a_{k+1}-a_k),
+\]</span></p>
+<p>with the convention <span class="math inline">\(b_0\)</span> as needed.</p>
+<ol start="3" type="1">
+<li>Quick sanity check. Let <span class="math inline">\(a_k=k\)</span>, <span class="math inline">\(b_k=k\)</span>. Then the left side is <span class="math inline">\(\sum_{k=1}^{n-1} k = n(n-1)/2\)</span>. The right side evaluates to <span class="math inline">\(n^2-1-\sum_{k=1}^{n-1}(k+1)=n(n-1)/2\)</span> as well.</li>
+</ol>
+<p>These forms are what §1.2.7 uses implicitly when deriving identities like Eq. (9) and Theorem A’s estimate for <span class="math inline">\(\sum \binom{n}{k}x^k H_k\)</span>.</p>
+</section>
+<section id="m21-2" class="level3">
+<h3 class="anchored" data-anchor-id="m21-2">11 [M21]</h3>
+<p>Solution (summation by parts)</p>
+<p>Use the discrete summation-by-parts identity (proved in 1.2.7–10):</p>
+<p><span class="math display">\[
+\sum_{k=2}^{n} a_k\,(b_k-b_{k-1})
+\;=\; a_n b_n - a_1 b_1 \;-\; \sum_{k=1}^{n-1} b_k\,(a_{k+1}-a_k).
+\]</span></p>
+<p>Take <span class="math inline">\(a_k = H_k\)</span> and choose <span class="math inline">\(b_k=-\frac1k\)</span>. Then</p>
+<p><span class="math display">\[
+b_k-b_{k-1}=-\frac1k+\frac1{k-1}=\frac{1}{k(k-1)},
+\]</span></p>
+<p>so the left side is exactly <span class="math inline">\(S_n\)</span>. Also,</p>
+<p><span class="math display">\[
+a_{k+1}-a_k = H_{k+1}-H_k=\frac1{k+1}.
+\]</span></p>
+<p>Plugging into the identity gives</p>
+<p><span class="math display">\[
+S_n
+= H_n\!\left(-\frac1n\right) - H_1\!\left(-1\right)
+   - \sum_{k=1}^{n-1}\!\left(-\frac1k\right)\!\left(\frac1{k+1}\right)
+= 1 - \frac{H_n}{n} + \sum_{k=1}^{n-1}\frac{1}{k(k+1)}.
+\]</span></p>
+<p>The remaining sum telescopes:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n-1}\frac{1}{k(k+1)}
+=\sum_{k=1}^{n-1}\!\left(\frac1k-\frac1{k+1}\right)
+=1-\frac1n.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\boxed{\,S_n
+= 2 - \frac{H_n+1}{n}\, }.
+\]</span></p>
+<p>Quick check</p>
+<p>For <span class="math inline">\(n=2\)</span>: <span class="math inline">\(S_2=\frac{H_2}{2}= \frac{3/2}{2}=3/4\)</span>. Formula gives <span class="math inline">\(2-\frac{H_2+1}{2}=2-\frac{2.5}{2}=0.75\)</span>.</p>
+</section>
+<section id="m10" class="level3">
+<h3 class="anchored" data-anchor-id="m10">12 [M10]</h3>
+<p>For <span class="math inline">\(r&gt;1\)</span>,</p>
+<p><span class="math display">\[
+H^{(r)}_\infty=\sum_{k\ge 1}\frac{1}{k^r}=\zeta(r),
+\]</span></p>
+<p>Riemann’s zeta function. In particular, for even integers there’s the closed form <span class="math inline">\(\zeta(2m)=\dfrac{|B_{2m}|(2\pi)^{2m}}{2(2m)!}\)</span>, though we won’t need to compute it here. </p>
+<p>We only need 100 correct decimals. Since</p>
+<p><span class="math display">\[
+\zeta(1000)=1+\sum_{k=2}^{\infty}\frac{1}{k^{1000}},
+\]</span></p>
+<p>it suffices to show the tail <span class="math inline">\(\sum_{k=2}^{\infty}k^{-1000}\)</span> is <span class="math inline">\(&lt;10^{-100}\)</span>. Then <span class="math inline">\(\zeta(1000)\)</span> rounds to <span class="math inline">\(1.\underbrace{00\ldots0}_{100\text{ zeros}}\)</span>.</p>
+<p>A tight and elementary bound:</p>
+<p><span class="math display">\[
+\sum_{k=2}^{\infty}\frac{1}{k^{1000}}
+\;&lt;\;\frac{1}{2^{1000}}\;+\;\int_{2}^{\infty}x^{-1000}\,dx
+\;=\;\frac{1}{2^{1000}}+\frac{1}{999\cdot 2^{999}}
+=\frac{1}{2^{1000}}\!\left(1+\frac{2}{999}\right).
+\]</span></p>
+<p>Now <span class="math inline">\(2^{1000}=10^{1000\log_{10}2}\)</span> with <span class="math inline">\(\log_{10}2\approx 0.30103\)</span>, hence</p>
+<p><span class="math display">\[
+\frac{1}{2^{1000}}&lt;10^{-301}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+0&lt;\zeta(1000)-1&lt;\left(1+\frac{2}{999}\right)\!10^{-301}&lt;10^{-300}\ll 10^{-100}.
+\]</span></p>
+<p>So the first 100 digits after the decimal point of <span class="math inline">\(\zeta(1000)\)</span> are all zero.</p>
+<p>(Indeed, much more is true: <span class="math inline">\(\zeta(1000)=1+\Theta(2^{-1000})\)</span>, so the first nonzero decimal digit doesn’t appear until roughly the <span class="math inline">\(302^\text{nd}\)</span> place.)</p>
+</section>
+<section id="m22" class="level3">
+<h3 class="anchored" data-anchor-id="m22">13 [M22]</h3>
+<p>Here is a clean, self-contained proof of Exercise 13 from §1.2.7 (Harmonic Numbers). I restate the problem in my own words for clarity:</p>
+<p>Claim. For every integer <span class="math inline">\(n\ge 1\)</span> and indeterminate <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{x^{k}}{k}
+\;=\;
+H_n \;+\; \sum_{k=1}^{n}\binom{n}{k}\frac{(x-1)^k}{k},
+\]</span></p>
+<p>where <span class="math inline">\(H_n=\sum_{k=1}^{n}\frac1k\)</span> is the <span class="math inline">\(n\)</span>-th harmonic number. </p>
+<p>Proof</p>
+<ol type="1">
+<li>Split off the constant part.</li>
+</ol>
+<p>For any <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{x^k}{k}
+=\sum_{k=1}^{n}\frac{1}{k}+\sum_{k=1}^{n}\frac{x^k-1}{k}
+=H_n+\sum_{k=1}^{n}\frac{x^k-1}{k}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Binomially expand <span class="math inline">\(x^k-1\)</span>.</li>
+</ol>
+<p>Write <span class="math inline">\(x=(x-1)+1\)</span>. Then</p>
+<p><span class="math display">\[
+x^k-1=\bigl((x-1)+1\bigr)^k-1
+=\sum_{j=0}^{k}\binom{k}{j}(x-1)^j-1
+=\sum_{j=1}^{k}\binom{k}{j}(x-1)^j.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{x^k-1}{k}
+=\sum_{k=1}^{n}\sum_{j=1}^{k}\binom{k}{j}\frac{(x-1)^j}{k}
+=\sum_{j=1}^{n}(x-1)^j\sum_{k=j}^{n}\frac{1}{k}\binom{k}{j}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Evaluate the inner sum.</li>
+</ol>
+<p>Use the simple identity</p>
+<p><span class="math display">\[
+\frac{1}{k}\binom{k}{j}=\frac{1}{j}\binom{k-1}{j-1}
+\qquad(k\ge j\ge 1),
+\]</span></p>
+<p>which follows from <span class="math inline">\(\binom{k}{j}=\dfrac{k}{j}\binom{k-1}{j-1}\)</span>. Therefore</p>
+<p><span class="math display">\[
+\sum_{k=j}^{n}\frac{1}{k}\binom{k}{j}
+=\frac{1}{j}\sum_{k=j}^{n}\binom{k-1}{j-1}
+=\frac{1}{j}\sum_{m=j-1}^{n-1}\binom{m}{j-1}
+=\frac{1}{j}\binom{n}{j},
+\]</span></p>
+<p>by the “hockey-stick” identity <span class="math inline">\(\sum_{m=r}^{N}\binom{m}{r}=\binom{N+1}{r+1}\)</span>.</p>
+<ol start="4" type="1">
+<li>Assemble the result.</li>
+</ol>
+<p>Plugging this into step 2 gives</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{x^k-1}{k}
+=\sum_{j=1}^{n}(x-1)^j\cdot \frac{1}{j}\binom{n}{j}
+=\sum_{j=1}^{n}\binom{n}{j}\frac{(x-1)^j}{j}.
+\]</span></p>
+<p>Together with step 1, this yields exactly</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{x^{k}}{k}
+=H_n+\sum_{k=1}^{n}\binom{n}{k}\frac{(x-1)^k}{k},
+\]</span></p>
+<p>as was to be shown.</p>
+</section>
+<section id="m22-1" class="level3">
+<h3 class="anchored" data-anchor-id="m22-1">14 [M22]</h3>
+<p>Part (a) <span class="math inline">\(\displaystyle \sum_{k=1}^n \frac{H_k}{k}=\frac12\bigl(H_n^2+H_n^{(2)}\bigr)\)</span></p>
+<p>Write the left–hand side as a double sum and use symmetry:</p>
+<p><span class="math display">\[
+\sum_{k=1}^n \frac{H_k}{k}
+=\sum_{k=1}^n\sum_{i=1}^k \frac{1}{ik}
+=\sum_{1\le i\le k\le n}\frac{1}{ik}.
+\]</span></p>
+<p>Split the pairs <span class="math inline">\((i,k)\)</span> into <span class="math inline">\(i&lt;k\)</span> and <span class="math inline">\(i=k\)</span>:</p>
+<p><span class="math display">\[
+\sum_{1\le i\le k\le n}\frac{1}{ik}
+=\underbrace{\sum_{1\le i&lt;k\le n}\frac{1}{ik}}_{\text{strictly off–diagonal}}
++\underbrace{\sum_{k=1}^n\frac{1}{k^2}}_{H_n^{(2)}}.
+\]</span></p>
+<p>On the other hand,</p>
+<p><span class="math display">\[
+H_n^2
+=\Bigl(\sum_{i=1}^n \frac{1}{i}\Bigr)\Bigl(\sum_{k=1}^n \frac{1}{k}\Bigr)
+=\sum_{i=1}^n\frac{1}{i^2}+2\sum_{1\le i&lt;k\le n}\frac{1}{ik}
+=H_n^{(2)}+2\sum_{1\le i&lt;k\le n}\frac{1}{ik}.
+\]</span></p>
+<p>Hence <span class="math inline">\(\displaystyle \sum_{1\le i&lt;k\le n}\frac{1}{ik}=\frac{H_n^2-H_n^{(2)}}{2}\)</span>, and substituting above gives</p>
+<p><span class="math display">\[
+\sum_{k=1}^n \frac{H_k}{k}
+=\frac{H_n^2-H_n^{(2)}}{2}+H_n^{(2)}
+=\frac{H_n^2+H_n^{(2)}}{2}.
+\]</span></p>
+<p>This proves the identity.</p>
+<p>(Equivalently, you can also start from <span class="math inline">\(\sum_{k=1}^n\sum_{i=1}^k \frac{1}{ik} =\sum_{i=1}^n \frac{1}{i}\sum_{k=i}^n \frac{1}{k} =\sum_{i=1}^n \frac{1}{i}(H_n-H_{i-1}) =H_n^2-\sum_{i=1}^n \frac{H_{i-1}}{i}\)</span>, then note <span class="math inline">\(\sum_{i=1}^n \frac{H_{i-1}}{i}=\sum_{i=1}^n \frac{H_i}{i}-\sum_{i=1}^n \frac{1}{i^2}=\sum_{k=1}^n \frac{H_k}{k}-H_n^{(2)}\)</span> and solve for <span class="math inline">\(\sum \frac{H_k}{k}\)</span>.)</p>
+<p>Part (b) <span class="math inline">\(\displaystyle \sum_{k=1}^n \frac{H_k}{k+1}\)</span></p>
+<p>Use the elementary shift <span class="math inline">\(H_k=H_{k+1}-\frac{1}{k+1}\)</span>:</p>
+<p><span class="math display">\[
+\sum_{k=1}^n \frac{H_k}{k+1}
+=\sum_{k=1}^n \frac{H_{k+1}}{k+1}-\sum_{k=1}^n\frac{1}{(k+1)^2}
+=\Bigl(\sum_{j=2}^{n+1}\frac{H_j}{j}\Bigr)-\Bigl(\sum_{j=2}^{n+1}\frac{1}{j^2}\Bigr).
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\sum_{k=1}^n \frac{H_k}{k+1}
+=\underbrace{\sum_{j=1}^{n+1}\frac{H_j}{j}}_{=\frac12\,(H_{n+1}^2+H_{n+1}^{(2)})}-\frac{H_1}{1}
+-\bigl(H_{n+1}^{(2)}-1\bigr)
+=\frac12\bigl(H_{n+1}^2-H_{n+1}^{(2)}\bigr).
+\]</span></p>
+<p>(Used the result of part (a) with <span class="math inline">\(n\mapsto n+1\)</span>.)</p>
+<p>An equivalent form in terms of <span class="math inline">\(H_n\)</span> is also handy:</p>
+<p><span class="math display">\[
+\sum_{k=1}^n \frac{H_k}{k+1}
+=\frac12\left(H_n^2-H_n^{(2)}\right)+\frac{H_n}{n+1},
+\]</span></p>
+<p>since <span class="math inline">\(H_{n+1}=H_n+\frac{1}{n+1}\)</span> and <span class="math inline">\(H_{n+1}^{(2)}=H_n^{(2)}+\frac{1}{(n+1)^2}\)</span>.</p>
+</section>
+<section id="m23" class="level3">
+<h3 class="anchored" data-anchor-id="m23">15 [M23]</h3>
+<p>Recall <span class="math inline">\(H_k=\sum_{j=1}^k \frac1j\)</span>. Start from the double–sum expansion:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n} H_k^{\,2}
+=\sum_{k=1}^{n}\Bigl(\sum_{i=1}^{k}\tfrac1i\Bigr)\Bigl(\sum_{j=1}^{k}\tfrac1j\Bigr)
+=\sum_{i=1}^{n}\sum_{j=1}^{n}\frac{\#\{k:1\le k\le n,\ k\ge \max(i,j)\}}{ij}
+=\sum_{i=1}^{n}\sum_{j=1}^{n}\frac{n-\max(i,j)+1}{ij}.
+\]</span></p>
+<p>Split the square <span class="math inline">\((i,j)\)</span> into diagonal and off–diagonal parts:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n} H_k^{\,2}
+=2\sum_{1\le j&lt;i\le n}\frac{n-i+1}{ij}
++\sum_{i=1}^{n}\frac{n-i+1}{i^2}
+=2\sum_{i=1}^{n}\frac{n-i+1}{i}\,H_{i-1}+\sum_{i=1}^{n}\frac{n-i+1}{i^2}.
+\]</span></p>
+<p>Use <span class="math inline">\(H_{i-1}=H_i-\frac1i\)</span>:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n} H_k^{\,2}
+=2\sum_{i=1}^{n}\frac{n-i+1}{i}\,H_i
+-2\sum_{i=1}^{n}\frac{n-i+1}{i^2}
++\sum_{i=1}^{n}\frac{n-i+1}{i^2}.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\boxed{\ \sum_{k=1}^{n} H_k^{\,2}
+=2\sum_{i=1}^{n}\frac{n-i+1}{i}\,H_i
+-\sum_{i=1}^{n}\frac{n-i+1}{i^2}\ } \tag{★}
+\]</span></p>
+<p>Now evaluate the two sums in <span class="math inline">\((★)\)</span>.</p>
+<ol type="1">
+<li>For the first,</li>
+</ol>
+<p><span class="math display">\[
+\sum_{i=1}^{n}\frac{n-i+1}{i}\,H_i
+=(n+1)\sum_{i=1}^{n}\frac{H_i}{i}-\sum_{i=1}^{n}H_i.
+\]</span></p>
+<p>We’ll use two standard identities (proved here for completeness):</p>
+<ul>
+<li><p><span class="math inline">\(\displaystyle \sum_{i=1}^{n}H_i=(n+1)H_n-n\)</span>. Proof: <span class="math inline">\(\sum_{i=1}^{n}H_i=\sum_{i=1}^{n}\sum_{j=1}^{i}\frac1j =\sum_{j=1}^{n}\frac{n-j+1}{j}=(n+1)H_n-\sum_{j=1}^{n}1=(n+1)H_n-n.\)</span></p></li>
+<li><p><span class="math inline">\(\displaystyle \sum_{i=1}^{n}\frac{H_i}{i}=\tfrac12\!\left(H_n^{\,2}+H_n^{(2)}\right)\)</span>, where <span class="math inline">\(H_n^{(2)}=\sum_{i=1}^{n}\frac1{i^2}\)</span>. Proof: From <span class="math inline">\(H_i=H_{i-1}+\frac1i\)</span>,</p>
+<p><span class="math display">\[
+H_n^{\,2}-H_{n-1}^{\,2}=\left(H_n-H_{n-1}\right)\!\left(H_n+H_{n-1}\right)
+=\frac{2H_{n-1}}{n}+\frac1{n^2}.
+\]</span></p>
+<p>Summing <span class="math inline">\(n=1\ldots N\)</span> gives <span class="math inline">\(\displaystyle H_N^{\,2} =2\sum_{i=1}^{N}\frac{H_{i-1}}{i}+\sum_{i=1}^{N}\frac1{i^2} =2\sum_{i=1}^{N}\frac{H_i}{i}-\sum_{i=1}^{N}\frac1{i^2},\)</span> hence the claim.</p></li>
+</ul>
+<p>Therefore</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}\frac{n-i+1}{i}\,H_i
+=(n+1)\cdot \tfrac12\!\left(H_n^{\,2}+H_n^{(2)}\right) - \bigl((n+1)H_n-n\bigr).
+\]</span></p>
+<ol start="2" type="1">
+<li>For the second,</li>
+</ol>
+<p><span class="math display">\[
+\sum_{i=1}^{n}\frac{n-i+1}{i^2}
+=(n+1)\sum_{i=1}^{n}\frac1{i^2}-\sum_{i=1}^{n}\frac1i
+=(n+1)H_n^{(2)}-H_n.
+\]</span></p>
+<p>Plug these into <span class="math inline">\((★)\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum_{k=1}^{n} H_k^{\,2}
+&amp;=2\Bigl((n+1)\cdot \tfrac12(H_n^{\,2}+H_n^{(2)})-(n+1)H_n+n\Bigr)
+-\bigl((n+1)H_n^{(2)}-H_n\bigr)\\
+&amp;=(n+1)H_n^{\,2}-2(n+1)H_n+2n - (n+1)H_n^{(2)}+H_n + (n+1)H_n^{(2)}\\
+&amp;=\boxed{(n+1)H_n^{\,2}-(2n+1)H_n+2n.}
+\end{aligned}
+\]</span></p>
+<p>Quick check</p>
+<ul>
+<li><span class="math inline">\(n=1\)</span>: LHS <span class="math inline">\(=H_1^2=1\)</span>. RHS <span class="math inline">\(=(2)\cdot1-(3)\cdot1+2=1\)</span>.</li>
+<li><span class="math inline">\(n=2\)</span>: LHS <span class="math inline">\(=1^2+(1+\tfrac12)^2=1+2.25=3.25\)</span>. RHS <span class="math inline">\(=3\cdot2.25-5\cdot1.5+4=3.25\)</span>.</li>
+</ul>
+<p>Thus,</p>
+<p><span class="math display">\[
+\boxed{\displaystyle \sum_{k=1}^{n} H_k^{\,2}=(n+1)H_n^{\,2}-(2n+1)H_n+2n.}
+\]</span></p>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">16 [18]</h3>
+<ol type="1">
+<li><p>Split <span class="math inline">\(H_{2n}\)</span> into even and odd parts.</p>
+<p><span class="math display">\[
+H_{2n}=\sum_{k=1}^{2n}\frac1k=\sum_{j=1}^{n}\left(\frac{1}{2j-1}+\frac{1}{2j}\right).
+\]</span></p></li>
+<li><p>Recognize the even part.</p>
+<p><span class="math display">\[
+\sum_{j=1}^{n}\frac{1}{2j}=\frac12\sum_{j=1}^{n}\frac1j=\frac12\,H_n.
+\]</span></p></li>
+<li><p>Solve for the odd part. Let <span class="math inline">\(S_n=\sum_{j=1}^{n}\frac{1}{2j-1}\)</span>. Then</p>
+<p><span class="math display">\[
+H_{2n}=S_n+\frac12 H_n
+\quad\Longrightarrow\quad
+S_n=H_{2n}-\frac12\,H_n.
+\]</span></p></li>
+</ol>
+<p>That’s the required expression “in terms of harmonic numbers.”</p>
+<p>Quick checks</p>
+<ul>
+<li><span class="math inline">\(n=1\)</span>: <span class="math inline">\(1=H_2-\tfrac12H_1=(1+\tfrac12)-\tfrac12=1\)</span>.</li>
+<li><span class="math inline">\(n=2\)</span>: <span class="math inline">\(1+\tfrac13=\tfrac43=H_4-\tfrac12H_2=(1+\tfrac12+\tfrac13+\tfrac14)-\tfrac12(1+\tfrac12)=\tfrac{25}{12}-\tfrac34=\tfrac{16}{12}=\tfrac43\)</span>.</li>
+</ul>
+<p>(Optional) Asymptotics</p>
+<p>Using <span class="math inline">\(H_m=\ln m+\gamma+\frac{1}{2m}+O(m^{-2})\)</span>,</p>
+<p><span class="math display">\[
+\sum_{j=1}^{n}\frac{1}{2j-1}
+=H_{2n}-\frac12H_n
+=\ln 2+\frac12\ln n+\frac{\gamma}{2}+O\!\left(\frac{1}{n}\right),
+\]</span></p>
+<p>so the odd–reciprocal sum grows like <span class="math inline">\(\tfrac12\ln n\)</span> plus a constant.</p>
+<p>Answer. <span class="math inline">\(\displaystyle \sum_{j=1}^{n}\frac{1}{2j-1}=H_{2n}-\frac12\,H_n.\)</span></p>
+</section>
+<section id="m24" class="level3">
+<h3 class="anchored" data-anchor-id="m24">17 [M24]</h3>
+<p>Solution 1 (pairing <span class="math inline">\(k\)</span> with <span class="math inline">\(p-k\)</span>)</p>
+<p>Pair the terms <span class="math inline">\(k\)</span> and <span class="math inline">\(p-k\)</span> for <span class="math inline">\(k=1,2,\dots,(p-1)/2\)</span>. Then</p>
+<p><span class="math display">\[
+\frac1k+\frac1{p-k} \;=\; \frac{p}{k(p-k)}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+H_{p-1}
+= \sum_{k=1}^{(p-1)/2}\!\left(\frac1k+\frac1{p-k}\right)
+= \sum_{k=1}^{(p-1)/2}\frac{p}{k(p-k)}.
+\]</span></p>
+<p>Each denominator <span class="math inline">\(k(p-k)\)</span> is not divisible by <span class="math inline">\(p\)</span> (since <span class="math inline">\(1\le k \le p-1\)</span>). Let</p>
+<p><span class="math display">\[
+D \;:=\; \operatorname{lcm}\{\,k(p-k): 1\le k\le (p-1)/2\,\}.
+\]</span></p>
+<p>Then <span class="math inline">\(p\nmid D\)</span>. Writing the sum over the common denominator <span class="math inline">\(D\)</span>, we get</p>
+<p><span class="math display">\[
+H_{p-1} \;=\; \frac{p}{D}\sum_{k=1}^{(p-1)/2}\frac{D}{k(p-k)} \;=\; \frac{p\cdot N}{D},
+\]</span></p>
+<p>for some integer <span class="math inline">\(N\)</span>. Since <span class="math inline">\(p\nmid D\)</span>, the fraction <span class="math inline">\(\dfrac{pN}{D}\)</span> (and hence its reduction to lowest terms) has numerator divisible by <span class="math inline">\(p\)</span>. This proves the claim.</p>
+<p>Solution 2 (field-theoretic view, same conclusion)</p>
+<p>Work modulo <span class="math inline">\(p\)</span>. In the field <span class="math inline">\(\mathbb{F}_p\)</span>, every <span class="math inline">\(k\in\{1,\dots,p-1\}\)</span> is invertible, so</p>
+<p><span class="math display">\[
+S \;:=\; \sum_{k=1}^{p-1} k^{-1}\in\mathbb{F}_p
+\]</span></p>
+<p>is well-defined. The map <span class="math inline">\(k\mapsto k^{-1}\)</span> permutes <span class="math inline">\(\{1,\dots,p-1\}\)</span>, hence</p>
+<p><span class="math display">\[
+S \equiv \sum_{k=1}^{p-1} k \equiv 0 \pmod p.
+\]</span></p>
+<p>Interpreting <span class="math inline">\(H_{p-1}=A/B\)</span> with <span class="math inline">\(p\nmid B\)</span> (justified by the pairing argument above), the congruence <span class="math inline">\(S\equiv 0\)</span> means <span class="math inline">\(A/B\equiv 0\pmod p\)</span>, so <span class="math inline">\(A\equiv 0\pmod p\)</span>. Thus <span class="math inline">\(p\mid A\)</span>.</p>
+<p>Checks &amp; remarks</p>
+<ul>
+<li>Examples: <span class="math inline">\(p=5\)</span>: <span class="math inline">\(H_4=\tfrac{25}{12}\)</span> (numerator <span class="math inline">\(25\)</span> divisible by <span class="math inline">\(5\)</span>). <span class="math inline">\(p=7\)</span>: <span class="math inline">\(H_6=\tfrac{49}{20}\)</span> (numerator <span class="math inline">\(49\)</span> divisible by <span class="math inline">\(7\)</span>).</li>
+<li>Stronger fact (context): for <span class="math inline">\(p\ge 5\)</span>, Wolstenholme’s theorem says <span class="math inline">\(H_{p-1}\equiv 0\pmod{p^2}\)</span>, i.e., the numerator is even divisible by <span class="math inline">\(p^2\)</span>. (Exercise 17 only asks for divisibility by <span class="math inline">\(p\)</span>.)</li>
+</ul>
+</section>
+<section id="m33" class="level3">
+<h3 class="anchored" data-anchor-id="m33">18 [M33]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+S_n=\sum_{k=1}^{n}\frac1{2k-1}=1+\frac13+\frac15+\cdots+\frac1{2n-1}
+\]</span></p>
+<p>and write <span class="math inline">\(S_n=\dfrac{A_n}{B_n}\)</span> in lowest terms. Since every denominator <span class="math inline">\(2k-1\)</span> is odd, also <span class="math inline">\(B_n\)</span> is odd. The problem asks for the highest power of <span class="math inline">\(2\)</span> dividing the numerator <span class="math inline">\(A_n\)</span>.</p>
+<p>Answer</p>
+<p><span class="math display">\[
+\nu_2(A_n)=
+\begin{cases}
+0,&amp; n\ \text{odd};\\[2mm]
+2\,\nu_2(n),&amp; n\ \text{even},
+\end{cases}
+\]</span></p>
+<p>where <span class="math inline">\(\nu_2(x)\)</span> is the exponent of <span class="math inline">\(2\)</span> in <span class="math inline">\(x\)</span> (the 2-adic valuation).</p>
+<p>We work with the common odd denominator</p>
+<p><span class="math display">\[
+D_n=\operatorname{lcm}\{1,3,5,\dots,2n-1\}\quad(\text{so }D_n\text{ is odd}),
+\]</span></p>
+<p>and set</p>
+<p><span class="math display">\[
+N_n=\sum_{k=1}^{n}\frac{D_n}{2k-1}\in\mathbb{Z},\qquad S_n=\frac{N_n}{D_n}.
+\]</span></p>
+<p>Since <span class="math inline">\(B_n\mid D_n\)</span> and <span class="math inline">\(B_n\)</span> is odd, <span class="math inline">\(\nu_2(A_n)=\nu_2(N_n)\)</span>.</p>
+<ol type="1">
+<li>The case <span class="math inline">\(n\)</span> odd.</li>
+</ol>
+<p>Each summand <span class="math inline">\(D_n/(2k-1)\)</span> is an odd integer (odd divided by odd), hence <span class="math inline">\(N_n\)</span> is a sum of <span class="math inline">\(n\)</span> odd integers. If <span class="math inline">\(n\)</span> is odd, the sum is odd; thus <span class="math inline">\(\nu_2(N_n)=0\)</span>.</p>
+<ol start="2" type="1">
+<li>A pairing identity for general <span class="math inline">\(n\)</span>.</li>
+</ol>
+<p>Pair the terms <span class="math inline">\(k\)</span> and <span class="math inline">\(n+1-k\)</span>:</p>
+<p><span class="math display">\[
+\frac{D_n}{2k-1}+\frac{D_n}{2n-2k+1}
+=D_n\cdot\frac{(2n)}{(2k-1)(2n-2k+1)}.
+\]</span></p>
+<p>Both factors in the denominator are odd, hence each pair contributes a multiple of <span class="math inline">\(2n\)</span>. Therefore</p>
+<p><span class="math display">\[
+N_n=2n\cdot T_n,\qquad
+T_n=\sum_{k=1}^{\lfloor n/2\rfloor}\frac{D_n}{(2k-1)(2n-2k+1)}\in\mathbb{Z}.
+\]</span></p>
+<p>Consequently,</p>
+<p><span class="math display">\[
+\nu_2(N_n)\ge \nu_2(2n)=\nu_2(n)+1.
+\]</span></p>
+<p>We now sharpen this to an equality <span class="math inline">\(\nu_2(N_n)=2\nu_2(n)\)</span> for even <span class="math inline">\(n\)</span>.</p>
+<ol start="3" type="1">
+<li>The case <span class="math inline">\(n=2^a m\)</span> with <span class="math inline">\(m\)</span> odd (so <span class="math inline">\(a=\nu_2(n)\ge1\)</span>).</li>
+</ol>
+<p>Write <span class="math inline">\(n=2^a m\)</span>. In the sum that defines <span class="math inline">\(T_n\)</span>, index the <span class="math inline">\(n/2=2^{a-1}m\)</span> terms by</p>
+<p><span class="math display">\[
+k=r+t\cdot 2^{a-1}\qquad(1\le r\le 2^{a-1},\; 0\le t\le m-1).
+\]</span></p>
+<p>For fixed <span class="math inline">\(r\)</span>, the paired denominators are</p>
+<p><span class="math display">\[
+(2k-1,\;2n-2k+1)\equiv (2r-1,\;2^{a+1}-2r+1)\pmod{2^{a+1}},
+\]</span></p>
+<p>two odd numbers whose sum is <span class="math inline">\(2^{a+1}\)</span>. Modulo <span class="math inline">\(2^{a+1}\)</span>, their product is <span class="math inline">\(-\,(2r-1)^2\)</span>. Because <span class="math inline">\(D_n\)</span> is odd and independent of <span class="math inline">\(k\)</span>, reduction modulo <span class="math inline">\(2^{a+1}\)</span> gives</p>
+<p><span class="math display">\[
+\frac{D_n}{(2k-1)(2n-2k+1)}\equiv C\cdot (2r-1)^{-2}\pmod{2^{a+1}}
+\]</span></p>
+<p>for some fixed odd constant <span class="math inline">\(C\)</span> (the inverse exists since all numbers involved are odd).</p>
+<p>Thus summing over the <span class="math inline">\(m\)</span> values of <span class="math inline">\(t\)</span> (a complete set of congruent classes modulo <span class="math inline">\(2^{a+1}\)</span>) yields</p>
+<p><span class="math display">\[
+T_n \equiv m\,C \sum_{r=1}^{2^{a-1}} (2r-1)^{-2}\pmod{2^{a+1}}.
+\]</span></p>
+<p>The map <span class="math inline">\(x\mapsto x^{-1}\)</span> permutes the odd residues modulo <span class="math inline">\(2^{a+1}\)</span>; hence</p>
+<p><span class="math display">\[
+\sum_{r=1}^{2^{a-1}} (2r-1)^{-2}\equiv \sum_{r=1}^{2^{a-1}} (2r-1)^2
+= \sum_{j=0}^{2^{a-1}-1}(2j+1)^2
+= 2^{a-1}\bigl(2^{a}-1\bigr)\equiv 2^{a-1}\pmod{2^{a}}.
+\]</span></p>
+<p>(Here we used the closed form for the sum of the first <span class="math inline">\(2^{a-1}\)</span> odd squares and observed that its residue modulo <span class="math inline">\(2^{a}\)</span> is <span class="math inline">\(2^{a-1}\)</span>.)</p>
+<p>Therefore</p>
+<p><span class="math display">\[
+T_n \equiv m\,C\,2^{a-1}\pmod{2^{a}},
+\]</span></p>
+<p>and since <span class="math inline">\(m\)</span> and <span class="math inline">\(C\)</span> are odd, this congruence shows exactly</p>
+<p><span class="math display">\[
+\nu_2(T_n)=a-1.
+\]</span></p>
+<p>Combining with <span class="math inline">\(N_n=2n\,T_n\)</span> gives</p>
+<p><span class="math display">\[
+\nu_2(N_n)=\nu_2(2n)+\nu_2(T_n)=(a+1)+(a-1)=2a=2\,\nu_2(n),
+\]</span></p>
+<p>as claimed.</p>
+<p>This completes the proof.</p>
+<p>Small checks</p>
+<p><span class="math display">\[
+\begin{array}{c|c|c}
+n &amp; S_n &amp; \nu_2(A_n) \\
+\hline
+1 &amp; 1=\frac{1}{1} &amp; 0\\
+2 &amp; 1+\frac13=\frac{4}{3} &amp; 2 \ (=2\nu_2(2))\\
+3 &amp; \frac{23}{15} &amp; 0\\
+4 &amp; \frac{176}{105} &amp; 4 \ (=2\nu_2(4))\\
+6 &amp; \frac{6508}{3465} &amp; 2 \ (=2\nu_2(6))\\
+8 &amp; \frac{91072}{45045} &amp; 6 \ (=2\nu_2(8))
+\end{array}
+\]</span></p>
+<p>So the highest power of <span class="math inline">\(2\)</span> dividing the numerator of <span class="math inline">\(1+\frac{1}{3}+\cdots+\frac{1}{2n-1}\)</span> is <span class="math inline">\(2^{\,2\,\nu_2(n)}\)</span> (and no higher power).</p>
+</section>
+<section id="m30" class="level3">
+<h3 class="anchored" data-anchor-id="m30">19 [M30]</h3>
+<p>Answer</p>
+<p><span class="math inline">\(\boxed{n=0 \text{ or } n=1}\)</span>. For every <span class="math inline">\(n\ge 2\)</span>, <span class="math inline">\(H_n\)</span> is not an integer.</p>
+<p>Proof (parity/LCM trick)</p>
+<p>Let <span class="math inline">\(n\ge 2\)</span> and set</p>
+<p><span class="math display">\[
+L=\operatorname{lcm}(1,2,\dots,n).
+\]</span></p>
+<p>Let <span class="math inline">\(2^k\)</span> be the largest power of <span class="math inline">\(2\)</span> with <span class="math inline">\(2^k\le n&lt;2^{k+1}\)</span>. Then the exact power of <span class="math inline">\(2\)</span> dividing <span class="math inline">\(L\)</span> is <span class="math inline">\(2^k\)</span>.</p>
+<p>Consider the integer</p>
+<p><span class="math display">\[
+S \;=\; L\,H_n \;=\; \sum_{j=1}^{n}\frac{L}{j}.
+\]</span></p>
+<p>Look at each term modulo <span class="math inline">\(2\)</span>:</p>
+<ul>
+<li>If <span class="math inline">\(j=2^k\)</span>, then <span class="math inline">\(\dfrac{L}{j}=\dfrac{L}{2^k}\)</span> is odd, because we have removed the full factor <span class="math inline">\(2^k\)</span> from <span class="math inline">\(L\)</span>.</li>
+<li>If <span class="math inline">\(j\neq 2^k\)</span>, then the highest power of <span class="math inline">\(2\)</span> in <span class="math inline">\(j\)</span> is at most <span class="math inline">\(2^{k-1}\)</span>; therefore <span class="math inline">\(\dfrac{L}{j}\)</span> still contains at least one factor <span class="math inline">\(2\)</span> and is even.</li>
+</ul>
+<p>Hence all terms in the sum are even except one, so <span class="math inline">\(S\)</span> is odd.</p>
+<p>But <span class="math inline">\(L\)</span> is even (since <span class="math inline">\(n\ge 2\)</span> implies <span class="math inline">\(2\mid L\)</span>). If <span class="math inline">\(H_n\)</span> were an integer, then <span class="math inline">\(S=L\cdot H_n\)</span> would be even—contradiction. Therefore <span class="math inline">\(H_n\)</span> cannot be an integer for any <span class="math inline">\(n\ge 2\)</span>.</p>
+<p>Finally, the small cases are <span class="math inline">\(H_0=0\)</span> and <span class="math inline">\(H_1=1\)</span>, both integers. Thus the only nonnegative <span class="math inline">\(n\)</span> with <span class="math inline">\(H_n\in\mathbb{Z}\)</span> are <span class="math inline">\(n=0\)</span> and <span class="math inline">\(n=1\)</span>.</p>
+</section>
+<section id="hm22" class="level3">
+<h3 class="anchored" data-anchor-id="hm22">20 [HM22]</h3>
+<ol type="1">
+<li>An integral representation of <span class="math inline">\(H_k\)</span></li>
+</ol>
+<p>For each integer <span class="math inline">\(k\ge 1\)</span>,</p>
+<p><span class="math display">\[
+H_k=\sum_{j=1}^{k}\frac1j
+=\sum_{j=1}^{k}\int_{0}^{1} t^{\,j-1}\,dt
+=\int_{0}^{1}\sum_{j=1}^{k} t^{\,j-1}\,dt
+=\int_{0}^{1}\frac{1-t^{k}}{1-t}\,dt.
+\tag{1}
+\]</span></p>
+<p>(We just summed the finite geometric series inside the integral.)</p>
+<ol start="2" type="1">
+<li>Work first with a truncated integral</li>
+</ol>
+<p>Fix <span class="math inline">\(r\in(0,1)\)</span> and write</p>
+<p><span class="math display">\[
+S:=\sum_{k\ge 0} a_k x_0^{k} H_k
+=\sum_{k\ge 0} a_k x_0^{k}\int_{0}^{1}\frac{1-t^{k}}{1-t}\,dt
+=\lim_{r\uparrow 1}\sum_{k\ge 0} a_k x_0^{k}\int_{0}^{r}\frac{1-t^{k}}{1-t}\,dt.
+\]</span></p>
+<p>For each fixed <span class="math inline">\(r&lt;1\)</span>, we may interchange sum and integral because <span class="math inline">\(|x_0|r\)</span> is strictly inside the radius of convergence, so <span class="math inline">\(f(x_0t)=\sum_{k\ge 0} a_k(x_0t)^k\)</span> converges uniformly on <span class="math inline">\(t\in[0,r]\)</span>. Thus</p>
+<p><span class="math display">\[
+\sum_{k\ge 0} a_k x_0^{k}\int_{0}^{r}\frac{1-t^{k}}{1-t}\,dt
+=\int_{0}^{r}\frac{1}{1-t}\sum_{k\ge 0}a_k\bigl(x_0^{k}- (x_0 t)^k\bigr)\,dt
+=\int_{0}^{r}\frac{f(x_0)-f(x_0 t)}{1-t}\,dt.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+S=\lim_{r\uparrow 1}\int_{0}^{r}\frac{f(x_0)-f(x_0 t)}{1-t}\,dt.
+\tag{2}
+\]</span></p>
+<ol start="3" type="1">
+<li>Pass to the limit <span class="math inline">\(r\uparrow1\)</span></li>
+</ol>
+<p>Define <span class="math inline">\(g(t)=\dfrac{f(x_0)-f(x_0 t)}{1-t}\)</span> for <span class="math inline">\(t\in[0,1)\)</span>. Because <span class="math inline">\(f\)</span> is given by a power series that converges at <span class="math inline">\(x_0\)</span>, <span class="math inline">\(f\)</span> is differentiable on a neighborhood of the segment <span class="math inline">\(\{x_0t:\,t\in[0,1]\}\)</span>. By the mean value theorem applied to <span class="math inline">\(h(t)=f(x_0t)\)</span>,</p>
+<p><span class="math display">\[
+\lim_{t\uparrow 1} g(t)=\lim_{t\uparrow 1}\frac{h(1)-h(t)}{1-t}
+= -h'(1)=x_0 f'(x_0).
+\]</span></p>
+<p>So <span class="math inline">\(g\)</span> extends continuously to <span class="math inline">\(t=1\)</span> (define <span class="math inline">\(g(1)=x_0f'(x_0)\)</span>), hence is bounded on <span class="math inline">\([0,1]\)</span>. Dominated convergence (or just continuity of the integrand on the compact interval after extension) now yields</p>
+<p><span class="math display">\[
+\lim_{r\uparrow 1}\int_{0}^{r} g(t)\,dt=\int_{0}^{1} g(t)\,dt.
+\]</span></p>
+<p>Combining this with (2) finishes the proof:</p>
+<p><span class="math display">\[
+\boxed{\displaystyle
+\sum_{k\ge 0} a_k\,x_0^{k}\,H_k
+= \int_{0}^{1}\frac{\,f(x_0)-f(x_0y)\,}{1-y}\,dy }.
+\]</span></p>
+</section>
+<section id="m24-1" class="level3">
+<h3 class="anchored" data-anchor-id="m24-1">21 [M24]</h3>
+<p>Compute</p>
+<p><span class="math display">\[
+S_n \;=\; \sum_{k=1}^{n} \frac{H_k}{\,n+1-k\,},
+\qquad
+H_k=\sum_{i=1}^{k}\frac1i,
+\qquad
+H_m^{(2)}=\sum_{i=1}^{m}\frac1{i^2}.
+\]</span></p>
+<p>Step 1: Rewrite as a double sum over a triangle</p>
+<p>Expand <span class="math inline">\(H_k\)</span> and swap the order of summation:</p>
+<p><span class="math display">\[
+S_n
+=\sum_{k=1}^{n}\;\sum_{i=1}^{k}\frac{1}{i\,(n+1-k)}
+=\sum_{i=1}^{n}\frac1i\sum_{k=i}^{n}\frac{1}{\,n+1-k\,}.
+\]</span></p>
+<p>With <span class="math inline">\(j=n+1-k\)</span> the inner sum runs <span class="math inline">\(j=1,\dots,n+1-i\)</span>, hence</p>
+<p><span class="math display">\[
+S_n=\sum_{i=1}^{n}\frac1i\,H_{n+1-i}.
+\]</span></p>
+<p>Equivalently, view this as the “triangular” double sum</p>
+<p><span class="math display">\[
+S_n=\sum_{\substack{i\ge1,\;j\ge1\\ i+j\le n+1}}\frac{1}{ij}.
+\]</span></p>
+<p>Step 2: Collapse each antidiagonal</p>
+<p>Group pairs by their sum <span class="math inline">\(r=i+j\)</span> (so <span class="math inline">\(r=2,3,\dots,n+1\)</span>):</p>
+<p><span class="math display">\[
+S_n=\sum_{r=2}^{n+1}\;\sum_{i=1}^{r-1}\frac{1}{i(r-i)}.
+\]</span></p>
+<p>Use the partial-fraction identity</p>
+<p><span class="math display">\[
+\frac{1}{i(r-i)}=\frac1r\!\left(\frac1i+\frac1{r-i}\right),
+\]</span></p>
+<p>to get</p>
+<p><span class="math display">\[
+\sum_{i=1}^{r-1}\frac{1}{i(r-i)}=\frac{2}{r}\sum_{i=1}^{r-1}\frac1i=\frac{2\,H_{r-1}}{r}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+S_n=2\sum_{r=2}^{n+1}\frac{H_{r-1}}{r}
+=2\sum_{k=1}^{n}\frac{H_{k}}{k+1}.
+\]</span></p>
+<p>Step 3: Evaluate <span class="math inline">\(\sum_{k=1}^{n}\dfrac{H_k}{k+1}\)</span></p>
+<p>Write <span class="math inline">\(H_k=H_{k+1}-\dfrac{1}{k+1}\)</span>:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{H_k}{k+1}
+=\sum_{k=1}^{n}\frac{H_{k+1}}{k+1}-\sum_{k=1}^{n}\frac{1}{(k+1)^2}
+=\sum_{j=2}^{n+1}\frac{H_{j}}{j}-\bigl(H_{n+1}^{(2)}-1\bigr).
+\]</span></p>
+<p>A standard identity (provable by the same double-sum trick) is</p>
+<p><span class="math display">\[
+\sum_{j=1}^{m}\frac{H_j}{j}
+=\frac12\!\left(H_m^2+H_m^{(2)}\right).
+\]</span></p>
+<p>Using it with <span class="math inline">\(m=n+1\)</span> and subtracting the <span class="math inline">\(j=1\)</span> term,</p>
+<p><span class="math display">\[
+\sum_{j=2}^{n+1}\frac{H_j}{j}
+=\frac12\!\left(H_{n+1}^2+H_{n+1}^{(2)}\right)-1.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{H_k}{k+1}
+=\frac12\!\left(H_{n+1}^2+H_{n+1}^{(2)}\right)-1-\bigl(H_{n+1}^{(2)}-1\bigr)
+=\frac12\!\left(H_{n+1}^2-H_{n+1}^{(2)}\right).
+\]</span></p>
+<p>Step 4: Final result</p>
+<p>Plugging back into <span class="math inline">\(S_n=2\sum_{k=1}^{n}\dfrac{H_k}{k+1}\)</span>,</p>
+<p><span class="math display">\[
+\boxed{\;
+\sum_{k=1}^{n}\frac{H_k}{\,n+1-k\,}
+=H_{n+1}^{2}-H_{n+1}^{(2)}\; }.
+\]</span></p>
+<p>Quick check (small <span class="math inline">\(n\)</span>)</p>
+<ul>
+<li><span class="math inline">\(n=1\)</span>: LHS <span class="math inline">\(=H_1/1=1\)</span>. RHS <span class="math inline">\(=H_2^2-H_2^{(2)}=(1+\tfrac12)^2-(1+ \tfrac14)=1\)</span>. ✓</li>
+<li><span class="math inline">\(n=2\)</span>: LHS <span class="math inline">\(=H_1/2+H_2/1=\tfrac12+ \tfrac32=2\)</span>. RHS <span class="math inline">\(=H_3^2-H_3^{(2)}=(\tfrac{11}{6})^2-(1+\tfrac14+\tfrac19)=2\)</span>. ✓</li>
+</ul>
+</section>
+<section id="m28" class="level3">
+<h3 class="anchored" data-anchor-id="m28">22 [M28]</h3>
+<ol type="1">
+<li>Generating function setup</li>
+</ol>
+<p>The ordinary generating function of <span class="math inline">\(\{H_n\}_{n\ge 0}\)</span> is</p>
+<p><span class="math display">\[
+F(x)=\sum_{n\ge 0} H_n x^n=\frac{-\ln(1-x)}{1-x},
+\]</span></p>
+<p>because</p>
+<p><span class="math display">\[
+\sum_{n\ge 1}H_n x^n
+=\sum_{n\ge 1}\sum_{m=1}^n \frac{x^n}{m}
+=\sum_{m\ge 1}\frac1m\sum_{n\ge m}x^n
+=\frac{1}{1-x}\sum_{m\ge 1}\frac{x^m}{m}
+=\frac{-\ln(1-x)}{1-x}.
+\]</span></p>
+<p>Therefore <span class="math inline">\(S_n=[x^n]\,F(x)^2=[x^n]\left(\dfrac{\ln(1-x)}{1-x}\right)^2\)</span>.</p>
+<ol start="2" type="1">
+<li>Coefficient of <span class="math inline">\(\big(\ln(1-x)\big)^2\)</span></li>
+</ol>
+<p>Write <span class="math inline">\(-\ln(1-x)=\sum_{r\ge 1}\frac{x^r}{r}\)</span>. Then</p>
+<p><span class="math display">\[
+\big(\ln(1-x)\big)^2
+= \sum_{m\ge 2}\left(\sum_{r=1}^{m-1}\frac{1}{r(m-r)}\right)x^m
+= \sum_{m\ge 2}\frac{2H_{m-1}}{m}\,x^m,
+\]</span></p>
+<p>since <span class="math inline">\(\dfrac{1}{r(m-r)}=\dfrac1m\!\left(\dfrac1r+\dfrac1{m-r}\right)\)</span>.</p>
+<p>Also <span class="math inline">\(\dfrac{1}{(1-x)^2}=\sum_{t\ge 0}(t+1)x^t\)</span>. Hence</p>
+<p><span class="math display">\[
+S_n=[x^n]\frac{(\ln(1-x))^2}{(1-x)^2}
+=\sum_{m=2}^{n}(n-m+1)\cdot\frac{2H_{m-1}}{m}.
+\]</span></p>
+<p>Let <span class="math inline">\(r=m-1\)</span> (so <span class="math inline">\(r=1,\dots,n-1\)</span>):</p>
+<p><span class="math display">\[
+S_n = 2\sum_{r=1}^{n-1}\frac{(n-r)H_r}{r+1}
+= 2n\sum_{r=1}^{n-1}\frac{H_r}{r+1}\;-\;2\sum_{r=1}^{n-1}\frac{rH_r}{r+1}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Two standard harmonic sums</li>
+</ol>
+<p>We use</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n-1}\frac{H_k}{k+1}
+=\frac12\Big(H_n^2-H_n^{(2)}\Big),
+\qquad
+\sum_{k=1}^{n-1}H_k=n(H_n-1),
+\]</span></p>
+<p>and <span class="math inline">\(\displaystyle \sum_{k=1}^{n-1}\frac{kH_k}{k+1} =\sum_{k=1}^{n-1}\left(H_k-\frac{H_k}{k+1}\right) = n(H_n-1)-\frac12\big(H_n^2-H_n^{(2)}\big).\)</span></p>
+<p>Substitute into the expression for <span class="math inline">\(S_n\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+S_n
+&amp;= 2n\cdot \frac12\!\left(H_n^2-H_n^{(2)}\right)
+\;-\;2\Big(n(H_n-1)-\tfrac12\big(H_n^2-H_n^{(2)}\big)\Big)\\[2mm]
+&amp;= (n+1)\!\left(H_n^2-H_n^{(2)}\right)-2nH_n+2n.
+\end{aligned}
+\]</span></p>
+<p>It is slightly cleaner in terms of <span class="math inline">\(H_{n+1}\)</span>. Using <span class="math inline">\(H_{n}=H_{n+1}-\dfrac1{n+1}\)</span> and <span class="math inline">\(H_{n}^{(2)}=H_{n+1}^{(2)}-\dfrac1{(n+1)^2}\)</span>, a brief simplification yields the compact closed form:</p>
+<p><span class="math display">\[
+\boxed{\;
+\sum_{k=0}^{n} H_k\,H_{n-k}
+= (n+1)\Big( H_{n+1}^2 - H_{n+1}^{(2)} - 2H_{n+1} + 2 \Big).
+\;}
+\]</span></p>
+<ol start="4" type="1">
+<li>Quick checks</li>
+</ol>
+<ul>
+<li><span class="math inline">\(n=1\)</span>: <span class="math inline">\(H_0H_1+H_1H_0=0\)</span>. RHS: <span class="math inline">\((2)\big(H_2^2-H_2^{(2)}-2H_2+2\big)=2(2.25-1.25-3+2)=0\)</span>.</li>
+<li><span class="math inline">\(n=3\)</span>: LHS <span class="math inline">\(=H_1H_2+H_2H_1=3\)</span>. RHS with <span class="math inline">\(H_4=25/12\)</span>, <span class="math inline">\(H_4^{(2)}=205/144\)</span> gives <span class="math inline">\(3\)</span>.</li>
+</ul>
+</section>
+<section id="hm20" class="level3">
+<h3 class="anchored" data-anchor-id="hm20">23 [HM20]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+\psi(x)\;\stackrel{\text{def}}{=}\;\frac{d}{dx}\ln\Gamma(x)
+\;=\;\frac{\Gamma'(x)}{\Gamma(x)}
+\]</span></p>
+<p>be the digamma function.</p>
+<p>Step 1 — A key recurrence for <span class="math inline">\(\psi\)</span>.</p>
+<p>From the Gamma functional equation <span class="math inline">\(\Gamma(x+1)=x\,\Gamma(x)\)</span>, taking logs and differentiating gives</p>
+<p><span class="math display">\[
+\psi(x+1)=\psi(x)+\frac{1}{x}\qquad(x\notin\{0,-1,-2,\dots\}).
+\]</span></p>
+<p>Step 2 — Recover <span class="math inline">\(H_n\)</span> when <span class="math inline">\(x\)</span> is an integer.</p>
+<p>For a positive integer <span class="math inline">\(n\)</span>, iterating the recurrence:</p>
+<p><span class="math display">\[
+\psi(n+1)=\psi(1)+\sum_{k=1}^{n}\frac{1}{k}
+= \psi(1)+H_n.
+\]</span></p>
+<p>Using the given fact <span class="math inline">\(\psi(1)=\Gamma'(1)/\Gamma(1)=-\gamma\)</span>, we obtain</p>
+<p><span class="math display">\[
+H_n=\psi(n+1)+\gamma.
+\]</span></p>
+<p>This identity is also recorded in the book’s answers. </p>
+<p>Step 3 — The definition for nonintegers.</p>
+<p>Motivated by the integer case, define the generalized harmonic number for any real (indeed complex) <span class="math inline">\(x\)</span> not equal to a negative integer by</p>
+<p><span class="math display">\[
+\boxed{\;H_x\;:=\;\psi(x+1)+\gamma\;}.
+\]</span></p>
+<p>With this definition:</p>
+<ul>
+<li><p>Consistency. If <span class="math inline">\(x=n\in\mathbb{N}\)</span>, then <span class="math inline">\(H_x=H_n\)</span> by Step 2.</p></li>
+<li><p>Recurrence. <span class="math inline">\(H_x-H_{x-1}=\dfrac{1}{x}\)</span> for all admissible <span class="math inline">\(x\)</span>, since</p>
+<p><span class="math display">\[
+H_x-H_{x-1}
+=\bigl[\psi(x+1)-\psi(x)\bigr]
+=\frac{1}{x}.
+\]</span></p>
+<p>(This exactly generalizes the discrete increment property of harmonic numbers.)</p></li>
+<li><p>Asymptotics. Using the standard expansion <span class="math inline">\(\psi(x)=\ln x-\tfrac{1}{2x}+O(x^{-2})\)</span>, one gets</p>
+<p><span class="math display">\[
+H_x=\ln x+\gamma+\frac{1}{2x}+O\!\left(\frac{1}{x^2}\right),
+\]</span></p>
+<p>matching the familiar behavior of <span class="math inline">\(H_n\)</span>.</p></li>
+</ul>
+<p>Example values</p>
+<ul>
+<li><span class="math inline">\(H_{1/2}=\psi\!\left(\tfrac{3}{2}\right)+\gamma = \bigl(\psi(\tfrac12)+2\bigr)+\gamma = 2-2\ln 2\)</span>.</li>
+<li>The recurrence gives <span class="math inline">\(H_{3/2}=H_{1/2}+\dfrac{2}{3}= \dfrac{8}{3}-2\ln 2\)</span>.</li>
+</ul>
+</section>
+<section id="hm21" class="level3">
+<h3 class="anchored" data-anchor-id="hm21">24 [HM21]</h3>
+<p>Proof via partial products</p>
+<p>Define the <span class="math inline">\(n\)</span>-th partial product</p>
+<p><span class="math display">\[
+P_n(x)\;=\;x\,e^{\gamma x}\prod_{k=1}^{n}\Bigl(1+\frac{x}{k}\Bigr)e^{-x/k}.
+\]</span></p>
+<p>First, separate the exponential and finite product:</p>
+<p><span class="math display">\[
+P_n(x)=x\Bigl(\prod_{k=1}^{n}\Bigl(1+\frac{x}{k}\Bigr)\Bigr)
+\exp\!\Bigl(x\gamma-\sum_{k=1}^n\frac{x}{k}\Bigr)
+= x\Bigl(\prod_{k=1}^{n}\Bigl(1+\frac{x}{k}\Bigr)\Bigr)\,e^{x(\gamma-H_n)}.
+\]</span></p>
+<p>Use <span class="math inline">\(\displaystyle \prod_{k=1}^{n}\Bigl(1+\frac{x}{k}\Bigr) =\prod_{k=1}^{n}\frac{x+k}{k}=\frac{(x+1)(x+2)\cdots(x+n)}{n!}\)</span>, hence</p>
+<p><span class="math display">\[
+P_n(x)=\frac{x(x+1)\cdots(x+n)}{n!}\,e^{x(\gamma-H_n)}.
+\]</span></p>
+<p>Insert and remove <span class="math inline">\(n^x=e^{x\ln n}\)</span>:</p>
+<p><span class="math display">\[
+P_n(x)=\frac{x(x+1)\cdots(x+n)}{n!\,n^x}\;
+\exp\!\Bigl(x\bigl(\gamma-(H_n-\ln n)\bigr)\Bigr).
+\]</span></p>
+<p>Now let <span class="math inline">\(n\to\infty\)</span>. By definition <span class="math inline">\(H_n-\ln n\to\gamma\)</span>, so the exponential factor <span class="math inline">\(\exp\!\bigl(x(\gamma-(H_n-\ln n))\bigr)\to 1\)</span>. Therefore</p>
+<p><span class="math display">\[
+\lim_{n\to\infty}P_n(x)
+=\lim_{n\to\infty}\frac{x(x+1)\cdots(x+n)}{n!\,n^x}
+=\frac{1}{\Gamma(x)}\quad(\text{Gauss}),
+\]</span></p>
+<p>which proves the formula. </p>
+<p>Convergence (why the infinite product makes sense)</p>
+<p>Consider the logarithm of the infinite product’s factor:</p>
+<p><span class="math display">\[
+\log\Bigl(1+\frac{x}{k}\Bigr)-\frac{x}{k}
+= -\frac{x^2}{2k^2}+O\!\Bigl(\frac{1}{k^3}\Bigr)\qquad(k\to\infty).
+\]</span></p>
+<p>Hence <span class="math inline">\(\sum_{k\ge1}\bigl(\log(1+x/k)-x/k\bigr)\)</span> converges absolutely (like <span class="math inline">\(\sum 1/k^2\)</span>), so the product <span class="math inline">\(\prod_{k\ge1}\bigl(1+\tfrac{x}{k}\bigr)e^{-x/k}\)</span> converges (uniformly on compact <span class="math inline">\(x\)</span>-sets) and defines an entire function. The extra factor <span class="math inline">\(x\,e^{\gamma x}\)</span> fixes the normalization so that the result agrees with <span class="math inline">\(\Gamma\)</span> (as we just showed).</p>
+<p>Sanity checks</p>
+<ul>
+<li>Zeros/poles. The product clearly vanishes at <span class="math inline">\(x=0,-1,-2,\ldots\)</span>, matching the poles of <span class="math inline">\(\Gamma(x)\)</span> at those points, so <span class="math inline">\(1/\Gamma\)</span> has the same zeros (simple).</li>
+<li>Near <span class="math inline">\(x=0\)</span>. Since <span class="math inline">\(\Gamma(x)\sim 1/x-\gamma+O(x)\)</span>, we have <span class="math inline">\(1/\Gamma(x)=x+\gamma x^2+O(x^3)\)</span>. On the product side, <span class="math inline">\(\prod(1+x/k)e^{-x/k}=1+O(x^2)\)</span> and <span class="math inline">\(x e^{\gamma x}=x+\gamma x^2+O(x^3)\)</span>, in agreement.</li>
+</ul>
+</section>
+<section id="m21-3" class="level3">
+<h3 class="anchored" data-anchor-id="m21-3">25 [M21]</h3>
+<ol type="a">
+<li>Evaluate <span class="math inline">\(H_n^{(0,v)}\)</span> and <span class="math inline">\(H_n^{(u,0)}\)</span></li>
+</ol>
+<p><span class="math inline">\(H_n^{(0,v)}\)</span></p>
+<p><span class="math display">\[
+H_n^{(0,v)}
+=\sum_{1\le j\le k\le n}\frac{1}{k^v}
+=\sum_{k=1}^n\frac{1}{k^v}\sum_{j=1}^k 1
+=\sum_{k=1}^n\frac{k}{k^v}
+=\sum_{k=1}^n k^{1-v}
+=\sum_{k=1}^n \frac{1}{k^{\,v-1}}
+=H_n^{(v-1)}.
+\]</span></p>
+<p><span class="math inline">\(H_n^{(u,0)}\)</span></p>
+<p><span class="math display">\[
+H_n^{(u,0)}
+=\sum_{1\le j\le k\le n}\frac{1}{j^u}
+=\sum_{j=1}^n\frac{1}{j^u}\sum_{k=j}^n 1
+=\sum_{j=1}^n\frac{n-j+1}{j^u}
+=(n+1)\sum_{j=1}^n\frac{1}{j^u}-\sum_{j=1}^n\frac{j}{j^u}
+=(n+1)H_n^{(u)}-H_n^{(u-1)}.
+\]</span></p>
+<p>Thus</p>
+<p><span class="math display">\[
+\boxed{\,H_n^{(0,v)}=H_n^{(v-1)},\qquad H_n^{(u,0)}=(n+1)H_n^{(u)}-H_n^{(u-1)}\, }.
+\]</span></p>
+<p>These identities hold for any real <span class="math inline">\(u,v\)</span> since the sums are finite.</p>
+<ol start="2" type="a">
+<li>Prove <span class="math inline">\(H_n^{(u,v)}+H_n^{(v,u)} = H_n^{(u)}H_n^{(v)}+H_n^{(u+v)}\)</span></li>
+</ol>
+<p>Start from the product of univariate sums:</p>
+<p><span class="math display">\[
+H_n^{(u)}H_n^{(v)}
+=\Bigl(\sum_{j=1}^n j^{-u}\Bigr)\Bigl(\sum_{k=1}^n k^{-v}\Bigr)
+=\sum_{j=1}^n\sum_{k=1}^n \frac{1}{j^u k^v}.
+\]</span></p>
+<p>Partition the index set <span class="math inline">\(\{1,\dots,n\}^2\)</span> into three regions: <span class="math inline">\(j&lt;k\)</span>, <span class="math inline">\(j=k\)</span>, <span class="math inline">\(j&gt;k\)</span>. Denote <span class="math inline">\(D=\sum_{j=1}^n j^{-(u+v)}=H_n^{(u+v)}\)</span>.</p>
+<ul>
+<li>Over <span class="math inline">\(j&lt;k\)</span>: <span class="math inline">\(\displaystyle \sum_{1\le j&lt;k\le n}\frac{1}{j^u k^v}=H_n^{(u,v)}-D\)</span> (because <span class="math inline">\(H_n^{(u,v)}\)</span> includes the diagonal <span class="math inline">\(j=k\)</span> contributing <span class="math inline">\(D\)</span>).</li>
+<li>Over <span class="math inline">\(j&gt;k\)</span>: by swapping <span class="math inline">\(j\leftrightarrow k\)</span>, <span class="math inline">\(\displaystyle \sum_{1\le k&lt;j\le n}\frac{1}{j^u k^v}  =\sum_{1\le j&lt;k\le n}\frac{1}{j^v k^u}  =H_n^{(v,u)}-D\)</span>.</li>
+<li>Over <span class="math inline">\(j=k\)</span>: contribution is <span class="math inline">\(D\)</span>.</li>
+</ul>
+<p>Therefore</p>
+<p><span class="math display">\[
+H_n^{(u)}H_n^{(v)}
+=\bigl(H_n^{(u,v)}-D\bigr)+\bigl(H_n^{(v,u)}-D\bigr)+D
+=H_n^{(u,v)}+H_n^{(v,u)}-D.
+\]</span></p>
+<p>Rearranging yields</p>
+<p><span class="math display">\[
+\boxed{\,H_n^{(u,v)}+H_n^{(v,u)}=H_n^{(u)}H_n^{(v)}+H_n^{(u+v)}\, }.
+\]</span></p>
+<p>This is a simple double-counting (index-partition) argument.</p>
+<p>Quick sanity check (small <span class="math inline">\(n\)</span>)</p>
+<p>Take <span class="math inline">\(n=2\)</span>, <span class="math inline">\(u=1\)</span>, <span class="math inline">\(v=2\)</span>.</p>
+<ul>
+<li><span class="math inline">\(H_2^{(1)}=1+1/2=3/2,\quad H_2^{(2)}=1+1/4=5/4,\quad H_2^{(3)}=1+1/8=9/8.\)</span></li>
+<li><span class="math inline">\(H_2^{(1,2)}=\sum_{1\le j\le k\le2}1/(j^1 k^2)=1+1/2^2+1/(1\cdot 2^2)=1+1/4+1/4=3/2.\)</span></li>
+<li><span class="math inline">\(H_2^{(2,1)}=\sum_{1\le j\le k\le2}1/(j^2 k^1)=1+1/2+1/(1^2\cdot2)=1+1/2+1/2=2.\)</span></li>
+</ul>
+<p>Left side: <span class="math inline">\(H_2^{(1,2)}+H_2^{(2,1)}=3/2+2=7/2.\)</span></p>
+<p>Right side: <span class="math inline">\(H_2^{(1)}H_2^{(2)}+H_2^{(3)}=(3/2)(5/4)+9/8=15/8+9/8=24/8=3.\)</span> Wait—that’s not equal; we made a slip in <span class="math inline">\(H_2^{(1,2)}\)</span>.</p>
+<p>Correct <span class="math inline">\(H_2^{(1,2)}\)</span>:</p>
+<p><span class="math display">\[
+(j,k)=(1,1):1,\ (1,2):1/(1\cdot 2^2)=1/4,\ (2,2):1/(2\cdot 2^2)=1/8.
+\]</span></p>
+<p>So <span class="math inline">\(H_2^{(1,2)}=1+1/4+1/8=11/8.\)</span></p>
+<p>Similarly <span class="math inline">\(H_2^{(2,1)}\)</span>:</p>
+<p><span class="math display">\[
+(1,1):1,\ (1,2):1/(1^2\cdot2)=1/2,\ (2,2):1/(2^2\cdot2)=1/8,
+\]</span></p>
+<p>so <span class="math inline">\(H_2^{(2,1)}=1+1/2+1/8=13/8.\)</span></p>
+<p>Now LHS <span class="math inline">\(=11/8+13/8=24/8=3\)</span>, matching RHS <span class="math inline">\(=3\)</span>. Check.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.2.6.html" class="pagination-link" aria-label="1.2.6 Binomial coefficients">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.2.6 Binomial coefficients</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.2.8.html" class="pagination-link" aria-label="1.2.8 Fibonacci numbers">
+        <span class="nav-page-text"><span class="chapter-title">1.2.8 Fibonacci numbers</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

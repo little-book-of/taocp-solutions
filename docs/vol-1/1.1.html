@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.1 Algorithms – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.2.1.html" rel="next">
+<link href="../index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.1.html"><span class="chapter-title">1.1 Algorithms</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [10]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [15]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3 [20]</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4 [16]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">5 [12]</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">6 [20]</a></li>
+  <li><a href="#m21" id="toc-m21" class="nav-link" data-scroll-target="#m21">7 [M21]</a></li>
+  <li><a href="#m25" id="toc-m25" class="nav-link" data-scroll-target="#m25">8 [M25]</a></li>
+  <li><a href="#m30" id="toc-m30" class="nav-link" data-scroll-target="#m30">9 [M30]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.1 Algorithms</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1 [10]</h3>
+<p>Minimal in-place algorithm (5 replacements)</p>
+<pre><code>t ← a
+a ← b
+b ← c
+c ← d
+d ← t</code></pre>
+<p>Walkthrough. Let the initial values be <code>a0, b0, c0, d0</code>.</p>
+<ol type="1">
+<li><code>t ← a</code> → <code>t = a0</code></li>
+<li><code>a ← b</code> → <code>a = b0</code></li>
+<li><code>b ← c</code> → <code>b = c0</code></li>
+<li><code>c ← d</code> → <code>c = d0</code></li>
+<li><code>d ← t</code> → <code>d = a0</code></li>
+</ol>
+<p>Final state is <code>(a, b, c, d) = (b0, c0, d0, a0)</code>, exactly the requested left rotation.</p>
+<p>Why 5 replacements is optimal</p>
+<ol type="1">
+<li><p>All four variables change. In a 4-cycle <code>(a b c d)</code>, none of <code>a, b, c, d</code> keeps its original value, so each of the four must be assigned at least once → ≥ 4 replacements.</p></li>
+<li><p>You must preserve one original value while overwriting. As soon as you assign, say, <code>a ← b</code>, the original <code>a0</code> is lost unless it was saved. But the final <code>d</code> must become <code>a0</code>. Therefore at least one extra “save” is necessary (e.g., <code>t ← a</code>) → ≥ 4 + 1 = 5 replacements.</p></li>
+</ol>
+<p>Thus 5 is a lower bound, and the procedure above achieves it, so it’s minimal.</p>
+<p>Generalization</p>
+<p>For an n-cycle rotation <code>(x1 x2 … xn)</code>, the same argument shows a lower bound of n + 1 replacements (n to set each variable once, plus 1 to save a value), and the standard scheme</p>
+<pre><code>t ← x1;  x1 ← x2;  x2 ← x3;  …;  xn−1 ← xn;  xn ← t</code></pre>
+<p>meets that bound.</p>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2 [15]</h3>
+<p>Consider any time we return to E1 after completing an earlier pass through E1/E2/E3.</p>
+<ul>
+<li><p>On the previous pass through E1 we computed a remainder <span class="math inline">\(r\)</span> with <span class="math inline">\(0\le r&lt;n\)</span>. If <span class="math inline">\(r=0\)</span> we would have halted in E2 and would not reach E1 again. Hence whenever we <em>do</em> reach E1 again we must have <span class="math inline">\(r\neq 0\)</span>, i.e., <span class="math inline">\(0&lt;r&lt;n\)</span>. </p></li>
+<li><p>Then E3 set <span class="math inline">\(m\leftarrow n\)</span> and <span class="math inline">\(n\leftarrow r\)</span>. Therefore, at the start of the next E1, we have</p>
+<p><span class="math display">\[
+m_{\text{new}} = n_{\text{old}} \quad\text{and}\quad n_{\text{new}} = r_{\text{old}}\,,
+\]</span></p>
+<p>with <span class="math inline">\(0&lt;r_{\text{old}}&lt;n_{\text{old}}\)</span>. Hence <span class="math inline">\(m_{\text{new}} = n_{\text{old}} &gt; r_{\text{old}} = n_{\text{new}}\)</span>, i.e., <span class="math inline">\(m&gt;n\)</span> strictly.</p></li>
+</ul>
+<p>This shows that from the second visit to E1 onward, the strict inequality <span class="math inline">\(m&gt;n\)</span> always holds.</p>
+<p>For the first visit to E1, no such guarantee exists: the inputs might have <span class="math inline">\(m\le n\)</span> (indeed <span class="math inline">\(m&lt;n\)</span> is allowed), so the statement allows the exception “except possibly the first time.” (If one prepends the optional “ensure <span class="math inline">\(m\ge n\)</span>” swap step suggested in the text, the property would also hold the first time.)</p>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3 [20]</h3>
+<p>Algorithm F (Euclid, without “trivial replacements”)</p>
+<p>Goal. Given positive integers <code>m</code> and <code>n</code>, compute <code>gcd(m, n)</code>.</p>
+<ul>
+<li>F1. [Remainder m / n] Divide <code>m</code> by <code>n</code> and replace <code>m</code> with the remainder. (So <code>0 ≤ m &lt; n</code>.)</li>
+<li>F2. [Is it zero?] If <code>m = 0</code>, halt with answer <code>n</code>.</li>
+<li>F3. [Remainder n / m] Divide <code>n</code> by <code>m</code> and replace <code>n</code> with the remainder. (So <code>0 ≤ n &lt; m</code>.)</li>
+<li>F4. [Is it zero?] If <code>n = 0</code>, halt with answer <code>m</code>; otherwise go to F1.</li>
+</ul>
+<p>This version never does “<code>m ← n, n ← r</code>”; we overwrite the dividend directly with the remainder each time and alternate roles.</p>
+<p>Why this is correct</p>
+<ol type="1">
+<li>Invariant (gcd is preserved)</li>
+</ol>
+<p>At every step, <code>gcd(m, n) = gcd(n, m mod n)</code> and <code>gcd(m, n) = gcd(m, n mod m)</code>. That’s the fundamental property behind Euclid’s method; F1/F3 are exactly these replacements, so the gcd never changes. (This is the same reasoning used to justify Algorithm E; see §1.1. ([PagePlace][1]))</p>
+<ol start="2" type="1">
+<li>Termination</li>
+</ol>
+<p>Each remainder is strictly smaller than its divisor. After F1 we have <code>m &lt; n</code>; after F3 we have <code>n &lt; m</code>. Thus the maximum of the pair <code>{m, n}</code> strictly decreases on every pass through F1–F4. Since the maximum is a non-negative integer, it can decrease only finitely many times, so the algorithm halts.</p>
+<ol start="3" type="1">
+<li>Upon halting, the answer is correct</li>
+</ol>
+<p>If we halt at F2, then <code>m = 0</code>, so <code>gcd(m, n) = gcd(0, n) = n</code>. If we halt at F4, then <code>n = 0</code>, so <code>gcd(m, n) = m</code>. Combined with the invariant, this equals the original <code>gcd</code>.</p>
+<p>Worked example</p>
+<p>Compute <code>gcd(2166, 6099)</code> using F.</p>
+<ul>
+<li>F1: <code>m ← 2166 mod 6099 = 2166</code> (since 2166 &lt; 6099) F2: <code>m ≠ 0</code> → continue</li>
+<li>F3: <code>n ← 6099 mod 2166 = 1767</code> F4: <code>n ≠ 0</code> → loop</li>
+<li>F1: <code>m ← 2166 mod 1767 = 399</code> F2: <code>m ≠ 0</code></li>
+<li>F3: <code>n ← 1767 mod 399 = 171</code> F4: <code>n ≠ 0</code></li>
+<li>F1: <code>m ← 399 mod 171 = 57</code> F2: <code>m ≠ 0</code></li>
+<li>F3: <code>n ← 171 mod 57 = 0</code> F4: <code>n = 0</code> → halt with answer <code>m = 57</code>.</li>
+</ul>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">4 [16]</h3>
+<p>We repeatedly divide and keep the remainder; the gcd is the last non-zero remainder.</p>
+<ol type="1">
+<li><span class="math inline">\(6099 = 2\cdot 2166 + 1767\)</span> → <span class="math inline">\(r_1=1767\)</span></li>
+<li><span class="math inline">\(2166 = 1\cdot 1767 + 399\)</span> → <span class="math inline">\(r_2=399\)</span></li>
+<li><span class="math inline">\(1767 = 4\cdot 399 + 171\)</span> → <span class="math inline">\(r_3=171\)</span></li>
+<li><span class="math inline">\(399 = 2\cdot 171 + 57\)</span> → <span class="math inline">\(r_4=57\)</span></li>
+<li><span class="math inline">\(171 = 3\cdot 57 + 0\)</span></li>
+</ol>
+<p>The last non-zero remainder is <span class="math inline">\(57\)</span>, so</p>
+<p><span class="math display">\[
+\gcd(2166,6099)=57.
+\]</span></p>
+<p>Quick checks</p>
+<ul>
+<li>Divisibility: <span class="math inline">\(2166/57=38\)</span> and <span class="math inline">\(6099/57=107\)</span> are integers.</li>
+<li>No larger common factor: Euclid’s process ensures optimality.</li>
+</ul>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">5 [12]</h3>
+<p>The “Procedure for Reading This Set of Books” is not a genuine algorithm because it breaks at least three of Knuth’s five criteria:</p>
+<ul>
+<li>Finiteness: it loops back to step 3, so it need not terminate.</li>
+<li>Definiteness: steps like “Are you tired?” or “Is it interesting?” are subjective, not precise.</li>
+<li>Effectiveness: operations like “go to sleep” or “get your friends to purchase a copy” are not basic, executable steps.</li>
+</ul>
+<p>It also differs in format from Algorithm E: it uses plain numbers (not E1, E2…), prose instead of arrow notation (<span class="math inline">\(\leftarrow\)</span>), no bracketed summaries, and no explicit end marker.</p>
+<p>Thus the “procedure” is more of a joke than a proper algorithm.</p>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">6 [20]</h3>
+<p>For each <span class="math inline">\(m\in\{1,2,3,4,5\}\)</span>, count how many divisions (E1) occur until termination.</p>
+<ul>
+<li><span class="math inline">\(m=1\)</span>: <span class="math inline">\(1\bmod 5=1\)</span> (1st E1); <span class="math inline">\((m,n)\leftarrow(5,1)\)</span>. Then <span class="math inline">\(5\bmod 1=0\)</span> (2nd E1) ⇒ stop. Count <span class="math inline">\(=2\)</span>.</li>
+<li><span class="math inline">\(m=2\)</span>: <span class="math inline">\(2\bmod 5=2\)</span> (1); <span class="math inline">\((5,2)\)</span>. <span class="math inline">\(5\bmod 2=1\)</span> (2); <span class="math inline">\((2,1)\)</span>. <span class="math inline">\(2\bmod 1=0\)</span> (3) ⇒ stop. Count <span class="math inline">\(=3\)</span>.</li>
+<li><span class="math inline">\(m=3\)</span>: <span class="math inline">\(3\bmod 5=3\)</span> (1); <span class="math inline">\((5,3)\)</span>. <span class="math inline">\(5\bmod 3=2\)</span> (2); <span class="math inline">\((3,2)\)</span>. <span class="math inline">\(3\bmod 2=1\)</span> (3); <span class="math inline">\((2,1)\)</span>. <span class="math inline">\(2\bmod 1=0\)</span> (4) ⇒ stop. Count <span class="math inline">\(=4\)</span>.</li>
+<li><span class="math inline">\(m=4\)</span>: <span class="math inline">\(4\bmod 5=4\)</span> (1); <span class="math inline">\((5,4)\)</span>. <span class="math inline">\(5\bmod 4=1\)</span> (2); <span class="math inline">\((4,1)\)</span>. <span class="math inline">\(4\bmod 1=0\)</span> (3) ⇒ stop. Count <span class="math inline">\(=3\)</span>.</li>
+<li><span class="math inline">\(m=5\)</span>: <span class="math inline">\(5\bmod 5=0\)</span> (1) ⇒ stop. Count <span class="math inline">\(=1\)</span>.</li>
+</ul>
+<p>Sum of counts <span class="math inline">\(=2+3+4+3+1=13\)</span>.</p>
+<p><span class="math display">\[
+T_5=\frac{13}{5}=2.6.
+\]</span></p>
+</section>
+<section id="m21" class="level3">
+<h3 class="anchored" data-anchor-id="m21">7 [M21]</h3>
+<p>Let <span class="math inline">\(A(m,n)\)</span> be the number of times step E1 (“divide <span class="math inline">\(m\)</span> by <span class="math inline">\(n\)</span>; let <span class="math inline">\(r\)</span> be the remainder”) is executed by Euclid’s algorithm when it is started on the ordered pair <span class="math inline">\((m,n)\)</span> of positive integers.</p>
+<p>Knuth defines <span class="math inline">\(T_n\)</span> as the average of <span class="math inline">\(A(m,n)\)</span> when <span class="math inline">\(n\)</span> is fixed and <span class="math inline">\(m\)</span> is allowed to range over all positive integers; because only the residue of <span class="math inline">\(m\bmod n\)</span> matters after the first division, the average is taken over <span class="math inline">\(m=1,2,\dots,n\)</span> (uniformly). He notes that for large <span class="math inline">\(n\)</span>, <span class="math inline">\(T_n\)</span> is <span class="math inline">\(\asymp c\ln n\)</span> with <span class="math inline">\(c=12\ln 2/\pi^2\)</span>. </p>
+<p>The exercise asks to define <span class="math inline">\(U_m\)</span> analogously, with <span class="math inline">\(m\)</span> fixed and <span class="math inline">\(n\)</span> “ranging over all positive integers,” and to relate <span class="math inline">\(U_m\)</span> to <span class="math inline">\(T_m\)</span>.</p>
+<p>We will prove that <span class="math inline">\(U_m\)</span> is well defined (the limit average exists and is finite) and that</p>
+<p><span class="math display">\[
+\boxed{\,U_m = T_m + 1\,}.
+\]</span></p>
+<p>Two simple identities for <span class="math inline">\(A(m,n)\)</span></p>
+<ol type="I">
+<li>Swap once when the first number is smaller. If <span class="math inline">\(m&lt;n\)</span>, then the very first division in Euclid’s algorithm leaves remainder <span class="math inline">\(r=m\)</span>; the next state is <span class="math inline">\((n,m)\)</span>. Thus</li>
+</ol>
+<p><span class="math display">\[
+A(m,n) \;=\; 1 + A(n,m)\qquad(m\ne n).
+\tag{1}
+\]</span></p>
+<ol start="2" type="I">
+<li>Periodicity in <span class="math inline">\(n \pmod m\)</span> when <span class="math inline">\(n&gt;m\)</span>. Write <span class="math inline">\(n=qm+r\)</span> with <span class="math inline">\(0\le r&lt;m\)</span>. The first step on <span class="math inline">\((m,n)\)</span> gives remainder <span class="math inline">\(r=m\)</span> (since <span class="math inline">\(n&gt;m\)</span>), so after one step we are at <span class="math inline">\((n,m)\)</span>. One more step divides <span class="math inline">\(n\)</span> by <span class="math inline">\(m\)</span> and leaves remainder <span class="math inline">\(r\)</span>; from then on we continue with <span class="math inline">\((m,r)\)</span>. Hence</li>
+</ol>
+<p><span class="math display">\[
+A(m,n) \;=\;
+\begin{cases}
+2, &amp; r=0,\\
+2 + A(m,r), &amp; 1\le r\le m-1.
+\end{cases}
+\tag{2}
+\]</span></p>
+<p>So for <span class="math inline">\(n&gt;m\)</span>, <span class="math inline">\(A(m,n)\)</span> depends only on <span class="math inline">\(n \bmod m\)</span> (and equals a constant <span class="math inline">\(2\)</span> when <span class="math inline">\(m\mid n\)</span>).</p>
+<p>Existence (and value) of <span class="math inline">\(U_m\)</span></p>
+<p>Define the Cesàro average</p>
+<p><span class="math display">\[
+U_m \;:=\; \lim_{N\to\infty}\frac{1}{N}\sum_{n=1}^N A(m,n),
+\]</span></p>
+<p>if the limit exists.</p>
+<p>Partition <span class="math inline">\(1,\dots,N\)</span> into complete blocks of length <span class="math inline">\(m\)</span> plus a final partial block. Using (II), each complete block contributes</p>
+<p><span class="math display">\[
+\sum_{r=0}^{m-1} A\bigl(m,\,qm+r\bigr)
+= 2 + \sum_{r=1}^{m-1}\bigl(2 + A(m,r)\bigr)
+= 2m + \sum_{r=1}^{m-1} A(m,r).
+\]</span></p>
+<p>Thus the block average is</p>
+<p><span class="math display">\[
+\frac{1}{m}\left(2m + \sum_{r=1}^{m-1} A(m,r)\right)
+= 2 + \frac{1}{m}\sum_{r=1}^{m-1} A(m,r).
+\tag{3}
+\]</span></p>
+<p>The final partial block contributes <span class="math inline">\(O(m)\)</span>, which is negligible after division by <span class="math inline">\(N\)</span>. Therefore the limit defining <span class="math inline">\(U_m\)</span> exists and equals the block average:</p>
+<p><span class="math display">\[
+U_m \;=\; 2 + \frac{1}{m}\sum_{r=1}^{m-1} A(m,r).
+\tag{4}
+\]</span></p>
+<p>Relation to <span class="math inline">\(T_m\)</span></p>
+<p>By definition (see the paragraph introducing <span class="math inline">\(T_n\)</span> and how the average is taken over a complete set of residues), we have</p>
+<p><span class="math display">\[
+T_m \;=\; \frac{1}{m} \sum_{x=1}^{m} A(x,m)
+= \frac{1}{m}\Bigl(A(m,m) + \sum_{x=1}^{m-1} A(x,m)\Bigr).
+\]</span></p>
+<p>Now use (I) with <span class="math inline">\(x&lt;m\)</span>: <span class="math inline">\(A(x,m)=1+A(m,x)\)</span>. Also <span class="math inline">\(A(m,m)=1\)</span>. Hence</p>
+<p><span class="math display">\[
+T_m
+= \frac{1}{m}\Bigl(1 + \sum_{x=1}^{m-1} (1 + A(m,x))\Bigr)
+= \frac{1}{m}\Bigl(m + \sum_{x=1}^{m-1} A(m,x)\Bigr)
+= 1 + \frac{1}{m}\sum_{x=1}^{m-1} A(m,x).
+\tag{5}
+\]</span></p>
+<p>Comparing (4) with (5) immediately yields</p>
+<p><span class="math display">\[
+\boxed{\,U_m = T_m + 1\,}.
+\]</span></p>
+<p>Sanity check on a small example</p>
+<p>Take <span class="math inline">\(m=5\)</span>. One can compute:</p>
+<p><span class="math display">\[
+A(5,1)=1,\;
+A(5,2)=2,\;
+A(5,3)=3,\;
+A(5,4)=3.
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+T_5 = 1 + \tfrac{1}{5}(1+2+3+3)=1+\tfrac{9}{5}= \tfrac{14}{5},
+\qquad
+U_5 = 2 + \tfrac{1}{5}(1+2+3+3) = 2+\tfrac{9}{5}=\tfrac{19}{5}
+= T_5+1.
+\]</span></p>
+<p>(Manually checking a long run of <span class="math inline">\(n\)</span> values shows the block average equals <span class="math inline">\(19/5\)</span>, as predicted.)</p>
+<p>Consequence</p>
+<p>Since <span class="math inline">\(T_n \sim \frac{12\ln 2}{\pi^2}\ln n\)</span> for large <span class="math inline">\(n\)</span>, we get</p>
+<p><span class="math display">\[
+U_m \sim \frac{12\ln 2}{\pi^2}\ln m + 1,
+\]</span></p>
+<p>so asymptotically <span class="math inline">\(U_m\)</span> and <span class="math inline">\(T_m\)</span> differ by exactly <span class="math inline">\(1\)</span>. </p>
+<p>That proves <span class="math inline">\(U_m\)</span> is well defined and establishes its precise relationship to <span class="math inline">\(T_m\)</span>.</p>
+</section>
+<section id="m25" class="level3">
+<h3 class="anchored" data-anchor-id="m25">8 [M25]</h3>
+<p>Design a set of <em>string-rewriting</em> rules in Knuth’s <span class="math inline">\((T_j,\;s_j,\;a_j,\;b_j)\)</span> format that, starting from the input string <span class="math inline">\(a^m b^n\)</span> (i.e., <span class="math inline">\(m\)</span> copies of <code>a</code> followed by <span class="math inline">\(n\)</span> copies of <code>b</code>), halts with the string <span class="math inline">\(a^{\gcd(m,n)}\)</span>. The rules must be expressed as a Markov algorithm in the tabular style used in §1.1.</p>
+<p>Quick refresher: what <span class="math inline">\((T_j,s_j,a_j,b_j)\)</span> means</p>
+<p>A program state is a pair <span class="math inline">\((\sigma, j)\)</span>: current string <span class="math inline">\(\sigma\)</span> and current rule index <span class="math inline">\(j\)</span>. Each table row <span class="math inline">\(j\)</span> has:</p>
+<ul>
+<li><span class="math inline">\(T_j\)</span> (“pattern”): the substring to search for,</li>
+<li><span class="math inline">\(s_j\)</span> (“replacement”): the string to substitute when <span class="math inline">\(T_j\)</span> is found,</li>
+<li><span class="math inline">\(b_j\)</span>: the next rule index if a replacement did occur,</li>
+<li><span class="math inline">\(a_j\)</span>: the next rule index if no <span class="math inline">\(T_j\)</span> is found in <span class="math inline">\(\sigma\)</span>.</li>
+</ul>
+<p>Operationally (Markov rules): if <span class="math inline">\(T_j\)</span> occurs, replace the <em>leftmost</em> occurrence by <span class="math inline">\(s_j\)</span> and jump to <span class="math inline">\(b_j\)</span>; otherwise jump to <span class="math inline">\(a_j\)</span>. One special index <span class="math inline">\(N\)</span> means “halt.” ([Stack Overflow][1])</p>
+<p>A minimal working rule set</p>
+<p>Use the alphabet <span class="math inline">\(\{a,b,c\}\)</span> and five rules (indices <span class="math inline">\(0,1,2,3,4\)</span>); let <span class="math inline">\(5\)</span> be the halting index <span class="math inline">\(N\)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 1%">
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 67%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>j</th>
+<th><span class="math inline">\(T_j\)</span></th>
+<th><span class="math inline">\(s_j\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(b_j\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(a_j\)</span></th>
+<th>Intuition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td><code>ab</code></td>
+<td>(empty)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td>Cancel one <code>a</code> with one <code>b</code> (one subtraction step).</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>(empty)</td>
+<td><code>c</code> (prepend)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>After each cancellation, count it by sticking a <code>c</code> on the left.</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td><code>a</code></td>
+<td><code>b</code></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td>Turn all remaining <code>a</code>’s into <code>b</code>’s.</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td><code>c</code></td>
+<td><code>a</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td>Then turn all <code>c</code>’s into <code>a</code>’s.</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td><code>b</code></td>
+<td><code>b</code></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td>If any <code>b</code>’s remain, repeat another Euclid round; else halt.</td>
+</tr>
+</tbody>
+</table>
+<p>Why this works (high-level):</p>
+<ul>
+<li>Rules 0↔︎1 simulate <em>repeated subtraction</em>: each <code>ab</code> removed corresponds to kubtracting the smaller number from the larger once; the number of times you can do this is <span class="math inline">\(\min(m,n)\)</span>. We “count” those cancellations by accumulating <code>c</code>’s.</li>
+<li>When no <code>ab</code> remains, the string looks like <code>c^{min(m,n)} x^{|m-n|}</code>, where <span class="math inline">\(x\)</span> is whichever letter survived (<code>a</code> or <code>b</code>).</li>
+<li>Rules 2 and 3 normalize the string to <code>a^{min(m,n)} b^{|m-n|}</code>, i.e.&nbsp;we map the pair <span class="math inline">\((m,n)\)</span> to <span class="math inline">\((\min(m,n),\,|m-n|)\)</span>.</li>
+<li>Rule 4 loops if the second component is nonzero; otherwise halt. This is exactly the subtraction-based Euclidean step, so repeated rounds end with <code>a^{gcd(m,n)}</code>. The superscript means “repeat <code>a</code> that many times.” ([Stack Overflow][2])</li>
+</ul>
+<p>Correctness argument (brief but complete)</p>
+<p>Invariant after finishing rule 0↔︎1 loop (before rule 2): Let the current pair be <span class="math inline">\((m,n)\)</span>. Repeatedly removing the leftmost <code>ab</code> (rule 0) and then prepending a <code>c</code> (rule 1) exactly <span class="math inline">\(\min(m,n)\)</span> times yields a string of the form:</p>
+<p><span class="math display">\[
+c^{\min(m,n)}\; y^{|m-n|},
+\]</span></p>
+<p>where <span class="math inline">\(y\)</span> is <code>a</code> if <span class="math inline">\(m&gt;n\)</span> and <code>b</code> if <span class="math inline">\(n\ge m\)</span>. This encodes “we subtracted the smaller from the larger <span class="math inline">\(\min(m,n)\)</span> times.”</p>
+<p>Normalization (rules 2→3):</p>
+<ul>
+<li>Rule 2 turns any stray <code>a</code>’s into <code>b</code>’s, so only <code>c</code>’s and <code>b</code>’s remain.</li>
+<li>Rule 3 turns each <code>c</code> into <code>a</code>. Thus the string becomes <code>a^{\min(m,n)} b^{|m-n|}</code> in canonical order.</li>
+</ul>
+<p>Euclid step and termination (rule 4):</p>
+<ul>
+<li>If any <code>b</code> remains, rule 4 jumps back to rule 0, so the new pair is <span class="math inline">\((m',n')=(\min(m,n),|m-n|)\)</span>.</li>
+<li>Repeating transforms <span class="math inline">\((m,n)\)</span> via the subtraction form of Euclid’s algorithm until <span class="math inline">\(n'=0\)</span>; at that point rule 4 falls through to <span class="math inline">\(5\)</span> (halt), with the string <code>a^{gcd(m,n)}</code>. ([Stack Overflow][1])</li>
+</ul>
+<p>Worked example</p>
+<p>Take <span class="math inline">\(m=6\)</span>, <span class="math inline">\(n=10\)</span>; start with <code>aaaaaabbbbbbbbbb</code>.</p>
+<ul>
+<li>Round 1 (to exhaustion of rule 0): remove <code>ab</code> six times while accumulating <code>c</code>’s → <code>ccccccbbbb</code>. Normalize (rules 2→3) → already no <code>a</code>’s, then <code>c→a</code> ⇒ <code>aaaaaabbbb</code> = <code>a^6 b^4</code>.</li>
+<li>Round 2: cancel <code>ab</code> four times → <code>cccc a a</code> (i.e., <code>ccc caa</code> but order doesn’t matter until normalization) ⇒ normalize ⇒ <code>a^4 b^2</code>.</li>
+<li>Round 3: cancel twice ⇒ normalize ⇒ <code>a^2 b^0</code>.</li>
+<li>Round 4: rule 4 sees “no <code>b</code> left” ⇒ halt with <code>aa</code> = <span class="math inline">\(a^{\gcd(6,10)}\)</span>.</li>
+</ul>
+<p>Relation to Euclid’s Algorithm E</p>
+<p>Each full pass of rules 0→…→4 implements the mapping</p>
+<p><span class="math display">\[
+(m,n)\;\mapsto\;(\min(m,n),\;|m-n|),
+\]</span></p>
+<p>i.e., Euclid’s algorithm with the division step replaced by <em>repeated subtraction</em>. That’s precisely the hint Knuth gives; the string system is just a Markov-algorithm rendering of that idea.</p>
+<p>Notes and common confusions</p>
+<ul>
+<li>The superscript in “<span class="math inline">\(a^{\gcd(m,n)}\)</span>” means “<code>a</code> repeated <span class="math inline">\(\gcd(m,n)\)</span> times.” For example, if <span class="math inline">\(\gcd(12,18)=6\)</span>, the output is <code>aaaaaa</code>.</li>
+<li>In the rule table, <span class="math inline">\(b_j\)</span> is the “branch if a replacement happened,” and <span class="math inline">\(a_j\)</span> is the “branch if not.” This branching scheme, together with leftmost replacement, is standard for Markov algorithms and matches Knuth’s §1.1 formalism.</li>
+</ul>
+</section>
+<section id="m30" class="level3">
+<h3 class="anchored" data-anchor-id="m30">9 [M30]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+C_1=(Q_1, I_1, \Omega_1, f_1),\qquad
+C_2=(Q_2, I_2, \Omega_2, f_2)
+\]</span></p>
+<p>be computational methods (state space <span class="math inline">\(Q\)</span>, initial/allowable inputs <span class="math inline">\(I\subseteq Q\)</span>, halting/“output” states <span class="math inline">\(\Omega\subseteq Q\)</span>, and a (partial) next-state function <span class="math inline">\(f\)</span>). A <em>computation sequence</em> of <span class="math inline">\(C_i\)</span> is the usual chain <span class="math inline">\(x, f_i(x), f_i^{(2)}(x),\dots\)</span> until (and if) a state in <span class="math inline">\(\Omega_i\)</span> is reached.</p>
+<p>Intuitively, <span class="math inline">\(C_2\)</span> may do more, smaller steps and may keep extra bookkeeping in its states, yet it should faithfully realize <span class="math inline">\(C_1\)</span>.</p>
+<p>We say that <span class="math inline">\(C_2\)</span> represents <span class="math inline">\(C_1\)</span> iff there exist total maps</p>
+<ul>
+<li>an encoding <span class="math inline">\(e:Q_1\to Q_2\)</span> and</li>
+<li>a decoding/abstraction <span class="math inline">\(\pi:Q_2\to Q_1\)</span></li>
+</ul>
+<p>such that <span class="math inline">\(\pi\!\circ e=\mathrm{id}_{Q_1}\)</span> (i.e., <span class="math inline">\(e\)</span> embeds <span class="math inline">\(C_1\)</span>’s abstract state into <span class="math inline">\(C_2\)</span>’s concrete state, and <span class="math inline">\(\pi\)</span> forgets the extra detail), and the following hold:</p>
+<ol type="1">
+<li><p>Input compatibility. <span class="math inline">\(e(I_1)\subseteq I_2\)</span>.</p></li>
+<li><p>Output compatibility. <span class="math inline">\(\pi(\Omega_2)\subseteq \Omega_1\)</span> and for every <span class="math inline">\(\omega\in\Omega_1\)</span> there exists some <span class="math inline">\(\hat \omega\in\Omega_2\)</span> with <span class="math inline">\(\pi(\hat \omega)=\omega\)</span>. (Equivalently, <span class="math inline">\(\pi^{-1}(\Omega_1)\)</span> contains only states from which <span class="math inline">\(C_2\)</span> can reach <span class="math inline">\(\Omega_2\)</span> without changing <span class="math inline">\(\pi\)</span>’s value.)</p></li>
+<li><p>Step correspondence (stuttering simulation). For every <span class="math inline">\(q_1\in Q_1\setminus \Omega_1\)</span> and every <span class="math inline">\(q_2\in Q_2\)</span> with <span class="math inline">\(\pi(q_2)=q_1\)</span>, if <span class="math inline">\(f_1(q_1)\)</span> is defined and equals <span class="math inline">\(q_1'\)</span>, then there exists a finite <span class="math inline">\(t\ge 1\)</span> and a path in <span class="math inline">\(C_2\)</span></p>
+<p><span class="math display">\[
+q_2 = r_0 \xrightarrow{f_2} r_1 \xrightarrow{f_2} \cdots \xrightarrow{f_2} r_t
+\]</span></p>
+<p>such that</p>
+<p><span class="math display">\[
+\pi(r_j)=q_1\quad(0\le j&lt;t),\qquad \pi(r_t)=q_1'.
+\]</span></p>
+<p>(So <span class="math inline">\(C_2\)</span> may “stutter”—take several internal steps that do not change the abstract state—before realizing one abstract <span class="math inline">\(f_1\)</span>-step.)</p></li>
+<li><p>Termination preservation (refinement of whole runs). For every input <span class="math inline">\(x\in I_1\)</span>, if the <span class="math inline">\(C_1\)</span> run from <span class="math inline">\(x\)</span> halts in <span class="math inline">\(k\)</span> steps with output <span class="math inline">\(\omega\in\Omega_1\)</span>, then the <span class="math inline">\(C_2\)</span> run from <span class="math inline">\(e(x)\)</span> halts after some <span class="math inline">\(T\ge k\)</span> steps in a state <span class="math inline">\(\hat \omega\in\Omega_2\)</span> with <span class="math inline">\(\pi(\hat \omega)=\omega\)</span>.</p></li>
+</ol>
+<p>This is the standard “forward simulation with stuttering” characterization used in refinement: <span class="math inline">\(C_2\)</span> can take more (finer-grained) steps and store more information, but when you <em>abstract</em> its state with <span class="math inline">\(\pi\)</span> you see exactly the abstract behavior of <span class="math inline">\(C_1\)</span>.</p>
+<p>Why this captures the intent</p>
+<ul>
+<li>“More steps”: Condition 3 allows multiple <span class="math inline">\(f_2\)</span> steps for a single <span class="math inline">\(f_1\)</span> step while keeping <span class="math inline">\(\pi\)</span> unchanged until the abstract change happens.</li>
+<li>“More information”: The abstraction <span class="math inline">\(\pi\)</span> can forget registers, temporary variables, program counters, etc.; <span class="math inline">\(\pi\!\circ e=\mathrm{id}\)</span> ensures no abstract information is lost when we embed.</li>
+<li>Correct inputs/outputs: Conditions 1–2 align the two machines at the beginning and end.</li>
+<li>Whole computations: Condition 4 ensures that every terminating abstract computation is realized concretely with the same abstract result.</li>
+</ul>
+<p>How it looks on the Euclid example</p>
+<p>In §1.1, Algorithm E is formalized as a <span class="math inline">\((Q,I,\Omega,f)\)</span> system with states like <span class="math inline">\((m,n,0,1)\)</span>, <span class="math inline">\((m,n,r,2)\)</span>, <span class="math inline">\((n)\)</span>, etc., and a next-state function that embodies steps E1–E3. A machine program <span class="math inline">\(C_2\)</span> has states including memory, registers, and a program counter. Define:</p>
+<ul>
+<li><span class="math inline">\(e\)</span>: put the abstract <span class="math inline">\(m,n,r,\ldots\)</span> into designated registers/memory and set the PC to the code for the corresponding E-step.</li>
+<li><span class="math inline">\(\pi\)</span>: read back those designated registers and map <em>any</em> machine state of that code block to the corresponding abstract state (ignoring temps, flags, scratch space, etc.).</li>
+</ul>
+<p>A long division routine in <span class="math inline">\(C_2\)</span> will execute many micro-steps while <span class="math inline">\(\pi\)</span> stays at the same abstract E1 state; upon finishing the division, <span class="math inline">\(\pi\)</span> jumps to the E2/E3 abstract state—exactly the stuttering behavior required by (3). When <span class="math inline">\(n=0\)</span>, the program branches to a return sequence; <span class="math inline">\(\pi\)</span> maps those return-sequence states into <span class="math inline">\(C_1\)</span>’s halting set, establishing (2)–(4).</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="index.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">index.html</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.2.1.html" class="pagination-link" aria-label="1.2.1 Mathematical induction">
+        <span class="nav-page-text"><span class="chapter-title">1.2.1 Mathematical induction</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

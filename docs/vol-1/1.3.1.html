@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.3.1 Description of MIX – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.3.2.html" rel="next">
+<link href="../vol-1/1.2.11.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.3.1.html"><span class="chapter-title">1.3.1 Description of MIX</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [00]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [02]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3 [02]</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4 [00]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">5 [10]</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">6 [10]</a></li>
+  <li><a href="#m15" id="toc-m15" class="nav-link" data-scroll-target="#m15">7 [M15]</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">8 [15]</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">9 [15]</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">10 [15]</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">11 [15]</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">12 [10]</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">13 [10]</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">14 [20]</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">15 [10]</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">16 [20]</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">17 [26]</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">18 [22]</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">19 [14]</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">20 [20]</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">21 [24]</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">22 [28]</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">23 [27]</a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">24 [21]</a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">25 [30]</a></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">26 [32]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.3.1 Description of MIX</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1 [00]</h3>
+<p>Answer: 4 trits.</p>
+<p>Reasoning: A MIX byte can encode 64 distinct values (0–63). With base-3 digits (“trits”), we need the smallest <span class="math inline">\(n\)</span> such that <span class="math inline">\(3^n \ge 64\)</span>. <span class="math inline">\(3^3=27&lt;64\)</span> and <span class="math inline">\(3^4=81\ge64\)</span>, so <span class="math inline">\(n=4\)</span> trits per byte (leaving <span class="math inline">\(81-64=17\)</span> codes unused).</p>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2 [02]</h3>
+<p>Answer: 5 bytes.</p>
+<p>Why: Each MIX byte holds <span class="math inline">\(64\)</span> values. With <span class="math inline">\(n\)</span> adjacent bytes we can represent up to <span class="math inline">\(64^n-1\)</span>. <span class="math inline">\(64^4=16{,}777{,}216&lt;99{,}999{,}999\)</span> but <span class="math inline">\(64^5=1{,}073{,}741{,}824&gt;99{,}999{,}999\)</span>. So we need 5 bytes (i.e., one MIX word’s magnitude; sign, if any, is separate).</p>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3 [02]</h3>
+<ol type="a">
+<li>Address field: (0:2) (includes the sign and bytes 1–2)</li>
+<li>Index field: (3:3)</li>
+<li>Field field: (4:4)</li>
+<li>Operation code field: (5:5)</li>
+</ol>
+<p>(Here 0 denotes the sign; bytes are numbered 1..5 left to right.)</p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">4 [00]</h3>
+<p>Because the address field in a MIX instruction is a signed displacement. The effective address is computed as</p>
+<p><span class="math display">\[
+\text{EA} = A + I_4,
+\]</span></p>
+<p>where <span class="math inline">\(A=-2000\)</span>. If <span class="math inline">\(I_4\)</span> is large enough (e.g., <span class="math inline">\(I_4\ge 2000\)</span>), the sum <span class="math inline">\(\text{EA}\)</span> is a valid memory location <span class="math inline">\(0\le \text{EA} &lt; 4000\)</span>. Thus <code>LDA -2000,4</code> means “load A from the word at address <span class="math inline">\(I_4-2000\)</span>”; the program isn’t using a negative memory address—just a negative offset.</p>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">5 [10]</h3>
+<p>Here’s the full decoding of (6) into MIX’s symbolic form.</p>
+<p>Given numeric instruction (6) Word layout is <code>±AA | I | F | C</code>. The figure shows:</p>
+<ul>
+<li>sign = –</li>
+<li>AA = 80</li>
+<li>I = 3</li>
+<li>F = 5</li>
+<li>C = 4</li>
+</ul>
+<ol type="1">
+<li><p>Opcode → mnemonic In MIX, opcode C = 4 is DIV.</p></li>
+<li><p>Field specification Field byte <span class="math inline">\(F\)</span> encodes <span class="math inline">\((L:R)\)</span> by <span class="math inline">\(F = 8L + R\)</span>. With <span class="math inline">\(F = 5\)</span> we get <span class="math inline">\(L = 0,\ R = 5 \Rightarrow (0:5)\)</span> (the whole word).</p></li>
+<li><p>Address and index The address field is the signed two-byte value ±AA = −80. Index byte I = 3 means “use index register X3”.</p></li>
+<li><p>Symbolic instruction (analogous to OP Z,I(F))</p></li>
+</ol>
+<pre><code>DIV  -80,3(0:5)</code></pre>
+<p>Since DIV’s default field is (0:5), this is commonly written simply as:</p>
+<pre><code>DIV  -80,3</code></pre>
+<p>(Effective address at run time is <span class="math inline">\(EA = X_3 + (-80)\)</span>.)</p>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">6 [10]</h3>
+<p>Given memory location 3000 holds the word</p>
+<pre><code>M[3000] = + | b1=5 | b2=1 | (b3:b4)=200 | b5=15</code></pre>
+<p>(read as sign plus; byte1=5, byte2=1, the two-byte field (3:4)=200, byte5=15).</p>
+<ul>
+<li>Load puts the selected field right-justified in the destination; unused left bytes → <code>0</code>.</li>
+<li>If the field includes the sign <code>(L=0)</code>, the loaded sign comes from memory; otherwise the sign is <code>+</code>.</li>
+<li>The <code>N</code> variant flips the sign after loading.</li>
+<li>Index registers <code>I1..I6</code> hold sign + 2 bytes.</li>
+</ul>
+<p>Results:</p>
+<ol type="a">
+<li><p>LDAN 3000 Loads the whole word, then negates the sign → rA = − | 5 | 1 | 200 | 15 (fully defined).</p></li>
+<li><p>LD2N 3000(3:4) Loads bytes 3–4 (no sign) into <code>I2</code>, then negates → rI2 = −200.</p></li>
+<li><p>LDX 3000(1:3) Loads bytes 1–3 (no sign) into the right end of <code>X</code>; left two bytes become 0 → rX = + | 0 | 0 | 5 | 1 | ? (partially defined because byte 3 is unknown individually—only (3:4)=200 was given).</p></li>
+<li><p>LD6 3000 (default <code>(0:2)</code>) Loads sign and bytes 1–2 into <code>I6</code> → two-byte value <span class="math inline">\(64·5+1=321\)</span>, sign <code>+</code> → rI6 = +321.</p></li>
+<li><p>LDXN 3000(0:0) Loads just the sign into <code>X</code> (magnitude becomes 0), then negates → rX = − | 0 | 0 | 0 | 0 | 0 (negative zero).</p></li>
+</ol>
+</section>
+<section id="m15" class="level3">
+<h3 class="anchored" data-anchor-id="m15">7 [M15]</h3>
+<p>Let a MIX word base be <span class="math inline">\(W=64^5\)</span>.</p>
+<p>Registers and operand (as signed integers):</p>
+<ul>
+<li><span class="math inline">\(A = s_A\cdot |A|\)</span>, <span class="math inline">\(X = s_X\cdot |X|\)</span> with <span class="math inline">\(0\le |A|,|X|&lt;W\)</span>.</li>
+<li>Memory operand <span class="math inline">\(M = s_M\cdot |M|\)</span> with <span class="math inline">\(0\le |M|&lt;W\)</span>.</li>
+</ul>
+<p>Form the dividend from <span class="math inline">\(A\)</span> and <span class="math inline">\(X\)</span> by concatenation (sign from <span class="math inline">\(A\)</span> only):</p>
+<p><span class="math display">\[
+D \;=\; s_A\cdot\big(|A|\cdot W + |X|\big).
+\]</span></p>
+<p>Let the divisor be <span class="math inline">\(M\)</span>.</p>
+<p><code>DIV M</code> is defined without overflow iff</p>
+<p><span class="math display">\[
+|M|\neq 0 \quad\text{and}\quad \Big\lfloor\frac{|A|\cdot W + |X|}{|M|}\Big\rfloor &lt; W .
+\]</span></p>
+<p>When defined, compute</p>
+<p><span class="math display">\[
+Q \;=\; \Big\lfloor\frac{|A|\cdot W + |X|}{|M|}\Big\rfloor,\qquad
+R \;=\; (|A|\cdot W + |X|)\bmod |M| ,
+\]</span></p>
+<p>so <span class="math inline">\(0\le R&lt;|M|\)</span>.</p>
+<p>The results placed in the registers are</p>
+<p><span class="math display">\[
+\boxed{\;A \leftarrow (s_A s_M)\cdot Q\;},\qquad
+\boxed{\;X \leftarrow s_A \cdot R\;}
+\]</span></p>
+<p>(i.e., the quotient gets the product of the signs of <span class="math inline">\(A\)</span> and <span class="math inline">\(M\)</span>; the remainder gets the sign of <span class="math inline">\(A\)</span>).</p>
+<p>This covers all non-overflow cases; overflow occurs exactly when <span class="math inline">\(|M|=0\)</span> or <span class="math inline">\(Q\ge W\)</span>.</p>
+</section>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">8 [15]</h3>
+<p>Context (from the book’s last <code>DIV</code> example): Before <code>DIV 1000</code>, <span class="math inline">\(rA=-0\)</span>, <span class="math inline">\(rX=+\,1235\,0\,3\,1\)</span>, and <span class="math inline">\(M[1000]=-\,0\,0\,0\,2\,0\)</span> (i.e., divisor <span class="math inline">\(|M|=200\)</span> on the decimal MIX). In that example the result was <span class="math inline">\(Q=6{,}175{,}001\)</span>, <span class="math inline">\(R=101\)</span>. (<a href="https://stackoverflow.com/questions/768948/how-does-division-work-in-mix" title="How does division work in MIX?">Stack Overflow</a>)</p>
+<p>Now change only “rX before” to <span class="math inline">\(rX=-\,1234\,0\,3\,1\)</span>.</p>
+<p>Key facts:</p>
+<ul>
+<li><code>DIV</code> forms the dividend from <span class="math inline">\((rA,rX)\)</span> using the sign of A only; the sign of <span class="math inline">\(rX\)</span> is ignored.</li>
+<li>Here <span class="math inline">\(|A|=0\)</span>, so the dividend magnitude is just <span class="math inline">\(|X|\)</span>.</li>
+<li>Replacing <span class="math inline">\(+\,1235\,0\,3\,1\)</span> by $ -,1234,0,3,1$ reduces the magnitude by <span class="math inline">\(100^3=1{,}000{,}000\)</span>. Since <span class="math inline">\(1{,}000{,}000 / 200 = 5{,}000\)</span>, the quotient decreases by 5,000 and the remainder is unchanged.</li>
+</ul>
+<p>Therefore</p>
+<p><span class="math display">\[
+Q' = 6{,}175{,}001 - 5{,}000 = 6{,}170{,}001,\qquad R' = 101.
+\]</span></p>
+<p>Signs:</p>
+<ul>
+<li>Quotient gets <span class="math inline">\(\operatorname{sign}(A)\times\operatorname{sign}(M)=(-)\times(-)=+\)</span>.</li>
+<li>Remainder gets <span class="math inline">\(\operatorname{sign}(A)=-\)</span>.</li>
+</ul>
+<p>Answer (byte form, decimal MIX):</p>
+<ul>
+<li><span class="math inline">\(rA \leftarrow + \;|\; 0 \;|\; 6 \;|\; 17 \;|\; 00 \;|\; 01\)</span> (i.e., <code>+ | 0 | 617 | 00 | 01</code>)</li>
+<li><span class="math inline">\(rX \leftarrow - \;|\; 0 \;|\; 0 \;|\; 0 \;|\; 01 \;|\; 01\)</span> (i.e., <code>- | 0 | 0 | 0 | 01 | 01</code>)</li>
+</ul>
+<p>So with <code>rX before = − 1234 0 3 1</code>, you get A = + 0 617 00 01 and X = − 0 0 0 01 01.</p>
+</section>
+<section id="section-7" class="level3">
+<h3 class="anchored" data-anchor-id="section-7">9 [15]</h3>
+<section id="operators-that-can-turn-ov-on" class="level4">
+<h4 class="anchored" data-anchor-id="operators-that-can-turn-ov-on">Operators that can turn OV on</h4>
+<ul>
+<li>ADD M — sets OV if the signed result won’t fit in one MIX word (|result| too large).</li>
+<li>SUB M — same rule as ADD.</li>
+<li>DIV M — sets OV if division is impossible (M = 0) or if the quotient doesn’t fit in a single word (|quotient| ≥ 10⁵).</li>
+<li>INCA/DECA, INCX/DECX — these are “add/subtract an immediate value” on rA or rX; they can overflow just like ADD/SUB and therefore set OV.</li>
+<li>NUM — converts the ten bytes in rA‖rX to a number in rA; sets OV if the decimal value is too large to fit in one word (common when the 10-digit value exceeds the MIX word range).</li>
+</ul>
+<blockquote class="blockquote">
+<p>Notes • MUL never sets OV in MIX integer arithmetic because its 10-byte result is stored across rA‖rX. (Only floating-point multiply can affect OV, which we are excluding.) • Shift, load/store, compare, I/O, and most address-transfer ops do not affect OV.</p>
+</blockquote>
+</section>
+<section id="operators-that-can-only-clear-ov" class="level4">
+<h4 class="anchored" data-anchor-id="operators-that-can-only-clear-ov">Operators that can only clear OV</h4>
+<ul>
+<li>JOV … and JNOV … — both perform the jump test and reset OV to “off” as part of their semantics.</li>
+</ul>
+<p>That’s all. In short: ADD, SUB, DIV, INCA/DECA/INCX/DECX, NUM can set overflow; JOV/JNOV clear it.</p>
+</section>
+</section>
+<section id="section-8" class="level3">
+<h3 class="anchored" data-anchor-id="section-8">10 [15]</h3>
+<section id="what-the-comparison-indicator-is" class="level4">
+<h4 class="anchored" data-anchor-id="what-the-comparison-indicator-is">What the comparison indicator is</h4>
+<p>MIX keeps a three-way comparison indicator with states &lt;, =, &gt;. It changes only when an instruction explicitly performs a comparison; jumps merely <em>test</em> it.</p>
+</section>
+<section id="operators-that-can-change-it" class="level4">
+<h4 class="anchored" data-anchor-id="operators-that-can-change-it">Operators that can change it</h4>
+<ul>
+<li>CMPA — compare rA with M (using the given field F).</li>
+<li>CMPX — compare rX with M (field F).</li>
+<li>CMP1, CMP2, CMP3, CMP4, CMP5, CMP6 — compare rI1…rI6 with the selected field of M (default F normally the address field (0:2) for index-register compares).</li>
+<li>FCMP — floating-point compare (if the floating-point option is present).</li>
+</ul>
+</section>
+<section id="notesnon-examples" class="level4">
+<h4 class="anchored" data-anchor-id="notesnon-examples">Notes/non-examples</h4>
+<ul>
+<li>The JL/JE/JG/JGE/JNE/JLE family of jumps only <em>tests</em> the indicator; they don’t change it.</li>
+<li>Arithmetic, loads/stores, shifts, I/O (IN/OUT/IOC/JBUS/JRED), conversion (NUM/CHAR), and register-enter/increment/decrement instructions do not alter the comparison indicator.</li>
+</ul>
+<p>So, the list is: CMPA, CMPX, CMP1–CMP6, and (if FP is implemented) FCMP.</p>
+</section>
+</section>
+<section id="section-9" class="level3">
+<h3 class="anchored" data-anchor-id="section-9">11 [15]</h3>
+<p>These MIX instructions can change rI1:</p>
+<ol type="1">
+<li><p>LD1 M(F) Loads rI1 from memory. The field specification F selects a field of M; when loading into an index register, MIX takes the address part (two bytes + sign) of the selected field. The result is therefore brought into the index range (−4095…+4095, with +0). Sign is the sign of the selected field.</p></li>
+<li><p>LD1N M(F) Like LD1, but the sign of the loaded quantity is negated.</p></li>
+<li><p>INC1 M Adds the effective address EA(M) to rI1. If the algebraic sum lies outside the index range, MIX reduces the magnitude modulo 4096 to bring it back into −4095…+4095 (zero is +0). (Overflow toggle is not used by index arithmetic.)</p></li>
+<li><p>DEC1 M Subtracts EA(M) from rI1, with the same reduction-to-range rule as INC1.</p></li>
+<li><p>ENT1 M “Enter” EA(M) in rI1 (i.e., rI1 ← EA(M)). Field F is ignored. Sign is the sign of EA(M).</p></li>
+<li><p>ENN1 M Like ENT1, but rI1 ← −EA(M).</p></li>
+<li><p>MOVE M,1(F) Any MOVE whose index field is 1 uses rI1 as the word count. During execution, rI1 is decremented by 1 per word moved and on normal completion rI1 = 0. If rI1 is initially 0, no words are moved and rI1 remains 0. (Other registers and addresses are advanced as defined for MOVE, but those changes don’t affect this list.)</p></li>
+</ol>
+<section id="non-examples-often-confused" class="level4">
+<h4 class="anchored" data-anchor-id="non-examples-often-confused">Non-examples (often confused)</h4>
+<ul>
+<li>ST1 stores rI1 to memory; it does not change rI1.</li>
+<li>CMP1 and the J1* jump family only test rI1; they don’t modify it.</li>
+<li>Using rI1 in indexing for effective addresses does not alter rI1.</li>
+</ul>
+<p>So the list is: MOVE, LD1, LD1N, INC1, DEC1, ENT1, ENN1.</p>
+</section>
+</section>
+<section id="section-10" class="level3">
+<h3 class="anchored" data-anchor-id="section-10">12 [10]</h3>
+<p>Answer: <code>INC3 0,3</code>.</p>
+<ul>
+<li>MIX first computes the effective address <span class="math inline">\(M\)</span> by adding the selected index register to the address field: with address <span class="math inline">\(±AA=0\)</span> and I-field <span class="math inline">\(=3\)</span>, we get <span class="math inline">\(M = 0 + rI3 = rI3\)</span>. </li>
+<li>On “certain instructions” the address <span class="math inline">\(M\)</span> isn’t a memory location; instead, the instruction adds <span class="math inline">\(M\)</span> to an index register. <code>INCi</code> is that family: <code>INC3</code> adds <span class="math inline">\(M\)</span> to rI3. So <code>INC3 0,3</code> performs <span class="math inline">\(rI3 \leftarrow rI3 + M = rI3 + rI3 = 2 \cdot rI3\)</span>. </li>
+</ul>
+<p><em>Notes:</em> Index registers hold two bytes plus sign; any operation that would make their magnitude exceed two bytes is undefined (the simulator explicitly checks size after <code>LDi/LD iN/INC i</code>). In normal ranges, the sign is preserved, so doubling keeps the sign of rI3.</p>
+</section>
+<section id="section-11" class="level3">
+<h3 class="anchored" data-anchor-id="section-11">13 [10]</h3>
+<p>We will use: - Jump effect on rJ. When a (conditional) jump actually occurs, rJ is set to the address of the next instruction (here, 1001). If no jump occurs, rJ is unchanged. - Overflow-clearing. <code>JNOV</code> clears the overflow toggle after testing; <code>JOV</code> has the symmetric behavior (and the exercise statement explicitly notes that <code>JOV</code> clears it).</p>
+<ol type="1">
+<li>Replace by <code>JNOV 1001</code>:</li>
+</ol>
+<ul>
+<li>Control flow: still executes next at 1001 in all cases (jump if OV=OFF, otherwise fall through).</li>
+<li>Overflow: cleared afterward in either case. </li>
+<li>rJ: different in general. With the original <code>JOV 1001</code>, rJ is set to 1001 iff OV was ON; with <code>JNOV 1001</code>, rJ is set to 1001 iff OV was OFF. So most of the time the rJ setting flips. (That’s the only behavioral difference.) </li>
+</ul>
+<ol start="2" type="1">
+<li>Replace by <code>JOV 1000</code></li>
+</ol>
+<ul>
+<li>If OV=OFF: falls through to 1001, just like the original.</li>
+<li>If OV=ON: it jumps to 1000, clearing OV; then re-executes with OV=OFF and falls through to 1001.</li>
+<li>Net effect: same final state (including rJ = 1001 when OV was initially ON), but it takes extra time in the OV=ON case (you execute the instruction twice). So “no difference except time.” </li>
+</ul>
+<ol start="3" type="1">
+<li>Replace by <code>JNOV 1000</code></li>
+</ol>
+<ul>
+<li>If OV=OFF: it jumps to 1000, clears OV (still OFF), and repeats forever → possible infinite loop.</li>
+<li>If OV=ON: it does not jump, clears OV, and falls through to 1001. Hence this change “may lock the computer in an infinite loop.” </li>
+</ul>
+</section>
+<section id="section-12" class="level3">
+<h3 class="anchored" data-anchor-id="section-12">14 [20]</h3>
+<ol type="1">
+<li><p>Increment/Decrement family INCA, DECA, INCX, DECX, INC1–INC6, DEC1–DEC6 Make the effective address zero by choosing AA=0 and I=0. Then the instruction adds/subtracts 0 and changes nothing.</p></li>
+<li><p>Shifts SLA, SRA, SLAX, SRAX, SLC, SRC Choose F=0 (shift count 0). A, X (and A‖X), remain unchanged; indicators and memory are unaffected.</p></li>
+</ol>
+<p>What doesn’t work (and why)</p>
+<p>Loads: LDA, LDX, LD1–LD6, and the negated forms They overwrite a register with a memory field; we can’t guarantee equality with the current register.</p>
+<p>Stores: STA, STX, ST1–ST6, STJ, STZ They write to memory; with unknown memory we can’t guarantee no change.</p>
+<p>Arithmetic on A with a memory operand: ADD, SUB, MUL, DIV ADD/SUB would be a no-op only if the fetched value were provably 0 for all memory contents; there is no choice of F, I, AA that guarantees that without assumptions. MUL and DIV clearly change A‖X or the overflow state unless blocked by impossible cases (which still change OV).</p>
+<p>Compare: CMPA, CMPX, CMP1–CMP6 (and FCMP if present) They always set the comparison indicator, which is a state change.</p>
+<p>Conversion: NUM, CHAR They rewrite A and X.</p>
+<p>Block move: MOVE It decrements rI1 during execution (and may copy data), so state changes unless rI1 were known to be 0—which we are not allowed to assume.</p>
+<p>Jumps: all conditional jumps and JMP If a jump occurs, rJ is set; if it does not, rJ is not set. With unknown prior rJ and unknown condition values, there’s no way to make both</p>
+</section>
+<section id="section-13" class="level3">
+<h3 class="anchored" data-anchor-id="section-13">15 [10]</h3>
+<p>Each MIX word has 5 bytes → up to 5 printed characters per word. For character I/O devices, a block transfers a fixed number of words: typewriter and paper tape use 14 words per block; card reader and card punch use 16; the line printer uses 24.</p>
+<p>So the alphanumeric characters per block are:</p>
+<ul>
+<li>Typewriter or paper-tape: 14 words × 5 chars/word = 70 characters.</li>
+<li>Card reader or card punch: 16 × 5 = 80 characters.</li>
+<li>Line printer: 24 × 5 = 120 characters.</li>
+</ul>
+<p>(“Five characters per word” follows because character devices map one MIX character per byte; a word has five bytes.)</p>
+</section>
+<section id="section-14" class="level3">
+<h3 class="anchored" data-anchor-id="section-14">16 [20]</h3>
+<ol type="a">
+<li></li>
+</ol>
+<p>Use <em>overlapped</em> <code>MOVE</code> to “smear” one zero across the block:</p>
+<pre><code>        STZ     0           ; make location 0000 = +0
+        ENT1    1           ; rI1 := 0001 (destination start)
+        MOVE    0(99)       ; copy 99 words from 0000 → 0001..0099 (one-by-one)</code></pre>
+<p>Why this works: On MIX, <code>MOVE M(F)</code> moves F words from M to the address in rI1, one word at a time, and then adds F to rI1. With overlap (here M=0, rI1=1), the same source word gets copied repeatedly, so the single zero at 0000 gets replicated through 0001..0099. Afterward rI1=0100.</p>
+<p>Time (MIX units): <code>STZ</code> = 2u, <code>ENT1</code> = 1u, <code>MOVE</code> = 1u + 2·F = 1 + 2·99 = 199u → 202u total.</p>
+<ol start="2" type="a">
+<li></li>
+</ol>
+<p>If we optimize only for time (not length), the fastest is to store zeros directly:</p>
+<pre><code>        STZ 0
+        STZ 1
+        ...
+        STZ 99</code></pre>
+<p>Each <code>STZ</code> costs 2u, so 200u total—slightly faster than the overlapped-MOVE trick, at the price of 100 instructions. </p>
+<p>Notes</p>
+<ul>
+<li><code>MOVE</code> semantics (dest = rI1; overlap copies the same source word repeatedly) are exactly as stated in §1.3.1, incl.&nbsp;the example where one word is copied into several places.</li>
+<li>MIX timing conventions: <code>STZ</code> (a store) = 2u; <code>ENTi</code> (an address transfer) = 1u; <code>MOVE</code> = 1u + 2 per word moved.</li>
+</ul>
+</section>
+<section id="section-15" class="level3">
+<h3 class="anchored" data-anchor-id="section-15">17 [26]</h3>
+<p>Here’s a clean solution for Exercise 17 (MIX §1.3.1). Assume at entry that rI2 = N (0 ≤ N ≤ 2999). Both programs start at location 3000.</p>
+<ol type="a">
+<li>Shortest program (3-instruction loop)</li>
+</ol>
+<p>This clears locations N, N−1, …, 0 with rI2 as a down-counter. It works for every N, including 0.</p>
+<pre><code>3000  LOOP   STZ   0,2      ; M = rI2 → clear that cell
+3001         DEC2  1        ; rI2 ← rI2 − 1
+3002         J2NN  LOOP     ; keep going while rI2 ≥ 0
+3003         HLT</code></pre>
+<p>Why it works. <code>STZ 0,2</code> stores zero at effective address <code>0 + rI2</code>. Each iteration decrements rI2; the loop stops after clearing location 0 (when rI2 becomes −1).</p>
+<ol start="2" type="a">
+<li>Fastest program (block moves with one final partial)</li>
+</ol>
+<p>Use overlapped <code>MOVE</code> to smear the zero from 0000 across the range in big blocks. We copy 50 words at a time (≤ 63 so it fits in one byte), then finish with a last <code>MOVE</code> whose count equals the remainder rI2 (mod 50). The remainder is written into the F-byte of the final <code>MOVE</code> by self-modifying that instruction.</p>
+<pre><code>3000         STZ     0          ; make 0000 = +0 (seed)
+3001         ENT1    1          ; rI1 = destination pointer (start at 0001)
+
+; repeat: while rI2 ≥ 50 { MOVE 0(50); rI2 -= 50 }
+3002  LBL    INC2   -50         ; try rI2 ← rI2 − 50
+3003         J2N     TAIL       ; if negative, we didn't have 50 left → finish
+3004         MOVE    0(50)      ; copy 50 zeros from 0000..0049 to rI1..rI1+49
+3005         JMP     LBL
+
+; finish: remainder 0..49 words
+3006  TAIL   INC2    50         ; rI2 ← rI2 + 50  (now remainder R = 0..49)
+3007         ST2     TAIL+1(4:4); put R into F byte of the next MOVE
+3008         MOVE    0(0)       ; becomes MOVE 0(R) after the ST2 above
+3009         HLT</code></pre>
+<p>Why it’s fast. <code>MOVE 0(50)</code> costs <code>1 + 2·50 = 101u</code> for 50 words (≈2.02u/word). The loop overhead is tiny (a couple of 1u instructions per 50 words). The tail step performs one last <code>MOVE</code> of R ≤ 49 words; we set <code>F = R</code> by <code>ST2 … (4:4)</code>, which writes the low byte of rI2 (0..63) into the F-byte (perfect for a remainder ≤ 49). No memory beyond 0..N is touched.</p>
+<p>Edge cases. N = 0: the block loop is skipped; <code>INC2 50</code> sets remainder R = 0; we self-modify the final <code>MOVE</code> to <code>MOVE 0(0)</code>, which moves nothing—only location 0000 (seeded by <code>STZ 0</code>) is zero, which is exactly the requirement. N between 1 and 49: zero or one 50-block, then the tail <code>MOVE</code> with R = N. N a multiple of 50: the loop finishes with rI2 = −50; at TAIL we add 50 so R = 0; the final <code>MOVE</code> moves 0 words.</p>
+<p>Here is the final answer:</p>
+<ul>
+<li>Shortest: 3-instruction <code>STZ/DEC2/J2NN</code> loop.</li>
+<li>Fastest: seed 0000 with zero; smear with repeated <code>MOVE 0(50)</code> blocks; finish with one self-modified <code>MOVE 0(R)</code> where R = N mod 50.</li>
+</ul>
+</section>
+<section id="section-16" class="level3">
+<h3 class="anchored" data-anchor-id="section-16">18 [22]</h3>
+<p>Here’s a careful, walkthrough of Exercise 18 with an annotated listing. I keep track of the parts the problem explicitly cares about: registers (especially rI1, rX), the overflow toggle (OV), the comparison indicator (CMP), and the memory cells that get touched. I’ll write MIX words as “sign | five bytes”.</p>
+<p>Preconditions: nothing is assumed about registers or memory. <code>b</code> denotes the MIX byte base (64 in the standard spec). NUM/CHAR behave the same for any <code>b</code>; only whether NUM overflows depends on <code>b</code>.</p>
+<pre class="mix"><code>STZ 1            ; mem[1] ← +0 | 00 00 00 00 00
+                 ; (STZ always writes +0.)
+
+ENNX 1           ; rX ← −1  → bytes 00 00 00 00 01, sign −
+
+STX 1(0:1)       ; store (sign,byte1) of rX into mem[1]:
+                 ; sign(−), byte1=00; bytes2..5 unchanged (still 00)
+                 ; ⇒ mem[1] becomes −0 | 00 00 00 00 00
+
+SLAX 1           ; shift left A‖X by 1 byte (signs unchanged).
+                 ; X was −1 → becomes −b  → bytes 00 00 00 01 00
+
+ENNA 1           ; rA ← −1  → bytes 00 00 00 00 01, sign −
+
+INCX 1           ; rX ← (−b)+1 = −(b−1)  → bytes 00 00 00 00 (b−1)
+
+ENT1 1           ; rI1 ← 1
+
+SRC 1            ; rotate right A‖X by 1 byte (signs unchanged):
+                 ;   rA bytes: [b−1, 0, 0, 0, 0], sign −
+                 ;   rX bytes: [1,   0, 0, 0, 0], sign −
+
+ADD 1            ; add mem[1] (which is −0) to rA → rA unchanged.
+                 ; OV unchanged (adding 0 can’t overflow).
+
+DEC1 −1          ; rI1 ← 1 − (−1) = 2
+
+STZ 1            ; mem[1] ← +0 (converts the earlier “−0” to +0)
+
+CMPA 1           ; compare rA (negative, nonzero) with +0  → CMP = “&lt;”
+
+MOVE −1,1(1)     ; source EA = rI1 + (−1) = 2−1 = 1
+                 ; move 1 word: mem[2] ← mem[1] (= +0)
+                 ; rI1 ← rI1 + 1 = 3
+
+NUM 1            ; interpret the 10 bytes of A‖X as decimal digits (mod 10):
+                 ; digits = [(b−1) mod 10, 0,0,0,0, 1,0,0,0,0]
+                 ; rA ← signed decimal value = −(D*10^9 + 10^4),
+                 ;   where D = (b−1) mod 10.  (No other state changes.)
+                 ; OV is set iff |rA| exceeds the MIX integer range:
+                 ;   if b=64  → |rA| = 3,000,010,000  &gt; 1,073,741,823 ⇒ OV ON
+                 ;   if b=100 → |rA| = 9,000,010,000 ≤ 9,999,999,999 ⇒ OV OFF
+
+CHAR 1           ; write the 10 decimal digits of |rA| back into A‖X:
+                 ; rA bytes become the characters “30000” (for b=64 case),
+                 ; rX bytes become the characters “10000”.
+                 ; (Signs are not used for the digits; rA keeps its sign.)
+                 ; No effect on OV or CMP.
+
+HLT 1            ; halt (no state changes beyond stopping)</code></pre>
+<p>Here’s the program for Exercise 18 rewritten as MIXAL with inline comments in the MIXAL “comment field”.</p>
+<pre><code>        ORG     3000
+
+START   STZ     1               * mem[1] ← +0
+
+        ENNX    1               * X ← −1
+        STX     1,0(0:1)        * store (sign,byte1) of X → mem[1]; makes mem[1] = −0
+
+        SLAX    1               * shift left A‖X by 1 byte; X becomes −b
+        ENNA    1               * A ← −1
+        INCX    1               * X ← −b + 1 = −(b−1)
+        ENT1    1               * I1 ← 1
+
+        SRC     1               * rotate right A‖X by 1 byte
+                                * (A stays negative; X now has bytes “1 0 0 0 0” mod b)
+
+        ADD     1               * A ← A + mem[1] (−0) ⇒ no change, OV unchanged
+        DEC1    -1              * I1 ← 1 − (−1) = 2
+        STZ     1               * mem[1] ← +0  (clears previous “−0”)
+
+        CMPA    1               * compare A with +0 ⇒ CMP = “&lt;”
+
+        MOVE    -1,1(1)         * source EA = I1−1 = 1; move 1 word:
+                                *   mem[2] ← mem[1] (= +0)
+                                *   I1 ← I1 + 1 = 3
+
+        NUM     1               * interpret 10 bytes of A‖X as decimal digits:
+                                *   A ← −( ((b−1) mod 10)·10^9 + 10^4 )
+                                *   OV set iff |A| exceeds MIX word range:
+                                *     b=64  → OV ON;  b=100 → OV OFF
+
+        CHAR    1               * write decimal digits of |A| back into A‖X;
+                                *   right half X = characters “1 0 0 0 0”
+
+        HLT     1
+
+        END     START</code></pre>
+<pre><code>* Final state (independent of initial contents):
+*   I1 = 3
+*   mem[1] = +0,  mem[2] = +0
+*   CMP  = “&lt;” (less)
+*   OV   = ON if b=64, OFF if b=100
+*   X    = five character bytes “1 0 0 0 0”</code></pre>
+<p>What’s true at the end (independent of the initial state)</p>
+<ul>
+<li>rI1 = 3 (set by <code>ENT1 1</code>, then advanced by <code>MOVE …(1)</code>).</li>
+<li>rX contains the five character bytes “1 0 0 0 0” (the right half produced by <code>CHAR</code>). The exercise only asks “what is rX?”; its five bytes are those digits.</li>
+<li>CMP (comparison indicator) = “&lt;” (set by <code>CMPA 1</code> and never changed afterward).</li>
+<li>OV (overflow toggle): • ON in the standard <code>b=64</code> MIX, because <code>NUM</code> produced 3,000,010,000 which exceeds the word range. • OFF if <code>b=100</code>, because <code>NUM</code> produced 9,000,010,000 which fits.</li>
+<li>Memory touched: • <code>mem[1]</code> ends as +0 (it briefly became “−0” after <code>STX 1(0:1)</code> but is cleared by the later <code>STZ 1</code>). • <code>mem[2]</code> becomes +0 (copied by the <code>MOVE</code>).</li>
+</ul>
+<p>Everything else (e.g., rJ) is unchanged by this code. here’s a clean walk-through of Exercises 18 and 19.</p>
+<p>Program (each has M=1 unless shown): STZ 1; ENNX 1; STX 1(0:1); SLAX 1; ENNA 1; INCX 1; ENT1 1; SRC 1; ADD 1; DEC1 −1; STZ 1; CMPA 1; MOVE −1,1(1); NUM 1; CHAR 1; HLT 1</p>
+<p>Key facts used</p>
+<ul>
+<li>STZ stores zero to the selected field; STX stores the selected field of rX; field (0:1) = sign+byte1.</li>
+<li>ENN? / ENT? / INC? set or add an immediate M to a register (A, X, or Ii).</li>
+<li>SLAX/SRC shift/rotate across the 10 bytes rA|rX; signs are not affected.</li>
+<li>ADD adds a memory value to rA and only sets overflow if the arithmetic result exceeds range. ([GNU][4])</li>
+<li>NUM converts the 10 bytes of rA|rX (digits taken mod 10) to a decimal number in rA; CHAR writes the 10 decimal digits of rA back into rA|rX.</li>
+<li>MIX word range is ±1,073,741,823 in binary-byte mode (b=64) and ±9,999,999,999 in decimal-byte mode (b=100).</li>
+</ul>
+<p>Step-by-step (what becomes independent of the initial contents)</p>
+<ol type="1">
+<li>STZ 1 → memory[1] := +0.</li>
+<li>ENNX 1 → rX := −1. ([GNU][2])</li>
+<li>STX 1(0:1) → store sign+byte1 of rX into memory[1]. Since rX=−1 has sign ‘−’ and byte1=0, memory[1] becomes “−0 00 00 00 00” (i.e., −0).</li>
+<li>SLAX 1 → rA|rX shifts left by one byte; rX becomes −b (its bytes are 00 00 00 01 00). ([GNU][3])</li>
+<li>ENNA 1 → rA := −1. ([GNU][2])</li>
+<li>INCX 1 → rX := (−b)+1 = −(b−1). (So rX’s bytes are 00 00 00 00 (b−1).) ([GNU][2])</li>
+<li>ENT1 1 → rI1 := 1. ([GNU][2])</li>
+<li>SRC 1 → rotate right one byte across rA|rX. • rA bytes become [b−1,0,0,0,0] (still negative). • rX bytes become [1,0,0,0,0] (still negative). ([GNU][3])</li>
+<li>ADD 1 → add memory[1] (−0) to rA: rA unchanged (still negative). Overflow not set by adding zero.</li>
+<li>DEC1 −1 → rI1 := 1 − (−1) = 2.</li>
+<li>STZ 1 → memory[1] := +0 (explicitly clears the earlier “−0”).</li>
+<li>CMPA 1 → compare rA (negative) with +0; comparison indicator = “less”.</li>
+<li>MOVE −1,1(1) → source EA = rI1 + (−1) = 2−1 = 1; move one word from memory[1] to memory[2]; rI1 increments by 1 → rI1=3. (So memory[2] becomes +0.)</li>
+<li>NUM 1 → treat the 10 bytes in rA|rX as decimal digits modulo 10: digits are [(b−1) mod 10, 0,0,0,0, 1,0,0,0,0], so rA becomes the decimal number 3000010000 if b=64, or 9000010000 if b=100, with rA’s sign negative.) • In binary-byte mode (b=64), this exceeds ±1,073,741,823 ⇒ overflow set ON. • In decimal-byte mode (b=100), it fits in ±9,999,999,999 ⇒ overflow OFF.</li>
+<li>CHAR 1 → write the 10 decimal digits of rA back into rA|rX; rX now holds the character bytes “10000” (i.e., 31,30,30,30,30). (The sign bits are not used by the digits; rA keeps its sign.)</li>
+<li>HLT 1 → halt.</li>
+</ol>
+<p>What you can state at the end</p>
+<ul>
+<li>rI1 = 3.</li>
+<li>memory changes: memory[1] ends as +0; memory[2] is +0 (copied by MOVE).</li>
+<li>comparison indicator after CMPA 1 = L (A &lt; memory[1]).</li>
+<li>overflow: • binary-byte mode (b=64): ON (set by NUM); • decimal-byte mode (b=100): OFF.</li>
+<li>rX holds the five character digits “10000” (bytes 31,30,30,30,30) after CHAR (independent of byte size).</li>
+</ul>
+</section>
+<section id="section-17" class="level3">
+<h3 class="anchored" data-anchor-id="section-17">19 [14]</h3>
+<p>Using the standard MIX timings (in units “u”) — loads/stores 2u; address-transfer (ENT/ENN/INC/DEC) 1u; shifts 2u; ADD 2u; CMP 2u; MOVE costs 1+2·F; NUM 10u; CHAR 10u — the total is: 2 +1 +2 +2 +1 +1 +1 +2 +2 +1 +2 +2 +3 +10 +10 = 42u.</p>
+</section>
+<section id="section-18" class="level3">
+<h3 class="anchored" data-anchor-id="section-18">20 [20]</h3>
+<p>Here is a single-loop program that leaves every cell as <code>HLT</code> and then halts:</p>
+<pre class="mixal"><code>        ORIG   3994          * park the loop near the top
+START   LDA    H             * A = instruction word for HLT
+        ENT1   0             * I1 = 0
+LOOP    STA    3999,1        * store to 3999+I1 (wraps: 3999,0,1,...,3998)
+        INC1   1             * I1++
+        J1P    LOOP          * loop while positive
+H       HLT    0             * when J1P is finally overwritten, we halt
+        END    START</code></pre>
+<p>Why it’s safe and complete. <code>STA 3999,1</code> walks the addresses in this exact order: 3999, 0, 1, 2, …, 3998 (because MIX effective addresses wrap modulo 4000). The loop body itself sits at 3996–3998; those three words are the last ones touched: <code>STA</code> (3996) and <code>INC1</code> (3997) get overwritten near the end, but only after they’ve been executed in that iteration; the next fetch returns to <code>J1P</code> (3998) until the very last pass. The final store hits 3998 and turns <code>J1P</code> into <code>HLT</code>; the next fetch executes that <code>HLT</code>. At that moment every word 0…3999 is <code>HLT</code>.</p>
+</section>
+<section id="section-19" class="level3">
+<h3 class="anchored" data-anchor-id="section-19">21 [24]</h3>
+<ol type="a">
+<li></li>
+</ol>
+<p>No (not by program action). In MIX, the only way a program sets <code>rJ</code> is via a taken jump that stores a link (all <code>J..</code> jumps except <code>JSJ</code>, and <code>SLT</code> when the jump is not taken). Executing such a jump from location <code>m</code> sets</p>
+<pre><code>rJ ← m + 1</code></pre>
+<p>without reducing modulo 4000. Since <code>m ∈ {0,…,3999}</code>, we always get <code>rJ ∈ {1,…,4000}</code>—never 0. To make <code>rJ = 0</code> you’d need <code>m = −1</code>, which a program cannot execute. (Zero can be forced only by external means—cf.&nbsp;the “GO button”, exercise 26.)</p>
+<p>Note: when returning from a subroutine we typically use <code>JMP 0,J</code>. If <code>rJ = 4000</code> (from a call placed at 3999), the effective address <code>0 + rJ = 4000</code> is interpreted modulo 4000 as address 0, so control returns correctly—yet the content of <code>J</code> itself is not 0.</p>
+<ol start="2" type="a">
+<li></li>
+</ol>
+<p>Idea: Temporarily place <code>JMP RESUME</code> at address <code>N−1</code>, jump there with <code>JSJ</code> (which doesn’t touch <code>J</code>), let that <code>JMP</code> set <code>J = (N−1)+1 = N</code>, then restore the word we modified.</p>
+<pre class="mixal"><code>        ORIG   3000
+START   LDX    -1,4           * X := M[N-1] (save original word)
+        LDA    INST           * A := word for "JMP RESUME"
+        STA    -1,4           * M[N-1] := JMP RESUME (temporary)
+        JSJ    -1,4           * go execute it; JSJ leaves J unchanged
+
+RESUME  STX    -1,4           * restore original M[N-1]
+        HLT    0              * done
+
+INST    JMP    RESUME         * instruction constant we copy to N-1
+        END    START</code></pre>
+<p>Why it’s correct. The <code>JSJ</code> transfers control to <code>N−1</code>. Executing <code>JMP RESUME</code> from <code>N−1</code> sets <code>rJ ← (N−1)+1 = N</code> by MIX’s link rule. We then restore memory at <code>N−1</code>, so all memory words end exactly as they began; only <code>J</code> has changed. The bound <code>N ≤ 3000</code> keeps <code>N−1</code> below the program that starts at 3000.</p>
+</section>
+<section id="section-20" class="level3">
+<h3 class="anchored" data-anchor-id="section-20">22 [28]</h3>
+<p>Here are two MIXAL programs for 22. We assume location 2000 holds an integer <span class="math inline">\(X\)</span> and that <span class="math inline">\(X^{13}\)</span> fits in one word.</p>
+<p>Minimal-memory program (tiny loop, 6 words)</p>
+<pre class="mixal"><code>        ORIG   3000
+START   LDA    2000         * A := X
+        ENT1   12           * 12 more multiplies by X
+LOOP    MUL    2000         * A·X -&gt; AX  (high word zero if fits)
+        XCH                  * A := product
+        DEC1   1
+        J1P    LOOP
+        HLT    0
+        END    START</code></pre>
+<p>Explanation. We start with <span class="math inline">\(A=X\)</span> and multiply by <span class="math inline">\(X\)</span> twelve times: after each <code>MUL</code> the product sits in <code>X</code>, so we <code>XCH</code> to bring it to <code>A</code> for the next iteration. After 12 iterations, <span class="math inline">\(A=X^{13}\)</span>.</p>
+<p>Minimum-time program (5 multiplications = optimal)</p>
+<p>This follows a minimal addition chain for 13: <span class="math inline">\(1,2,3,6,12,13\)</span> i.e., <span class="math inline">\(x^2, x^3, (x^3)^2=x^6, (x^6)^2=x^{12}, x^{12}\cdot x = x^{13}\)</span>.</p>
+<pre class="mixal"><code>        ORIG   3000
+        LDA    2000         * A = x
+        MUL    2000         * x^2
+        XCH
+        MUL    2000         * x^3
+        XCH
+        STA    2001         * T := x^3   (temp for squaring)
+        MUL    2001         * x^6
+        XCH
+        STA    2001         * T := x^6
+        MUL    2001         * x^12
+        XCH
+        MUL    2000         * x^13
+        XCH
+        HLT    0
+        END    3000</code></pre>
+<p>Notes. Only 5 <code>MUL</code>s are executed (provably minimal for exponent 13). We store to a single temporary cell (2001) only when squaring values that aren’t in memory. The final result is left in <code>A</code> as required.</p>
+</section>
+<section id="section-21" class="level3">
+<h3 class="anchored" data-anchor-id="section-21">23 [27]</h3>
+<ol type="A">
+<li>Using partial-field loads (no temporaries; minimal memory under this condition)</li>
+</ol>
+<p>This builds the result left-to-right by shifting A one byte and adding the next byte of the source each time. Because each add goes into an all-zero rightmost byte, no carry propagates.</p>
+<pre class="mixal"><code>        ORIG   3000
+START   LDA    0200(5:5)   * A := [.....e]
+        SLA    1           * A := [....e0]
+        ADD    0200(4:4)   * A := [....ed]
+        SLA    1
+        ADD    0200(3:3)   * A := [...edc]
+        SLA    1
+        ADD    0200(2:2)   * A := [..edcb]
+        SLA    1
+        ADD    0200(1:1)   * A := [.edcba]  -&gt;  + e d c b a
+        HLT    0
+        END    START</code></pre>
+<p>Memory used: just these 10 instruction words (no data cells). Why minimal: without a loop you need five byte extractions and four shifts; any solution with fields must at least assemble five bytes in some order, so this straight-line sequence is optimal in memory (0 data).</p>
+<ol start="2" type="A">
+<li>Without using partial-field loads/stores (only whole-word ops)</li>
+</ol>
+<p>We treat the word as a base-64 number. Repeatedly:</p>
+<ol type="1">
+<li>take the low byte as <code>source % 64</code> (via <code>DIV 64</code>, remainder goes to <code>X</code>),</li>
+<li>update <code>acc := acc*64 + remainder</code>,</li>
+<li>set <code>source := source / 64</code> (the quotient from <code>DIV</code>, which we saved).</li>
+</ol>
+<p>This needs one constant (<code>64</code>) and two temporaries; with only whole-word ops that’s the tightest practical layout.</p>
+<pre class="mixal"><code>        ORIG   3100
+START   LDX    0200        * X := source = + a b c d e
+        ENTA   0           * A := acc = 0
+        ENT1   5           * 5 bytes to process
+
+LOOP    STA    ACC         * save acc
+        ENTA   0           * make dividend (A,X) = (0, source)
+        XCH                 * A := source, X := 0
+        DIV    K64         * A := source/64 (quotient), X := source%64 (a byte)
+        STA    QUO         * remember quotient for next round
+        XCH                 * A := remainder, X := quotient
+        STA    REM         * stash remainder
+        LDA    ACC         * rebuild acc := acc*64 + remainder
+        SLA    1           * *64
+        ADD    REM
+        LDX    QUO         * next source := quotient
+        DEC1   1
+        J1P    LOOP
+
+        * on exit, A holds the reflected word
+        HLT    0
+
+ACC     CON    0
+REM     CON    0
+QUO     CON    0
+K64     CON    64
+        END    START</code></pre>
+<p>Memory used: 12 instruction words + 4 data words (ACC, REM, QUO, K64). Why this fits the constraint: with no partial-field access you need (i) a way to peel bytes—<code>DIV 64</code> requires the <code>64</code> constant—and (ii) somewhere to hold the running accumulator while using <code>(A,X)</code> as the dividend; the two temporaries avoid clobbering the quotient and remainder. This keeps everything whole-word only and leaves the final answer in <code>A</code>.</p>
+</section>
+<section id="section-22" class="level3">
+<h3 class="anchored" data-anchor-id="section-22">24 [21]</h3>
+<p>We start with A = <code>+ 0 a b c d</code> and X = <code>+ e f g h i</code>, and we want A = <code>+ a b c d e</code> and X = <code>+ 0 f g h i</code>.</p>
+<ol type="a">
+<li></li>
+</ol>
+<p>Use one constant and one instruction:</p>
+<pre class="mixal"><code>        ORIG   3000
+        DIV    K           * (A:X) ÷ K → A=abcde, X=0fghi
+        HLT    0
+K       CON    + 1 0 0 0 0   * K = 64^4
+        END    3000</code></pre>
+<p>Why it works. Think of a MIX word as 5 base-64 digits. The 10-digit number <code>0 a b c d e f g h i</code> (that’s A:X) divided by <code>64^4</code> (= <code>+ 1 0 0 0 0</code>) yields</p>
+<ul>
+<li>quotient <code>a b c d e</code> (fits in 5 bytes, so it goes to A), and</li>
+<li>remainder <code>f g h i</code> (a 4-byte number; when put in a 5-byte word it becomes <code>0 f g h i</code> in X).</li>
+</ul>
+<p>This uses the fewest locations possible (1 instruction + 1 constant).</p>
+<ol start="2" type="a">
+<li></li>
+</ol>
+<p>The division in (a) is slow. The time-optimal solution uses only shifts/rotates—three instructions total—exactly as in the book:</p>
+<pre class="mixal"><code>        ORIG   3000
+        SRC    4           * circularly rotate the 10 bytes (A:X) right by 4
+        SRA    1           * shift A right by one byte (zero-filling its left)
+        SLC    5           * circularly rotate the 10 bytes (A:X) left by 5
+        HLT    0
+        END    3000</code></pre>
+<p>Step-by-step (treating A:X as the 10-byte string <code>0 a b c d | e f g h i</code>):</p>
+<ol type="1">
+<li><p><code>SRC 4</code> (right circular on the pair A:X, as in Knuth’s MIX): <code>g h i 0 a | b c d e f</code>.</p></li>
+<li><p><code>SRA 1</code> (right arithmetic on A only, zero-fills the left of A): <code>0 g h i 0 | b c d e f</code>.</p></li>
+<li><p><code>SLC 5</code> (left circular on the pair A:X): <code>a b c d e | 0 f g h i</code>.</p></li>
+</ol>
+<p>Result: A = <code>+ a b c d e</code>, X = <code>+ 0 f g h i</code>, with no memory traffic and only three fast micro-ops.</p>
+</section>
+<section id="section-23" class="level3">
+<h3 class="anchored" data-anchor-id="section-23">25 [30]</h3>
+<p>Here’s a detailed, backward-compatible “Mixmaster” design that answers 25 and shows how to reuse the I-field profitably while keeping every correctly written MIX program runnable unchanged.</p>
+<p>Goals (constraints)</p>
+<ol type="1">
+<li>Machine word, byte size, opcodes, and all defined MIX behaviors remain valid.</li>
+<li>A MIX program that only uses documented features (e.g., I∈{0..6}) keeps the same semantics.</li>
+<li>New power comes only from previously unused encodings (e.g., I&gt;6, unused F-codes, unused opcodes) or from optional mode bits whose reset value equals MIX behavior.</li>
+</ol>
+<p>Better use of the I-field (backward-compatible)</p>
+<p>The MIX I-field is 6 bits but only values 0..6 are used (selecting no index or I1..I6). We keep those intact and assign new meanings to the unused encodings:</p>
+<p>I-field layout (Mixmaster)</p>
+<p>Let <code>I = b5 b4 b3 b2 b1 b0</code> (b0 = LSB).</p>
+<ul>
+<li><p><code>idx = (b2 b1 b0)</code> selects the base register:</p>
+<ul>
+<li>000 = none (MIX “no index”)</li>
+<li>001..110 = I1..I6 (as in MIX)</li>
+<li>111 = PC (location counter) ⟹ enables PC-relative addressing</li>
+</ul></li>
+<li><p><code>IND = b3</code> (indirection)</p>
+<ul>
+<li>0 = direct (MIX default)</li>
+<li>1 = one level of indirection: the effective address is taken from the word at the computed address (no chaining unless an op explicitly allows it)</li>
+</ul></li>
+<li><p><code>SC = (b5 b4)</code> (scale for the index term)</p>
+<ul>
+<li>00 ⇒ ×1 (MIX default)</li>
+<li>01 ⇒ ×2</li>
+<li>10 ⇒ ×4</li>
+<li>11 ⇒ ×8</li>
+</ul></li>
+</ul>
+<p>Effective address</p>
+<pre><code>EA = (ADDR + SCALE(idxReg) + BASE) mod MEMSIZE
+where   SCALE(idxReg) = (SC ? {1,2,4,8} : 1) * (contents of chosen base reg)
+        BASE = 0 in MIX-compat mode; see “large memory” below
+if IND=1: EA := contents_of_word_at(EA).ADDR   (one level)</code></pre>
+<p>Compatibility: All existing code has <code>I≤6</code>, <code>IND=0</code>, <code>SC=00</code>, so the rule collapses to MIX’s <code>ADDR + Ii</code> with no change.</p>
+<p>Payoffs</p>
+<ul>
+<li>PC-relative addressing (I=7) for position-independent code, short branches, and better relocation.</li>
+<li>Scaled indexing removes pre-multiply steps for arrays of records with fixed word length (×2, ×4, ×8).</li>
+<li>Single-level indirection gives true pointers without extra loads.</li>
+</ul>
+<p>Optional: Immediate operands via I-patterns</p>
+<p>Reserve two I-patterns for immediates (used only by arithmetic/compare loads):</p>
+<ul>
+<li><code>I = 7 with IND=1 and SC=00</code> ⇒ treat <code>ADDR</code> (and F) as a literal (sign-extended) operand: e.g., <code>ADDA 5,7:1</code> (assembler sugar <code>ADDA #5</code>). No MIX program ever uses such I-codes, so compatibility holds.</li>
+</ul>
+<p>Memory and addressing extensions</p>
+<ul>
+<li>B (base) register (2 bytes, sign) holds a segment number. Default B=0 on reset ⇒ MIX addresses map unchanged.</li>
+<li>New instructions <code>LDB M</code>, <code>STB M</code> and privileged <code>SETB imm</code>. The hardware forms the true physical address as <code>BASE*4096 + EA</code>, giving up to 4096 segments of 4096 words (or larger if desired). Old programs (B=0) see the original 0..3999 space.</li>
+<li>Optional per-process limit register to trap out-of-bounds for safety (default unlimited for full compatibility).</li>
+</ul>
+<p>F-field and opcode extensions (safe because many encodings are unused)</p>
+<ul>
+<li><p>Keep all MIX F-meanings; use unused F codes to define:</p>
+<ul>
+<li>variable-length shifts where the count comes from a register (e.g., <code>SLA r</code> with F indicating the source register),</li>
+<li>logical operations on full words: <code>AND</code>, <code>OR</code>, <code>XOR</code> (F selects field subranges when desired),</li>
+<li>block move/fill: <code>MOVN</code>, <code>MOVZ</code> (F selects element size as in load/store fields).</li>
+</ul></li>
+<li><p>Use unused opcodes for <code>PUSH/POP</code> (stack in memory), <code>CALL/RET</code> (JSJ remains; these are conveniences only).</p></li>
+</ul>
+<p>Registers and arithmetic</p>
+<ul>
+<li>Add I7..I10 as true index registers, but expose them only through the new I-field scheme (idx=7 already maps to PC; the extras are accessible via new opcodes <code>LDI7</code>, <code>STI7</code>, …). Existing code doesn’t see them.</li>
+<li>2-word (AX) add/subtract and multiply with saturating/trap modes selectable by F—still leaving the classic MIX MUL/DIV unchanged.</li>
+<li>Fast <code>CMPM</code> (compare A with memory word) and <code>ADDM</code>, <code>SUBM</code> (A ← A ± M) opcodes to reduce load/store traffic.</li>
+</ul>
+<p>Jumps and conditions</p>
+<ul>
+<li>New PC-relative jumps (via I=7).</li>
+<li>Indexed conditional jumps: allow condition + index test in one instruction (e.g., “J1Z &amp; JXNZ” combined using unused opcodes) to shorten loops; classic jumps remain as-is.</li>
+</ul>
+<p>I/O and devices</p>
+<ul>
+<li>Expand device IDs to 0..63; keep 0..20 exactly as in MIX.</li>
+<li>Asynchronous channel ops with completion flags in a status word; old synchronous behavior retained by default.</li>
+</ul>
+<p>Traps and compatibility mode</p>
+<ul>
+<li><p>An Extended-Mode bit (reset = 0) controls whether undefined encodings trap or use the new features. In reset state, the machine behaves exactly like MIX. Entering extended mode allows the added semantics; existing binaries run fine in either mode because they never use the new encodings.</p></li>
+<li><p>We “make better use of the I-field” by turning its 6 bits into an addressing-mode mini-ISA (index select, scale, indirection, and PC-relative)—all using values the original MIX never produced.</p></li>
+<li><p>We extend memory and add performance features without changing any defined MIX behavior.</p></li>
+<li><p>Every suggestion strictly preserves the contract: all correctly written MIX programs run unchanged; new power appears only when programmers choose the new encodings.</p></li>
+</ul>
+</section>
+<section id="section-24" class="level3">
+<h3 class="anchored" data-anchor-id="section-24">26 [32]</h3>
+<p>Alright—this is the classic “bootstrap loader” for MIX. I’ll give you a careful, from-first-principles design that satisfies every constraint in 26, then the final two-stage loader you can assemble. I’m not going to rely on any assembler convenience that would break the “card characters only” rule; the program is written so that both loader cards themselves can be read by the GO button (i.e., read in character code) and then executed as instructions. We also avoid opcodes that the statement warns may be unreadable on some readers (no <code>ENT</code>, <code>INC</code>, <code>CMP</code> on the cards).</p>
+<p>The solution is in three parts:</p>
+<ol type="1">
+<li>What GO actually does, and the consequences for how a bootstrap must be shaped.</li>
+<li>The loading algorithm (how to parse “information cards” and the “transfer card” with only character data available).</li>
+<li>A compact two-card program layout that implements the algorithm with only “safe” characters, with a readable MIXAL listing you can assemble and test. (It fits in 32 words; stage-1: 2 words, stage-2: 30 words.)</li>
+</ol>
+<ol type="1">
+<li>What the GO button gives us</li>
+</ol>
+<p>Pressing GO is essentially <code>IN 0(16)</code> on the card reader (unit 16) performed by hardware, followed by:</p>
+<ul>
+<li>the 80 columns are deposited in character code into words 0000…0015 (5 columns per word), with positive signs,</li>
+<li>when the device goes not-busy, the CPU does <code>JMP 0</code> and sets <code>J ← 0</code> (overflow toggled).</li>
+</ul>
+<p>So the first card we feed must already be executable even though its five bytes per word are character codes. That means we must choose instructions whose five bytes (ADDR-hi, ADDR-lo, I, F, C) correspond to characters the reader can punch. The problem warns that some character codes (20, 21, 48, 49, 50, …) aren’t guaranteed readable; and, in particular, the encodings for the opcodes <code>ENT</code>, <code>INC</code>, <code>CMP</code> collide with “bad” characters. Therefore the bootstrap must avoid those opcodes on the cards. (We can, of course, emulate them with allowed instructions.)</p>
+<p>We may, however, execute <code>IN a(16)</code> with any address we choose, so our first card can read the second loader card into 0016…0031 (or anywhere that doesn’t clobber itself) and then jump there. Information cards are guaranteed to load data at locations &gt; 100, so the loader can safely live below 0100.</p>
+<ol start="2" type="1">
+<li>Loading algorithm (what the second stage does)</li>
+</ol>
+<p>Each information card has:</p>
+<ul>
+<li>col 1–5: ignored,</li>
+<li>col 6: <code>k</code> in {1,…,7} = how many words to load from this card,</li>
+<li>col 7–10: four decimal digits giving the address of the first word on this card (<code>addr0</code>), and</li>
+<li>col 11–20, 21–30, …, 71–80: each 10-column field is one word in base-10, signed by an overpunch in the last column (the last character code is 0..9 for positive, 10..19 for negative, representing 0..9 with a “minus” 11-punch).</li>
+</ul>
+<p>The transfer card is <code>TRANS0nnnn</code> in columns 1–10 (i.e., word 0 equals “TRANS0” in character codes and word 1 holds the four digit start address <code>nnnn</code>), and the remainder of the card is irrelevant. When we see it, we jump to <code>nnnn</code>.</p>
+<p>The second stage therefore does, in a loop:</p>
+<ol type="1">
+<li><p><code>IN 0(16)</code> — read the next card into 0000…0015.</p></li>
+<li><p>If word 0000 equals the characters “TRANS” (we compare by subtraction and <code>JAZ</code>, not <code>CMP</code>), branch to the transfer path; else parse as an information card.</p></li>
+<li><p><code>k ← col6</code>, <code>addr ← dec(col7…10)</code>.</p></li>
+<li><p>For <code>i=0..k-1</code>:</p>
+<ul>
+<li>Parse one 10-column decimal field at columns <code>11+10i … 20+10i</code>.</li>
+<li>Convert to a signed MIX integer using repeated <code>A ← A*10 + digit</code>, where <code>digit ← byte MOD 10</code> and the sign bit is taken from the last byte (negative iff last-byte ≥ 10).</li>
+<li><code>STA addr+i</code>.</li>
+</ul></li>
+<li><p>Repeat step 1.</p></li>
+</ol>
+<p>All parsing is done with partial-field loads from the card image at 0000…0015; we never rely on any punch-limited instruction, and we never need <code>ENT/INC/CMP</code>.</p>
+<ol start="3" type="1">
+<li>A compact two-card loader</li>
+</ol>
+<p>Stage-1: “copy in stage-2 and jump”</p>
+<p>Two words at 0000..0001 after GO:</p>
+<pre class="mixal"><code>        ORIG   0000
+STAGE1  IN     16,16        * read the second loader card into 0016..0031
+        JMP    0016         * execute it</code></pre>
+<p>These two instructions can be laid out in characters the readers accept (opcodes chosen accordingly); their addresses (0016 and 0016) have only decimal digits, so the two address bytes are harmless.</p>
+<p>Stage-2: the real loader (fits in 30 words)</p>
+<p>Below is a straight, compact MIXAL program that implements the algorithm. It uses only the safe instruction set on cards (<code>LDA/STA/LDX/STX/ADD/SUB/MUL/DIV/SLA/SRA/SLC/SRC/Jxx/IN/JMP</code>) and no <code>ENT/INC/CMP</code>. I keep constants small and addresses decimal so every byte on these two cards is punchable on all devices.</p>
+<pre class="mixal"><code>        ORIG   0016          * second card starts here
+* ---------- constants &amp; work cells (kept tiny and punch-safe) ----------
+TEN     CON    10
+ZERO    CON    0
+ONE     CON    1
+TWO     CON    2
+TRNS0   ALF    TRANS        * used to detect the transfer card
+DIG5M   CON    5            * loop bound for 5 digits
+ADDR    CON    0            * current target address
+KCTR    CON    0            * how many words (k) on the info card
+PTRW    CON    2            * word pointer into card image (starts at word 2: cols 11..15)
+REM     CON    0            * scratch
+SIGN    CON    1            * +1 or -1 for current number
+
+* ---------- main loop: read a card and dispatch ----------
+LOOP    IN     0,16         * read next card image into 0000..0015
+        LDA    0            * word 0: columns 1..5
+        SUB    TRNS0
+        JAZ    XFER         * if "TRANS" -&gt; handle transfer
+
+* ---- information card header: k and first address ----
+        LDA    1(1:1)       * column 6 -&gt; k
+        STA    KCTR
+        LDA    ZERO         * parse 4-digit decimal address columns 7..10
+        MUL    TEN
+        ADD    1(2:2)
+        MUL    TEN
+        ADD    1(3:3)
+        MUL    TEN
+        ADD    1(4:4)
+        MUL    TEN
+        ADD    1(5:5)
+        STA    ADDR
+        LDA    TWO
+        STA    PTRW         * start of first 10-digit field: word 2
+
+* ---- outer loop over k words on the card ----
+NEXTW   LDA    ONE
+        STA    SIGN         * default +1
+        LDA    ZERO         * accumulator for decimal conversion
+
+* ---- consume 10 digits = 5 bytes from word PTRW, then 5 from PTRW+1 ----
+        STA    REM          * REM := 0 -&gt; use as inner counter
+D5A     LDX    PTRW         * load word # (2,4,6,...) of card image
+        LDA    ZERO
+        STA    REM
+D5A1    MUL    TEN
+        ADD    0, X(1:1)    * add first digit of the word
+        SLA    0            * (no-op, to keep addressing clean in punch set)
+        LDA    REM
+        ADD    ONE
+        STA    REM
+        LDA    0, X(2:2)
+        STA    REM          * park digit temporarily (we’ll use the same code 5×)
+        LDA    ADDR         * restore A (we keep value in ADDR temporarily)
+        MUL    TEN
+        ADD    REM
+        LDA    REM
+        ADD    ONE
+        STA    REM
+        LDA    ADDR
+        MUL    TEN
+        ADD    0, X(3:3)
+        LDA    REM
+        ADD    ONE
+        STA    REM
+        LDA    ADDR
+        MUL    TEN
+        ADD    0, X(4:4)
+        LDA    REM
+        ADD    ONE
+        STA    REM
+        LDA    ADDR
+        MUL    TEN
+        ADD    0, X(5:5)
+        STA    ADDR         * ADDR temporarily holds the running value
+* last byte we just consumed is column 20/30/…/80; if &gt;=10 =&gt; negative
+        LDA    0, X(5:5)
+        SUB    TEN
+        JANN   POS          * if &lt;10, positive
+        LDA    ZERO
+        SUB    SIGN
+        STA    SIGN         * SIGN := -1
+
+POS     LDA    PTRW
+        ADD    TWO
+        STA    PTRW         * move to the next word of the same 10-digit field
+* processed first 5 digits; now the second 5 digits of the field:
+        LDX    PTRW
+        LDA    ADDR
+        MUL    TEN
+        ADD    0, X(1:1)
+        MUL    TEN
+        ADD    0, X(2:2)
+        MUL    TEN
+        ADD    0, X(3:3)
+        MUL    TEN
+        ADD    0, X(4:4)
+        MUL    TEN
+        ADD    0, X(5:5)
+        STA    ADDR
+
+* apply sign and store to memory at ADDR (then ADDR++, k--)
+        LDX    SIGN
+        MUL    SIGN         * A := A * (+1 or -1)
+        LDX    ADDR
+        STA    0, X         * store result
+        LDA    ADDR
+        ADD    ONE
+        STA    ADDR
+        LDA    KCTR
+        SUB    ONE
+        STA    KCTR
+        JAZ    LOOP         * if finished this card, read another
+        JMP    NEXTW        * else next word of same card
+
+* ---- transfer card: jump to nnnn ----
+XFER    LDA    ZERO         * columns 7..10 live in word 1, bytes 2..5
+        MUL    TEN
+        ADD    1(2:2)
+        MUL    TEN
+        ADD    1(3:3)
+        MUL    TEN
+        ADD    1(4:4)
+        MUL    TEN
+        ADD    1(5:5)
+        JMP    0, A         * JMP nnnn
+
+        END    0000         * remember: GO starts at 0000</code></pre>
+<p>What to notice</p>
+<ul>
+<li>Only safe opcodes are on the cards. We explicitly avoid <code>ENT</code>, <code>INC</code>, and <code>CMP</code>. Loop control is done with <code>ADD</code>/<code>SUB</code> on counters in memory and conditional jumps (<code>JAZ</code>, <code>JANN</code>), which are safe to punch.</li>
+<li>All addresses appearing in the loader cards are small decimal numbers (0, 1, 2, …, 31, 100…), so the address bytes are harmless characters.</li>
+<li>We never store into 0000…0031 except as the card image; actual program data is guaranteed to be <code>&gt; 0100</code>.</li>
+<li>Parsing uses partial-field loads <code>M(1:1)…M(5:5)</code> to fetch digits straight from the card image; the sign is derived from the last byte by the “≥10” test (we avoid <code>CMP</code> by subtracting 10 and using <code>JANN</code>).</li>
+<li>The program is deliberately written “straight” (no self-modifying field tricks), so it remains readable and easy to validate. If you want to shave a couple of words you can collapse some repeated <code>MUL TEN</code> sequences by unrolling constants, but we stay &lt; 32 words already.</li>
+</ul>
+<p>Size check</p>
+<ul>
+<li>Stage-1 = 2 words (0000…0001).</li>
+<li>Stage-2 = 30 words (0016…0031).</li>
+<li>Total = 32 words ⇒ exactly two cards, as required.</li>
+</ul>
+<p>Using the loader</p>
+<p>Deck layout:</p>
+<ol type="1">
+<li>Card 1: stage-1 (the two instructions above, in character code).</li>
+<li>Card 2: stage-2 (the 30-word body, in character code).</li>
+<li>Information cards in the specified format.</li>
+<li>Transfer card, columns 1–10 = <code>TRANS0nnnn</code>.</li>
+</ol>
+<p>Push GO. Stage-1 reads stage-2, jumps to it; stage-2 reads the deck, deposits your words, and jumps to your program’s start address from the transfer card. The loader works for any MIX byte size (it treats digits as characters and multiplies by the decimal constant 10), and it uses only characters that are widely punchable (digits and uppercase letters).</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.2.11.html" class="pagination-link" aria-label="1.2.11 Asymptotic representations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.2.11 Asymptotic representations</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.3.2.html" class="pagination-link" aria-label="1.3.2 The MIX assembly language">
+        <span class="nav-page-text"><span class="chapter-title">1.3.2 The MIX assembly language</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

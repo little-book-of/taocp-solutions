@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.2.1 Mathematical induction – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.2.2.html" rel="next">
+<link href="../vol-1/1.1.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.2.1.html"><span class="chapter-title">1.2.1 Mathematical induction</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [5]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [15]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3 [18]</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4 [20]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">5 [21]</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">6 [20]</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">7 [23]</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">8 [25]</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">9 [20]</a></li>
+  <li><a href="#m22" id="toc-m22" class="nav-link" data-scroll-target="#m22">10 [M22]</a></li>
+  <li><a href="#m30" id="toc-m30" class="nav-link" data-scroll-target="#m30">11 [M30]</a></li>
+  <li><a href="#m25" id="toc-m25" class="nav-link" data-scroll-target="#m25">12 [M25]</a></li>
+  <li><a href="#m23" id="toc-m23" class="nav-link" data-scroll-target="#m23">13 [M23]</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">14 [50]</a></li>
+  <li><a href="#hm28" id="toc-hm28" class="nav-link" data-scroll-target="#hm28">15 [HM28]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.2.1 Mathematical induction</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1 [5]</h3>
+<ol type="1">
+<li>Weak induction starting at 0</li>
+</ol>
+<p>To prove <span class="math inline">\(P(n)\)</span> for all <span class="math inline">\(n\ge 0\)</span>, use this two-part template:</p>
+<ol type="1">
+<li><p><strong>Base case.</strong> Prove <span class="math inline">\(P(0)\)</span>.</p></li>
+<li><p><strong>Inductive step.</strong> Prove <span class="math inline">\(\forall k\ge 0\)</span>, <span class="math inline">\(P(k)\Rightarrow P(k+1)\)</span>.</p></li>
+</ol>
+<p>Then by the same “Algorithm I” logic Knuth gives for induction (but with the initial index shifted), the procedure constructs a proof for <span class="math inline">\(P(0),P(1),\dots,P(n)\)</span> in order, hence <span class="math inline">\(P(n)\)</span> holds for every <span class="math inline">\(n\ge 0\)</span>. Informally: from <span class="math inline">\(P(0)\)</span> the step yields <span class="math inline">\(P(1)\)</span>; from <span class="math inline">\(P(1)\)</span> it yields <span class="math inline">\(P(2)\)</span>; and so on. ([PagePlace][1])</p>
+<ol start="2" type="1">
+<li>Strong induction starting at 0 (often convenient)</li>
+</ol>
+<p>Sometimes the step needs more than just <span class="math inline">\(P(k)\)</span>. Then use:</p>
+<ol type="1">
+<li><p><strong>Base case.</strong> Prove <span class="math inline">\(P(0)\)</span>.</p></li>
+<li><p><strong>Inductive step (strong).</strong> Assume <span class="math inline">\(P(0),P(1),\dots,P(k)\)</span> are all true; prove <span class="math inline">\(P(k+1)\)</span>.</p></li>
+</ol>
+<p>This is equivalent in strength to weak induction but can be easier to apply in algorithm proofs or recurrences. (Knuth emphasizes the algorithmic viewpoint of induction and its “construct a proof” interpretation.) ([PagePlace][1])</p>
+<ol start="3" type="1">
+<li>General “shifted” induction (for all <span class="math inline">\(n\ge n_0\)</span>)</li>
+</ol>
+<p>More generally, if you want <span class="math inline">\(P(n)\)</span> for all <span class="math inline">\(n\ge n_0\)</span> (with any integer <span class="math inline">\(n_0\)</span>), prove:</p>
+<ol type="1">
+<li><p><strong>Base case.</strong> <span class="math inline">\(P(n_0)\)</span>.</p></li>
+<li><p><strong>Step.</strong> <span class="math inline">\(\forall k\ge n_0\)</span>, <span class="math inline">\(P(k)\Rightarrow P(k+1)\)</span>.</p></li>
+</ol>
+<p>This reduces immediately to the <span class="math inline">\(n_0=0\)</span> form by reindexing <span class="math inline">\(m=n-n_0\)</span>.</p>
+<ol start="4" type="1">
+<li>Quick example</li>
+</ol>
+<p>Claim: for all <span class="math inline">\(n\ge 0\)</span>, <span class="math inline">\(\sum_{i=1}^{n} i = \frac{n(n+1)}{2}\)</span>.</p>
+<ul>
+<li><p><strong>Base:</strong> <span class="math inline">\(n=0\)</span>: empty sum <span class="math inline">\(=0\)</span>, and <span class="math inline">\(\frac{0\cdot1}{2}=0\)</span>.</p></li>
+<li><p><strong>Step:</strong> Assume <span class="math inline">\(\sum_{i=1}^{k} i = \frac{k(k+1)}{2}\)</span>. Then</p>
+<p><span class="math display">\[
+\sum_{i=1}^{k+1} i=\frac{k(k+1)}{2}+(k+1)=\frac{(k+1)(k+2)}{2},
+\]</span></p>
+<p>which is the formula with <span class="math inline">\(k+1\)</span>. Hence true for all <span class="math inline">\(n\ge 0\)</span>.</p></li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2 [15]</h3>
+<p>Here’s the issue with the “proof”.</p>
+<p>The induction step <em>implicitly uses a case outside the hypothesis</em> on the very first step:</p>
+<ul>
+<li><p>The step computes <span class="math inline">\(a^n = a^{n-1}\cdot a^{n-1} / a^{(n-1)-1}\)</span>. That references both <span class="math inline">\(a^{n-1}\)</span> <strong>and</strong> <span class="math inline">\(a^{n-2}\)</span>.</p></li>
+<li><p>Strong induction allows you to assume the statement for <span class="math inline">\(1,\dots,n\)</span>; however, when <span class="math inline">\(n=1\)</span> (the first time the step must be valid), this formula needs <span class="math inline">\(a^{n-2}=a^{-1}\)</span>. The statement being proved was only for <strong>positive</strong> integers <span class="math inline">\(n\)</span>; it says nothing about <span class="math inline">\(n=0\)</span> (which would correspond to the exponent <span class="math inline">\(-1\)</span> here). So the step is <strong>not valid for <span class="math inline">\(n=1\)</span></strong> because it relies on <span class="math inline">\(P(0)\)</span>, which isn’t part of the induction hypothesis. Put differently: the inductive step requires two earlier cases, <span class="math inline">\(n-1\)</span> and <span class="math inline">\(n-2\)</span>; therefore it would need base cases covering up through <span class="math inline">\(n=2\)</span> and also a statement for <span class="math inline">\(n=0\)</span>. But the proposition for <span class="math inline">\(n=0\)</span> would be <span class="math inline">\(a^{-1}=1\)</span>, which is false unless <span class="math inline">\(a=1\)</span>.</p></li>
+<li><p>Concretely, try <span class="math inline">\(a=2\)</span>. The “proof” would force <span class="math inline">\(2^{1}=1\)</span> at <span class="math inline">\(n=2\)</span>, a contradiction.</p></li>
+</ul>
+<p>So the mistake is an <em>illegitimate induction step</em>: it invokes the assertion for <span class="math inline">\(n-2\)</span> (and at the first step, effectively <span class="math inline">\(n=0\)</span>) even though the theorem is only stated for positive <span class="math inline">\(n\)</span>. The step therefore doesn’t establish “for all <span class="math inline">\(n\)</span>, if <span class="math inline">\(P(1),\dots,P(n)\)</span> then <span class="math inline">\(P(n+1)\)</span>”—it already fails at <span class="math inline">\(n=1\)</span>.</p>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3 [18]</h3>
+<p>Let <span class="math inline">\(P(n)\)</span> be the statement</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n-1}\frac{1}{k(k+1)}=\frac{3}{2}-\frac{1}{n}.
+\]</span></p>
+<ul>
+<li>For <span class="math inline">\(n=1\)</span>, the left side is an <strong>empty sum</strong>, hence <span class="math inline">\(0\)</span>. The right side is <span class="math inline">\(3/2-1=1/2\)</span>. So <span class="math inline">\(P(1)\)</span> is <strong>false</strong>.</li>
+</ul>
+<p>In the bogus proof, the “base case” line says “for <span class="math inline">\(n=1\)</span>, clearly <span class="math inline">\(\tfrac{3}{2}-\tfrac1n=\tfrac1{1\cdot2}\)</span>.” That equality is numerically true (<span class="math inline">\(1/2=1/2\)</span>) <strong>but it is not <span class="math inline">\(P(1)\)</span></strong>; it mistakenly replaces the empty sum (the actual left-hand side for <span class="math inline">\(n=1\)</span>) with the first term <span class="math inline">\(\tfrac{1}{1\cdot2}\)</span>, which belongs to <span class="math inline">\(n\ge2\)</span>. In short, the base case checks the wrong statement. Without a correct base case, the induction proves nothing.</p>
+<p>(Algebra in the inductive step is fine; the logic fails because the induction starts from a false/unchecked base.)</p>
+<p>The correct identity (and proof)</p>
+<p>The true formula is</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n-1}\frac{1}{k(k+1)} \;=\; 1-\frac{1}{n}.
+\]</span></p>
+<p>Reason: <span class="math inline">\(\frac{1}{k(k+1)}=\frac{1}{k}-\frac{1}{k+1}\)</span> telescopes, giving</p>
+<p><span class="math display">\[
+\Bigl(1-\tfrac12\Bigr)+\Bigl(\tfrac12-\tfrac13\Bigr)+\cdots+\Bigl(\tfrac1{n-1}-\tfrac1n\Bigr)=1-\tfrac1n.
+\]</span></p>
+<p>If you want an induction proof:</p>
+<ul>
+<li>Base <span class="math inline">\(n=1\)</span>: empty sum <span class="math inline">\(=0=1-1\)</span>.</li>
+<li>Step: assume <span class="math inline">\(\sum_{k=1}^{n-1}\frac{1}{k(k+1)}=1-\frac{1}{n}\)</span>. Then</li>
+</ul>
+<p><span class="math display">\[
+\sum_{k=1}^{n}\frac{1}{k(k+1)}
+= \left(1-\frac{1}{n}\right) + \frac{1}{n(n+1)}
+= 1-\frac{1}{n+1}.
+\]</span></p>
+<p>Sanity check at <span class="math inline">\(n=6\)</span></p>
+<p>LHS <span class="math inline">\(=\frac12+\frac16+\frac1{12}+\frac1{20}+\frac1{30}= \frac56\)</span>.</p>
+<ul>
+<li>False formula’s RHS: <span class="math inline">\(\tfrac32-\tfrac16=\tfrac43\)</span> (doesn’t match).</li>
+<li>True formula’s RHS: <span class="math inline">\(1-\tfrac16=\tfrac56\)</span> (matches).</li>
+</ul>
+<p>So the error in the exercise’s “proof” is a faulty base case: it confuses the empty sum for <span class="math inline">\(n=1\)</span> with the first term <span class="math inline">\(1/(1\cdot2)\)</span>.</p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">4 [20]</h3>
+<p>Ingredients.</p>
+<ol type="1">
+<li>Fibonacci recurrence: <span class="math inline">\(F_n = F_{n-1}+F_{n-2}\)</span> for <span class="math inline">\(n&gt;1\)</span> (with <span class="math inline">\(F_0=0, F_1=1\)</span>).</li>
+<li>Golden-ratio identity: <span class="math inline">\(\varphi^2=\varphi+1\)</span> (equivalently, <span class="math inline">\(\varphi\)</span> is the positive root of <span class="math inline">\(x^2=x+1\)</span>).</li>
+<li>Context from the text: together with Eq. (3) in §1.2.1, these bounds form the pair <span class="math inline">\(\varphi^{n-2}\le F_n\le \varphi^{n-1}\)</span>. </li>
+</ol>
+<p>Base cases.</p>
+<ul>
+<li><span class="math inline">\(n=1\)</span>: <span class="math inline">\(F_1=1\)</span> and <span class="math inline">\(\varphi^{1-2}=\varphi^{-1}\approx 0.618\)</span>. Hence <span class="math inline">\(F_1\ge \varphi^{-1}\)</span>.</li>
+<li><span class="math inline">\(n=2\)</span>: <span class="math inline">\(F_2=1\)</span> and <span class="math inline">\(\varphi^{2-2}=\varphi^{0}=1\)</span>. Hence <span class="math inline">\(F_2\ge \varphi^{0}\)</span> (equality).</li>
+</ul>
+<p>Inductive step. Assume the inequality holds for all integers up to <span class="math inline">\(n\)</span> (with <span class="math inline">\(n\ge 2\)</span>), in particular</p>
+<p><span class="math display">\[
+F_n \ge \varphi^{\,n-2}\quad\text{and}\quad F_{n-1}\ge \varphi^{\,n-3}.
+\]</span></p>
+<p>Then, using the Fibonacci recurrence,</p>
+<p><span class="math display">\[
+F_{n+1}=F_n+F_{n-1}\;\ge\;\varphi^{\,n-2}+\varphi^{\,n-3}
+= \varphi^{\,n-3}(\varphi+1)
+= \varphi^{\,n-3}\varphi^{2}
+= \varphi^{\,n-1},
+\]</span></p>
+<p>where we used <span class="math inline">\(\varphi^2=\varphi+1\)</span>. Thus <span class="math inline">\(F_{n+1}\ge \varphi^{\,n-1}\)</span>, completing the induction.</p>
+<p>Therefore <span class="math inline">\(F_n\ge \varphi^{\,n-2}\)</span> for all positive integers <span class="math inline">\(n\)</span>.</p>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">5 [21]</h3>
+<p>Base case (<span class="math inline">\(n=2\)</span>).</p>
+<p><span class="math inline">\(2\)</span> is prime, so it is already a (one-factor) product of primes. Thus <span class="math inline">\(P(2)\)</span> holds.</p>
+<p>Induction step. Assume <span class="math inline">\(P(n)\)</span> holds for some <span class="math inline">\(n\ge 2\)</span>; i.e., every integer <span class="math inline">\(m\)</span> with <span class="math inline">\(2\le m\le n\)</span> is a product of primes. We must show <span class="math inline">\(P(n+1)\)</span>: that <span class="math inline">\(n+1\)</span> is a product of primes.</p>
+<p>Consider <span class="math inline">\(n+1\)</span> in two cases.</p>
+<ol type="1">
+<li><p><span class="math inline">\(n+1\)</span> is prime. Then <span class="math inline">\(n+1\)</span> itself is a (one-factor) product of primes, so we’re done.</p></li>
+<li><p><span class="math inline">\(n+1\)</span> is composite. Then there exist integers <span class="math inline">\(a,b\)</span> with <span class="math inline">\(1&lt;a\le b&lt;n+1\)</span> and <span class="math inline">\(n+1=ab\)</span>. Hence <span class="math inline">\(2\le a\le n\)</span> and <span class="math inline">\(2\le b\le n\)</span>. By the induction hypothesis, both <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> can be written as products of primes. Multiplying those two prime products gives a prime product for <span class="math inline">\(n+1\)</span>.</p></li>
+</ol>
+<p>In either case, <span class="math inline">\(n+1\)</span> is a product of primes, so <span class="math inline">\(P(n+1)\)</span> holds. By strong induction, <span class="math inline">\(P(n)\)</span> is true for all <span class="math inline">\(n\ge 2\)</span>.</p>
+<p>Every integer <span class="math inline">\(&gt;1\)</span> can be expressed as a product of primes (existence of prime factorization).</p>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">6 [20]</h3>
+<p>In Algorithm E (Extended Euclid) Knuth defines variables <span class="math inline">\(a',a,b',b,c,d\)</span> and at step <strong>E2</strong> we compute <span class="math inline">\(q,r\)</span> with</p>
+<p><span class="math display">\[
+c = qd + r,\qquad 0\le r&lt;d.
+\]</span></p>
+<p>Step <strong>E4</strong> then updates the variables as follows:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;c\leftarrow d,\quad d\leftarrow r,\\
+&amp;t\leftarrow a',\quad a'\leftarrow a,\quad a\leftarrow t-qa,\\
+&amp;t\leftarrow b',\quad b'\leftarrow b,\quad b\leftarrow t-qb,
+\end{aligned}
+\]</span></p>
+<p>and the claimed invariants are</p>
+<p><span class="math display">\[
+a'm+b'n=c,\qquad am+bn=d. \tag{6}
+\]</span></p>
+<p>The problem is to <strong>prove that if (6) holds just before E4, it still holds immediately after E4</strong>. </p>
+<p>Assume, just before executing <strong>E4</strong>, that</p>
+<p><span class="math display">\[
+a'm+b'n=c,\qquad am+bn=d,
+\]</span></p>
+<p>and that at <strong>E2</strong> we computed <span class="math inline">\(q,r\)</span> with <span class="math inline">\(c=qd+r\)</span>.</p>
+<p>Let “old” denote values before E4 and “new” the values after E4.</p>
+<p>From the assignment list of <strong>E4</strong> we have:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{new }c &amp;= \text{old }d,\\
+\text{new }d &amp;= \text{old }r = \text{old }c - q\,\text{old }d,\\
+\text{new }a' &amp;= \text{old }a,\qquad \text{new }a = \text{old }a' - q\,\text{old }a,\\
+\text{new }b' &amp;= \text{old }b,\qquad \text{new }b = \text{old }b' - q\,\text{old }b.
+\end{aligned}
+\]</span></p>
+<p>Invariant 1</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{new }a' \, m + \text{new }b' \, n
+&amp;= (\text{old }a)m + (\text{old }b)n \\
+&amp;= \text{old }(am+bn) \\
+&amp;= \text{old }d \\
+&amp;= \text{new }c.
+\end{aligned}
+\]</span></p>
+<p>So <span class="math inline">\(a'm+b'n=c\)</span> holds after E4.</p>
+<p>Invariant 2</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{new }a \, m + \text{new }b \, n
+&amp;= (\text{old }a' - q\,\text{old }a)m + (\text{old }b' - q\,\text{old }b)n\\
+&amp;= \text{old }(a'm+b'n) - q\,\text{old }(am+bn)\\
+&amp;= \text{old }c - q\,\text{old }d\\
+&amp;= \text{old }r\\
+&amp;= \text{new }d.
+\end{aligned}
+\]</span></p>
+<p>So <span class="math inline">\(am+bn=d\)</span> also holds after E4.</p>
+<p>Both equalities (6) are therefore preserved by E4. Because (6) is also true at initialization (E1 sets <span class="math inline">\(a'=1,a=0,b'=0,b=1,c=m,d=n\)</span>, which clearly satisfies <span class="math inline">\(a'm+b'n=m=c\)</span> and <span class="math inline">\(am+bn=n=d\)</span>), the invariants hold every time we return to E2. This is exactly the fact Knuth alludes to next to Eq. (6).</p>
+</section>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">7 [23]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+S_n \;=\; n^2-(n-1)^2+(n-2)^2-\cdots+(-1)^{n-1}1^2
+\]</span></p>
+<p>(i.e., start at <span class="math inline">\(n^2\)</span> and alternate signs down to <span class="math inline">\(1^2\)</span>). We claim</p>
+<p><span class="math display">\[
+\boxed{\,S_n=\frac{n(n+1)}{2}\,}\quad\text{for all }n\ge 1.
+\]</span></p>
+<p>Induction proof</p>
+<p><strong>Base <span class="math inline">\(n=1\)</span>.</strong> <span class="math inline">\(S_1=1^2=1=\frac{1\cdot2}{2}\)</span>, true.</p>
+<p><strong>Inductive step.</strong> Assume <span class="math inline">\(S_n=\frac{n(n+1)}{2}\)</span> for some <span class="math inline">\(n\ge1\)</span>. Observe the simple recurrence (just “prepend” <span class="math inline">\((n+1)^2\)</span> and flip all subsequent signs):</p>
+<p><span class="math display">\[
+S_{n+1}=(n+1)^2 - S_n.
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+S_{n+1}=(n+1)^2-\frac{n(n+1)}{2}
+=(n+1)\Bigl((n+1)-\frac n2\Bigr)
+=\frac{(n+1)(n+2)}{2},
+\]</span></p>
+<p>which is the desired formula with <span class="math inline">\(n\)</span> replaced by <span class="math inline">\(n+1\)</span>. By induction, the identity holds for all <span class="math inline">\(n\ge1\)</span>.</p>
+</section>
+<section id="section-7" class="level3">
+<h3 class="anchored" data-anchor-id="section-7">8 [25]</h3>
+<ol type="a">
+<li>Nicomachus’s theorem (cubes are sums of consecutive odd numbers)</li>
+</ol>
+<p>Claim. For every integer <span class="math inline">\(k\ge1\)</span>,</p>
+<p><span class="math display">\[
+k^3=\underbrace{(k^2-k+1)+(k^2-k+3)+\cdots+(k^2+k-1)}_{\text{\(k\) consecutive odd numbers}}.
+\]</span></p>
+<p>Proof by induction on <span class="math inline">\(k\)</span>.</p>
+<ul>
+<li><p>Base case <span class="math inline">\(k=1\)</span>. Right side is <span class="math inline">\(1\)</span>; indeed <span class="math inline">\(1^3=1\)</span>.</p></li>
+<li><p>Inductive step. Assume the formula holds for <span class="math inline">\(k=n\)</span>:</p>
+<p><span class="math display">\[
+n^3=\sum_{i=0}^{n-1}\bigl(n^2-n+1+2i\bigr).
+\]</span></p>
+<p>Consider <span class="math inline">\(k=n+1\)</span>. The next block of <span class="math inline">\((n+1)\)</span> consecutive odd numbers runs</p>
+<p><span class="math display">\[
+n^2+n+1,\;n^2+n+3,\;\ldots,\;n^2+3n+1,
+\]</span></p>
+<p>i.e., <span class="math inline">\(\sum_{i=0}^{n}\bigl(n^2+n+1+2i\bigr)\)</span>. Its sum is</p>
+<p><span class="math display">\[
+(n+1)(n^2+n+1)+2\sum_{i=0}^{n} i
+=(n+1)(n^2+n+1)+n(n+1)=(n+1)\bigl(n^2+2n+1\bigr)=(n+1)^3.
+\]</span></p>
+<p>Adding this block to the block that sums to <span class="math inline">\(n^3\)</span> “moves” from the <span class="math inline">\(n\)</span>-case to the <span class="math inline">\((n+1)\)</span>-case, so the pattern holds for <span class="math inline">\(n+1\)</span>.</p></li>
+</ul>
+<p>Thus, by induction, the claim is true for all <span class="math inline">\(k\ge1\)</span>.</p>
+<ol start="2" type="a">
+<li>Sum of the first <span class="math inline">\(n\)</span> cubes</li>
+</ol>
+<p>From part (a), <span class="math inline">\(k^3\)</span> is the sum of a block of <span class="math inline">\(k\)</span> consecutive odd numbers. Concatenating the blocks for <span class="math inline">\(k=1,2,\ldots,n\)</span> uses exactly</p>
+<p><span class="math display">\[
+1+2+\cdots+n=\frac{n(n+1)}{2}
+\]</span></p>
+<p>odd numbers. But the sum of the first <span class="math inline">\(m\)</span> odd numbers is <span class="math inline">\(m^2\)</span> (proved earlier in the section as <span class="math inline">\(1+3+\cdots+(2m-1)=m^2\)</span>). </p>
+<p>Set <span class="math inline">\(m=\dfrac{n(n+1)}{2}\)</span>. Then</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n} k^3
+=\text{(sum of the first \(m\) odd numbers)}
+=m^2
+=\left(\frac{n(n+1)}{2}\right)^2
+=\bigl(1+2+\cdots+n\bigr)^2.
+\]</span></p>
+<p>This is exactly the desired identity.</p>
+</section>
+<section id="section-8" class="level3">
+<h3 class="anchored" data-anchor-id="section-8">9 [20]</h3>
+<p><strong>Claim.</strong> For every integer <span class="math inline">\(n\ge 1\)</span> and <span class="math inline">\(0&lt;a&lt;1\)</span>, <span class="math inline">\((1-a)^n \ge 1-na\)</span>.</p>
+<p><strong>Base case (<span class="math inline">\(n=1\)</span>).</strong> <span class="math inline">\((1-a)^1 = 1-a = 1-1\cdot a\)</span>. True (equality).</p>
+<p><strong>Induction step.</strong> Assume for some <span class="math inline">\(n\ge 1\)</span> that <span class="math inline">\((1-a)^n \ge 1-na\)</span>. Because <span class="math inline">\(0&lt;a&lt;1\)</span>, we have <span class="math inline">\(1-a\ge 0\)</span>. Multiplying the induction hypothesis by the nonnegative number <span class="math inline">\((1-a)\)</span> preserves the inequality:</p>
+<p><span class="math display">\[
+(1-a)^{n+1}
+= (1-a)^n(1-a)
+\;\ge\; (1-na)(1-a)
+= 1-(n+1)a + n a^2
+\;\ge\; 1-(n+1)a,
+\]</span></p>
+<p>since <span class="math inline">\(n a^2\ge 0\)</span>. Thus the statement holds for <span class="math inline">\(n+1\)</span>.</p>
+<p>By induction, the inequality holds for all integers <span class="math inline">\(n\ge 1\)</span>.</p>
+</section>
+<section id="m22" class="level3">
+<h3 class="anchored" data-anchor-id="m22">10 [M22]</h3>
+<p>Base case (<span class="math inline">\(n=10\)</span>). <span class="math inline">\(2^{10}=1024 &gt; 1000 = 10^3\)</span>. So the statement holds for <span class="math inline">\(n=10\)</span>.</p>
+<p>Inductive step. Assume <span class="math inline">\(2^n &gt; n^3\)</span> for some <span class="math inline">\(n\ge 10\)</span>. We must show <span class="math inline">\(2^{n+1}&gt;(n+1)^3\)</span>.</p>
+<p>From the inductive hypothesis,</p>
+<p><span class="math display">\[
+2^{n+1}=2\cdot 2^n \;&gt;\; 2\,n^3.
+\]</span></p>
+<p>Thus it suffices to prove <span class="math inline">\(2\,n^3 \ge (n+1)^3\)</span>, i.e.</p>
+<p><span class="math display">\[
+2 \;\ge\; \Bigl(1+\frac1n\Bigr)^3.
+\]</span></p>
+<p>For <span class="math inline">\(n\ge 4\)</span> we have</p>
+<p><span class="math display">\[
+\Bigl(1+\frac1n\Bigr)^3
+= 1+\frac{3}{n}+\frac{3}{n^2}+\frac{1}{n^3}
+\le 1+\frac{3}{4}+\frac{3}{16}+\frac{1}{64}
+= \frac{125}{64}
+&lt; 2.
+\]</span></p>
+<p>Since our induction starts at <span class="math inline">\(n\ge 10\)</span>, the inequality certainly holds; hence</p>
+<p><span class="math display">\[
+2^{n+1} \;&gt;\; 2\,n^3 \;\ge\; (n+1)^3,
+\]</span></p>
+<p>which completes the inductive step.</p>
+<p>By induction, <span class="math inline">\(2^n&gt;n^3\)</span> for all <span class="math inline">\(n\ge 10\)</span>. ∎</p>
+<p>Remarks</p>
+<ul>
+<li><p>The threshold <span class="math inline">\(n\ge 10\)</span> is sharp: <span class="math inline">\(2^9=512&lt;729=9^3\)</span>, so the claim fails at <span class="math inline">\(n=9\)</span> but holds from <span class="math inline">\(n=10\)</span> onward.</p></li>
+<li><p>An equivalent (and sometimes handy) way to see the step is to expand the difference directly:</p>
+<p><span class="math display">\[
+2n^3-(n+1)^3 = n^3-3n^2-3n-1
+= (n-1)^3-6n,
+\]</span></p>
+<p>which is <span class="math inline">\(&gt;0\)</span> for all <span class="math inline">\(n\ge 10\)</span> (e.g., at <span class="math inline">\(n=10\)</span>: <span class="math inline">\(729-60=669&gt;0\)</span>).</p></li>
+</ul>
+</section>
+<section id="m30" class="level3">
+<h3 class="anchored" data-anchor-id="m30">11 [M30]</h3>
+<p>Step 1: A key algebraic identity</p>
+<p>Factor the denominator:</p>
+<p><span class="math display">\[
+x^4+4=(x^2+2x+2)(x^2-2x+2)=(x+1)^2+1\;\; \times\;\; (x-1)^2+1.
+\]</span></p>
+<p>Seek constants <span class="math inline">\(A,B,C,D\)</span> with</p>
+<p><span class="math display">\[
+\frac{x^3}{x^4+4}=\frac{Ax+B}{x^2+2x+2}+\frac{Cx+D}{x^2-2x+2}.
+\]</span></p>
+<p>Equating coefficients gives <span class="math inline">\(A=C=\tfrac12\)</span>, <span class="math inline">\(B=\tfrac12\)</span>, <span class="math inline">\(D=-\tfrac12\)</span>. Hence</p>
+<p><span class="math display">\[
+\boxed{\;\frac{x^3}{x^4+4}
+=\frac12\!\left(\frac{x+1}{x^2+2x+2}+\frac{x-1}{x^2-2x+2}\right)
+=\frac12\!\left(\frac{x+1}{(x+1)^2+1}+\frac{x-1}{(x-1)^2+1}\right)\; } \tag{★}
+\]</span></p>
+<p>Step 2: Plug in <span class="math inline">\(x=2k+1\)</span></p>
+<p>With <span class="math inline">\(x=2k+1\)</span>,</p>
+<p><span class="math display">\[
+\frac{(2k+1)^3}{(2k+1)^4+4}
+=\frac12\left(\frac{2k+2}{(2k+2)^2+1}+\frac{2k}{(2k)^2+1}\right).
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+S_n=\frac12\sum_{k=0}^n(-1)^k\!\left(\frac{2k+2}{(2k+2)^2+1}+\frac{2k}{(2k)^2+1}\right).
+\]</span></p>
+<p>Split into two sums and shift index in the first:</p>
+<p><span class="math display">\[
+\begin{aligned}
+S_n&amp;=\frac12\Bigg[\sum_{k=0}^n(-1)^k\frac{2k}{(2k)^2+1}
++\sum_{k=0}^n(-1)^k\frac{2k+2}{(2k+2)^2+1}\Bigg]\\
+&amp;=\frac12\Bigg[\sum_{j=0}^n(-1)^j\frac{2j}{(2j)^2+1}
+-\sum_{j=1}^{n+1}(-1)^j\frac{2j}{(2j)^2+1}\Bigg].
+\end{aligned}
+\]</span></p>
+<p>Now everything cancels <strong>telescopically</strong> except the endpoint terms <span class="math inline">\(j=0\)</span> (which is <span class="math inline">\(0\)</span>) and <span class="math inline">\(j=n+1\)</span>:</p>
+<p><span class="math display">\[
+S_n=\frac12\left[0-(-1)^{\,n+1}\frac{2(n+1)}{(2(n+1))^2+1}\right]
+=\boxed{\;(-1)^n\,\frac{n+1}{4(n+1)^2+1}\; }.
+\]</span></p>
+<p>Quick checks</p>
+<ul>
+<li><span class="math inline">\(n=0\)</span>: <span class="math inline">\(S_0=\dfrac{1}{1^4+4}=\dfrac15\)</span>. Formula gives <span class="math inline">\(\dfrac{1}{4\cdot1^2+1}=\dfrac15\)</span>.</li>
+<li><span class="math inline">\(n=1\)</span>: <span class="math inline">\(S_1=\dfrac15-\dfrac{27}{85}=-\dfrac{2}{17}\)</span>. Formula gives <span class="math inline">\(-\dfrac{2}{17}\)</span>.</li>
+</ul>
+<p><strong>Answer.</strong> <span class="math inline">\(\displaystyle \boxed{\,\sum_{k=0}^{n}(-1)^k\frac{(2k+1)^3}{(2k+1)^4+4}=(-1)^n\frac{n+1}{4(n+1)^2+1}\,}\)</span>.</p>
+</section>
+<section id="m25" class="level3">
+<h3 class="anchored" data-anchor-id="m25">12 [M25]</h3>
+<p>Generalize Euclid’s Algorithm <strong>E</strong> so it can accept inputs of the form <span class="math inline">\(u+v\sqrt{2}\)</span> (with <span class="math inline">\(u,v\in\mathbb Z\)</span>) and still do all computations “elementarily” (i.e., without using an infinite decimal for <span class="math inline">\(\sqrt{2}\)</span>). Then prove the computation does <strong>not</strong> terminate when <span class="math inline">\(m=1\)</span> and <span class="math inline">\(n=\sqrt{2}\)</span>. (Knuth hints at this generalization and the non-termination case in the text; the exercise states it explicitly.)</p>
+<p>A. Generalizing Algorithm E to inputs <span class="math inline">\(u+v\sqrt{2}\)</span> Representation and primitive operations</p>
+<p>Represent each value <span class="math inline">\(x\)</span> as an integer pair <span class="math inline">\((u,v)\)</span> meaning <span class="math inline">\(x=u+v\sqrt{2}\)</span>.</p>
+<ul>
+<li><p><strong>Addition/Subtraction.</strong> <span class="math inline">\((u_1,v_1)\pm(u_2,v_2)=(u_1\pm u_2,\; v_1\pm v_2)\)</span> — integer work only.</p></li>
+<li><p><strong>Zero test.</strong> <span class="math inline">\((u,v)=0\iff u=0 \land v=0\)</span>.</p></li>
+<li><p><strong>Sign/Comparison without decimals.</strong> To decide whether <span class="math inline">\((u,v)\ge 0\)</span> (hence compare two numbers by looking at their difference), use exact integer tests:</p>
+<p><span class="math display">\[
+u+v\sqrt{2}\ge 0\quad\Longleftrightarrow\quad
+\begin{cases}
+\text{if } v\ge 0:&amp; u\ge 0\;\text{ or }\;u^2\le 2v^2,\\[2pt]
+\text{if } v&lt;0:&amp; u&gt;0\;\text{ and }\;u^2\ge 2v^2.
+\end{cases}
+\]</span></p>
+<p>This comes from analyzing <span class="math inline">\(u\ge -v\sqrt{2}\)</span> and squaring only in the cases where both sides have the same sign; it uses only integer arithmetic.</p></li>
+</ul>
+<p>The “division with integer quotient” step</p>
+<p>Euclid’s step <strong>E1</strong> needs: given positive <span class="math inline">\(m,n\)</span> (now of form <span class="math inline">\(u+v\sqrt{2}\)</span>), find integers <span class="math inline">\(q\)</span> and a remainder <span class="math inline">\(r\)</span> with</p>
+<p><span class="math display">\[
+m=qn+r,\qquad 0\le r&lt;n,
+\]</span></p>
+<p>where <span class="math inline">\(q\in\mathbb Z\)</span> (as in Knuth’s discussion) and <span class="math inline">\(r\)</span> is again of the form <span class="math inline">\(u+v\sqrt{2}\)</span>.</p>
+<p>You can compute <span class="math inline">\(q\)</span> <strong>without decimals</strong> as follows.</p>
+<ol type="1">
+<li><p><strong>Coarse integer bounds for <span class="math inline">\(\sqrt2\)</span>.</strong> Use <span class="math inline">\(1\le \sqrt2 \le 2\)</span> to bound any <span class="math inline">\(u+v\sqrt2\)</span> by integers:</p>
+<ul>
+<li>If <span class="math inline">\(v\ge 0\)</span>: <span class="math inline">\(u+v \le u+v\sqrt{2} \le u+2v\)</span>.</li>
+<li>If <span class="math inline">\(v&lt;0\)</span>: <span class="math inline">\(u+2v \le u+v\sqrt{2} \le u+v\)</span>.</li>
+</ul>
+<p>From these bounds for <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span> you get integer bounds <span class="math inline">\(L\le m/n &lt; U\)</span>.</p></li>
+<li><p><strong>Integer bisection on <span class="math inline">\(q\)</span>.</strong> Do binary search on the integer interval <span class="math inline">\([\lfloor L\rfloor,\lceil U\rceil]\)</span> to find the unique <span class="math inline">\(q\)</span> satisfying</p>
+<p><span class="math display">\[
+qn \le m &lt; (q+1)n,
+\]</span></p>
+<p>using only the sign test above to compare <span class="math inline">\(m-(q)n\)</span> and <span class="math inline">\(m-(q+1)n\)</span> with zero.</p></li>
+<li><p><strong>Remainder.</strong> Set <span class="math inline">\(r=m-qn\)</span> (pair subtraction). Then either <span class="math inline">\(r=0\)</span> or <span class="math inline">\(0\le r&lt;n\)</span>.</p></li>
+</ol>
+<p>This realizes <strong>E1</strong> with only integer operations and exact comparisons. The rest of Algorithm <strong>E</strong> is unchanged:</p>
+<ul>
+<li><strong>E2.</strong> If <span class="math inline">\(r=0\)</span> return <span class="math inline">\(n\)</span> (the “gcd” in this setting).</li>
+<li><strong>E3.</strong> Set <span class="math inline">\(m\leftarrow n,\; n\leftarrow r\)</span> and repeat.</li>
+</ul>
+<p>Knuth notes (and gives an example) that with this extension the inductive assertions <span class="math inline">\(A_1\)</span>–<span class="math inline">\(A_6\)</span> still hold; e.g., starting with <span class="math inline">\(m=12-6\sqrt2\)</span> and <span class="math inline">\(n=20-10\sqrt2\)</span>, the method returns <span class="math inline">\(d=4-2\sqrt2\)</span>.</p>
+<p>B. Non-termination for <span class="math inline">\(m=1,\; n=\sqrt2\)</span></p>
+<p>Run the generalized algorithm:</p>
+<ol type="1">
+<li><p>Start with <span class="math inline">\(m=1\)</span>, <span class="math inline">\(n=\sqrt2\)</span>. Since <span class="math inline">\(m&lt;n\)</span>, the quotient is <span class="math inline">\(q=0\)</span> and <span class="math inline">\(r=1\)</span>. After the swap: <span class="math inline">\(m\gets \sqrt2,\; n\gets 1\)</span>.</p></li>
+<li><p>Now <span class="math inline">\(m/n=\sqrt2\)</span>. Thus <span class="math inline">\(q=\lfloor\sqrt2\rfloor=1\)</span>, so <span class="math inline">\(r=\sqrt2-1\)</span>. Swap: <span class="math inline">\(m\gets 1,\; n\gets \sqrt2-1\)</span>.</p></li>
+<li><p>Next <span class="math inline">\(m/n=\dfrac{1}{\sqrt2-1}=\sqrt2+1\)</span>. Hence <span class="math inline">\(q=2\)</span> and</p>
+<p><span class="math display">\[
+r = 1-2(\sqrt2-1)=3-2\sqrt2=(\sqrt2-1)^2.
+\]</span></p>
+<p>Swap: <span class="math inline">\(m\gets \sqrt2-1,\; n\gets (\sqrt2-1)^2\)</span>.</p></li>
+<li><p>Repeat: one checks inductively that at each subsequent step</p>
+<p><span class="math display">\[
+q=2,\qquad r=(\sqrt2-1)^{k+2}\quad\text{when }(m,n)=\bigl((\sqrt2-1)^k,(\sqrt2-1)^{k+1}\bigr).
+\]</span></p>
+<p>Thus the remainders are <span class="math inline">\((\sqrt2-1), (\sqrt2-1)^2, (\sqrt2-1)^3, \ldots\)</span></p></li>
+</ol>
+<p>Since <span class="math inline">\(0&lt;\sqrt2-1&lt;1\)</span>, this positive sequence is strictly decreasing and tends to <span class="math inline">\(0\)</span>, but it never becomes <span class="math inline">\(0\)</span>. Therefore the algorithm <strong>never reaches</strong> <span class="math inline">\(r=0\)</span> and hence <strong>does not terminate</strong> for <span class="math inline">\(m=1,\; n=\sqrt2\)</span>. This is exactly the phenomenon Knuth points out in the text: the usual inductive correctness assertions don’t, by themselves, establish termination in this generalized setting.</p>
+</section>
+<section id="m23" class="level3">
+<h3 class="anchored" data-anchor-id="m23">13 [M23]</h3>
+<p>The T-augmented assertions</p>
+<p>Let <span class="math inline">\(n\)</span> denote the original input value that becomes <span class="math inline">\(d\)</span> at <span class="math inline">\(E1\)</span>. We append the following bounds to the six assertions <span class="math inline">\(A1,\dots,A6\)</span> (all other parts of each assertion remain unchanged exactly as in Fig. 4):</p>
+<ul>
+<li><strong>A1</strong>: <span class="math inline">\(m&gt;0,\ n&gt;0,\ \boxed{T=0}\)</span>. (This already implies <span class="math inline">\(T\le 3n\)</span>.)</li>
+<li><strong>A2</strong> (first entry to <span class="math inline">\(E2\)</span>): <span class="math inline">\(c=m&gt;0,\ d=n&gt;0,\ a=b'=0,\ a'=b=1,\ \boxed{T\le 3(n-d)+1}\)</span>. (Here <span class="math inline">\(d=n\)</span>, so this is <span class="math inline">\(T\le 1\)</span>; together with the exercise’s “append <span class="math inline">\(T=1\)</span> to <span class="math inline">\(A2\)</span>” it is consistent.)</li>
+<li><strong>A3</strong> (after <span class="math inline">\(E2\)</span>): <span class="math inline">\(am+bn=d,\ a'm+b'n=c=qd+r,\ 0\le r&lt;d,\ \gcd(c,d)=\gcd(m,n),\ \boxed{T\le 3(n-d)+2}\)</span>.</li>
+<li><strong>A4</strong> (if <span class="math inline">\(r=0\)</span> at <span class="math inline">\(E3\)</span>, i.e., about to stop): <span class="math inline">\(am+bn=d=\gcd(m,n),\ \boxed{T\le 3(n-d)+3}\)</span>.</li>
+<li><strong>A5</strong> (if <span class="math inline">\(r\ne 0\)</span> at <span class="math inline">\(E3\)</span>): <span class="math inline">\(am+bn=d,\ a'm+b'n=c=qd+r,\ 0&lt;r&lt;d,\ \gcd(c,d)=\gcd(m,n),\ \boxed{T\le 3(n-d)+3}\)</span>.</li>
+<li><strong>A6</strong> (after <span class="math inline">\(E4\)</span>): <span class="math inline">\(am+bn=d,\ a'm+b'n=c,\ d&gt;0,\ \gcd(c,d)=\gcd(m,n),\ \boxed{T\le 3(n-d)+1}\)</span>.</li>
+</ul>
+<p>Why these particular constants <span class="math inline">\(+1,+2,+3,+3,+1\)</span>? They are chosen so that the “one‐step” increase of <span class="math inline">\(T\)</span> when entering a box is exactly matched by the change (or non-change) of <span class="math inline">\(d\)</span> in that box, making every implication in the flow-chart proof go through mechanically.</p>
+<p>Inductive verification (box by box)</p>
+<p>Use Knuth’s proof rule: <em>If the assertion on every arrow entering a box is true <strong>before</strong> the box executes, then after execution the assertions on all outgoing arrows are true.</em> I’ll verify only the <span class="math inline">\(T\)</span>-part (the non-<span class="math inline">\(T\)</span> parts are exactly those in Fig. 4 and are already known to propagate).</p>
+<p><strong>E1 (Initialize).</strong> Enter with <span class="math inline">\(A1\)</span>: <span class="math inline">\(T=0\)</span>. Executing <span class="math inline">\(E1\)</span> sets <span class="math inline">\(d\leftarrow n\)</span> and (by the exercise) increments <span class="math inline">\(T\)</span> to <span class="math inline">\(1\)</span>. The outgoing arrow is <span class="math inline">\(A2\)</span>, which demands <span class="math inline">\(T\le 3(n-d)+1\)</span>. Since here <span class="math inline">\(d=n\)</span>, this is <span class="math inline">\(T\le1\)</span>, satisfied by <span class="math inline">\(T=1\)</span>.</p>
+<p><strong>E2 (Divide).</strong> There are two possible incoming arrows:</p>
+<ul>
+<li>From <strong>A2</strong>: we had <span class="math inline">\(T\le 3(n-d)+1\)</span>. Entering <span class="math inline">\(E2\)</span> adds <span class="math inline">\(1\)</span> to <span class="math inline">\(T\)</span>, while <span class="math inline">\(d\)</span> is unchanged. Thus after <span class="math inline">\(E2\)</span>, <span class="math inline">\(T\le 3(n-d)+2\)</span>, exactly the bound in <strong>A3</strong>.</li>
+<li>From <strong>A6</strong>: we had <span class="math inline">\(T\le 3(n-d)+1\)</span>. Again <span class="math inline">\(T\)</span> gains <span class="math inline">\(1\)</span> and <span class="math inline">\(d\)</span> is unchanged, so we get <span class="math inline">\(T\le 3(n-d)+2\)</span>, i.e., <strong>A3</strong>. (As Knuth notes, <span class="math inline">\(A2\)</span> is stronger than <span class="math inline">\(A6\)</span>, but either one suffices to imply <span class="math inline">\(A3\)</span> after <span class="math inline">\(E2\)</span>.)</li>
+</ul>
+<p><strong>E3 (Remainder zero?).</strong> Incoming <strong>A3</strong> has <span class="math inline">\(T\le 3(n-d)+2\)</span>; entering <span class="math inline">\(E3\)</span> bumps <span class="math inline">\(T\)</span> by <span class="math inline">\(1\)</span>, <span class="math inline">\(d\)</span> stays the same.</p>
+<ul>
+<li>If <span class="math inline">\(r=0\)</span>: outgoing <strong>A4</strong> requires <span class="math inline">\(T\le 3(n-d)+3\)</span>, which now holds.</li>
+<li>If <span class="math inline">\(r\ne 0\)</span>: outgoing <strong>A5</strong> requires the same bound <span class="math inline">\(T\le 3(n-d)+3\)</span>, also holds.</li>
+</ul>
+<p><strong>E4 (Recycle).</strong> Incoming <strong>A5</strong> has <span class="math inline">\(T\le 3(n-d)+3\)</span>. Entering <span class="math inline">\(E4\)</span> adds <span class="math inline">\(1\)</span> to <span class="math inline">\(T\)</span> and sets <span class="math inline">\(d\leftarrow r\)</span> with <span class="math inline">\(0&lt;r&lt;d\)</span>. So after <span class="math inline">\(E4\)</span>,</p>
+<p><span class="math display">\[
+T\ \le\ 3(n-d)+3\ +1\ =\ 3(n-d)+4.
+\]</span></p>
+<p>Because <span class="math inline">\(r\le d-1\)</span>, we have <span class="math inline">\(3(n-r)+1\ \ge\ 3(n-(d-1))+1\ =\ 3(n-d)+4\)</span>. Hence</p>
+<p><span class="math display">\[
+T\ \le\ 3(n-r)+1\ =\ 3(n-d_{\text{new}})+1,
+\]</span></p>
+<p>which is exactly the <span class="math inline">\(T\)</span>-bound required by <strong>A6</strong>. ✔</p>
+<p>Finally, note the next transition is <strong>A6 <span class="math inline">\(\to\)</span> E2</strong>: entering <span class="math inline">\(E2\)</span> adds <span class="math inline">\(1\)</span> to <span class="math inline">\(T\)</span> with <span class="math inline">\(d\)</span> unchanged, turning <span class="math inline">\(T\le 3(n-d)+1\)</span> (from <span class="math inline">\(A6\)</span>) into <span class="math inline">\(T\le 3(n-d)+2\)</span> (the bound in <span class="math inline">\(A3\)</span>), as already verified above.</p>
+<p>Why every assertion implies <span class="math inline">\(T\le 3n\)</span></p>
+<p>In every state we have <span class="math inline">\(d\ge 1\)</span> (the chart maintains <span class="math inline">\(d&gt;0\)</span> except at termination), so for each assertion the added bound is at most</p>
+<p><span class="math display">\[
+\max_d\{\,3(n-d)+c_i\,\}\ \le\ 3(n-1)+3\ =\ 3n,
+\]</span></p>
+<p>since the largest constant used is <span class="math inline">\(3\)</span>. Thus <em>any</em> of <span class="math inline">\(A1,\dots,A6\)</span> implies <span class="math inline">\(T\le 3n\)</span>. (At the stop arrow <strong>A4</strong> we also have <span class="math inline">\(d=\gcd(m,n)\ge1\)</span>.)</p>
+</section>
+<section id="section-9" class="level3">
+<h3 class="anchored" data-anchor-id="section-9">14 [50]</h3>
+</section>
+<section id="hm28" class="level3">
+<h3 class="anchored" data-anchor-id="hm28">15 [HM28]</h3>
+<ol type="a">
+<li>The integers <span class="math inline">\(\mathbb Z\)</span> are <strong>not</strong> well-ordered by the usual “&lt;”</li>
+</ol>
+<p>Take the nonempty subset <span class="math inline">\(A=\{\ldots,-3,-2,-1\}\subset\mathbb Z\)</span>. If “&lt;” were a well-ordering on <span class="math inline">\(\mathbb Z\)</span>, <span class="math inline">\(A\)</span> would have a least element. But for any <span class="math inline">\(a\in A\)</span>, <span class="math inline">\(a-1\in A\)</span> and <span class="math inline">\(a-1&lt;a\)</span>. Hence <span class="math inline">\(A\)</span> has no least element. Thus “&lt;” is not a well-ordering on <span class="math inline">\(\mathbb Z\)</span>. (Condition (iii) fails.)</p>
+<ol start="2" type="a">
+<li>A well-ordering on <span class="math inline">\(\mathbb Z\)</span></li>
+</ol>
+<p>Define “≺” on <span class="math inline">\(\mathbb Z\)</span> by <strong>short-absolute-value order</strong> (sometimes called the 0,1,−1,2,−2,… order):</p>
+<p><span class="math display">\[
+0 \prec 1 \prec -1 \prec 2 \prec -2 \prec 3 \prec -3 \prec \cdots,
+\]</span></p>
+<p>equivalently: for <span class="math inline">\(a,b\in\mathbb Z\)</span>,</p>
+<p><span class="math display">\[
+a \prec b \iff \bigl(|a|&lt;|b|\bigr)\ \text{or}\ \bigl(|a|=|b|\ \text{and}\ a\ge 0&gt;b\bigr).
+\]</span></p>
+<ul>
+<li><ol type="i">
+<li>Transitivity and (ii) trichotomy are immediate from the definition.</li>
+</ol></li>
+<li><ol start="3" type="i">
+<li>Let <span class="math inline">\(X\subseteq\mathbb Z\)</span> be nonempty. Consider the set of absolute values <span class="math inline">\(B=\{|x|:x\in X\}\subset\mathbb N\)</span>. Since <span class="math inline">\(\mathbb N\)</span> is well-ordered by &lt;, <span class="math inline">\(B\)</span> has a least element <span class="math inline">\(r\)</span>. Then <span class="math inline">\(X\)</span> contains either <span class="math inline">\(r\)</span> or <span class="math inline">\(-r\)</span> (or both). If both occur, pick <span class="math inline">\(r\)</span> (the nonnegative one). That chosen element is least in <span class="math inline">\(X\)</span> under “≺”. Hence “≺” is a well-ordering of <span class="math inline">\(\mathbb Z\)</span>.</li>
+</ol></li>
+</ul>
+<p>(Another equivalent description: map <span class="math inline">\(f:\mathbb Z\to\mathbb N\)</span> by <span class="math inline">\(f(0)=0,\ f(1)=1,\ f(-1)=2,\ f(2)=3,\ f(-2)=4,\ldots\)</span>. Then define <span class="math inline">\(a\prec b\)</span> iff <span class="math inline">\(f(a)&lt;f(b)\)</span>. Since <span class="math inline">\((\mathbb N,&lt;)\)</span> is well-ordered, this transports a well-ordering to <span class="math inline">\(\mathbb Z\)</span>.)</p>
+<ol start="3" type="a">
+<li><span class="math inline">\([0,\infty)\subset\mathbb R\)</span> is <strong>not</strong> well-ordered by “&lt;”</li>
+</ol>
+<p>Consider <span class="math inline">\(A=\{1/n:n\in\mathbb N\}\subset(0,1]\)</span>. This <span class="math inline">\(A\)</span> is nonempty but has no least element in the usual order: for any <span class="math inline">\(1/n\in A\)</span>, there is <span class="math inline">\(1/(n+1)\in A\)</span> with <span class="math inline">\(1/(n+1)&lt;1/n\)</span>. Thus “&lt;” is not a well-ordering on the nonnegative reals.</p>
+<ol start="4" type="a">
+<li>Lexicographic order on <span class="math inline">\(T_n=S^n\)</span> is a well-ordering (finite products)</li>
+</ol>
+<p>Assume <span class="math inline">\((S,\prec)\)</span> is well-ordered. Define lexicographic order on <span class="math inline">\(T_n=S^n\)</span>: <span class="math inline">\((x_1,\dots,x_n)\prec (y_1,\dots,y_n)\)</span> if for some <span class="math inline">\(k\)</span> (with <span class="math inline">\(1\le k\le n\)</span>) we have <span class="math inline">\(x_j=y_j\)</span> for <span class="math inline">\(j&lt;k\)</span> and <span class="math inline">\(x_k\prec y_k\)</span> in <span class="math inline">\(S\)</span>.</p>
+<ul>
+<li><ol type="i">
+<li>and (ii) are standard for lex order.</li>
+</ol></li>
+<li><ol start="3" type="i">
+<li>Let <span class="math inline">\(U\subseteq T_n\)</span> be nonempty. Choose <span class="math inline">\(x_1\)</span> minimal among the first coordinates of elements of <span class="math inline">\(U\)</span> (possible since <span class="math inline">\(S\)</span> is well-ordered). Among those elements of <span class="math inline">\(U\)</span> whose first coordinate equals that <span class="math inline">\(x_1\)</span>, choose the minimal second coordinate <span class="math inline">\(x_2\)</span>; continue this process finitely many steps. We obtain <span class="math inline">\((x_1,\dots,x_n)\in U\)</span> which is <span class="math inline">\(\prec\)</span>-least in <span class="math inline">\(U\)</span>. Hence lex order well-orders <span class="math inline">\(T_n\)</span>.</li>
+</ol></li>
+</ul>
+<ol start="5" type="a">
+<li>“Shortlex” on <span class="math inline">\(T=\bigcup_{n\ge1}T_n\)</span> is also a well-ordering</li>
+</ol>
+<p>Define <span class="math inline">\((x_1,\dots,x_m)\prec (y_1,\dots,y_n)\)</span> if either:</p>
+<ol type="1">
+<li>they agree up to some first differing position <span class="math inline">\(k\le\min(m,n)\)</span> and <span class="math inline">\(x_k\prec y_k\)</span> in <span class="math inline">\(S\)</span>; or</li>
+<li><span class="math inline">\(m&lt;n\)</span> and <span class="math inline">\((x_1,\dots,x_m)\)</span> is a proper prefix of <span class="math inline">\((y_1,\dots,y_n)\)</span> (i.e., all first <span class="math inline">\(m\)</span> entries are equal).</li>
+</ol>
+<ul>
+<li><ol type="i">
+<li>and (ii) again hold (transitivity and totality).</li>
+</ol></li>
+<li><ol start="3" type="i">
+<li>Let <span class="math inline">\(U\subseteq T\)</span> be nonempty. Consider the set of lengths <span class="math inline">\(L=\{\,m\ge1:\exists\,\mathbf x\in U\text{ of length }m\,\}\subset\mathbb N\)</span>. Since <span class="math inline">\(\mathbb N\)</span> is well-ordered, <span class="math inline">\(L\)</span> has a least length <span class="math inline">\(m_0\)</span>. Then <span class="math inline">\(U\cap T_{m_0}\)</span> is nonempty, and by part (d) the lex order well-orders <span class="math inline">\(T_{m_0}\)</span>. Hence <span class="math inline">\(U\)</span> has a least element (the lex-least among those of minimal length). So “shortlex” well-orders <span class="math inline">\(T\)</span>.</li>
+</ol></li>
+</ul>
+<ol start="6" type="a">
+<li>Characterization via absence of infinite descending chains</li>
+</ol>
+<p>Claim: A relation “≺” on <span class="math inline">\(S\)</span> is a well-ordering <strong>iff</strong> it satisfies (i) transitivity, (ii) trichotomy, <strong>and</strong> there is <strong>no</strong> infinite strictly descending chain <span class="math inline">\(x_1 \succ x_2 \succ x_3 \succ \cdots\)</span>.</p>
+<ul>
+<li><strong>(⇒)</strong> If “≺” is a well-ordering and there were such a chain, then the set <span class="math inline">\(\{x_1,x_2,\ldots\}\)</span> would be a nonempty subset without a least element (since each <span class="math inline">\(x_{j+1}\prec x_j\)</span>), contradicting (iii).</li>
+<li><strong>(⇐)</strong> Suppose (i) and (ii) hold and no infinite descending chain exists. Let <span class="math inline">\(A\subseteq S\)</span> be nonempty. If <span class="math inline">\(A\)</span> had no least element, pick <span class="math inline">\(x_1\in A\)</span>. Since <span class="math inline">\(x_1\)</span> is not least, there is <span class="math inline">\(x_2\in A\)</span> with <span class="math inline">\(x_2\prec x_1\)</span>. Inductively build <span class="math inline">\(x_{k+1}\prec x_k\)</span> in <span class="math inline">\(A\)</span> forever, making an infinite descending chain—a contradiction. Hence every nonempty subset has a least element, i.e., “≺” is a well-ordering.</li>
+</ul>
+<ol start="7" type="a">
+<li>Well-ordering induction (transfinite induction)</li>
+</ol>
+<p>Assume <span class="math inline">\((S,\prec)\)</span> is well-ordered and <span class="math inline">\(P(x)\)</span> is a statement about <span class="math inline">\(x\in S\)</span> with the property:</p>
+<blockquote class="blockquote">
+<p>For each <span class="math inline">\(x\in S\)</span>, if <span class="math inline">\(P(y)\)</span> holds for all <span class="math inline">\(y\prec x\)</span>, then <span class="math inline">\(P(x)\)</span> holds.</p>
+</blockquote>
+<p>To prove <span class="math inline">\(P(x)\)</span> for all <span class="math inline">\(x\in S\)</span>, suppose not and let <span class="math inline">\(C=\{x\in S:\neg P(x)\}\)</span>. If <span class="math inline">\(C\neq\varnothing\)</span>, well-ordering gives a <span class="math inline">\(\prec\)</span>-least <span class="math inline">\(c\in C\)</span>. But then <span class="math inline">\(P(y)\)</span> holds for all <span class="math inline">\(y\prec c\)</span>, so the premise yields <span class="math inline">\(P(c)\)</span>—contradiction. Hence <span class="math inline">\(C=\varnothing\)</span> and <span class="math inline">\(P\)</span> holds everywhere. This is the general well-ordering (transfinite) induction principle; when <span class="math inline">\(S=\mathbb N\)</span> with the usual “&lt;”, it reduces to ordinary induction.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.1.html" class="pagination-link" aria-label="1.1 Algorithms">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.1 Algorithms</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.2.2.html" class="pagination-link" aria-label="1.2.2 Numbers, powers, and logarithms">
+        <span class="nav-page-text"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

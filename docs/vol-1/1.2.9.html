@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.2.9 Generating functions – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.2.10.html" rel="next">
+<link href="../vol-1/1.2.8.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.2.9.html"><span class="chapter-title">1.2.9 Generating functions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#m12" id="toc-m12" class="nav-link active" data-scroll-target="#m12">1 [M12]</a></li>
+  <li><a href="#m13" id="toc-m13" class="nav-link" data-scroll-target="#m13">2 [M13]</a></li>
+  <li><a href="#hm21" id="toc-hm21" class="nav-link" data-scroll-target="#hm21">3 [HM21]</a></li>
+  <li><a href="#m01" id="toc-m01" class="nav-link" data-scroll-target="#m01">4 [M01]</a></li>
+  <li><a href="#m20" id="toc-m20" class="nav-link" data-scroll-target="#m20">5 [M20]</a></li>
+  <li><a href="#hm15" id="toc-hm15" class="nav-link" data-scroll-target="#hm15">6 [HM15]</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">7 [15]</a></li>
+  <li><a href="#m23" id="toc-m23" class="nav-link" data-scroll-target="#m23">8 [M23]</a></li>
+  <li><a href="#m11" id="toc-m11" class="nav-link" data-scroll-target="#m11">9 [M11]</a></li>
+  <li><a href="#m25" id="toc-m25" class="nav-link" data-scroll-target="#m25">10 [M25]</a></li>
+  <li><a href="#m25-1" id="toc-m25-1" class="nav-link" data-scroll-target="#m25-1">11 [M25]</a></li>
+  <li><a href="#m20-1" id="toc-m20-1" class="nav-link" data-scroll-target="#m20-1">12 [M20]</a></li>
+  <li><a href="#hm22" id="toc-hm22" class="nav-link" data-scroll-target="#hm22">13 [HM22]</a></li>
+  <li><a href="#hm21-1" id="toc-hm21-1" class="nav-link" data-scroll-target="#hm21-1">14 [HM21]</a></li>
+  <li><a href="#m28" id="toc-m28" class="nav-link" data-scroll-target="#m28">15 [M28]</a></li>
+  <li><a href="#m22" id="toc-m22" class="nav-link" data-scroll-target="#m22">16 [M22]</a></li>
+  <li><a href="#m25-2" id="toc-m25-2" class="nav-link" data-scroll-target="#m25-2">17 [M25]</a></li>
+  <li><a href="#m25-3" id="toc-m25-3" class="nav-link" data-scroll-target="#m25-3">18 [M25]</a></li>
+  <li><a href="#hm32" id="toc-hm32" class="nav-link" data-scroll-target="#hm32">19 [HM32]</a></li>
+  <li><a href="#m21" id="toc-m21" class="nav-link" data-scroll-target="#m21">20 [M21]</a></li>
+  <li><a href="#hm30" id="toc-hm30" class="nav-link" data-scroll-target="#hm30">21 [HM30]</a></li>
+  <li><a href="#m21-1" id="toc-m21-1" class="nav-link" data-scroll-target="#m21-1">22 [M21]</a></li>
+  <li><a href="#m33" id="toc-m33" class="nav-link" data-scroll-target="#m33">23 [M33]</a></li>
+  <li><a href="#m22-1" id="toc-m22-1" class="nav-link" data-scroll-target="#m22-1">24 [M22]</a></li>
+  <li><a href="#m23-1" id="toc-m23-1" class="nav-link" data-scroll-target="#m23-1">25 [M23]</a></li>
+  <li><a href="#m40" id="toc-m40" class="nav-link" data-scroll-target="#m40">26 [M40]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.2.9 Generating functions</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="m12" class="level3">
+<h3 class="anchored" data-anchor-id="m12">1 [M12]</h3>
+<ol type="1">
+<li>Ordinary generating function (OGF)</li>
+</ol>
+<p>Define</p>
+<p><span class="math display">\[
+G(z)\;=\;\sum_{n\ge 0} a_n z^n
+\;=\;\sum_{n\ge 0} (2^n+3^n) z^n
+\;=\;\sum_{n\ge 0} (2z)^n \;+\; \sum_{n\ge 0} (3z)^n.
+\]</span></p>
+<p>Each sum is geometric:</p>
+<p><span class="math display">\[
+\sum_{n\ge 0} (cz)^n \;=\; \frac{1}{1-cz}\quad (|z|&lt;1/|c|).
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\boxed{\;G(z)=\frac{1}{1-2z}+\frac{1}{1-3z}\;}
+\]</span></p>
+<p>with radius of convergence <span class="math inline">\(|z|&lt;\min\{1/2,\,1/3\}=1/3\)</span>.</p>
+<p>If you prefer a single rational function, combine:</p>
+<p><span class="math display">\[
+\frac{1}{1-2z}+\frac{1}{1-3z}
+=\frac{(1-3z)+(1-2z)}{(1-2z)(1-3z)}
+=\boxed{\;\frac{2-5z}{(1-2z)(1-3z)}=\frac{2-5z}{1-5z+6z^2}\; }.
+\]</span></p>
+<ol start="2" type="1">
+<li>Quick checks</li>
+</ol>
+<ul>
+<li><p>Constant term: <span class="math inline">\(G(0)=1+1=2=a_0\)</span>.</p></li>
+<li><p>Coefficient of <span class="math inline">\(z\)</span>: from the two series it’s <span class="math inline">\(2+3=5=a_1\)</span>.</p></li>
+<li><p>Coefficient of <span class="math inline">\(z^2\)</span>: <span class="math inline">\(4+9=13=a_2\)</span>.</p></li>
+<li><p>The denominator <span class="math inline">\((1-2z)(1-3z)=1-5z+6z^2\)</span> implies the recurrence</p>
+<p><span class="math display">\[
+a_n=5a_{n-1}-6a_{n-2}\quad (n\ge 2),\qquad a_0=2,\;a_1=5,
+\]</span></p>
+<p>which the sequence <span class="math inline">\(2^n+3^n\)</span> indeed satisfies.</p></li>
+</ul>
+<ol start="3" type="1">
+<li>(Bonus) Exponential generating function (EGF)</li>
+</ol>
+<p>If the exercise is interpreted as asking for the EGF,</p>
+<p><span class="math display">\[
+\sum_{n\ge 0}\frac{a_n}{n!}z^n
+=\sum_{n\ge 0}\frac{2^n}{n!}z^n+\sum_{n\ge 0}\frac{3^n}{n!}z^n
+=\boxed{\;e^{2z}+e^{3z}\; }.
+\]</span></p>
+</section>
+<section id="m13" class="level3">
+<h3 class="anchored" data-anchor-id="m13">2 [M13]</h3>
+<p>In §1.2.9, Knuth defines a binomial (a.k.a. Cauchy–binomial) convolution</p>
+<p><span class="math display">\[
+c_n \;=\; \sum_{k=0}^{n} \binom{n}{k}\, a_k\, b_{n-k}\qquad\text{(this is Eq. (10) in the book)}
+\]</span></p>
+<p>and then states Eq. (11): If we use exponential generating functions (EGFs)</p>
+<p><span class="math display">\[
+A(z)=\sum_{n\ge0}\frac{a_n}{n!}z^n,\quad
+B(z)=\sum_{n\ge0}\frac{b_n}{n!}z^n,\quad
+C(z)=\sum_{n\ge0}\frac{c_n}{n!}z^n,
+\]</span></p>
+<p>then</p>
+<p><span class="math display">\[
+\boxed{\,C(z)=A(z)\,B(z)\,}.
+\]</span></p>
+<p>Algebraic proof (formal power series)</p>
+<p>Multiply the two EGFs and collect coefficients:</p>
+<p><span class="math display">\[
+\begin{aligned}
+A(z)B(z)
+&amp;=\Bigl(\sum_{k\ge0}\frac{a_k}{k!}z^k\Bigr)\Bigl(\sum_{\ell\ge0}\frac{b_\ell}{\ell!}z^\ell\Bigr)\\
+&amp;=\sum_{n\ge0}\Bigl(\sum_{k=0}^{n}\frac{a_k}{k!}\frac{b_{n-k}}{(n-k)!}\Bigr)z^n\\
+&amp;=\sum_{n\ge0}\Bigl(\sum_{k=0}^{n}\binom{n}{k}a_k b_{n-k}\Bigr)\frac{z^n}{n!}
+=\sum_{n\ge0}\frac{c_n}{n!}z^n
+\;=\;C(z).
+\end{aligned}
+\]</span></p>
+<p>The key identity is <span class="math inline">\(\displaystyle \binom{n}{k}=\frac{n!}{k!(n-k)!}\)</span>. This is precisely Eq. (11). ([Scribd][1])</p>
+<p>Combinatorial proof (why EGFs multiply)</p>
+<p>Interpret <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span> as counting labeled structures of size <span class="math inline">\(n\)</span> from classes <span class="math inline">\(\mathcal A\)</span> and <span class="math inline">\(\mathcal B\)</span>. To build a labeled <span class="math inline">\(\mathcal C\)</span>-structure of total size <span class="math inline">\(n\)</span> as an ordered pair <span class="math inline">\((A,B)\)</span> with disjoint label sets:</p>
+<ul>
+<li>choose a <span class="math inline">\(k\)</span>-subset of the <span class="math inline">\(n\)</span> labels for <span class="math inline">\(A\)</span> — <span class="math inline">\(\binom{n}{k}\)</span> ways;</li>
+<li>place an <span class="math inline">\(\mathcal A\)</span>-structure on those <span class="math inline">\(k\)</span> labels — <span class="math inline">\(a_k\)</span> ways;</li>
+<li>place a <span class="math inline">\(\mathcal B\)</span>-structure on the remaining <span class="math inline">\(n-k\)</span> labels — <span class="math inline">\(b_{n-k}\)</span> ways.</li>
+</ul>
+<p>Summing over <span class="math inline">\(k\)</span> gives <span class="math inline">\(c_n=\sum_{k}\binom{n}{k}a_k b_{n-k}\)</span>. The labeled product construction corresponds exactly to multiplication of EGFs, hence <span class="math inline">\(C(z)=A(z)B(z)\)</span>.</p>
+<p>Quick checks</p>
+<ol type="1">
+<li><p><span class="math inline">\(a_n\equiv1\)</span>, <span class="math inline">\(b_n\equiv1\)</span>. Then <span class="math inline">\(c_n=\sum_k\binom{n}{k}=2^n\)</span>. EGFs: <span class="math inline">\(A(z)=B(z)=e^{z}\Rightarrow C(z)=e^{2z}\)</span>, whose <span class="math inline">\(n\)</span>th coefficient is <span class="math inline">\(2^n/n!\)</span>. Works.</p></li>
+<li><p><span class="math inline">\(a_n=n!\)</span>, <span class="math inline">\(b_n\equiv1\)</span>. Then <span class="math inline">\(A(z)=\sum z^n=1/(1-z)\)</span>, <span class="math inline">\(B(z)=e^{z}\)</span>. Product <span class="math inline">\(C(z)=\frac{e^{z}}{1-z}\)</span> has coefficients <span class="math inline">\(c_n/n!=\sum_{k=0}^{n}\frac{1}{(n-k)!}\)</span>, i.e. <span class="math inline">\(c_n=n!\sum_{j=0}^{n}\frac{1}{j!}=\sum_{k=0}^{n}\binom{n}{k}k!\)</span>, exactly the convolution.</p></li>
+</ol>
+</section>
+<section id="hm21" class="level3">
+<h3 class="anchored" data-anchor-id="hm21">3 [HM21]</h3>
+<p>Step 1 — Start from (18)</p>
+<p>The ordinary generating function for the harmonic numbers (with H₀ = 0) is given as</p>
+<p><span class="math display">\[
+G(z)\;=\;\sum_{n\ge 0} H_n z^n \;=\; \frac{1}{1-z}\,\ln\!\frac{1}{1-z}.
+\]</span></p>
+<p>Step 2 — Differentiate <span class="math inline">\(G(z)\)</span></p>
+<p>Differentiate termwise and also differentiate the closed form:</p>
+<p><span class="math display">\[
+G'(z)\;=\;\sum_{n\ge 1} n\,H_n\,z^{\,n-1}
+\]</span></p>
+<p>and, using the product/chain rule,</p>
+<p><span class="math display">\[
+\frac{d}{dz}\!\Big(\frac{1}{1-z}\ln\frac{1}{1-z}\Big)
+=\frac{1}{(1-z)^2}+\frac{1}{(1-z)^2}\ln\frac{1}{1-z}
+=\frac{1}{(1-z)^2}\;+\;\frac{G(z)}{1-z}.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\sum_{n\ge 1} n\,H_n\,z^{\,n-1}
+\;=\;\frac{1}{(1-z)^2}\;+\;\frac{G(z)}{1-z}.
+\tag{★}
+\]</span></p>
+<p>Step 3 — Recognize the prefix–sum generating function</p>
+<p>For any sequence <span class="math inline">\(a_n\)</span> with generating function <span class="math inline">\(A(z)=\sum_{n\ge 0}a_n z^n\)</span>, the generating function of its prefix sums <span class="math inline">\(s_n=\sum_{k=0}^n a_k\)</span> is</p>
+<p><span class="math display">\[
+S(z)\;=\;\sum_{n\ge 0} s_n z^n\;=\;\frac{A(z)}{1-z}.
+\]</span></p>
+<p>(See Eq. (7) in the text.) Applying this with <span class="math inline">\(a_n=H_n\)</span> gives</p>
+<p><span class="math display">\[
+S(z)\;=\;\frac{G(z)}{1-z}
+\;=\;\frac{1}{(1-z)^2}\,\ln\!\frac{1}{1-z}.
+\]</span></p>
+<p>Step 4 — Compare coefficients</p>
+<p>Rewrite (★) by shifting the index on the left:</p>
+<p><span class="math display">\[
+\sum_{n\ge 0} (n+1)\,H_{n+1}\,z^{\,n}
+\;=\;\frac{1}{(1-z)^2}\;+\;S(z).
+\]</span></p>
+<p>Extract coefficients of <span class="math inline">\(z^n\)</span>. Since <span class="math inline">\([z^n](1-z)^{-2}=n+1\)</span>, we obtain</p>
+<p><span class="math display">\[
+(n+1)\,H_{n+1}\;=\;(n+1)\;+\;\sum_{k=0}^n H_k.
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+\boxed{\;\sum_{k=0}^n H_k \;=\; (n+1)\bigl(H_{n+1}-1\bigr)\;}.
+\]</span></p>
+<p>Equivalently (since <span class="math inline">\(H_0=0\)</span>),</p>
+<p><span class="math display">\[
+\sum_{k=1}^n H_k = (n+1)H_{n+1}-(n+1).
+\]</span></p>
+<p>This is exactly the relation requested, derived by differentiating (18) and comparing with the prefix–sum generating function from (7).</p>
+</section>
+<section id="m01" class="level3">
+<h3 class="anchored" data-anchor-id="m01">4 [M01]</h3>
+<p>The two identities (from §1.2.9)</p>
+<ul>
+<li>Binomial theorem:</li>
+</ul>
+<p><span class="math display">\[
+(1+z)^r=\sum_{k\ge 0}\binom{r}{k}z^k. \tag{19}
+\]</span></p>
+<ul>
+<li>Generalized “binomial” expansion (with a parameter <span class="math inline">\(t\)</span>):</li>
+</ul>
+<p><span class="math display">\[
+x^{r}=\sum_{k\ge 0}\binom{r-kt}{k}\frac{r}{\,r-kt\,}\,z^{k},
+\quad\text{where } x^{t+1}=x^{t}+z\text{ and }x=1\text{ at }z=0. \tag{21}
+\]</span></p>
+<p>(Equivalent first terms: <span class="math inline">\(x^r=1+rz+\frac{r(r-2t-1)}{2}z^2+\cdots\)</span>.)</p>
+<p>Take the special case <span class="math inline">\(t=0\)</span> in (21).</p>
+<ol type="1">
+<li>The defining relation for <span class="math inline">\(x\)</span> becomes</li>
+</ol>
+<p><span class="math display">\[
+x^{t+1}=x^{t}+z \quad\Rightarrow\quad x^{1}=x^{0}+z \quad\Rightarrow\quad x=1+z.
+\]</span></p>
+<p>Therefore the left-hand side of (21) is <span class="math inline">\(x^r=(1+z)^r\)</span>. </p>
+<ol start="2" type="1">
+<li>The coefficients on the right-hand side simplify to</li>
+</ol>
+<p><span class="math display">\[
+\binom{r-kt}{k}\frac{r}{r-kt}\Big|_{t=0}
+=\binom{r}{k}\cdot \frac{r}{r}
+=\binom{r}{k}.
+\]</span></p>
+<p>Thus (21) reduces exactly to</p>
+<p><span class="math display">\[
+(1+z)^r=\sum_{k\ge 0}\binom{r}{k}z^k,
+\]</span></p>
+<p>which is Eq. (19). </p>
+<ol start="3" type="1">
+<li>(Sanity check on low-order terms.) In (21) the quadratic coefficient is <span class="math inline">\(\frac{r(r-2t-1)}{2}\)</span>; setting <span class="math inline">\(t=0\)</span> gives <span class="math inline">\(\frac{r(r-1)}{2}\)</span>, which matches the binomial expansion’s <span class="math inline">\(z^2\)</span>-term. </li>
+</ol>
+<p>Therefore, Eq. (19) is the <span class="math inline">\(t=0\)</span> specialization of Eq. (21).</p>
+</section>
+<section id="m20" class="level3">
+<h3 class="anchored" data-anchor-id="m20">5 [M20]</h3>
+<p>Base case</p>
+<p>For <span class="math inline">\(n=0\)</span>: <span class="math inline">\((e^{z}-1)^0/0!=1\)</span>. On the right, <span class="math inline">\(\Bigl\{\!{k\atop 0}\!\Bigr\}=0\)</span> for <span class="math inline">\(k&gt;0\)</span> and <span class="math inline">\(=1\)</span> for <span class="math inline">\(k=0\)</span>, so <span class="math inline">\(\sum_{k\ge 0}\Bigl\{\!{k\atop 0}\!\Bigr\} z^{k}/k!=1\)</span>. Hence the identity holds.</p>
+<p>(You can also check <span class="math inline">\(n=1\)</span>: <span class="math inline">\((e^{z}-1) = \sum_{k\ge 1} z^{k}/k!\)</span> since <span class="math inline">\(\Bigl\{\!{k\atop 1}\!\Bigr\}=1\)</span> for <span class="math inline">\(k\ge 1\)</span>.)</p>
+<p>Induction step</p>
+<p>Assume the formula holds for some <span class="math inline">\(n\ge 0\)</span>:</p>
+<p><span class="math display">\[
+\frac{(e^{z}-1)^n}{n!}\;=\;\sum_{k\ge 0}\Bigl\{\!{k\atop n}\!\Bigr\}\frac{z^{k}}{k!}.
+\]</span></p>
+<p>Multiply both sides by <span class="math inline">\(\dfrac{e^{z}-1}{n+1}\)</span>:</p>
+<p><span class="math display">\[
+\frac{(e^{z}-1)^{n+1}}{(n+1)!}
+= \frac{e^{z}-1}{n+1}\,\sum_{k\ge 0}\Bigl\{\!{k\atop n}\!\Bigr\}\frac{z^{k}}{k!}.
+\]</span></p>
+<p>Use the Cauchy product with <span class="math inline">\(e^{z}=\sum_{m\ge 0}\frac{z^{m}}{m!}\)</span>. The coefficient of <span class="math inline">\(z^{r}/r!\)</span> on the right equals</p>
+<p><span class="math display">\[
+\frac{1}{n+1}\sum_{m=1}^{r}\binom{r}{m}\,\Bigl\{\!{\,r-m\,\atop n}\!\Bigr\}
+=\frac{1}{n+1}\sum_{j=0}^{r-1}\binom{r}{j}\,\Bigl\{\!{\,j\,\atop n}\!\Bigr\}
+\quad(r\ge 0).
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\frac{(e^{z}-1)^{n+1}}{(n+1)!}
+=\sum_{r\ge 0}\left[\frac{1}{n+1}\sum_{j=0}^{r-1}\binom{r}{j}\,\Bigl\{\!{\,j\,\atop n}\!\Bigr\}\right]\frac{z^{r}}{r!}.
+\]</span></p>
+<p>It remains to identify the bracketed coefficient with <span class="math inline">\(\Bigl\{\!{r\atop n+1}\!\Bigr\}\)</span>. This is the standard “marked block” recurrence for Stirling numbers of the second kind:</p>
+<p>Claim. For <span class="math inline">\(r\ge 0\)</span> and <span class="math inline">\(n\ge 0\)</span>,</p>
+<p><span class="math display">\[
+\Bigl\{\!{r\atop n+1}\!\Bigr\}
+=\frac{1}{n+1}\sum_{j=0}^{r-1}\binom{r}{j}\,\Bigl\{\!{\,j\,\atop n}\!\Bigr\}.
+\]</span></p>
+<p>Combinatorial proof of the claim. The left-hand side counts partitions of an <span class="math inline">\(r\)</span>-set into <span class="math inline">\(n+1\)</span> nonempty blocks. Multiply by <span class="math inline">\(n+1\)</span> to mark (distinguish) one block: <span class="math inline">\((n+1)\Bigl\{\!{r\atop n+1}\!\Bigr\}\)</span> counts “a partition together with a chosen (marked) block”. To construct such an object, choose the set of elements not in the marked block—say <span class="math inline">\(j\)</span> elements (there are <span class="math inline">\(\binom{r}{j}\)</span> ways), then partition those <span class="math inline">\(j\)</span> elements into <span class="math inline">\(n\)</span> blocks (there are <span class="math inline">\(\Bigl\{\!{j\atop n}\!\Bigr\}\)</span> ways), and put all remaining <span class="math inline">\(r-j\ge 1\)</span> elements into the marked block. Summing over <span class="math inline">\(j=0,\dots,r-1\)</span> yields</p>
+<p><span class="math display">\[
+(n+1)\Bigl\{\!{r\atop n+1}\!\Bigr\}=\sum_{j=0}^{r-1}\binom{r}{j}\,\Bigl\{\!{j\atop n}\!\Bigr\},
+\]</span></p>
+<p>which is exactly the claim after dividing by <span class="math inline">\(n+1\)</span>.</p>
+<p>With the claim, the coefficient of <span class="math inline">\(z^{r}/r!\)</span> above is <span class="math inline">\(\Bigl\{\!{r\atop n+1}\!\Bigr\}\)</span>, hence</p>
+<p><span class="math display">\[
+\frac{(e^{z}-1)^{n+1}}{(n+1)!}
+=\sum_{r\ge 0}\Bigl\{\!{r\atop n+1}\!\Bigr\}\frac{z^{r}}{r!},
+\]</span></p>
+<p>completing the induction. Therefore Eq. (23) holds for all <span class="math inline">\(n\ge 0\)</span>.</p>
+</section>
+<section id="hm15" class="level3">
+<h3 class="anchored" data-anchor-id="hm15">6 [HM15]</h3>
+<p>Let <span class="math inline">\(a_n=\displaystyle\sum_{k=1}^{n-1}\frac{1}{k(n-k)}\)</span> (empty sum <span class="math inline">\(a_1=0\)</span>). Find the ordinary generating function <span class="math inline">\(A(z)=\sum_{n\ge1} a_n z^n\)</span>. Then differentiate <span class="math inline">\(A(z)\)</span> and express its coefficients via harmonic numbers <span class="math inline">\(H_m=\sum_{j=1}^m \frac1j\)</span>.</p>
+<ol type="1">
+<li>Closed form for <span class="math inline">\(a_n\)</span></li>
+</ol>
+<p>Use the partial fraction identity</p>
+<p><span class="math display">\[
+\frac{1}{k(n-k)}=\frac1n\!\left(\frac1k+\frac1{\,n-k\,}\right).
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+a_n=\frac1n\sum_{k=1}^{n-1}\!\Bigl(\frac1k+\frac1{n-k}\Bigr)
+=\frac{2}{n}\sum_{k=1}^{n-1}\frac1k
+=\frac{2}{n}\,H_{n-1}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Generating function</li>
+</ol>
+<p>We use two standard facts from the section:</p>
+<ul>
+<li>Integration trick for OGFs:</li>
+</ul>
+<p><span class="math display">\[
+\int_0^z\!\!\Bigl(\sum_{m\ge0} b_m t^m\Bigr)dt = \sum_{n\ge1} \frac{b_{n-1}}{n}\, z^n . \quad \text{(Eq. 15)}
+\]</span></p>
+<ul>
+<li>Generating function of harmonic numbers:</li>
+</ul>
+<p><span class="math display">\[
+\sum_{m\ge0} H_m z^m=\frac{1}{1-z}\ln\!\frac{1}{1-z}. \quad \text{(Eq. 18)}
+\]</span></p>
+<p>Since <span class="math inline">\(a_n=\dfrac{2}{n}H_{n-1}\)</span>, we get</p>
+<p><span class="math display">\[
+A(z)=\sum_{n\ge1}\frac{2H_{n-1}}{n}z^n
+=2\int_0^z \Bigl(\sum_{m\ge0} H_m t^m\Bigr)\,dt
+=2\int_0^z \frac{\ln\!\frac{1}{1-t}}{1-t}\,dt.
+\]</span></p>
+<p>Let <span class="math inline">\(u(t)=\ln\!\frac{1}{1-t}\)</span>; then <span class="math inline">\(u'(t)=\frac{1}{1-t}\)</span>. The integral is <span class="math inline">\(\int u\,u'\,dt=\tfrac12 u^2\)</span>. With the factor 2,</p>
+<p><span class="math display">\[
+\boxed{\,A(z)=\Bigl(\ln\!\frac{1}{1-z}\Bigr)^{\!2}\,}\qquad(|z|&lt;1).
+\]</span></p>
+<ol start="3" type="1">
+<li>Differentiate and read coefficients</li>
+</ol>
+<p>Differentiate:</p>
+<p><span class="math display">\[
+A'(z)=2\frac{\ln\!\frac{1}{1-z}}{1-z}.
+\]</span></p>
+<p>Using the harmonic-number generating function again,</p>
+<p><span class="math display">\[
+\frac{\ln\!\frac{1}{1-z}}{1-z}=\sum_{m\ge0} H_m z^m,
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+A'(z)=2\sum_{m\ge0} H_m z^m.
+\]</span></p>
+<p>But <span class="math inline">\(A'(z)=\sum_{n\ge1} n a_n z^{n-1}\)</span>. Matching coefficients of <span class="math inline">\(z^{n-1}\)</span> gives</p>
+<p><span class="math display">\[
+n a_n = 2 H_{n-1}\quad\Longrightarrow\quad
+\boxed{\,a_n=\dfrac{2}{n}\,H_{n-1}\,}.
+\]</span></p>
+<p>Quick check</p>
+<p><span class="math inline">\(n=2:\ a_2=1\)</span>. <span class="math inline">\(n=3:\ a_3=\tfrac12+\tfrac12=1\)</span>. <span class="math inline">\(n=4:\ a_4=\tfrac13+\tfrac14+\tfrac13=\tfrac{11}{12}\)</span>. Our formula yields <span class="math inline">\(2H_{1}/2=1\)</span>, <span class="math inline">\(2H_{2}/3=1\)</span>, <span class="math inline">\(2H_{3}/4=\tfrac{11}{12}\)</span>, all consistent.</p>
+<p>Answer: Generating function <span class="math inline">\(A(z)=\left(\ln\!\frac{1}{1-z}\right)^2\)</span>; upon differentiation, <span class="math inline">\(A'(z)=2\,\dfrac{\ln\!\frac{1}{1-z}}{1-z}=2\sum_{m\ge0}H_m z^m\)</span>, hence <span class="math inline">\(a_n=\dfrac{2}{n}H_{n-1}\)</span>.</p>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">7 [15]</h3>
+<p>In §1.2.9, we have</p>
+<p><span class="math display">\[
+\ln G(z)=\sum_{k\ge1}\frac{S_k\,z^k}{k}\quad\text{with }S_k=\sum_{j=1}^n x_j^k,
+\]</span></p>
+<p>and Knuth defines <span class="math inline">\(G(z)\)</span> by the reciprocal product and arrives at (37). From this, (38) is obtained by exponentiating and expanding.</p>
+<p>Step-by-step verification to (38)</p>
+<ol type="1">
+<li>Exponentiate the logarithm. Because <span class="math inline">\(G(0)=1\)</span> and <span class="math inline">\(\ln G(z)\)</span> is a formal power series with zero constant term, the formal identities <span class="math inline">\(\exp(\ln G(z))=G(z)\)</span> and <span class="math inline">\(\ln(\exp H(z))=H(z)\)</span> are valid. Hence</li>
+</ol>
+<p><span class="math display">\[
+G(z)=\exp\!\Bigl(\sum_{k\ge1}\frac{S_k\,z^k}{k}\Bigr).
+\]</span></p>
+<p>This is exactly the first equality in the displayed chain preceding (38). </p>
+<ol start="2" type="1">
+<li>Turn the exponential of a sum into a product. In the ring of formal power series (which is commutative), exponentials distribute over sums:</li>
+</ol>
+<p><span class="math display">\[
+\exp\!\Bigl(\sum_{k\ge1} A_k\Bigr)=\prod_{k\ge1}\exp(A_k).
+\]</span></p>
+<p>Taking <span class="math inline">\(A_k=\frac{S_k z^k}{k}\)</span> gives</p>
+<p><span class="math display">\[
+G(z)=\prod_{k\ge1}\exp\!\Bigl(\frac{S_k z^k}{k}\Bigr).
+\]</span></p>
+<p>This is the product in the second equality just before (38). </p>
+<ol start="3" type="1">
+<li>Expand each factor as a series. Using <span class="math inline">\(\exp(u)=\sum_{r\ge0}u^r/r!\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+\exp\!\Bigl(\frac{S_k z^k}{k}\Bigr)=\sum_{r\ge0}\frac{1}{r!}\Bigl(\frac{S_k z^k}{k}\Bigr)^r
+=\sum_{r\ge0}\frac{S_k^r}{k^r\,r!}\,z^{kr}.
+\]</span></p>
+<p>Knuth writes out the first few factors (for <span class="math inline">\(k=1,2,\dots\)</span>) in exactly this way (see the line with <span class="math inline">\((1+S_1 z + S_1^2 z^2/2!+\cdots)(1+S_2 z^2/2+\cdots)\cdots\)</span>). </p>
+<ol start="4" type="1">
+<li>Multiply the infinite product and collect coefficients. The coefficient of <span class="math inline">\(z^m\)</span> in the product is obtained by choosing, for each <span class="math inline">\(k\ge1\)</span>, a term <span class="math inline">\(z^{k r_k}\)</span> from the <span class="math inline">\(k\)</span>-th factor, with nonnegative integers <span class="math inline">\(r_k\)</span>, such that</li>
+</ol>
+<p><span class="math display">\[
+\sum_{k\ge1} k\,r_k=m.
+\]</span></p>
+<p>The contribution of a fixed selection <span class="math inline">\((r_1,r_2,\dots)\)</span> is</p>
+<p><span class="math display">\[
+\prod_{k\ge1}\frac{S_k^{\,r_k}}{k^{\,r_k}\,r_k!}.
+\]</span></p>
+<p>Relabel <span class="math inline">\(r_k\)</span> as <span class="math inline">\(k_k\)</span> (Knuth’s notation) and truncate at <span class="math inline">\(k=m\)</span> since higher <span class="math inline">\(k\)</span> cannot contribute to <span class="math inline">\(z^m\)</span>. Therefore</p>
+<p><span class="math display">\[
+[z^m]\,G(z)=\sum_{\substack{k_1,k_2,\dots,k_m\ge0\\
+k_1+2k_2+\cdots+ m k_m=m}}
+\frac{S_1^{k_1}}{1^{k_1}k_1!}\,
+\frac{S_2^{k_2}}{2^{k_2}k_2!}\cdots
+\frac{S_m^{k_m}}{m^{k_m}k_m!}.
+\]</span></p>
+<p>This is precisely the parenthesized quantity in (38), which Knuth denotes by <span class="math inline">\(h_m\)</span>, so</p>
+<p><span class="math display">\[
+G(z)=\sum_{m\ge0} h_m z^m,
+\]</span></p>
+<p>with <span class="math inline">\(h_m\)</span> given by the inner sum. </p>
+<ol start="5" type="1">
+<li>Interpretation via partitions. The constraint <span class="math inline">\(k_1+2k_2+\cdots+m k_m=m\)</span> specifies a partition of <span class="math inline">\(m\)</span>: it says that the part <span class="math inline">\(j\)</span> appears <span class="math inline">\(k_j\)</span> times. Hence the number of summands for fixed <span class="math inline">\(m\)</span> is <span class="math inline">\(p(m)\)</span>, the number of partitions of <span class="math inline">\(m\)</span> (as the text states just below (38)). </li>
+</ol>
+<p>Quick sanity checks (small <span class="math inline">\(m\)</span>)</p>
+<p>Using the formula above:</p>
+<ul>
+<li><p><span class="math inline">\(m=0\)</span>: only the all-zero choice ⇒ <span class="math inline">\(h_0=1\)</span>.</p></li>
+<li><p><span class="math inline">\(m=1\)</span>: <span class="math inline">\((k_1)= (1)\)</span> ⇒ <span class="math inline">\(h_1=S_1\)</span>.</p></li>
+<li><p><span class="math inline">\(m=2\)</span>: tuples <span class="math inline">\((k_1,k_2)=(2,0),(0,1)\)</span> give</p>
+<p><span class="math display">\[
+h_2=\frac{S_1^2}{2!}+\frac{S_2}{2}.
+\]</span></p></li>
+<li><p><span class="math inline">\(m=3\)</span>: tuples <span class="math inline">\((3,0,0),(1,1,0),(0,0,1)\)</span> give</p>
+<p><span class="math display">\[
+h_3=\frac{S_1^3}{6}+\frac{S_1S_2}{2}+\frac{S_3}{3}.
+\]</span></p></li>
+</ul>
+<p>These match the structure immediately implied by the product display before (38).</p>
+</section>
+<section id="m23" class="level3">
+<h3 class="anchored" data-anchor-id="m23">8 [M23]</h3>
+<p>Let <span class="math inline">\(G(z)=\sum_{n\ge 0} p(n)\,z^n\)</span> be the ordinary generating function for the partition numbers.</p>
+<p>A (unrestricted) partition of <span class="math inline">\(n\)</span> allows any number of 1’s, any number of 2’s, any number of 3’s, etc. For each part size <span class="math inline">\(k\ge 1\)</span>, the contribution to the exponent of <span class="math inline">\(z\)</span> is a multiple of <span class="math inline">\(k\)</span>: <span class="math inline">\(0, k, 2k, 3k,\dots\)</span>. Thus the generating series for how many <span class="math inline">\(k\)</span>’s we choose is</p>
+<p><span class="math display">\[
+1+z^{k}+z^{2k}+z^{3k}+\cdots=\frac{1}{1-z^{k}}\qquad(|z|&lt;1).
+\]</span></p>
+<p>Different part sizes are chosen independently, so we multiply these series over all <span class="math inline">\(k\ge 1\)</span> (Cauchy product). Therefore</p>
+<p><span class="math display">\[
+G(z)\;=\;\prod_{k=1}^{\infty}\frac{1}{1-z^{k}}.
+\]</span></p>
+<p>Expanding this infinite product, the coefficient of <span class="math inline">\(z^{n}\)</span> counts exactly the number of solutions <span class="math inline">\(\sum_{k\ge 1} k\,m_k=n\)</span> with integers <span class="math inline">\(m_k\ge 0\)</span>, i.e., the number of partitions of <span class="math inline">\(n\)</span>. This is the standard “product-for-multisets” principle that also underlies Knuth’s derivation <span class="math inline">\(G(z)=\prod_{j}(1-x_j z)^{-1}\)</span> for multisets; here we specialize to <span class="math inline">\(x_j=z^{j-1}\)</span> (conceptually) and let the number of factors go to infinity.</p>
+<p>So the answer is:</p>
+<p><span class="math display">\[
+\boxed{\displaystyle \sum_{n\ge 0} p(n)\,z^{n}\;=\;\prod_{k=1}^{\infty}\frac{1}{1-z^{k}}.}
+\]</span></p>
+<p>Quick check</p>
+<p>Expanding a few terms gives</p>
+<p><span class="math display">\[
+\prod_{k\ge 1}\frac{1}{1-z^{k}}
+=1+z+2z^{2}+3z^{3}+5z^{4}+7z^{5}+11z^{6}+\cdots,
+\]</span></p>
+<p>so <span class="math inline">\(p(0)=1, p(1)=1, p(2)=2, p(3)=3, p(4)=5, p(5)=7, p(6)=11\)</span>, as expected.</p>
+</section>
+<section id="m11" class="level3">
+<h3 class="anchored" data-anchor-id="m11">9 [M11]</h3>
+<p>With <span class="math inline">\(h_m\)</span> and the power sums <span class="math inline">\(S_j\)</span> defined by</p>
+<p><span class="math display">\[
+h_m=\sum_{1\le j_1\le\cdots\le j_m\le n} x_{j_1}\cdots x_{j_m},\qquad
+S_j=\sum_{k=1}^n x_k^{\,j},
+\]</span></p>
+<p>and with the generating function <span class="math inline">\(G(z)=\sum_{m\ge0} h_m z^m\)</span>, find <span class="math inline">\(h_4\)</span> in terms of <span class="math inline">\(S_1,S_2,S_3,S_4\)</span>.</p>
+<p>From the text we have</p>
+<p><span class="math display">\[
+\ln G(z)=\sum_{k\ge1}\frac{S_k}{k}\,z^k,
+\]</span></p>
+<p>hence</p>
+<p><span class="math display">\[
+G(z)=\exp\!\Big(S_1 z+\frac{S_2}{2}z^2+\frac{S_3}{3}z^3+\frac{S_4}{4}z^4+\cdots\Big).
+\]</span></p>
+<p>Therefore <span class="math inline">\(h_m=[z^m]G(z)=[z^m]\exp A(z)\)</span> where <span class="math inline">\(A(z)=a_1z+a_2z^2+a_3z^3+a_4z^4+\cdots\)</span> with <span class="math inline">\(a_1=S_1,\ a_2=S_2/2,\ a_3=S_3/3,\ a_4=S_4/4\)</span>. (The formula for <span class="math inline">\(\ln G\)</span> is Eq. (37) on the same page.) </p>
+<p>Expand <span class="math inline">\(e^{A}\)</span> up to degree 4:</p>
+<p><span class="math display">\[
+e^{A}=1+A+\frac{A^2}{2!}+\frac{A^3}{3!}+\frac{A^4}{4!}+O(z^5).
+\]</span></p>
+<p>Collect the <span class="math inline">\(z^4\)</span>-terms:</p>
+<ul>
+<li>From <span class="math inline">\(A\)</span>: <span class="math inline">\(a_4\)</span>.</li>
+<li>From <span class="math inline">\(A^2/2!\)</span>: <span class="math inline">\(\frac12\big(2a_1a_3 + a_2^2\big)=a_1a_3+\frac12 a_2^2\)</span>.</li>
+<li>From <span class="math inline">\(A^3/3!\)</span>: <span class="math inline">\(\frac16\cdot 3 a_1^2 a_2=\frac12 a_1^2 a_2\)</span>.</li>
+<li>From <span class="math inline">\(A^4/4!\)</span>: <span class="math inline">\(\frac1{24} a_1^4\)</span>.</li>
+</ul>
+<p>Thus</p>
+<p><span class="math display">\[
+h_4 \;=\; a_4 + a_1a_3 + \tfrac12 a_2^2 + \tfrac12 a_1^2 a_2 + \tfrac1{24} a_1^4.
+\]</span></p>
+<p>Substitute <span class="math inline">\(a_1=S_1,\ a_2=S_2/2,\ a_3=S_3/3,\ a_4=S_4/4\)</span>:</p>
+<p><span class="math display">\[
+\boxed{\;
+h_4
+= \frac{S_4}{4} \;+\; \frac{S_1S_3}{3} \;+\; \frac{S_2^2}{8} \;+\; \frac{S_1^2S_2}{4} \;+\; \frac{S_1^4}{24}
+\;}
+\]</span></p>
+<p>A convenient equivalent form (multiply by 24) is</p>
+<p><span class="math display">\[
+\boxed{\;24\,h_4 \;=\; S_1^4 + 6S_1^2S_2 + 3S_2^2 + 8S_1S_3 + 6S_4\;}
+\]</span></p>
+<p>Quick sanity checks</p>
+<ul>
+<li>If <span class="math inline">\(n=1\)</span> (single variable <span class="math inline">\(x\)</span>), then <span class="math inline">\(h_4=x^4\)</span> and <span class="math inline">\(S_j=x^j\)</span>; plugging into the formula gives <span class="math inline">\(x^4\)</span>.</li>
+<li>The expression matches the general pattern for complete homogeneous symmetric polynomials derived from <span class="math inline">\(G(z)=\prod_{i=1}^n(1-x_i z)^{-1}\)</span>.</li>
+</ul>
+</section>
+<section id="m25" class="level3">
+<h3 class="anchored" data-anchor-id="m25">10 [M25]</h3>
+<ol type="1">
+<li>Generating function</li>
+</ol>
+<p>Because a term <span class="math inline">\(x_{j_1}\cdots x_{j_m}\)</span> picks at most one factor from each <span class="math inline">\((1+x_i z)\)</span>, we have</p>
+<p><span class="math display">\[
+E(z)\;\stackrel{\text{def}}=\;\sum_{m\ge0} e_m z^m=\prod_{i=1}^n (1+x_i z).
+\]</span></p>
+<p>Taking logs and expanding <span class="math inline">\(\ln(1+x_i z)\)</span> gives</p>
+<p><span class="math display">\[
+\ln E(z)=\sum_{i=1}^n\sum_{k\ge1}\frac{(-1)^{k+1}}{k}\,x_i^k z^k
+=\sum_{k\ge1}\frac{(-1)^{k+1}}{k}\,S_k\,z^k,
+\]</span></p>
+<p>hence the equivalent exponential form</p>
+<p><span class="math display">\[
+\boxed{\;E(z)=\exp\!\left(\sum_{k\ge1}\frac{(-1)^{k+1}}{k}\,S_k\,z^k\right)\;}
+\]</span></p>
+<p>(contrast with the complete symmetric case <span class="math inline">\(\prod_i(1-x_i z)^{-1}\)</span> leading to <span class="math inline">\(\exp(\sum S_k z^k/k)\)</span>).</p>
+<ol start="2" type="1">
+<li>Coefficient extraction (expression in terms of <span class="math inline">\(S_k\)</span>)</li>
+</ol>
+<p>From the exponential form,</p>
+<p><span class="math display">\[
+E(z)=\exp\!\Big(\sum_{k\ge1} c_k z^k\Big),\qquad c_k=\frac{(-1)^{k+1}}{k}S_k.
+\]</span></p>
+<p>Using the standard exponential–generating expansion,</p>
+<p><span class="math display">\[
+e_m=[z^m]E(z)
+=\sum_{\substack{k_1+2k_2+\cdots+mk_m=m\\k_j\ge0}}
+\prod_{j=1}^m \frac{c_j^{\,k_j}}{k_j!},
+\]</span></p>
+<p>we obtain the compact closed form</p>
+<p><span class="math display">\[
+\boxed{\;
+e_m=\sum_{k_1+2k_2+\cdots+mk_m=m}
+(-1)^{\,m+\sum_j k_j}\;
+\prod_{j=1}^m \frac{S_j^{\,k_j}}{j^{\,k_j}\,k_j!}
+\;}
+\]</span></p>
+<p>(because <span class="math inline">\(\sum_j j k_j=m\)</span>). Equivalently, the Newton identities follow immediately by differentiating <span class="math inline">\(\ln E(z)\)</span>:</p>
+<p><span class="math display">\[
+\boxed{\;m\,e_m=\sum_{k=1}^{m}(-1)^{k-1} e_{m-k}\,S_k\qquad(m\ge1).\;}
+\]</span></p>
+<ol start="3" type="1">
+<li>Low–degree cases</li>
+</ol>
+<p>Applying either formula (or Newton identities with <span class="math inline">\(e_0=1\)</span>):</p>
+<p><span class="math display">\[
+\begin{aligned}
+e_1&amp;=S_1,\\[2pt]
+e_2&amp;=\frac{S_1^2-S_2}{2},\\[2pt]
+e_3&amp;=\frac{S_1^3-3S_1S_2+2S_3}{6}
+\;=\;\frac{S_1^3}{6}-\frac{S_1S_2}{2}+\frac{S_3}{3},\\[2pt]
+e_4&amp;=\frac{S_1^4-6S_1^2S_2+3S_2^2+8S_1S_3-6S_4}{24}
+\\[-2pt]&amp;\hspace{3.8em}
+=\;\frac{S_1^4}{24}-\frac{S_1^2S_2}{4}+\frac{S_2^2}{8}+\frac{S_1S_3}{3}-\frac{S_4}{4}.
+\end{aligned}
+\]</span></p>
+<p>These match the requested expression of <span class="math inline">\(e_m\)</span> via the power sums <span class="math inline">\(S_k\)</span>, and the generating function agrees with the product definition above. </p>
+<p><em>Side note:</em> If <span class="math inline">\(H(z)=\sum_{m\ge0} h_m z^m=\prod_i(1-x_i z)^{-1}\)</span> is the complete symmetric G.F., then <span class="math inline">\(E(z)H(-z)=1\)</span>; this is another quick route to the Newton identities.</p>
+</section>
+<section id="m25-1" class="level3">
+<h3 class="anchored" data-anchor-id="m25-1">11 [M25]</h3>
+<p>Use the recurrence</p>
+<p><span class="math display">\[
+h_n=\frac1n\,(S_1h_{n-1}+S_2h_{n-2}+\cdots+S_nh_0)
+\]</span></p>
+<p>to express each power sum <span class="math inline">\(S_m\)</span> in terms of the complete homogeneous symmetric polynomials <span class="math inline">\(h_1,h_2,\dots\)</span>, and determine the coefficient of the monomial <span class="math inline">\(h_1^{k_1}h_2^{k_2}\cdots h_m^{k_m}\)</span> in <span class="math inline">\(S_m\)</span> when <span class="math inline">\(\;k_1+2k_2+\cdots+mk_m=m\)</span>.</p>
+<p>Set-up with generating functions</p>
+<p>Let</p>
+<p><span class="math display">\[
+G(z)=\sum_{r\ge0}h_r z^r=1+h_1z+h_2z^2+\cdots .
+\]</span></p>
+<p>From the section text we have the fundamental identity</p>
+<p><span class="math display">\[
+\ln G(z)=\sum_{r\ge1}\frac{S_r}{r}\,z^r .
+\]</span></p>
+<p>(Equivalently, <span class="math inline">\(S_r/r=[z^r]\ln G(z)\)</span>.) </p>
+<p>Now write <span class="math inline">\(G(z)=1+H(z)\)</span> with <span class="math inline">\(H(z)=\sum_{j\ge1}h_j z^j\)</span>. Using the logarithm series</p>
+<p><span class="math display">\[
+\ln(1+X)=\sum_{K\ge1}\frac{(-1)^{K-1}}{K}X^K,
+\]</span></p>
+<p>we obtain</p>
+<p><span class="math display">\[
+\ln G(z)=\sum_{K\ge1}\frac{(-1)^{\,K-1}}{K}\,H(z)^K .
+\]</span></p>
+<p>Extracting the coefficient</p>
+<p>Expand <span class="math inline">\(H(z)^K\)</span> by the multinomial theorem. A term</p>
+<p><span class="math display">\[
+h_1^{k_1}h_2^{k_2}\cdots h_m^{k_m}\;z^{\,1\cdot k_1+2\cdot k_2+\cdots+m\cdot k_m}
+\]</span></p>
+<p>appears exactly when the integers <span class="math inline">\(k_1,\dots,k_m\ge0\)</span> satisfy</p>
+<p><span class="math display">\[
+k_1+2k_2+\cdots+mk_m=m,\qquad K:=k_1+\cdots+k_m .
+\]</span></p>
+<p>Its coefficient in <span class="math inline">\(H(z)^K\)</span> is <span class="math inline">\(\displaystyle \frac{K!}{k_1!\cdots k_m!}\)</span>. Therefore its coefficient in <span class="math inline">\(\ln G(z)\)</span> is</p>
+<p><span class="math display">\[
+\frac{(-1)^{K-1}}{K}\cdot \frac{K!}{k_1!\cdots k_m!}
+\;=\;
+(-1)^{K-1}\frac{(K-1)!}{k_1!\cdots k_m!}.
+\]</span></p>
+<p>But in <span class="math inline">\(\ln G(z)=\sum_{r\ge1} (S_r/r) z^r\)</span>, the coefficient of <span class="math inline">\(z^m\)</span> equals <span class="math inline">\(S_m/m\)</span>. Hence the coefficient of <span class="math inline">\(h_1^{k_1}\cdots h_m^{k_m}\)</span> in <span class="math inline">\(S_m\)</span> is <span class="math inline">\(m\)</span> times the number above.</p>
+<p>Final formula</p>
+<p>If <span class="math inline">\(k_1,\dots,k_m\ge0\)</span> satisfy <span class="math inline">\(k_1+2k_2+\cdots+mk_m=m\)</span> and <span class="math inline">\(K=k_1+\cdots+k_m\)</span>, then the coefficient of the monomial <span class="math inline">\(h_1^{k_1}h_2^{k_2}\cdots h_m^{k_m}\)</span> in <span class="math inline">\(S_m\)</span> is</p>
+<p><span class="math display">\[
+\boxed{\;(-1)^{K-1}\; m\;\frac{(K-1)!}{k_1!\,k_2!\cdots k_m!}\;}
+\]</span></p>
+<p>(and it is <span class="math inline">\(0\)</span> if the weighted sum condition fails). This follows directly from <span class="math inline">\(\ln G(z)=\sum_{r\ge1}S_r z^r/r\)</span> with <span class="math inline">\(G(z)=\sum_{r\ge0}h_r z^r\)</span>.</p>
+<p>Quick checks against the small cases in the text</p>
+<ul>
+<li><span class="math inline">\(m=1\)</span>: only <span class="math inline">\(k_1=1\)</span> (<span class="math inline">\(K=1\)</span>) → coefficient <span class="math inline">\(=1\)</span>; so <span class="math inline">\(S_1=h_1\)</span>.</li>
+<li><span class="math inline">\(m=2\)</span>: possibilities <span class="math inline">\((k_2=1)\)</span> and <span class="math inline">\((k_1=2)\)</span>. Coefficients: <span class="math inline">\(2\cdot(+)(0)!/1!=2\)</span> for <span class="math inline">\(h_2\)</span>, and <span class="math inline">\(2\cdot(-)1!/2!=-1\)</span> for <span class="math inline">\(h_1^2\)</span>; hence <span class="math inline">\(S_2=2h_2-h_1^2\)</span>.</li>
+<li><span class="math inline">\(m=3\)</span>: <span class="math inline">\((k_3=1)\)</span>, <span class="math inline">\((k_1=1,k_2=1)\)</span>, <span class="math inline">\((k_1=3)\)</span> give <span class="math inline">\(3h_3-3h_1h_2+h_1^3\)</span>.</li>
+</ul>
+</section>
+<section id="m20-1" class="level3">
+<h3 class="anchored" data-anchor-id="m20-1">12 [M20]</h3>
+<p>General setup (bivariate OGFs)</p>
+<p>For a double sequence <span class="math inline">\(\{a_{m,n}\}_{m,n\ge 0}\)</span>, its (ordinary) bivariate generating function is</p>
+<p><span class="math display">\[
+F(w,z)\;=\;\sum_{m\ge 0}\sum_{n\ge 0} a_{m,n}\, w^m z^n.
+\]</span></p>
+<p>This is a <em>single</em> formal power series in the two indeterminates <span class="math inline">\(w\)</span> and <span class="math inline">\(z\)</span>. Coefficient extraction works as usual: <span class="math inline">\([w^m z^n]\,F(w,z)=a_{m,n}\)</span>. (Analytically, one may require <span class="math inline">\(|(1+w)z|&lt;1\)</span> below; as a <em>formal</em> series no convergence assumption is needed.)</p>
+<p>Apply to <span class="math inline">\(a_{m,n}=\binom{n}{m}\)</span></p>
+<p>Start from the definition above and sum first over <span class="math inline">\(m\)</span> for each fixed <span class="math inline">\(n\)</span>:</p>
+<p><span class="math display">\[
+\sum_{m\ge 0}\binom{n}{m} w^m
+= (1+w)^n
+\quad(\text{binomial theorem}).
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+F(w,z)\;=\;\sum_{n\ge 0}\Bigl(\sum_{m\ge 0}\binom{n}{m} w^m\Bigr) z^n
+\;=\;\sum_{n\ge 0}\bigl((1+w)z\bigr)^n
+\;=\;\frac{1}{1-(1+w)z}
+\;=\;\frac{1}{1-z-wz}.
+\]</span></p>
+<p>Thus the required generating function is</p>
+<p><span class="math display">\[
+\boxed{\,F(w,z)=\dfrac{1}{1-(1+w)z}\,}
+\quad\text{(equivalently } \frac{1}{1-z-wz}\text{).}
+\]</span></p>
+<p>You can verify correctness by expanding <span class="math inline">\(1/(1-(1+w)z)=\sum_{n\ge 0}((1+w)z)^n\)</span> and then expanding <span class="math inline">\((1+w)^n\)</span>; the coefficient of <span class="math inline">\(w^m z^n\)</span> is <span class="math inline">\(\binom{n}{m}\)</span>, and it vanishes automatically for <span class="math inline">\(m&gt;n\)</span>.</p>
+</section>
+<section id="hm22" class="level3">
+<h3 class="anchored" data-anchor-id="hm22">13 [HM22]</h3>
+<p>Given a sequence <span class="math inline">\(a_0,a_1,a_2,\dots\)</span> with ordinary generating function <span class="math inline">\(G(z)=\sum_{k\ge0}a_k z^k\)</span>, define the step function</p>
+<p><span class="math display">\[
+f(x)=\sum_{k\ge 0} a_k\,[0\le k\le x]
+\]</span></p>
+<p>(the sum of the first <span class="math inline">\(\lfloor x\rfloor+1\)</span> terms). Express the Laplace transform <span class="math inline">\(L\{f\}(s)=\int_0^\infty e^{-st}f(t)\,dt\)</span> in terms of <span class="math inline">\(G\)</span>.</p>
+<ol type="1">
+<li>Write <span class="math inline">\(f\)</span> using indicators and swap sum/integral For <span class="math inline">\(t\ge0\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+f(t)=\sum_{k\ge0} a_k\,\mathbf{1}_{\{t\ge k\}}.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+L\{f\}(s)\;=\;\int_{0}^{\infty} e^{-st}\!\left(\sum_{k\ge0} a_k\,\mathbf{1}_{\{t\ge k\}}\right)dt
+\;=\;\sum_{k\ge0} a_k \int_{k}^{\infty} e^{-st}\,dt,
+\]</span></p>
+<p>where interchanging sum and integral is justified when <span class="math inline">\(\Re(s)&gt;0\)</span> and <span class="math inline">\(|e^{-s}|&lt;R\)</span> with <span class="math inline">\(R\)</span> the radius of convergence of <span class="math inline">\(G\)</span> (then <span class="math inline">\(\sum |a_k|e^{-\Re(s)k}\)</span> converges absolutely, so Tonelli/Fubini applies).</p>
+<ol start="2" type="1">
+<li>Compute the inner integral For <span class="math inline">\(\Re(s)&gt;0\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+\int_{k}^{\infty} e^{-st}\,dt=\frac{e^{-sk}}{s}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Recognize the generating function Therefore</li>
+</ol>
+<p><span class="math display">\[
+L\{f\}(s)=\frac{1}{s}\sum_{k\ge0} a_k\,e^{-sk}
+=\frac{1}{s}\,G\!\left(e^{-s}\right).
+\]</span></p>
+<p>Final formula and domain</p>
+<p><span class="math display">\[
+\boxed{\displaystyle L\{f\}(s)=\frac{1}{s}\,G\!\left(e^{-s}\right)}
+\qquad\text{valid for}\quad \Re(s)&gt;0\ \text{and}\ |e^{-s}|&lt;R,
+\]</span></p>
+<p>i.e., <span class="math inline">\(\Re(s)&gt;\max\{0,-\ln R\}\)</span>, so that both the Laplace integral and the substituted series converge.</p>
+<p>Quick check</p>
+<ul>
+<li><p>If <span class="math inline">\(a_k\equiv 1\)</span>, then <span class="math inline">\(G(z)=\frac{1}{1-z}\)</span>. Our formula gives</p>
+<p><span class="math display">\[
+L\{f\}(s)=\frac{1}{s}\cdot\frac{1}{1-e^{-s}},
+\]</span></p>
+<p>which is the classical Laplace transform of the staircase function <span class="math inline">\(f(t)=\lfloor t\rfloor+1\)</span>.</p></li>
+</ul>
+</section>
+<section id="hm21-1" class="level3">
+<h3 class="anchored" data-anchor-id="hm21-1">14 [HM21]</h3>
+<p>The identity states that, for <span class="math inline">\(G(z)=\sum_{n\ge 0} a_n z^n\)</span>, a fixed modulus <span class="math inline">\(m\ge 1\)</span>, and <span class="math inline">\(\omega=e^{2\pi i/m}\)</span>,</p>
+<p><span class="math display">\[
+\sum_{\substack{n\ge 0\\ n\equiv r\ (\mathrm{mod}\ m)}} a_n z^n
+\;=\;
+\frac1m\sum_{k=0}^{m-1}\omega^{-kr}\,G(\omega^{k}z)
+\qquad(0\le r&lt;m).
+\]</span></p>
+<p>Proof (step by step)</p>
+<ol type="1">
+<li>Expand the right-hand side using the power series for <span class="math inline">\(G\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\frac1m\sum_{k=0}^{m-1}\omega^{-kr}G(\omega^{k}z)
+=\frac1m\sum_{k=0}^{m-1}\omega^{-kr}\sum_{n\ge 0} a_n(\omega^{k}z)^n
+=\sum_{n\ge 0} a_n z^n\left(\frac1m\sum_{k=0}^{m-1}\omega^{k(n-r)}\right).
+\]</span></p>
+<ol start="2" type="1">
+<li>Use the roots-of-unity orthogonality:</li>
+</ol>
+<p><span class="math display">\[
+\frac1m\sum_{k=0}^{m-1}\omega^{k(n-r)}=
+\begin{cases}
+1,&amp; n\equiv r\pmod m,\\[2pt]
+0,&amp; n\not\equiv r\pmod m.
+\end{cases}
+\]</span></p>
+<p>Indeed, if <span class="math inline">\(t=n-r\)</span>, then <span class="math inline">\(\sum_{k=0}^{m-1}\omega^{kt}=\frac{1-\omega^{mt}}{1-\omega^{t}}=0\)</span> unless <span class="math inline">\(m\mid t\)</span>; when <span class="math inline">\(m\mid t\)</span>, every term is <span class="math inline">\(1\)</span> and the sum is <span class="math inline">\(m\)</span>.</p>
+<ol start="3" type="1">
+<li>Substituting this filter back into step (1) leaves exactly the terms with indices <span class="math inline">\(n\equiv r\pmod m\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{n\ge 0} a_n z^n\cdot [n\equiv r]
+\;=\;
+\sum_{\substack{n\ge 0\\ n\equiv r\ (\mathrm{mod}\ m)}} a_n z^n,
+\]</span></p>
+<p>which is the desired identity.</p>
+<p>No convergence hypotheses are needed if we interpret all series as formal power series, in the spirit of the section.</p>
+<p>Quick check</p>
+<p>For <span class="math inline">\(m=3\)</span> and <span class="math inline">\(r=1\)</span> we get</p>
+<p><span class="math display">\[
+a_1 z + a_4 z^4 + a_7 z^7+\cdots
+=\frac13\Big(G(z)+\omega^{-1}G(\omega z)+\omega^{-2}G(\omega^2 z)\Big),
+\quad \omega=e^{2\pi i/3},
+\]</span></p>
+<p>exactly as illustrated beneath Eq. (13).</p>
+</section>
+<section id="m28" class="level3">
+<h3 class="anchored" data-anchor-id="m28">15 [M28]</h3>
+<p>Let</p>
+<p><span class="math display">\[
+G_n(z)\;=\;\sum_{k=0}^{n}\binom{n-k}{k}\,z^k
+\quad\Big(=\;\sum_{k=0}^{n}\binom{2k-n-1}{k}(-z)^k\Big).
+\]</span></p>
+<p>By introducing the ordinary generating function <span class="math inline">\(H(w)=\sum_{n\ge0} G_n(z)\,w^n\)</span>, find a closed form for <span class="math inline">\(G_n(z)\)</span>.</p>
+<ol type="1">
+<li>Recurrence and bivariate generating function</li>
+</ol>
+<p>A direct “two-step” decomposition of the summand shows that the polynomials <span class="math inline">\(G_n\)</span> satisfy</p>
+<p><span class="math display">\[
+G_0(z)=1,\quad G_1(z)=1,\quad
+G_{n}(z)=G_{n-1}(z)+z\,G_{n-2}(z)\quad(n\ge2).
+\]</span></p>
+<p>(Combinatorially: choose whether the first item is a “1-step” or a “2-step” weighted by <span class="math inline">\(z\)</span>. Algebraically it follows by the standard binomial identity <span class="math inline">\(\binom{n-k}{k}=\binom{n-1-k}{k}+\binom{n-1-k}{k-1}\)</span>.)</p>
+<p>Form the ordinary generating function in <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+H(w)\;=\;\sum_{n\ge0}G_n(z)\,w^n.
+\]</span></p>
+<p>Multiply the recurrence by <span class="math inline">\(w^n\)</span> and sum over <span class="math inline">\(n\ge2\)</span>:</p>
+<p><span class="math display">\[
+H(w)-G_0(z)-G_1(z)w
+= w\big(H(w)-G_0(z)\big)+z\,w^2H(w).
+\]</span></p>
+<p>With <span class="math inline">\(G_0=G_1=1\)</span> this simplifies to</p>
+<p><span class="math display">\[
+(1-w-zw^2)\,H(w)=1
+\quad\Longrightarrow\quad
+\boxed{\,H(w)=\frac{1}{1-w-zw^2}\,}.
+\]</span></p>
+<p>This is the classic OGF of the Fibonacci-type recurrence.</p>
+<ol start="2" type="1">
+<li>Closed form (“Binet” formula) for <span class="math inline">\(G_n(z)\)</span></li>
+</ol>
+<p>Factor the denominator:</p>
+<p><span class="math display">\[
+1-w-zw^2=(1-\alpha w)(1-\beta w),
+\]</span></p>
+<p>where <span class="math inline">\(\alpha,\beta\)</span> are the roots of <span class="math inline">\(r^2-r-z=0\)</span>, i.e.</p>
+<p><span class="math display">\[
+\alpha=\frac{1+\sqrt{\,1+4z\,}}{2},\qquad
+\beta =\frac{1-\sqrt{\,1+4z\,}}{2},
+\qquad
+\alpha+\beta=1,\ \alpha\beta=-z.
+\]</span></p>
+<p>Partial fractions give</p>
+<p><span class="math display">\[
+H(w)=\frac{1}{(1-\alpha w)(1-\beta w)}
+=\frac{1}{\alpha-\beta}\!\left(\frac{\alpha}{1-\alpha w}-\frac{\beta}{1-\beta w}\right).
+\]</span></p>
+<p>Extracting coefficients of <span class="math inline">\(w^n\)</span> yields the closed form</p>
+<p><span class="math display">\[
+\boxed{\;
+G_n(z)=\frac{\alpha^{\,n+1}-\beta^{\,n+1}}{\alpha-\beta}
+=\frac{\displaystyle\left(\frac{1+\sqrt{1+4z}}{2}\right)^{\!n+1}
+-\left(\frac{1-\sqrt{1+4z}}{2}\right)^{\!n+1}}
+{\sqrt{\,1+4z\,}}\,.
+\;}
+\]</span></p>
+<ol start="3" type="1">
+<li>Quick checks and special cases</li>
+</ol>
+<ul>
+<li><span class="math inline">\(n=0\)</span>: <span class="math inline">\(G_0=1\)</span> (matches <span class="math inline">\((\alpha-\beta)/(\alpha-\beta)=1\)</span>).</li>
+<li><span class="math inline">\(n=1\)</span>: <span class="math inline">\(G_1=1\)</span> (gives <span class="math inline">\(\alpha+\beta=1\)</span>).</li>
+<li><span class="math inline">\(n=2\)</span>: <span class="math inline">\(G_2=1+z\)</span> (recurrence <span class="math inline">\(G_2=G_1+zG_0\)</span>).</li>
+<li>Fibonacci numbers. With <span class="math inline">\(z=1\)</span>, <span class="math inline">\(G_n(1)=F_{n+1}\)</span> (usual Fibonacci with <span class="math inline">\(F_0=0,F_1=1\)</span>).</li>
+<li>Radius of convergence (as a series in <span class="math inline">\(w\)</span>). The poles are at <span class="math inline">\(w=1/\alpha\)</span> and <span class="math inline">\(w=1/\beta\)</span>, so <span class="math inline">\(|w|&lt;\min\{|1/\alpha|,|1/\beta|\}\)</span> if you care about analytic convergence; as a formal power series, the identity holds algebraically.</li>
+</ul>
+<ol start="4" type="1">
+<li>Alternative derivation of <span class="math inline">\(H(w)\)</span> (double sum)</li>
+</ol>
+<p>Starting from the definition,</p>
+<p><span class="math display">\[
+\begin{aligned}
+H(w)
+&amp;=\sum_{n\ge0}\sum_{k\ge0}\binom{n-k}{k}z^k w^n
+=\sum_{k\ge0}z^k w^{2k}\sum_{m\ge0}\binom{m+k}{k}w^m
+\\[2pt]
+&amp;=\sum_{k\ge0}\frac{(z w^2)^k}{(1-w)^{k+1}}
+=\frac{1}{1-w}\cdot\frac{1}{1-\dfrac{z w^2}{1-w}}
+=\frac{1}{1-w-zw^2},
+\end{aligned}
+\]</span></p>
+<p>using <span class="math inline">\(\sum_{m\ge0}\binom{m+k}{k}w^m=(1-w)^{-(k+1)}\)</span>. This reproduces the result above and leads to the same closed form for <span class="math inline">\(G_n(z)\)</span>.</p>
+<ol start="5" type="1">
+<li>On the second binomial form</li>
+</ol>
+<p>The exercise also notes</p>
+<p><span class="math display">\[
+\binom{n-k}{k}
+=\binom{2k-n-1}{k}(-1)^k,
+\]</span></p>
+<p>which is the standard negative-binomial identity <span class="math inline">\(\binom{-m}{k}=(-1)^k\binom{m+k-1}{k}\)</span> with <span class="math inline">\(m=n-2k+1\)</span>. It’s just an algebraic re-expression of the same coefficients; the closed form for <span class="math inline">\(G_n(z)\)</span> is unchanged. </p>
+<p>Final answer</p>
+<p><span class="math display">\[
+\boxed{\;
+H(w)=\sum_{n\ge0}G_n(z)w^n=\frac{1}{1-w-zw^2},\qquad
+G_n(z)=\frac{\left(\frac{1+\sqrt{1+4z}}{2}\right)^{n+1}-\left(\frac{1-\sqrt{1+4z}}{2}\right)^{n+1}}{\sqrt{1+4z}}.
+\;}
+\]</span></p>
+</section>
+<section id="m22" class="level3">
+<h3 class="anchored" data-anchor-id="m22">16 [M22]</h3>
+<p>Let <span class="math inline">\(a_{n,r}(m)\)</span> be the number of solutions of</p>
+<p><span class="math display">\[
+x_1+x_2+\cdots+x_n=m
+\]</span></p>
+<p>with each <span class="math inline">\(x_i\)</span> an integer satisfying <span class="math inline">\(0\le x_i\le r\)</span>. Find the ordinary generating function</p>
+<p><span class="math display">\[
+G_{n,r}(z)\;=\;\sum_{m\ge 0} a_{n,r}(m)\,z^m,
+\]</span></p>
+<p>and (optionally) a coefficient formula for <span class="math inline">\(a_{n,r}(m)\)</span>.</p>
+<ol type="1">
+<li>Generating function by the product rule</li>
+</ol>
+<p>For a single variable <span class="math inline">\(x_i\)</span> with <span class="math inline">\(0\le x_i\le r\)</span>, the choices contribute</p>
+<p><span class="math display">\[
+1+z+z^2+\cdots+z^r \;=\;\frac{1-z^{\,r+1}}{1-z}.
+\]</span></p>
+<p>Since the <span class="math inline">\(n\)</span> variables are independent and the exponents add, the ordinary generating function factorizes:</p>
+<p><span class="math display">\[
+G_{n,r}(z)
+\;=\;\bigl(1+z+\cdots+z^r\bigr)^n
+\;=\;\left(\frac{1-z^{\,r+1}}{1-z}\right)^{\!n}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Extracting coefficients (closed form)</li>
+</ol>
+<p>To get an explicit formula for <span class="math inline">\(a_{n,r}(m)=[z^m]G_{n,r}(z)\)</span>, use inclusion–exclusion (or the binomial series for <span class="math inline">\((1-z)^{-n}\)</span>, then subtract the “overshoot” terms where some variable exceeds <span class="math inline">\(r\)</span>):</p>
+<p><span class="math display">\[
+\boxed{%
+a_{n,r}(m)
+\;=\;\sum_{j=0}^{\lfloor m/(r+1)\rfloor}
+(-1)^j\binom{n}{j}\binom{m-j(r+1)+n-1}{n-1}
+}
+\qquad(m\ge 0),
+\]</span></p>
+<p>with the convention <span class="math inline">\(\binom{u}{v}=0\)</span> if <span class="math inline">\(u&lt;0\)</span> or <span class="math inline">\(v&lt;0\)</span> or <span class="math inline">\(v&gt;u\)</span>.</p>
+<p>Derivation sketch. Write</p>
+<p><span class="math display">\[
+G_{n,r}(z)
+=\left(\frac{1-z^{r+1}}{1-z}\right)^{\!n}
+=(1-z^{r+1})^{n}(1-z)^{-n}
+=\sum_{j=0}^{n}\binom{n}{j}(-1)^j z^{j(r+1)}\cdot
+\sum_{t\ge 0}\binom{n+t-1}{n-1}z^{t}.
+\]</span></p>
+<p>Collect the coefficient of <span class="math inline">\(z^m\)</span> by setting <span class="math inline">\(t=m-j(r+1)\)</span> and summing over feasible <span class="math inline">\(j\)</span>.</p>
+<ol start="3" type="1">
+<li>Sanity checks and special cases</li>
+</ol>
+<ul>
+<li><span class="math inline">\(r=\infty\)</span>: <span class="math inline">\(G_{n,\infty}(z)=(1-z)^{-n}\)</span>, giving the stars-and-bars count <span class="math inline">\(\displaystyle a_{n,\infty}(m)=\binom{m+n-1}{n-1}\)</span>.</li>
+<li><span class="math inline">\(r=1\)</span>: binary variables. Then <span class="math inline">\(G_{n,1}(z)=(1+z)^n\)</span> and <span class="math inline">\(a_{n,1}(m)=\binom{n}{m}\)</span> for <span class="math inline">\(0\le m\le n\)</span>.</li>
+<li>Symmetry: coefficients of <span class="math inline">\((1+z+\cdots+z^r)^n\)</span> are symmetric in the sense <span class="math inline">\(a_{n,r}(m)=a_{n,r}(nr-m)\)</span> (replace each <span class="math inline">\(x_i\)</span> by <span class="math inline">\(r-x_i\)</span>).</li>
+</ul>
+<ol start="4" type="1">
+<li>Small example</li>
+</ol>
+<p>Take <span class="math inline">\(n=3, r=2\)</span>. Then</p>
+<p><span class="math display">\[
+G_{3,2}(z)=(1+z+z^2)^3.
+\]</span></p>
+<p>Expanding (or using the formula) gives</p>
+<p><span class="math display">\[
+a_{3,2}(m)=
+1,\,3,\,6,\,7,\,6,\,3,\,1\quad\text{for }m=0,1,2,3,4,5,6,
+\]</span></p>
+<p>which counts the bounded solutions to <span class="math inline">\(x_1+x_2+x_3=m\)</span> with <span class="math inline">\(0\le x_i\le 2\)</span>.</p>
+</section>
+<section id="m25-2" class="level3">
+<h3 class="anchored" data-anchor-id="m25-2">17 [M25]</h3>
+<p>Show that expanding <span class="math inline">\((1-z)^{-w}\)</span> in two different ways yields the bivariate generating function of the (unsigned) Stirling numbers of the first kind <span class="math inline">\(\bigl[{k\atop n}\bigr]\)</span>:</p>
+<p><span class="math display">\[
+(1-z)^{-w}
+=\sum_{k\ge 0}\binom{-w}{k}(-z)^k
+=\sum_{n\ge 0}\sum_{k\ge n}\frac{\bigl[{k\atop n}\bigr]}{k!}\,w^{\,n}z^{\,k},
+\]</span></p>
+<p>and hence</p>
+<p><span class="math display">\[
+\bigl(\ln\tfrac1{1-z}\bigr)^{\!n}
+= n!\sum_{k\ge n}\frac{\bigl[{k\atop n}\bigr]}{k!}\,z^{\,k}\qquad(n\ge 0).
+\]</span></p>
+<p>Step 1 — Binomial expansion with a general top argument</p>
+<p>Knuth’s generalized binomial coefficient is defined for any <span class="math inline">\(x\)</span> by <span class="math inline">\(\displaystyle \binom{x}{k}=x^{\underline{k}}/k!\)</span> (with falling factorial <span class="math inline">\(x^{\underline{k}}\)</span>); in particular,</p>
+<p><span class="math display">\[
+(1-z)^{-w}=\sum_{k\ge 0}\binom{-w}{k}(-z)^k
+\quad\text{(formal power series).}
+\]</span></p>
+<p>Moreover <span class="math inline">\(\binom{-w}{k}(-1)^k=\dfrac{w(w+1)\cdots(w+k-1)}{k!}=\dfrac{w^{\overline{k}}}{k!}\)</span> (rising factorial). Hence</p>
+<p><span class="math display">\[
+(1-z)^{-w}=\sum_{k\ge 0}\frac{w^{\overline{k}}}{k!}\,z^{\,k}.
+\]</span></p>
+<p>(For the negative-integer special case compare 1.2.9–(20); for the general binomial definition see the index to notations.)</p>
+<p>Step 2 — Express the rising factorial via Stirling numbers of the first kind</p>
+<p>By the standard conversion between factorial and ordinary powers, the (unsigned) Stirling numbers of the first kind expand the rising factorial:</p>
+<p><span class="math display">\[
+w^{\overline{k}}=\sum_{n=0}^{k}\bigl[{k\atop n}\bigr]\,w^{\,n}.
+\]</span></p>
+<p>(Equivalently, <span class="math inline">\(x^{\underline{n}}=\sum_{k}( -1)^{n-k}\bigl[{n\atop k}\bigr]x^{k}\)</span>; passing from falling to rising removes the signs.) See the Stirling-number discussion and identities in §1.2.6. </p>
+<p>Substitute into Step 1 and interchange sums:</p>
+<p><span class="math display">\[
+(1-z)^{-w}
+=\sum_{k\ge 0}\frac{z^{k}}{k!}\sum_{n=0}^{k}\bigl[{k\atop n}\bigr]w^{\,n}
+=\sum_{n\ge 0}w^{\,n}\sum_{k\ge n}\frac{\bigl[{k\atop n}\bigr]}{k!}\,z^{\,k}.
+\tag{★}
+\]</span></p>
+<p>Step 3 — Expand the same function as an exponential of a logarithm</p>
+<p>Also</p>
+<p><span class="math display">\[
+(1-z)^{-w}=e^{\,w\ln(1/(1-z))}=\sum_{n\ge 0}\frac{w^{\,n}}{n!}\,\Bigl(\ln\tfrac1{1-z}\Bigr)^{\!n}.
+\]</span></p>
+<p>Comparing coefficients of <span class="math inline">\(w^{\,n}\)</span> in this and in (★) gives, for each <span class="math inline">\(n\ge 0\)</span>,</p>
+<p><span class="math display">\[
+\sum_{k\ge n}\frac{\bigl[{k\atop n}\bigr]}{k!}\,z^{\,k}
+=\frac{1}{n!}\Bigl(\ln\tfrac1{1-z}\Bigr)^{\!n},
+\]</span></p>
+<p>which is exactly the desired identity.</p>
+<p>Quick sanity checks</p>
+<ul>
+<li><span class="math inline">\(n=1\)</span>. Since <span class="math inline">\(\bigl[{k\atop 1}\bigr]=(k-1)!\)</span>,</li>
+</ul>
+<p><span class="math display">\[
+\sum_{k\ge1}\frac{\bigl[{k\atop1}\bigr]}{k!}z^{k}=\sum_{k\ge1}\frac{1}{k}z^{k}
+=\ln\tfrac1{1-z},
+\]</span></p>
+<p>agreeing with the formula for <span class="math inline">\(n=1\)</span>.</p>
+<ul>
+<li><span class="math inline">\(n=2\)</span>. Using <span class="math inline">\(\bigl[{k\atop2}\bigr]=(k-1)!\,H_{k-1}\)</span>,</li>
+</ul>
+<p><span class="math display">\[
+2\sum_{k\ge2}\frac{\bigl[{k\atop2}\bigr]}{k!}z^{k}
+=2\sum_{k\ge2}\frac{H_{k-1}}{k}\,z^{k}
+=\Bigl(\ln\tfrac1{1-z}\Bigr)^{\!2},
+\]</span></p>
+<p>matching the <span class="math inline">\(n=2\)</span> case.</p>
+</section>
+<section id="m25-3" class="level3">
+<h3 class="anchored" data-anchor-id="m25-3">18 [M25]</h3>
+<ol type="a">
+<li>Distinct indices</li>
+</ol>
+<p>Consider</p>
+<p><span class="math display">\[
+E_n(z)\;=\;\prod_{k=1}^n (1+kz).
+\]</span></p>
+<p>Expanding, every term arises by choosing either <span class="math inline">\(1\)</span> or <span class="math inline">\(kz\)</span> from each factor; picking <span class="math inline">\(r\)</span> of the <span class="math inline">\(kz\)</span> terms and the rest as <span class="math inline">\(1\)</span> yields a contribution <span class="math inline">\((k_1\cdots k_r)z^r\)</span> with <span class="math inline">\(1\le k_1&lt;\cdots&lt;k_r\le n\)</span>. Therefore the desired sum is exactly the coefficient <span class="math inline">\([z^r]E_n(z)\)</span>.</p>
+<p>Now rewrite</p>
+<p><span class="math display">\[
+E_n(z)
+= z^{\,n+1}\!\!\prod_{k=1}^n\Big(\tfrac1z+k\Big)
+= \sum_{t=0}^{n+1} \big[{\,n+1 \atop t}\big]\, z^{\,n+1-t},
+\]</span></p>
+<p>using the standard expansion of a rising factorial into powers with Stirling numbers of the first kind. Hence</p>
+<p><span class="math display">\[
+\boxed{\displaystyle
+\sum_{1\le k_1&lt;\cdots&lt;k_r\le n} k_1\cdots k_r
+\;=\; \big[{\,n+1 \atop n+1-r}\big] }.
+\]</span></p>
+<p>(Equivalently, the sum is the elementary symmetric polynomial <span class="math inline">\(e_r(1,2,\ldots,n)\)</span>.)</p>
+<ol start="2" type="a">
+<li>Repetition allowed</li>
+</ol>
+<p>Now take</p>
+<p><span class="math display">\[
+H_n(z)\;=\;\prod_{k=1}^n \frac{1}{1-kz}.
+\]</span></p>
+<p>Each factor <span class="math inline">\((1-kz)^{-1}=\sum_{m\ge0}(kz)^m\)</span>, so in the product the coefficient of <span class="math inline">\(z^r\)</span> is the sum of all <span class="math inline">\(k_1\cdots k_r\)</span> over weakly increasing <span class="math inline">\(k_1\le\cdots\le k_r\)</span> with values in <span class="math inline">\(\{1,\dots,n\}\)</span>. Thus the desired sum is <span class="math inline">\([z^r]H_n(z)\)</span>.</p>
+<p>But there is a classical identity</p>
+<p><span class="math display">\[
+\prod_{k=1}^n \frac{1}{1-kz}
+=\sum_{t\ge n} \big\{{t \atop n}\big\} z^{\,t-n},
+\]</span></p>
+<p>so the coefficient of <span class="math inline">\(z^r\)</span> is <span class="math inline">\(\big\{{n+r \atop n}\big\}\)</span>. Therefore</p>
+<p><span class="math display">\[
+\boxed{\displaystyle
+\sum_{1\le k_1\le\cdots\le k_r\le n} k_1\cdots k_r
+\;=\; \big\{{\,n+r \atop n}\big\} }.
+\]</span></p>
+<p>(Equivalently, this is the complete homogeneous symmetric polynomial <span class="math inline">\(h_r(1,2,\ldots,n)\)</span>.)</p>
+<p>Quick check</p>
+<p>For <span class="math inline">\(n=3, r=2\)</span>:</p>
+<ul>
+<li><ol type="a">
+<li><span class="math inline">\(1\cdot2+1\cdot3+2\cdot3=11=\big[{4\atop2}\big]\)</span>.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><span class="math inline">\(1\cdot1+1\cdot2+1\cdot3+2\cdot2+2\cdot3+3\cdot3=25=\big\{{5\atop3}\big\}\)</span>.</li>
+</ol></li>
+</ul>
+</section>
+<section id="hm32" class="level3">
+<h3 class="anchored" data-anchor-id="hm32">19 [HM32]</h3>
+<p>For integers <span class="math inline">\(p,q\)</span> with <span class="math inline">\(0&lt;p&lt;q\)</span>, prove</p>
+<p><span class="math display">\[
+H_{p/q}
+= \frac{q}{p}\;-\;\frac{\pi}{2}\cot\!\Bigl(\frac{\pi p}{q}\Bigr)\;-\;\ln(2q)
+\;+\;2\sum_{0&lt;k&lt;q/2}\cos\!\Bigl(\frac{2\pi pk}{q}\Bigr)\,\ln\!\Bigl(\sin\frac{\pi k}{q}\Bigr).
+\tag{★}
+\]</span></p>
+<p>We use the hint: by Abel’s theorem,</p>
+<p><span class="math display">\[
+H_{p/q}
+=\lim_{x\to 1^-}\;\sum_{n\ge1}\Bigl(\frac1n-\frac{1}{n+p/q}\Bigr)x^{\,p+nq},
+\tag{1}
+\]</span></p>
+<p>and “Eq. (13)” of the section (the basic series for the logarithm) to rewrite the power series so the limit can be taken.</p>
+<ol type="1">
+<li>Prepare two pieces</li>
+</ol>
+<p>Split the sum in (1) into</p>
+<p><span class="math display">\[
+S(x)=A(x)-B(x),\qquad
+A(x):=\sum_{n\ge1}\frac{x^{p+nq}}{n},\qquad
+B(x):=\sum_{n\ge1}\frac{x^{p+nq}}{n+p/q}.
+\]</span></p>
+<p>Piece <span class="math inline">\(A\)</span>. Using <span class="math inline">\(\sum_{n\ge1}\frac{z^n}{n}=-\ln(1-z)\)</span> (Eq. (13) in this section),</p>
+<p><span class="math display">\[
+A(x)=x^{p}\sum_{n\ge1}\frac{(x^q)^{n}}{n}
+=-x^{p}\ln(1-x^{q}).
+\tag{2}
+\]</span></p>
+<p>Piece <span class="math inline">\(B\)</span>. Note <span class="math inline">\(1/(n+p/q)=q/(qn+p)\)</span>. Write the progression <span class="math inline">\(p,\,p+q,\,p+2q,\dots\)</span> via a roots-of-unity filter. Let <span class="math inline">\(\omega=e^{2\pi i/q}\)</span>. A standard discrete Fourier selection gives</p>
+<p><span class="math display">\[
+q\sum_{m\ge0}\frac{x^{p+mq}}{p+mq}
+=-\sum_{k=0}^{q-1}\omega^{-kp}\ln(1-\omega^k x).
+\tag{3}
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+B(x)=\sum_{n\ge1}\frac{x^{p+nq}}{n+p/q}
+=\;q\sum_{m\ge1}\frac{x^{p+mq}}{p+mq}
+=\;-\!\sum_{k=0}^{q-1}\omega^{-kp}\ln(1-\omega^k x)\;-\;\frac{q}{p}x^{p}.
+\tag{4}
+\]</span></p>
+<p>Combining (2) and (4),</p>
+<p><span class="math display">\[
+S(x)=\underbrace{\sum_{k=1}^{q-1}\omega^{-kp}\ln(1-\omega^k x)}_{=:f(x)}
+\;+\;\underbrace{(1-x^{p})\ln(1-x)\;+\;\frac{q}{p}x^{p}
+\;-\;x^{p}\ln\!\frac{1-x^{q}}{\,1-x\,}}_{=:g(x)}.
+\tag{5}
+\]</span></p>
+<ol start="2" type="1">
+<li>The easy limit <span class="math inline">\(g(x)\)</span></li>
+</ol>
+<p>As <span class="math inline">\(x\to1^{-}\)</span>: <span class="math inline">\((1-x^{p})\ln(1-x)\to0\)</span> (since <span class="math inline">\((1-x)\ln(1-x)\to0\)</span>), <span class="math inline">\(x^p\to1\)</span>, and <span class="math inline">\(\displaystyle \frac{1-x^q}{1-x}\to q\)</span>. Hence</p>
+<p><span class="math display">\[
+\lim_{x\to1^-}g(x)=\frac{q}{p}-\ln q.
+\tag{6}
+\]</span></p>
+<ol start="3" type="1">
+<li>The main limit <span class="math inline">\(f(x)\)</span></li>
+</ol>
+<p>For <span class="math inline">\(0&lt;x&lt;1\)</span> the <span class="math inline">\(k\)</span> and <span class="math inline">\(q-k\)</span> terms in <span class="math inline">\(f(x)\)</span> are complex conjugates, so <span class="math inline">\(f(x)\)</span> is real; it suffices to compute its real part termwise.</p>
+<p>Use the elementary factorization</p>
+<p><span class="math display">\[
+1-\omega^k
+=1-e^{2\pi i k/q}
+=2\sin\!\Bigl(\frac{\pi k}{q}\Bigr)\;
+\exp\!\Bigl(i\bigl(\tfrac{\pi k}{q}-\tfrac{\pi}{2}\bigr)\Bigr),
+\]</span></p>
+<p>valid for <span class="math inline">\(1\le k\le q-1\)</span>. Taking principal logs,</p>
+<p><span class="math display">\[
+\ln(1-\omega^k)
+=\ln\!\Bigl(2\sin\frac{\pi k}{q}\Bigr)
++i\Bigl(\frac{\pi k}{q}-\frac{\pi}{2}\Bigr).
+\]</span></p>
+<p>Therefore, letting <span class="math inline">\(\phi_k:=\tfrac{2\pi pk}{q}\)</span>,</p>
+<p><span class="math display">\[
+\omega^{-kp}\,\ln(1-\omega^k)
+=\Bigl[\cos\phi_k\,\ln\!\Bigl(2\sin\frac{\pi k}{q}\Bigr)
+-\Bigl(\frac{\pi k}{q}-\frac{\pi}{2}\Bigr)\sin\phi_k\Bigr]
++ i(\cdots),
+\]</span></p>
+<p>and summing <span class="math inline">\(k=1,\dots,q-1\)</span> cancels the imaginary parts. Thus</p>
+<p><span class="math display">\[
+\lim_{x\to1^-} f(x)
+=\sum_{k=1}^{q-1}\cos\phi_k\,\ln\!\Bigl(2\sin\frac{\pi k}{q}\Bigr)
+-\sum_{k=1}^{q-1}\Bigl(\frac{\pi k}{q}-\frac{\pi}{2}\Bigr)\sin\phi_k.
+\tag{7}
+\]</span></p>
+<p>Two standard trigonometric sums now enter:</p>
+<ul>
+<li><span class="math inline">\(\displaystyle \sum_{k=1}^{q-1}\cos\frac{2\pi pk}{q}=-1\)</span> (since <span class="math inline">\(\sum_{k=0}^{q-1}e^{2\pi i pk/q}=0\)</span>).</li>
+<li><span class="math inline">\(\displaystyle \sum_{k=1}^{q-1}k\sin\frac{2\pi pk}{q}=\frac{q}{2}\cot\frac{\pi p}{q}\)</span>. (Derive by differentiating <span class="math inline">\(\sum_{k=0}^{q-1} r^k=(1-r^q)/(1-r)\)</span> at <span class="math inline">\(r=e^{it}\)</span> and taking imaginary parts at <span class="math inline">\(t=2\pi p/q\)</span>.)</li>
+</ul>
+<p>Using <span class="math inline">\(\sum_{k=1}^{q-1}\sin\phi_k=0\)</span>, the second sum in (7) becomes</p>
+<p><span class="math display">\[
+-\frac{\pi}{q}\sum_{k=1}^{q-1}k\sin\phi_k
+= -\frac{\pi}{2}\cot\!\Bigl(\frac{\pi p}{q}\Bigr).
+\]</span></p>
+<p>For the first sum in (7), split <span class="math inline">\(\ln(2\sin)=\ln 2+\ln(\sin)\)</span>:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{q-1}\cos\phi_k\,\ln\!\Bigl(2\sin\frac{\pi k}{q}\Bigr)
+= \underbrace{\Bigl(\sum_{k=1}^{q-1}\cos\phi_k\Bigr)}_{=-1}\ln 2
+\;+\;\sum_{k=1}^{q-1}\cos\phi_k\,\ln\!\Bigl(\sin\frac{\pi k}{q}\Bigr).
+\]</span></p>
+<p>Pairing <span class="math inline">\(k\)</span> with <span class="math inline">\(q-k\)</span> converts the remaining sum to</p>
+<p><span class="math display">\[
+2\sum_{0&lt;k&lt;q/2}\cos\!\Bigl(\frac{2\pi pk}{q}\Bigr)\,\ln\!\Bigl(\sin\frac{\pi k}{q}\Bigr),
+\]</span></p>
+<p>since when <span class="math inline">\(q\)</span> is even the middle term <span class="math inline">\(k=q/2\)</span> has <span class="math inline">\(\sin(\pi/2)=1\)</span> and contributes <span class="math inline">\(0\)</span>.</p>
+<p>Hence</p>
+<p><span class="math display">\[
+\lim_{x\to1^-} f(x)
+= -\ln 2\;-\;\frac{\pi}{2}\cot\!\Bigl(\frac{\pi p}{q}\Bigr)
+\;+\;2\sum_{0&lt;k&lt;q/2}\cos\!\Bigl(\frac{2\pi pk}{q}\Bigr)\,\ln\!\Bigl(\sin\frac{\pi k}{q}\Bigr).
+\tag{8}
+\]</span></p>
+<ol start="4" type="1">
+<li>Assemble the result</li>
+</ol>
+<p>From (6) and (8),</p>
+<p><span class="math display">\[
+H_{p/q}
+=\Bigl(\frac{q}{p}-\ln q\Bigr)
++\Bigl[-\ln 2-\frac{\pi}{2}\cot\!\Bigl(\frac{\pi p}{q}\Bigr)
++2\sum_{0&lt;k&lt;q/2}\cos\!\Bigl(\frac{2\pi pk}{q}\Bigr)\,\ln\!\Bigl(\sin\frac{\pi k}{q}\Bigr)\Bigr],
+\]</span></p>
+<p>which simplifies to <span class="math inline">\((★)\)</span>, as required.</p>
+<ol start="5" type="1">
+<li>Quick sanity checks (the three series in the statement)</li>
+</ol>
+<p>Using <span class="math inline">\(1-\tfrac12H_{1/2}=\ln 2\)</span>, <span class="math inline">\(1-\tfrac13H_{1/3}+\tfrac15H_{1/5}-\cdots=\tfrac\pi4\)</span>, etc., the identity reproduces the classical sums displayed in the exercise heading (they correspond to <span class="math inline">\(H_{1/2},H_{1/4},H_{1/3}\)</span> in the linear combinations shown there).</p>
+</section>
+<section id="m21" class="level3">
+<h3 class="anchored" data-anchor-id="m21">20 [M21]</h3>
+<p>Step 1. Expand <span class="math inline">\(n^{m}\)</span> in the falling–factorial basis</p>
+<p>A classical identity using Stirling numbers of the second kind <span class="math inline">\(S(m,k)\)</span> is</p>
+<p><span class="math display">\[
+n^{m}=\sum_{k=0}^{m} S(m,k)\, n^{\underline{k}},
+\qquad
+n^{\underline{k}}:=n(n-1)\cdots(n-k+1)=k!\binom{n}{k}.
+\]</span></p>
+<p>(Combinatorially: count functions from an <span class="math inline">\(m\)</span>-set to an <span class="math inline">\(n\)</span>-set by first partitioning the domain into <span class="math inline">\(k\)</span> nonempty blocks — <span class="math inline">\(S(m,k)\)</span> ways — then injecting those <span class="math inline">\(k\)</span> blocks into the <span class="math inline">\(n\)</span>-set — <span class="math inline">\(n^{\underline{k}}\)</span> ways.)</p>
+<p>Hence</p>
+<p><span class="math display">\[
+n^{m}=\sum_{k=0}^{m} S(m,k)\,k!\binom{n}{k}.
+\]</span></p>
+<p>Step 2. The ordinary GF of <span class="math inline">\(\binom{n}{k}\)</span></p>
+<p>For fixed <span class="math inline">\(k\ge 0\)</span>,</p>
+<p><span class="math display">\[
+\sum_{n\ge 0}\binom{n}{k} z^{n}
+=\sum_{n\ge k}\binom{n}{k} z^{n}
+=z^{k}\sum_{r\ge 0}\binom{r+k}{k} z^{r}
+=\frac{z^{k}}{(1-z)^{k+1}},
+\]</span></p>
+<p>using <span class="math inline">\(\displaystyle \sum_{r\ge 0}\binom{r+k}{k}z^{r}=(1-z)^{-(k+1)}\)</span>.</p>
+<p>Multiplying by <span class="math inline">\(k!\)</span> gives</p>
+<p><span class="math display">\[
+\sum_{n\ge 0} k!\binom{n}{k} z^{n}=\frac{k!\,z^{k}}{(1-z)^{k+1}}.
+\]</span></p>
+<p>Step 3. Assemble the generating function</p>
+<p>Using Steps 1–2,</p>
+<p><span class="math display">\[
+\sum_{n\ge 0} n^{m} z^{n}
+=\sum_{n\ge 0}\sum_{k=0}^{m} S(m,k)\,k!\binom{n}{k} z^{n}
+=\sum_{k=0}^{m} S(m,k)\,k!\left(\sum_{n\ge 0}\binom{n}{k} z^{n}\right)
+=\sum_{k=0}^{m} \frac{S(m,k)\,k!\,z^{k}}{(1-z)^{k+1}}.
+\]</span></p>
+<p>Therefore the requested coefficients are</p>
+<p><span class="math display">\[
+\boxed{\;c_{m,k}=k!\,S(m,k)\;}\qquad(0\le k\le m),
+\]</span></p>
+<p>where <span class="math inline">\(S(m,k)\)</span> are Stirling numbers of the second kind.</p>
+<p>Quick checks (small <span class="math inline">\(m\)</span>)</p>
+<ul>
+<li><p><span class="math inline">\(m=0\)</span>: <span class="math inline">\(c_{0,0}=0!\,S(0,0)=1\Rightarrow \sum z^{n}=1/(1-z)\)</span>.</p></li>
+<li><p><span class="math inline">\(m=1\)</span>: <span class="math inline">\(c_{1,1}=1!\,S(1,1)=1\Rightarrow \sum n z^{n}=z/(1-z)^{2}\)</span>.</p></li>
+<li><p><span class="math inline">\(m=2\)</span>: <span class="math inline">\(c_{2,1}=1!\,S(2,1)=1,\; c_{2,2}=2!\,S(2,2)=2\)</span>:</p>
+<p><span class="math display">\[
+\sum n^{2}z^{n}=\frac{z}{(1-z)^{2}}+\frac{2 z^{2}}{(1-z)^{3}}
+=\frac{z(1+z)}{(1-z)^{3}},
+\]</span></p>
+<p>as known.</p></li>
+</ul>
+<p>Alternative viewpoint (operator form, optional)</p>
+<p>Since <span class="math inline">\(\displaystyle \sum_{n\ge 0} n^{m} z^{n}=(z\,\tfrac{d}{dz})^{m}\!\left(\frac{1}{1-z}\right)\)</span>, expanding the power <span class="math inline">\((z\,\tfrac{d}{dz})^{m}\)</span> in terms of falling powers of the operator <span class="math inline">\(z\,\tfrac{d}{dz}\)</span> again introduces <span class="math inline">\(S(m,k)\)</span> and leads to the same coefficients <span class="math inline">\(c_{m,k}=k!\,S(m,k)\)</span>.</p>
+</section>
+<section id="hm30" class="level3">
+<h3 class="anchored" data-anchor-id="hm30">21 [HM30]</h3>
+<ol type="1">
+<li>Ordinary generating function (OGF)</li>
+</ol>
+<p>Let</p>
+<p><span class="math display">\[
+A(z)\;=\;\sum_{n\ge 0} n!\,z^n.
+\]</span></p>
+<p>Radius of convergence</p>
+<p>By the root (or ratio) test, <span class="math inline">\(\sqrt[n]{n!}\sim n/e\)</span>, hence <span class="math inline">\(\lim_{n\to\infty}\sqrt[n]{n!}=\infty\)</span> and the radius of convergence is <span class="math inline">\(0\)</span>. Thus <span class="math inline">\(A(z)\)</span> diverges for every <span class="math inline">\(z\neq 0\)</span>; it is best regarded as a formal power series. (Coefficient extraction and manipulation of formal OGFs are standard in §1.2.9. )</p>
+<p>Differential equation for <span class="math inline">\(A\)</span></p>
+<p>The factorials satisfy <span class="math inline">\(a_{n+1}=(n+1)a_n\)</span> with <span class="math inline">\(a_0=1\)</span>. Use the standard derivative rule for OGFs,</p>
+<p><span class="math display">\[
+G'(z)=\sum_{k\ge0}(k+1)a_{k+1}z^k,
+\]</span></p>
+<p>which Knuth gives as Eq. (14). Multiply the recurrence by <span class="math inline">\(z^{n+1}\)</span> and sum over <span class="math inline">\(n\ge0\)</span>:</p>
+<p><span class="math display">\[
+A(z)-1 \;=\; z\sum_{n\ge0}(n+1)a_n z^n
+\;=\; z\,(zA(z))' \;=\; zA(z)+z^2A'(z).
+\]</span></p>
+<p>Hence the ODE</p>
+<p><span class="math display">\[
+z^2A'(z)=(1-z)A(z)-1. \tag{★}
+\]</span></p>
+<p>This step uses the differentiation identity for generating functions in the text.</p>
+<p>Closed form via an exponential integral</p>
+<p>Solve (★) as a first-order linear ODE. Writing it as <span class="math inline">\(A' - \frac{1-z}{z^2}A = -\frac{1}{z^2}\)</span>, an integrating factor is <span class="math inline">\(\mu(z)=ze^{1/z}\)</span>. Thus</p>
+<p><span class="math display">\[
+\frac{d}{dz}\!\bigl(ze^{1/z}A(z)\bigr)
+= -\frac{e^{1/z}}{z}.
+\]</span></p>
+<p>Let <span class="math inline">\(t=1/z\)</span>. Then <span class="math inline">\(-\frac{e^{1/z}}{z}\,dz=\frac{e^{t}}{t}\,dt\)</span>, so</p>
+<p><span class="math display">\[
+ze^{1/z}A(z)=\operatorname{Ei}\!\bigl(\tfrac{1}{z}\bigr)+C,
+\qquad
+A(z)=\frac{e^{-1/z}}{z}\Bigl(\operatorname{Ei}\!\bigl(\tfrac{1}{z}\bigr)+C\Bigr).
+\]</span></p>
+<p>Choosing <span class="math inline">\(C=0\)</span> gives the unique branch whose asymptotic Maclaurin expansion at <span class="math inline">\(z=0\)</span> is <span class="math inline">\(\sum_{n\ge0}n!z^n\)</span>. In other words,</p>
+<p><span class="math display">\[
+\boxed{\;A(z)\;\sim\;\sum_{n\ge0}n!z^n\;=\;\frac{e^{-1/z}}{z}\,\operatorname{Ei}\!\Bigl(\frac{1}{z}\Bigr)\;\text{ (as a divergent asymptotic series)}\;}
+\]</span></p>
+<p>(the equality is Borel summation/analytic continuation). This function has an essential singularity at <span class="math inline">\(z=0\)</span> and a branch cut coming from <span class="math inline">\(\operatorname{Ei}\)</span>.</p>
+<p>A convenient equivalent integral representation—obtained from <span class="math inline">\(n!=\int_0^\infty t^n e^{-t}\,dt\)</span> and summing the geometric series—is</p>
+<p><span class="math display">\[
+A(z)\;=\;\int_0^\infty \frac{e^{-t}}{1-zt}\,dt
+\;=\;\frac{e^{-1/z}}{z}\,\operatorname{Ei}\!\Bigl(\frac{1}{z}\Bigr),
+\]</span></p>
+<p>interpreted as an analytic continuation (the geometric series identity <span class="math inline">\(1/(1-u)=\sum_{n\ge0}u^n\)</span> is Eq. (5) in the text). </p>
+<p>Summary for the OGF.</p>
+<ul>
+<li>Formal series: <span class="math inline">\(A(z)=\sum_{n\ge0}n!z^n\)</span> (radius <span class="math inline">\(0\)</span>).</li>
+<li>Satisfies <span class="math inline">\(z^2A'=(1-z)A-1\)</span>.</li>
+<li>Borel sum / analytic continuation: <span class="math inline">\(A(z)=\frac{e^{-1/z}}{z}\operatorname{Ei}(1/z)\)</span>.</li>
+<li>Asymptotics at <span class="math inline">\(z\to0\)</span>: the coefficients are <span class="math inline">\(n!\)</span> (by coefficient extraction notation <span class="math inline">\([z^n]\)</span> in §1.2.9).</li>
+</ul>
+<ol start="2" type="1">
+<li>Exponential generating function (EGF)</li>
+</ol>
+<p>Knuth also uses exponential series in this section (see Eq. (22)). For the sequence <span class="math inline">\(\langle n!\rangle\)</span>,</p>
+<p><span class="math display">\[
+E(z)\;=\;\sum_{n\ge0}\frac{n!}{n!}\,z^n
+\;=\;\sum_{n\ge0} z^n
+\;=\;\frac{1}{1-z}\quad(|z|&lt;1).
+\]</span></p>
+<p>Thus the EGF is the geometric series <span class="math inline">\(1/(1-z)\)</span> (exactly Eq. (5) in the text), and it is analytic for <span class="math inline">\(|z|&lt;1\)</span> with a simple pole at <span class="math inline">\(z=1\)</span>. </p>
+<p>Properties from the EGF.</p>
+<ul>
+<li>Coefficients recover immediately: <span class="math inline">\([z^n]E(z)=1\)</span> and multiplying back by <span class="math inline">\(n!\)</span> gives <span class="math inline">\(n!\)</span>.</li>
+<li>Differentiation yields moments/convolutions in the usual way for EGFs (see the general “exponential series” framework).</li>
+</ul>
+<ol start="3" type="1">
+<li>Relation between OGF and EGF (Borel transform)</li>
+</ol>
+<p>The OGF can be viewed as the Borel transform of the EGF:</p>
+<p><span class="math display">\[
+A(z)\;=\;\int_0^\infty e^{-t}\,E(tz)\,dt
+\;=\;\int_0^\infty \frac{e^{-t}}{1-tz}\,dt
+\;=\;\frac{e^{-1/z}}{z}\operatorname{Ei}\!\Bigl(\frac{1}{z}\Bigr),
+\]</span></p>
+<p>which reconciles the divergent OGF with the convergent EGF and explains the exponential-integral form above (geometric-series identity again).</p>
+</section>
+<section id="m21-1" class="level3">
+<h3 class="anchored" data-anchor-id="m21-1">22 [M21]</h3>
+<ol type="1">
+<li>Build the product generating function</li>
+</ol>
+<p>For each fixed <span class="math inline">\(j\ge 0\)</span>, the choices of <span class="math inline">\(k_j\)</span> contribute a factor</p>
+<p><span class="math display">\[
+\sum_{k_j=0}^{r} \binom{r}{k_j}\, (z^{2^{j}})^{k_j} \;=\; (1+z^{2^{j}})^{r}
+\]</span></p>
+<p>by the binomial theorem. Independence across <span class="math inline">\(j\)</span> means the full generating function is</p>
+<p><span class="math display">\[
+G(z)\;=\;\prod_{j\ge 0} (1+z^{2^{j}})^{r}.
+\]</span></p>
+<p>By construction, expanding this product and collecting the <span class="math inline">\(z^n\)</span> term produces exactly the given sum, so this <span class="math inline">\(G(z)\)</span> works.</p>
+<ol start="2" type="1">
+<li>Telescope the product</li>
+</ol>
+<p>Use <span class="math inline">\(1+t=\dfrac{1-t^{2}}{1-t}\)</span> to telescope finite partial products:</p>
+<p><span class="math display">\[
+\prod_{j=0}^{m}(1+z^{2^{j}})^{r}
+= \prod_{j=0}^{m}\Bigl(\frac{1 - z^{2^{j+1}}}{1-z^{2^{j}}}\Bigr)^{r}
+= \left(\frac{1 - z^{2^{m+1}}}{1-z}\right)^{\!r}.
+\]</span></p>
+<p>Letting <span class="math inline">\(m\to\infty\)</span> (as a formal power series, or analytically for <span class="math inline">\(|z|&lt;1\)</span>) gives</p>
+<p><span class="math display">\[
+G(z)\;=\;\prod_{j\ge 0}(1+z^{2^{j}})^{r} \;=\; (1-z)^{-r}.
+\]</span></p>
+<p>Thus a closed form is <span class="math inline">\(G(z)=(1-z)^{-r}\)</span>. </p>
+<ol start="3" type="1">
+<li>Read off the coefficient</li>
+</ol>
+<p>From the negative binomial series,</p>
+<p><span class="math display">\[
+(1-z)^{-r}=\sum_{n\ge 0}\binom{n+r-1}{n}z^{n},
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+[z^{n}]\,G(z)=[z^{n}]\,(1-z)^{-r}=\binom{n+r-1}{n}.
+\]</span></p>
+<p>Therefore the original sum equals <span class="math inline">\(\binom{n+r-1}{n}\)</span>, and one valid answer is</p>
+<p><span class="math display">\[
+\boxed{\,G(z)=\displaystyle\prod_{j\ge 0}(1+z^{2^{j}})^{r}=(1-z)^{-r}\, .}
+\]</span></p>
+<ol start="4" type="1">
+<li>(Combinatorial sanity check)</li>
+</ol>
+<p><span class="math inline">\(\prod_{j\ge 0}(1+z^{2^{j}})=1+z+z^{2}+z^{3}+\cdots=\frac1{1-z}\)</span>: choosing <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> copy of each <span class="math inline">\(2^{j}\)</span> encodes the binary expansion of any nonnegative integer. Raising to the <span class="math inline">\(r\)</span>-th power counts ordered <span class="math inline">\(r\)</span>-tuples <span class="math inline">\((n_1,\dots,n_r)\)</span> with <span class="math inline">\(n_1+\cdots+n_r=n\)</span>; there are <span class="math inline">\(\binom{n+r-1}{n}\)</span> such tuples (“stars and bars”), matching the coefficient above.</p>
+</section>
+<section id="m33" class="level3">
+<h3 class="anchored" data-anchor-id="m33">23 [M33]</h3>
+<ol type="a">
+<li>Existence of polynomials <span class="math inline">\(f_m,g_m\)</span></li>
+</ol>
+<p>Claim. For every integer <span class="math inline">\(m\ge 1\)</span> there exist polynomials <span class="math inline">\(f_m(z_1,\dots,z_m)\)</span> and <span class="math inline">\(g_m(z_1,\dots,z_m)\)</span> such that the multivariate binomial-sum identity in the exercise holds for all integers <span class="math inline">\(n\ge r\ge 0\)</span>. (See the problem statement on p.&nbsp;96 of the text.) </p>
+<p>Construction (induction on <span class="math inline">\(m\)</span>).</p>
+<ul>
+<li><p>Base <span class="math inline">\(m=1\)</span>. Take</p>
+<p><span class="math display">\[
+f_1(z_1)=z_1,\qquad g_1(z_1)=1+z_1.
+\]</span></p>
+<p>The required identity reduces to the ordinary binomial theorem, so it holds. </p></li>
+<li><p>Inductive step. Suppose <span class="math inline">\(f_m,g_m\)</span> work for some <span class="math inline">\(m\)</span>. When you append a new variable <span class="math inline">\(z_{m+1}\)</span> and sum over the new index, a single application of the binomial theorem shows that you can obtain new polynomials <span class="math inline">\(f_{m+1},g_{m+1}\)</span> by the substitutions</p>
+<p><span class="math display">\[
+z_m\longleftarrow z_m\!\left(1+z_{m+1}^{-1}\right),\quad\text{then multiply overall by }z_{m+1}.
+\]</span></p>
+<p>Concretely:</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_{m+1}(z_1,\dots,z_{m+1})
+&amp;=z_{m+1}\,f_m\!\bigl(z_1,\dots,z_{m-1},\,z_m(1+z_{m+1}^{-1})\bigr),\\
+g_{m+1}(z_1,\dots,z_{m+1})
+&amp;=z_{m+1}\,g_m\!\bigl(z_1,\dots,z_{m-1},\,z_m(1+z_{m+1}^{-1})\bigr).
+\end{aligned}
+\]</span></p>
+<p>In particular this implies the Fibonacci-type recurrences</p>
+<p><span class="math display">\[
+f_m=z_m f_{m-1}+z_{m-1}f_{m-2},\qquad
+g_m=z_m g_{m-1}+z_{m-1}g_{m-2},
+\]</span></p>
+<p>with initial values <span class="math inline">\(f_{-1}=0,\ f_0=g_{-1}=g_0=1\)</span>. Hence <span class="math inline">\(f_m,g_m\)</span> are indeed polynomials and the required identity follows for <span class="math inline">\(m+1\)</span>. </p></li>
+</ul>
+<p>Useful descriptions. From the recurrences one gets:</p>
+<ul>
+<li><p><span class="math inline">\(g_2=z_1+z_2+z_1z_2\)</span>.</p></li>
+<li><p><span class="math inline">\(g_m/f_m\)</span> equals the finite continued fraction</p>
+<p><span class="math display">\[
+\frac{g_m}{f_m}
+=1+\cfrac{z_1^{-1}}{1+\cfrac{z_2^{-1}}{1+\;\cdots\;+\cfrac{z_m^{-1}}{\,1\,}}}\,.
+\]</span></p></li>
+<li><p>Combinatorially, <span class="math inline">\(g_m\)</span> is the sum of all monomials obtained from <span class="math inline">\(z_1z_2\cdots z_m\)</span> by striking out any set of nonadjacent variables (there are <span class="math inline">\(F_{m+2}\)</span> ways); <span class="math inline">\(f_m\)</span> is similar but with <span class="math inline">\(z_1\)</span> constrained to remain. </p></li>
+</ul>
+<ol start="2" type="a">
+<li>Closed form for the cyclic sum <span class="math inline">\(S_n\)</span></li>
+</ol>
+<p>Let</p>
+<p><span class="math display">\[
+S_n(z_1,\dots,z_m)
+\]</span></p>
+<p>denote the cyclic binomial sum defined in the exercise (a direct generalization of Ex. 15). Using part (a) and extracting the coefficient of <span class="math inline">\(z_m^n\)</span>, we can write</p>
+<p><span class="math display">\[
+S_n(z_1,\dots,z_m)
+=[z_m^n]\sum_{r=0}^{n} z^r\, z_m^{\,n-r}\, f_m^{\,n-r}\,g_m^{\,r}.
+\]</span></p>
+<p>Carrying out the coefficient extraction and the finite sums leads to a compact second-order rational generating function</p>
+<p><span class="math display">\[
+\sum_{n\ge0} S_n z^n
+=\frac{1}{(1-az)(1-dz)-bc\,z^2},
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+a=z_m g_{m-1},\qquad
+b=z_{m-1} g_{m-2},\qquad
+c=z_m f_{m-1},\qquad
+d=z_{m-1} f_{m-2}.
+\]</span></p>
+<p>Equivalently, the sequence <span class="math inline">\((S_n)\)</span> satisfies the linear recurrence</p>
+<p><span class="math display">\[
+S_n = h_m\,S_{n-1} - (-1)^m z_1 z_2\cdots z_m\, S_{n-2},
+\quad n\ge2,
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+h_m=z_m g_{m-1}+z_{m-1} f_{m-2},
+\qquad
+ad-bc=(-1)^m z_1z_2\cdots z_m.
+\]</span></p>
+<p>Solving the quadratic</p>
+<p><span class="math display">\[
+t^2-(a+d)\,t+(ad-bc)=0,
+\]</span></p>
+<p>let <span class="math inline">\(\rho,\sigma\)</span> be its roots. Then the closed form is</p>
+<p><span class="math display">\[
+\boxed{\;S_n(z_1,\dots,z_m)=\dfrac{\rho^{\,n+1}-\sigma^{\,n+1}}{\rho-\sigma}\;}
+\]</span></p>
+<p>with <span class="math inline">\(a+d=h_m\)</span> and <span class="math inline">\(ad-bc=(-1)^m z_1\cdots z_m\)</span> as above. (All steps are detailed in the book’s answer sketch.) </p>
+<p><em>A pleasant by-product:</em> the derivation also yields directly the two-term recurrence for <span class="math inline">\(S_n\)</span> displayed above, which would be quite painful to obtain without generating functions.</p>
+<ol start="3" type="a">
+<li>Specialization <span class="math inline">\(z_1=\cdots=z_m=z\)</span></li>
+</ol>
+<p>When all variables are equal, the coefficients in the recurrence become constant and the characteristic roots simplify beautifully. If</p>
+<p><span class="math display">\[
+\rho_1=\frac{z+\sqrt{z^2+4z}}{2},\qquad
+\sigma_1=\frac{z-\sqrt{z^2+4z}}{2},
+\]</span></p>
+<p>then in the <span class="math inline">\(m\)</span>-variable case the corresponding roots are just the <span class="math inline">\(m\)</span>-th powers:</p>
+<p><span class="math display">\[
+\rho_m=\rho_1^{\,m},\qquad \sigma_m=\sigma_1^{\,m}.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\boxed{\;
+S_n(\underbrace{z,\dots,z}_{m})
+=\frac{\rho_m^{\,n+1}-\sigma_m^{\,n+1}}{\rho_m-\sigma_m}
+=\frac{\rho_1^{\,m(n+1)}-\sigma_1^{\,m(n+1)}}{\rho_1^{\,m}-\sigma_1^{\,m}}
+\;}
+\]</span></p>
+<p>with <span class="math inline">\(\rho_1,\sigma_1\)</span> as above. </p>
+<p>Checks and small cases</p>
+<ul>
+<li><span class="math inline">\(m=1\)</span>: <span class="math inline">\(S_n(z)=\frac{\rho_1^{\,n+1}-\sigma_1^{\,n+1}}{\rho_1-\sigma_1}\)</span> solves <span class="math inline">\(S_n=z\,S_{n-1}-z\,S_{n-2}\)</span> with <span class="math inline">\(S_0=1,\ S_1=1+z\)</span>; this is the classical companion to the Fibonacci-type sums in Ex. 15.</li>
+<li><span class="math inline">\(m=2\)</span>: Using <span class="math inline">\(g_2=z_1+z_2+z_1z_2\)</span> and the formulas above reproduces the two-variable generalization and matches the rational generating function obtained by standard methods.</li>
+</ul>
+</section>
+<section id="m22-1" class="level3">
+<h3 class="anchored" data-anchor-id="m22-1">24 [M22]</h3>
+<p>Proof of the identity</p>
+<p>Use the binomial theorem on the right-hand side:</p>
+<p><span class="math display">\[
+(1+zG(z))^m=\sum_{k=0}^m \binom{m}{k}\,(zG(z))^k.
+\]</span></p>
+<p>Taking coefficients of <span class="math inline">\(z^n\)</span> and using <span class="math inline">\([z^n]\,(z^kH(z))=[z^{\,n-k}]H(z)\)</span>,</p>
+<p><span class="math display">\[
+[z^n](1+zG(z))^m
+=\sum_{k=0}^m \binom{m}{k}\,[z^n]\,(zG(z))^k
+=\sum_{k=0}^m \binom{m}{k}\,[z^{\,n-k}]\,G(z)^k,
+\]</span></p>
+<p>which is exactly the left-hand side.</p>
+<ol type="a">
+<li><span class="math inline">\(G(z)=\dfrac{1}{1-z}\)</span></li>
+</ol>
+<p>Right-hand side:</p>
+<p><span class="math display">\[
+[z^n]\Bigl(1+\frac{z}{1-z}\Bigr)^m
+=[z^n]\,(1-z)^{-m}.
+\]</span></p>
+<p>Using the standard expansion <span class="math inline">\((1-z)^{-(r+1)}=\sum_{j\ge0}\binom{r+j}{r}z^j\)</span> (take <span class="math inline">\(r=m-1\)</span>), the coefficient is</p>
+<p><span class="math display">\[
+[z^n]\,(1-z)^{-m}=\binom{m+n-1}{n}. \quad \text{(negative-binomial series)} \; \, \, \, \, \, \, \, \, \, \, \, \, \,
+\]</span></p>
+<p>Left-hand side (as a check): <span class="math inline">\(G(z)^k=(1-z)^{-k}\)</span>, so</p>
+<p><span class="math display">\[
+[z^{\,n-k}]\,G(z)^k=[z^{\,n-k}](1-z)^{-k}=\binom{n-1}{k-1}\quad (k\le n),
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\sum_{k} \binom{m}{k}\binom{n-1}{k-1}
+=\sum_{k} \binom{m}{k}\binom{n-1}{n-k}
+=\binom{m+n-1}{n}
+\]</span></p>
+<p>by Vandermonde’s convolution, agreeing with the RHS.</p>
+<p>Answer for (a): <span class="math inline">\(\boxed{\binom{m+n-1}{n}}\)</span>.</p>
+<ol start="2" type="a">
+<li><span class="math inline">\(G(z)=\dfrac{e^z-1}{z}\)</span></li>
+</ol>
+<p>Right-hand side:</p>
+<p><span class="math display">\[
+1+zG(z)=1+(e^z-1)=e^z \;\Rightarrow\; [z^n](e^z)^m=[z^n]e^{mz}=\frac{m^n}{n!}.
+\]</span></p>
+<p>Left-hand side (optional cross-check via Stirling numbers):</p>
+<p><span class="math display">\[
+[z^{\,n-k}]\,G(z)^k=[z^n](e^z-1)^k.
+\]</span></p>
+<p>From <span class="math inline">\(\dfrac{(e^z-1)^k}{k!}=\sum_{n\ge k} \!\! S(n,k)\,\dfrac{z^n}{n!}\)</span> we get <span class="math inline">\([z^n](e^z-1)^k=\dfrac{k!\,S(n,k)}{n!}\)</span>. Hence</p>
+<p><span class="math display">\[
+\sum_k \binom{m}{k}[z^{\,n-k}]G(z)^k
+=\frac{1}{n!}\sum_k \binom{m}{k}k!\,S(n,k)
+=\frac{1}{n!}\sum_k (m)_k\,S(n,k)
+=\frac{m^n}{n!},
+\]</span></p>
+<p>using the standard identity <span class="math inline">\(m^n=\sum_k S(n,k)\,(m)_k\)</span>. The RHS <span class="math inline">\(m^n/n!\)</span> we already obtained.</p>
+<p>Answer for (b): <span class="math inline">\(\boxed{\dfrac{m^n}{n!}}\)</span>.</p>
+<p>I will give another purely combinatorial (no generating functions) proofs for parts (a) and (b).</p>
+<ol type="a">
+<li><span class="math inline">\(G(z)=\dfrac{1}{1-z}\)</span> ⇒ <span class="math inline">\(\displaystyle [z^n](1-z)^{-m}=\binom{m+n-1}{n}\)</span></li>
+</ol>
+<p>Combinatorial story (stars and bars). Interpret <span class="math inline">\([z^n](1-z)^{-m}\)</span> as the number of solutions in nonnegative integers to</p>
+<p><span class="math display">\[
+x_1+\cdots+x_m=n,\qquad x_i\ge 0,
+\]</span></p>
+<p>i.e., distributing <span class="math inline">\(n\)</span> identical balls into <span class="math inline">\(m\)</span> labeled boxes. By the classic stars-and-bars argument, the count is</p>
+<p><span class="math display">\[
+\binom{m+n-1}{n}.
+\]</span></p>
+<p>Same count, decomposed by the number of nonempty boxes. Equivalently, count the same distributions by the number <span class="math inline">\(k\)</span> of boxes that are actually used:</p>
+<ol type="1">
+<li>Choose which <span class="math inline">\(k\)</span> of the <span class="math inline">\(m\)</span> boxes are nonempty: <span class="math inline">\(\binom{m}{k}\)</span> ways.</li>
+<li>Put at least one ball in each chosen box; write <span class="math inline">\(x_i'=x_i-1\)</span> for used boxes. Then <span class="math inline">\(\sum x_i'=n-k\)</span> with <span class="math inline">\(x_i'\ge 0\)</span> in exactly those <span class="math inline">\(k\)</span> boxes—equivalently, choose a composition of <span class="math inline">\(n\)</span> into <span class="math inline">\(k\)</span> positive parts. The number of such <span class="math inline">\(k\)</span>-tuples is <span class="math inline">\(\binom{n-1}{k-1}\)</span> (stars and bars with positivity).</li>
+</ol>
+<p>Summing over <span class="math inline">\(k\)</span> gives</p>
+<p><span class="math display">\[
+\sum_{k=0}^{\min(m,n)} \binom{m}{k}\binom{n-1}{k-1}
+=\binom{m+n-1}{n},
+\]</span></p>
+<p>which is Vandermonde’s convolution in disguise. Thus the coefficient equals <span class="math inline">\(\boxed{\binom{m+n-1}{n}}\)</span>.</p>
+<ol start="2" type="a">
+<li><span class="math inline">\(G(z)=\dfrac{e^z-1}{z}\)</span> ⇒ <span class="math inline">\(\displaystyle [z^n]e^{mz}=\frac{m^n}{n!}\)</span></li>
+</ol>
+<p>We’ll show the identity</p>
+<p><span class="math display">\[
+m^n=\sum_{k=0}^{\min(m,n)} \binom{m}{k}\,k!\,S(n,k),
+\]</span></p>
+<p>by double-counting the same object, then divide by <span class="math inline">\(n!\)</span> at the end.</p>
+<p>Objects to count. Consider all functions <span class="math inline">\(f:[n]\to[m]\)</span> (think: color each of <span class="math inline">\(n\)</span> distinct balls with one of <span class="math inline">\(m\)</span> colors). There are clearly <span class="math inline">\(m^n\)</span> such functions.</p>
+<p>Count the same set by the number of colors used.</p>
+<ul>
+<li>Fix <span class="math inline">\(k\)</span>. First choose the <span class="math inline">\(k\)</span> colors that actually appear: <span class="math inline">\(\binom{m}{k}\)</span> ways.</li>
+<li>The fibers <span class="math inline">\(f^{-1}(c)\)</span> over the used colors form a partition of <span class="math inline">\([n]\)</span> into <span class="math inline">\(k\)</span> nonempty, <em>unlabeled</em> blocks. The number of such partitions is the Stirling number <span class="math inline">\(S(n,k)\)</span>.</li>
+<li>Finally, assign (label) the <span class="math inline">\(k\)</span> blocks with the chosen <span class="math inline">\(k\)</span> distinct colors: <span class="math inline">\(k!\)</span> bijections.</li>
+</ul>
+<p>Multiplying and summing over <span class="math inline">\(k\)</span> yields</p>
+<p><span class="math display">\[
+m^n=\sum_{k}\binom{m}{k}\,S(n,k)\,k!.
+\]</span></p>
+<p>Since <span class="math inline">\([z^n]e^{mz}=\frac{m^n}{n!}\)</span>, dividing both sides by <span class="math inline">\(n!\)</span> gives</p>
+<p><span class="math display">\[
+[z^n]e^{mz}
+=\sum_{k}\binom{m}{k}\,\frac{k!\,S(n,k)}{n!},
+\]</span></p>
+<p>which matches the exercise’s evaluation for <span class="math inline">\(G(z)=\dfrac{e^z-1}{z}\)</span>. Therefore the answer for (b) is <span class="math inline">\(\boxed{\dfrac{m^n}{n!}}\)</span>.</p>
+</section>
+<section id="m23-1" class="level3">
+<h3 class="anchored" data-anchor-id="m23-1">25 [M23]</h3>
+<p>Evaluate</p>
+<p><span class="math display">\[
+S_n=\sum_{k=0}^{n}\binom{n}{k}\binom{2n-2k}{\,n-k\,}(-2)^k.
+\]</span></p>
+<p>(Equivalently, recognize <span class="math inline">\(\binom{n}{k}(-2)^k=[w^k](1-2w)^n\)</span> and <span class="math inline">\(\binom{2n-2k}{n-k}=[z^{\,n-k}](1+z)^{2n-2k}\)</span>.)</p>
+<p>Use coefficient extraction to convert the single sum into one coefficient:</p>
+<p><span class="math display">\[
+\begin{aligned}
+S_n
+&amp;=\sum_{k=0}^{n}\binom{n}{k}(-2)^k\,[z^{\,n-k}](1+z)^{2n-2k} \\[2mm]
+&amp;=[z^{\,n}]\,\sum_{k=0}^{n}\binom{n}{k}(-2)^k\,z^{k}\,(1+z)^{2n-2k} \qquad\text{(shift: }[z^{n-k}]=[z^n]z^k\text{)}\\[2mm]
+&amp;=[z^{\,n}]\,(1+z)^{2n}\sum_{k=0}^{n}\binom{n}{k}\!\left(\frac{-2z}{(1+z)^2}\right)^{\!k}\\[2mm]
+&amp;=[z^{\,n}]\,(1+z)^{2n}\left(1-\frac{2z}{(1+z)^2}\right)^{\!n}
+=[z^{\,n}]\,(1+z)^{2n}\left(\frac{(1+z)^2-2z}{(1+z)^2}\right)^{\!n}\\[2mm]
+&amp;=[z^{\,n}]\,(1+z)^{2n}\left(\frac{1+z^2}{(1+z)^2}\right)^{\!n}
+=[z^{\,n}]\,(1+z^2)^{n}.
+\end{aligned}
+\]</span></p>
+<p>Now expand <span class="math inline">\((1+z^2)^n=\sum_{j=0}^{n}\binom{n}{j}z^{2j}\)</span>. The coefficient of <span class="math inline">\(z^n\)</span> is therefore</p>
+<ul>
+<li><span class="math inline">\(0\)</span> if <span class="math inline">\(n\)</span> is odd (no <span class="math inline">\(j\)</span> with <span class="math inline">\(2j=n\)</span>);</li>
+<li><span class="math inline">\(\binom{n}{n/2}\)</span> if <span class="math inline">\(n\)</span> is even (take <span class="math inline">\(j=n/2\)</span>).</li>
+</ul>
+<p>Answer</p>
+<p><span class="math display">\[
+\boxed{\,S_n=\begin{cases}
+\displaystyle \binom{n}{n/2},&amp; n\text{ even},\\[2mm]
+0,&amp; n\text{ odd}.
+\end{cases}\,}
+\]</span></p>
+<p>(Sanity check for small <span class="math inline">\(n\)</span>: <span class="math inline">\(S_0=1,\ S_1=0,\ S_2=2,\ S_3=0,\ S_4=6,\ S_6=20\)</span>, matching <span class="math inline">\(\binom{2m}{m}\)</span> for even <span class="math inline">\(n=2m\)</span>.)</p>
+</section>
+<section id="m40" class="level3">
+<h3 class="anchored" data-anchor-id="m40">26 [M40]</h3>
+<p>Knuth introduces the bracket notation <span class="math inline">\([z^n]\,G(z)\)</span> to mean “the coefficient of <span class="math inline">\(z^n\)</span> in <span class="math inline">\(G(z)\)</span>” (his eq. (31)). Exercise 26 asks you to extend this notation so that one can write things like</p>
+<p><span class="math display">\[
+[z^2-2z^5]\,G(z)=a_2-2a_5
+\quad\text{when }G(z)=\sum_{n\ge0}a_n z^n.
+\]</span></p>
+<p>Definition (generalized bracket)</p>
+<p>Let <span class="math inline">\(H(z)=\sum_{n\in\mathbb Z} h_n z^n\)</span> be a <em>Laurent</em> series with only finitely many <em>positive</em> coefficients nonzero (polynomials are the most common case). For a (formal) power series <span class="math inline">\(G(z)=\sum_{n\ge0} a_n z^n\)</span>, define</p>
+<p><span class="math display">\[
+\boxed{\;\;[H(z)]\,G(z)\;:=\;\operatorname{CT}_z\big(H(z)\,G(z^{-1})\big)\;=\;\sum_{n\ge0} h_n\,a_n\;}
+\]</span></p>
+<p>where <span class="math inline">\(\operatorname{CT}_z\)</span> denotes “constant term in <span class="math inline">\(z\)</span>.” This immediately yields <span class="math inline">\([z^2-2z^5]\,G(z)=a_2-2a_5\)</span>.</p>
+<p>Equivalently—connecting to Knuth’s coefficient-extraction via complex analysis—you can write the same functional as a contour (residue) integral:</p>
+<p><span class="math display">\[
+[H(z)]\,G(z)
+=\frac{1}{2\pi i}\oint H(z)\,G(z^{-1})\,\frac{dz}{z},
+\]</span></p>
+<p>which generalizes Cauchy’s coefficient formula <span class="math inline">\([z^n]\,G(z)=\frac{1}{2\pi i}\oint \frac{G(z)}{z^{n+1}}\,dz\)</span>. </p>
+<p>Basic properties</p>
+<p>Let <span class="math inline">\(F,G\)</span> be (formal) power series and <span class="math inline">\(H,K\)</span> Laurent series as above.</p>
+<ol type="1">
+<li><p>Linearity. <span class="math inline">\([\,\alpha H+\beta K\,]\,G=\alpha[H]\,G+\beta[K]\,G\)</span> and <span class="math inline">\([H]\,(\alpha F+\beta G)=\alpha[H]\,F+\beta[H]\,G\)</span>.</p></li>
+<li><p>Symmetry (dot product view). <span class="math inline">\([H]\,G=\sum_{n\ge0}h_n a_n=[G]\,H\)</span>. So <span class="math inline">\([\,\cdot\,]\)</span> is the coefficientwise inner product.</p></li>
+<li><p>Shift rules. <span class="math inline">\([z^m H]\,G=\sum_{n\ge0}h_n\,a_{n+m}=[H]\,(z^{-m}G)\)</span>. Special cases:</p></li>
+</ol>
+<ul>
+<li><span class="math inline">\([z^m]\,G=a_m\)</span> (recovers the original bracket).</li>
+<li><span class="math inline">\([1+z+\cdots+z^N]\,G=\sum_{n=0}^N a_n\)</span> (prefix sums).</li>
+<li>(<span class="math inline">\([z^r/(1-z)]\,G=\sum_{n\ge r}a_n\)</span>) (a tail sum; justified via the constant-term definition).</li>
+</ul>
+<ol start="4" type="1">
+<li>Product (Cauchy) interaction. If <span class="math inline">\(F(z)=\sum f_k z^k\)</span>, then</li>
+</ol>
+<p><span class="math display">\[
+[H]\,(F G)=\sum_{k\ge0} f_k\,\big[\,z^{-k}H\,\big]\,G,
+\]</span></p>
+<p>a handy “convolution-with-shift” identity derived from <span class="math inline">\(\operatorname{CT}\big(H\,F\,G^{-1}\big)\)</span>.</p>
+<ol start="5" type="1">
+<li>Hadamard viewpoint. Let <span class="math inline">\(H\odot G:=\sum_{n\ge0} h_n a_n z^n\)</span> be the Hadamard (termwise) product. Then</li>
+</ol>
+<p><span class="math display">\[
+[H]\,G=(H\odot G)(1),
+\]</span></p>
+<p>whenever evaluation at <span class="math inline">\(z=1\)</span> is meaningful (e.g., as a finite sum or convergent series).</p>
+<p>Examples</p>
+<ul>
+<li>Polynomial weights. With <span class="math inline">\(H(z)=c_0+c_1 z+\cdots+c_m z^m\)</span>, <span class="math inline">\([H]\,G=\sum_{k=0}^m c_k a_k\)</span>.</li>
+<li>Finite differences. <span class="math inline">\([1-z]\,G=a_0-a_1\)</span>, <span class="math inline">\([1-2z+z^2]\,G=a_0-2a_1+a_2\)</span> (a second difference at the origin).</li>
+<li>Sums via rational <span class="math inline">\(H\)</span>. Using <span class="math inline">\([\,1/(1-z)\,]\,G=\sum_{n\ge0}a_n\)</span> (constant-term proof), you can encode cumulative sums compactly.</li>
+</ul>
+<p>Why this is natural</p>
+<ul>
+<li>It strictly generalizes <span class="math inline">\([z^n]\)</span>: take <span class="math inline">\(H(z)=z^n\)</span> to get <span class="math inline">\([z^n]\,G\)</span>.</li>
+<li>It turns coefficient extraction into a bilinear functional—algebraically convenient and perfectly compatible with the generating-function toolkit in §1.2.9 (multiplication, logarithms, etc.).</li>
+<li>It fits the residue framework Knuth invokes for coefficient extraction, simply replacing <span class="math inline">\(z^{-n-1}\)</span> by <span class="math inline">\(H(z) / z\)</span> inside the contour integral.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.2.8.html" class="pagination-link" aria-label="1.2.8 Fibonacci numbers">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.2.8 Fibonacci numbers</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.2.10.html" class="pagination-link" aria-label="1.2.10 Analysis of an Algorithm">
+        <span class="nav-page-text"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

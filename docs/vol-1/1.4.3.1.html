@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.4.3.1 A MIX simulator – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.4.3.2.html" rel="next">
+<link href="../vol-1/1.4.2.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.4.3.1.html"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [14]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [20]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3 [22]</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4 [14]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">5 [24]</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">6 [28]</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">7 [32]</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">8 [20]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.4.3.1 A MIX simulator</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">1 [14]</h2>
+<p>What FCHECK does, and where it’s used</p>
+<ul>
+<li><p>Purpose. <code>FCHECK</code> decodes the F–field (in <code>rI3</code>) as a <em>partial field specification</em> of the form <span class="math inline">\(8L + R\)</span>, ensures <span class="math inline">\(L \le R \le 5\)</span>, then leaves the results in convenient places: it stores <span class="math inline">\(L\)</span> and <span class="math inline">\(R\)</span> in memory cells <code>L</code> and <code>R</code>, and sets <code>rI1 ← L</code>. (If invalid, it jumps to <code>FERROR</code>.)</p></li>
+<li><p>In <code>GETV</code>. The value-extraction subroutine begins by calling <code>FCHECK</code>, then fetches memory (<code>MEMORY</code>), and finally uses <code>L</code> and <code>R</code> to select the requested field and normalize the sign. (If the sign isn’t included, it forces the sign to <code>+</code>.)</p></li>
+<li><p>In <code>STORE</code>. The store routine also begins with <code>FCHECK</code>, then uses <code>L</code>/<code>R</code> to splice the source register into the destination word—handling the special case when the sign-byte (i.e., <code>L=0</code>) is included.</p></li>
+<li><p>In <code>COMPARE</code>. The program <em>intentionally</em> avoids calling <code>FCHECK</code> twice: it calls <code>GETV</code> (which runs <code>FCHECK</code> once), then enters <code>GETV</code> through the special entrance <code>GETAV</code> (which jumps past the <code>FCHECK</code> code) to reuse the already-decoded <code>L</code>. This is the one place where the code is already organized to keep the <code>FCHECK</code> overhead to a single call.</p></li>
+<li><p>The exercise note. The exercise explicitly points you to “step 3 (Reexamination)” at the end of §1.4.1, which suggests <em>enlarging or merging subroutines when the caller always does the same standard setup/cleanup around them</em>. The exercise statement itself appears at the bottom of the simulator section.</p></li>
+</ul>
+<p>Diagnosis</p>
+<p>Across the simulator:</p>
+<ul>
+<li><code>FCHECK</code> is always followed immediately by <em>very similar</em> boilerplate in its callers (e.g., loading <code>-R</code> into <code>rI2</code>, checking whether the sign is included via <code>L==0</code>, then doing standard shifts).</li>
+<li>Only <code>COMPARE</code> already amortizes <code>FCHECK</code> over two uses of the same field (memory and register) by using the <code>GETAV</code> entrance.</li>
+</ul>
+<p>That’s a textbook case for Step-3 refactoring: push the common pre/post work into a single place and remove redundant calls.</p>
+<p>A better organization (two practical refactorings)</p>
+<p>You can do either (A) “pre-decode F once per instruction that needs (L:R)” or (B) “absorb/inline the decode into the two places that actually need it.” Both obey Step-3.</p>
+<ol type="A">
+<li>Pre-decode once (preferred if you’re willing to touch the control path)</li>
+</ol>
+<ol type="1">
+<li><p>Mark which opcodes use (L:R). Add a small parallel table to <code>OPTABLE</code> that classifies the F–field usage of each opcode (e.g., 0 = not a partial field, 1 = partial field (L:R), 2 = shift count, …). The control routine already fetches <code>F</code> into <code>rI3</code> (line 027). Use your new table to decide whether to decode now.</p></li>
+<li><p>Decode centrally. If the current opcode’s F–usage is “partial field,” call a beefed-up decoder once and for all. That decoder should:</p>
+<ul>
+<li>Validate and compute <code>L</code> and <code>R</code> (as <code>FCHECK</code> does).</li>
+<li>Also set <code>rI2 ← −R</code> since every client immediately needs it.</li>
+<li>Optionally set a one-byte flag <code>SFLAG ← (L==0)</code> so clients don’t have to re-test.</li>
+</ul></li>
+<li><p>Use “prepared” entries.</p>
+<ul>
+<li>Change callers that currently do <code>JMP GETV</code> to <code>JMP GETAV</code> (the <em>already-prepared</em> entrance) because <code>rI1</code>/<code>R</code> are now set; <code>GETAV</code> already jumps past the <code>FCHECK</code> block.</li>
+<li>Split <code>STORE</code> into two entries: keep <code>STORE</code> (old behavior) and add <code>STORE1</code> right after the <code>FCHECK</code> call site; have the opcode table jump to <code>STORE1</code> when the control routine has pre-decoded <code>F</code>. This removes the <code>FCHECK</code> call in the common path.</li>
+</ul></li>
+</ol>
+<p>This removes <em>all duplicate decoding</em> in instructions that use the same (L:R) twice (e.g., <code>COMPARE</code>) and also avoids decoding in instructions whose F–field isn’t a partial field (e.g., <code>JUMP</code>, <code>ADDROP</code>). It follows Knuth’s Step-3 guidance exactly: enlarge the central “control” routine slightly to relieve its callees of repeated setup.</p>
+<ol start="2" type="A">
+<li>Inline/merge (<code>FCHECK</code> → callers) with a macro (minimal edits)</li>
+</ol>
+<p>If you prefer not to touch the control path or tables:</p>
+<ul>
+<li>Delete <code>FCHECK</code> as a runtime subroutine and replace it by an <em>assembly macro</em> (say, <code>DECODEF</code>) that expands to the 12 lines of its body (compute <code>L</code>, <code>R</code>, checks, set <code>rI1</code>). Expand <code>DECODEF</code> at the start of <code>GETV</code> (before label <code>1F</code>) and at the start of <code>STORE</code>. Also have the macro optionally do <code>LD2N R</code> so all callers get <code>rI2</code> “for free.”</li>
+<li>Keep <code>GETAV</code> unchanged so <code>COMPARE</code> still jumps past the macro expansion in <code>GETV</code> and benefits from a single decode.</li>
+</ul>
+<p>This keeps code simple, keeps <code>COMPARE</code> optimal, and respects Step-3 (“perhaps several subroutines should be merged into one; or perhaps a subroutine is called only once and should not be a subroutine at all”).</p>
+<p>Why this is better</p>
+<ul>
+<li>Fewer calls / simpler invariants. Operators that need fields no longer pay to rediscover <code>L</code>/<code>R</code> multiple times, and they get the always-needed <code>rI2 ← −R</code> (and optionally <code>SFLAG</code>) precomputed. See how <code>GETV</code> and <code>STORE</code> currently repeat the same checks right after <code>FCHECK</code>.</li>
+<li>Matches the one existing optimization. <code>COMPARE</code> already factors out the second decode via <code>GETAV</code>; the refactor generalizes that cleanliness instead of being a one-off.</li>
+<li>Faithful to Step-3. It’s precisely the “enlarge/merge subroutines” advice Knuth gives after completing a first cut: push common pre/post code down so the outer structure is cleaner.</li>
+</ul>
+<p>Concrete changes you’d make</p>
+<ul>
+<li>Control routine (option A): after <code>LD3 INST(4:4)</code> (line 027), if the opcode’s F–class is “(L:R)”, call <code>FDECODE</code> (your enhanced <code>FCHECK</code>) which sets <code>L</code>, <code>R</code>, <code>rI1=L</code>, <code>rI2=−R</code>, and <code>SFLAG</code>. Then have the opcode table point to <code>GETAV</code> (instead of <code>GETV</code>) and to <code>STORE1</code> (the post-decode entry).</li>
+<li>GETV: remove the prologue call to <code>FCHECK</code>; enter at the existing label after that call (<code>GETAV</code> already does exactly this).</li>
+<li>STORE: add label <code>STORE1</code> at the point right after the original <code>JMP FCHECK</code> and retarget the table to <code>STORE1</code> when pre-decoding is in effect; otherwise fall back to <code>STORE</code> for compatibility.</li>
+</ul>
+<p>Either approach solves Exercise 1: you’ve studied all uses of <code>FCHECK</code>, noticed the duplicated patterns right after it, and reorganized so the decode happens once (or is inlined where it belongs), exactly the kind of Step-3 improvement Knuth advocates.</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2 [20]</h2>
+<p>Here’s a clean, self-contained SHIFT routine for the MIX simulator. It plugs into the program exactly where opcode 6 (“SHIFT”) is dispatched in the operator table (see the listing that maps <code>F=0..5</code> to <code>SLA, SRA, SLAX, SRAX, SLC, SRC</code>). I keep A/X signs in <code>SIGNA/SIGNX</code> and only rearrange magnitudes in <code>AREG/XREG</code>, matching the simulator’s data layout.</p>
+<p>What the routine must do (recap)</p>
+<ul>
+<li>F=0: <code>SLA m</code> — shift A left by <code>m</code> bytes, zero-fill on the right; sign unchanged.</li>
+<li>F=1: <code>SRA m</code> — shift A right by <code>m</code> bytes, zero-fill on the left; sign unchanged.</li>
+<li>F=2: <code>SLAX m</code> — shift the (A,X) 10-byte pair left by <code>m</code>, zero-fill; signs unchanged.</li>
+<li>F=3: <code>SRAX m</code> — shift the (A,X) pair right by <code>m</code>, zero-fill; signs unchanged.</li>
+<li>F=4: <code>SLC m</code> — rotate the (A,X) pair left by <code>m</code> (circular); signs unchanged.</li>
+<li>F=5: <code>SRC m</code> — rotate the (A,X) pair right by <code>m</code> (circular); signs unchanged. Knuth’s exercise simply asks us to “write the SHIFT routine… (operation code 6).”</li>
+</ul>
+<p>MIX code</p>
+<pre class="mixal"><code>* ------------------------------------------------------------
+* SHIFT — opcode 6
+* Uses: rI3 = F (variant 0..5), rI5 = M (shift count, possibly signed)
+* Touches: AREG/XREG magnitudes only; SIGNA/SIGNX unchanged
+* Notes: If tracking timing exactly, add |M| to TIME in this routine,
+*        since OPTABLE contributes the base 2u already for SHIFT.
+* ------------------------------------------------------------
+SHIFT   ENT2    0,5         rI2 ← M (shift count)
+        J2NN    *+2         make rI2 ← |M|
+        ENN2    0,2
+        CMP3    =5=         F must be 0..5
+        JG      CYCLE       (defensive: treat out-of-range F as NOP)
+
+        JMP     SHTAB,3     dispatch by F
+
+* --- table of tiny trampolines (same pattern used elsewhere) ---
+SHTAB   JMP     S_SLA
+        JMP     S_SRA
+        JMP     S_SLAX
+        JMP     S_SRAX
+        JMP     S_SLC
+        JMP     S_SRC
+
+* --- F=0: SLA m (A only) ---
+S_SLA   LDA     AREG
+        SLA     0,2         shift A left by rI2 bytes
+        STA     AREG
+        JMP     S_DONE
+
+* --- F=1: SRA m (A only) ---
+S_SRA   LDA     AREG
+        SRA     0,2         shift A right by rI2 bytes
+        STA     AREG
+        JMP     S_DONE
+
+* --- F=2: SLAX m (A,X together) ---
+S_SLAX  LDA     AREG
+        LDX     XREG
+        SLAX    0,2         shift (A,X) left by rI2 bytes
+        STA     AREG
+        STX     XREG
+        JMP     S_DONE
+
+* --- F=3: SRAX m (A,X together) ---
+S_SRAX  LDA     AREG
+        LDX     XREG
+        SRAX    0,2         shift (A,X) right by rI2 bytes
+        STA     AREG
+        STX     XREG
+        JMP     S_DONE
+
+* --- F=4: SLC m (A,X circular left) ---
+S_SLC   LDA     AREG
+        LDX     XREG
+        SLC     0,2         rotate (A,X) left by rI2 bytes
+        STA     AREG
+        STX     XREG
+        JMP     S_DONE
+
+* --- F=5: SRC m (A,X circular right) ---
+S_SRC   LDA     AREG
+        LDX     XREG
+        SRC     0,2         rotate (A,X) right by rI2 bytes
+        STA     AREG
+        STX     XREG
+        JMP     S_DONE
+
+* --- wrap up; optional timing bump here ---
+S_DONE  * If desired:  TIME ← TIME + rI2  (|M|)
+        JMP     CYCLE</code></pre>
+<p>Why this is correct (brief reasoning)</p>
+<ol type="1">
+<li>Signs preserved. The simulator stores signs separately (<code>SIGNA</code>, <code>SIGNX</code>). We only load/store magnitudes from <code>AREG</code>/<code>XREG</code>, so shifting cannot disturb signs.</li>
+<li>Zero-fill vs rotate. Host MIX’s <code>SLA/SRA/SLAX/SRAX</code> zero-fill the vacated bytes; <code>SLC/SRC</code> rotate within the 10-byte <code>rAX</code> pair. That exactly matches MIX semantics for opcode 6 variants.</li>
+<li>Large or negative counts. We take <code>|M|</code>. For <code>SLA/SRA</code> beyond the register width, the host shift yields zeros (desired). For rotations, host <code>SLC/SRC</code> behave modulo 10 bytes, so any <code>M</code> works sensibly.</li>
+<li>Timing (if modeled). The OPTABLE entry already accounts for the base “2u” per SHIFT; if you’re simulating time precisely, add <code>|M|</code> here to reflect per-byte steps. (Knuth’s listing shows SHIFT’s table entry and the pattern for per-op timing updates.)</li>
+</ol>
+<pre class="mixal"><code>*  SHIFT operators (opcode = 6)
+*  Uses rI3 = F, rI5 = M (already set by the control routine).
+*  Count = |M|; signs are preserved by MIX shift ops automatically.
+
+SHIFT   DEC3    5           Is F &gt; 5?
+        J3P     FERROR      If so, invalid F for SHIFT.
+
+        LD1     M(1:2)      rI1 ← |M| (shift count, magnitude of M).
+
+        JMP     SFTABL,3    Dispatch to SLA/SRA/SLAX/SRAX/SLC/SRC.
+
+* --- F = 0 : SLA (shift left rA) ---
+SLAOP   LDA     AREG
+        SLA     0,1         Shift rA left by rI1 bytes, zero-fill right.
+        STA     AREG
+        JMP     CYCLE
+
+* --- F = 1 : SRA (shift right rA) ---
+SRAOP   LDA     AREG
+        SRA     0,1         Shift rA right by rI1 bytes, zero-fill left.
+        STA     AREG
+        JMP     CYCLE
+
+* --- F = 2 : SLAX (shift left rAX as 10-byte word) ---
+SLAXOP  LDA     AREG
+        LDX     XREG
+        SLAX    0,1         Shift rAX left by rI1 bytes, zero-fill right.
+        STA     AREG
+        STX     XREG
+        JMP     CYCLE
+
+* --- F = 3 : SRAX (shift right rAX) ---
+SRAXOP  LDA     AREG
+        LDX     XREG
+        SRAX    0,1         Shift rAX right by rI1 bytes, zero-fill left.
+        STA     AREG
+        STX     XREG
+        JMP     CYCLE
+
+* --- F = 4 : SLC (circular left rAX) ---
+SLCOP   LDA     AREG
+        LDX     XREG
+        SLC     0,1         Circular left shift of rAX by rI1 bytes.
+        STA     AREG
+        STX     XREG
+        JMP     CYCLE
+
+* --- F = 5 : SRC (circular right rAX) ---
+SRCOP   LDA     AREG
+        LDX     XREG
+        SRC     0,1         Circular right shift of rAX by rI1 bytes.
+        STA     AREG
+        STX     XREG
+        JMP     CYCLE
+
+* Jump table for F = 0..5, addressed via "JMP SFTABL,3" after "DEC3 5".
+* Place the label on the last entry (same pattern as the book’s JUMP table).
+        JMP     SLAOP
+        JMP     SRAOP
+        JMP     SLAXOP
+        JMP     SRAXOP
+        JMP     SLCOP
+SFTABL  JMP     SRCOP</code></pre>
+<p>Why this matches the book’s simulator</p>
+<ol type="1">
+<li><p>Dispatch pattern. The book’s operator routines use <code>DEC3 k</code> followed by <code>JMP TABLE,3</code>, with the table label on the <em>last</em> entry so that negative offsets select earlier entries (see the <code>JUMP</code> operator’s table). We do the same with <code>DEC3 5</code> and <code>SFTABL</code>.</p></li>
+<li><p>Where the count comes from. The control routine has already computed the effective address and stored it in the variable <code>M</code>; it then sets <code>rI5 ← M</code>. We take the magnitude of <code>M</code> via <code>LD1 M(1:2)</code> to obtain a nonnegative byte count for shifting. (Signs of <code>M</code> are irrelevant to SHIFT.)</p></li>
+<li><p>Which registers to touch. <code>SLA</code>/<code>SRA</code> affect only the A register; <code>SLAX</code>/<code>SRAX</code>/<code>SLC</code>/<code>SRC</code> treat <code>rA‖rX</code> as a 10-byte word. In the simulator, magnitudes live in <code>AREG</code>/<code>XREG</code>, and signs in <code>SIGNA</code>/<code>SIGNX</code>. MIX shift operators do not change signs, so we update only <code>AREG</code>/<code>XREG</code>.</p></li>
+<li><p>Opcode and timing. The switch table ties opcode 6 to <code>SHIFT(2)</code>, so no extra timing logic is needed in the routine; the control code already accounts for the two time units when it indexes the table.</p></li>
+</ol>
+<p>Notes and edge cases</p>
+<ul>
+<li><p>If the count exceeds the register width (e.g., SLA/SRA by ≥5, SLAX/SRAX by ≥10), MIX semantics produce all zeros in the shifted region; <code>SLC</code>/<code>SRC</code> are naturally modulo-10 circular shifts. The host MIX instructions used above enforce these behaviors directly.</p></li>
+<li><p>The routine intentionally ignores the sign of <code>M</code> by using <code>|M|</code> as the count, which matches standard descriptions of MIX shift instructions (“M specifies the number of bytes to be shifted”).</p></li>
+</ul>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">3 [22]</h2>
+<p>What MOVE must do</p>
+<ul>
+<li>Semantics: move F words, one word at a time, from source block starting at M to destination block starting at the (simulated) rI1 address; when finished, rI1 is increased by F. If F=0, nothing happens. Execution time is <code>1 + 2F</code> units (the base “1” comes from the opcode table; we add <code>2</code> per word moved in the routine). </li>
+<li>Overlap behavior (important!): copying proceeds “forward” (from <code>M</code> to <code>M+1</code> … while storing to <code>rI1</code>, <code>rI1+1</code>, …). If destination starts inside the source and ahead of it (e.g., <code>rI1 = M+1</code>), the same word may be replicated, exactly as described in the manual. Your simulator should therefore not try to be “memmove-safe”; it must mimic MIX’s specified effect. </li>
+<li>Control state the simulator has already set up for you: <code>rI5 ← M</code>, <code>rI3 ← F</code>, <code>rI4 ← C</code>, and the opcode table has placed the base time in <code>TIME</code> before jumping to the per-opcode routine. The magnitudes/signs of simulated registers live in memory cells like <code>I1REG</code>, <code>SIGN1</code>, etc. </li>
+</ul>
+<p>MOVE routine (MIXAL)</p>
+<p>Paste this under the label <code>MOVE</code> that’s wired in the opcode table.</p>
+<pre class="mixal"><code>* MOVE — opcode 7
+MOVE    J3Z   CYCLE          * If F=0, nothing to do.
+
+        JMP   MEMORY         * Fetch SOURCE word at address rI5:
+                             * on return: rX = sign, rA = magnitude (of memory[rI5])
+
+        SRAX  5              * Pack sign+magnitude so the full word sits in rX.
+
+* Validate DEST = simulated rI1 (must be in [0, BEGIN))
+        LD1   I1REG          * rI1 ← magnitude of simulated index register 1
+        LDA   SIGN1          * rA  ← sign of simulated index register 1
+        JAP   OKDEST         * if +, OK
+        J1NZ  MEMERROR       * if negative and magnitude ≠ 0 → invalid address
+        STZ   SIGN1(0:0)     * normalize -0 as +0 (permit address 0)
+
+OKDEST  CMP1  =BEGIN=        * rI1 ≥ BEGIN ?
+        JGE   MEMERROR       * out of simulated memory → error
+
+* Store the fetched word into DEST and account for time
+        STX   0,1            * memory[rI1] ← fetched full word
+        LDA   CLOCK          * add 2 units per moved word (base 1 was set already)
+        INCA  2
+        STA   CLOCK
+
+* Advance pointers/count and loop
+        INC1  1              * rI1++
+        ST1   I1REG          * write back simulated I1
+        INC5  1              * rI5++ (SOURCE++)
+        DEC3  1              * F--
+        JMP   MOVE           * keep moving until J3Z fires at top</code></pre>
+<p>This routine follows MIX’s defined behavior exactly:</p>
+<ul>
+<li>It moves one word at a time, always reading the source first (via <code>MEMORY</code>) and then writing to the current destination (<code>STX 0,1</code>).</li>
+<li>Because we progress <code>SOURCE</code> (<code>rI5</code>) and <code>DEST</code> (<code>rI1</code>) forward in lock-step, the overlap case where <code>DEST &gt; SOURCE</code> produces the same “replication” effect shown in the book (that’s the intended semantics). </li>
+<li>We charge time by adding <code>2</code> to <code>CLOCK</code> per moved word; together with the opcode table’s base time, this yields <code>1 + 2F</code>. </li>
+<li>We update the simulated <code>I1</code> immediately each step (by writing back <code>I1REG</code>), which is fine because programs can’t observe intermediate state during an instruction; at completion, <code>rI1</code> has increased by F, as required. </li>
+<li>Address checks ensure both source (handled by <code>MEMORY</code>) and destination are inside simulated memory <code>[0, BEGIN)</code>, with <code>-0</code> treated as <code>+0</code>. </li>
+</ul>
+<p>Quick sanity check on overlap</p>
+<ul>
+<li>Example from the text: <code>F=3</code>, <code>M=1000</code>, <code>rI1=999</code> → you’ll copy <code>1000→999</code>, <code>1001→1000</code>, <code>1002→1001</code> (no surprise).</li>
+<li>If instead <code>rI1=1001</code>, you’ll copy <code>1000→1001</code>, then (since <code>1001</code> now holds the old 1000) <code>1001→1002</code>, then <code>1002→1003</code>, so the original <code>CONTENTS(1000)</code> appears three times—exactly as MIX specifies. </li>
+</ul>
+<p>Where these hooks live in the simulator</p>
+<ul>
+<li>The control routine unpacks <code>INST</code>, computes <code>M</code> with indexing, stores <code>F</code> in <code>rI3</code> and <code>M</code> in <code>rI5</code>, looks up the routine in <code>OPTABLE</code>, stores the base time in <code>TIME</code>, and jumps to <code>MOVE</code>. Your routine returns to <code>CYCLE</code> when <code>F</code> becomes zero. </li>
+</ul>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">4 [14]</h2>
+<p>Here’s the smallest correct change to Knuth’s MIX-simulator so it “starts as if the GO button had been pushed.”</p>
+<p>What the GO button does (per §1.3.1, Ex. 26)</p>
+<p>When GO is pressed (with a card reader present), MIX (1) reads one card into locations 0000–0015, (2) clears the overflow toggle and sets rJ ← 0, then (3) jumps to location 0000 to begin execution. </p>
+<p>What the simulator already does</p>
+<p>In Program M (the simulator), the main loop already:</p>
+<ul>
+<li>Clears the overflow toggle (<code>STZ OVTog</code>) and</li>
+<li>Begins execution at location 0 by setting the “next instruction” register to 0 (<code>ENT6 0</code>, where rI6 is the location of the next instruction). </li>
+</ul>
+<p>So the only GO-state it doesn’t establish is rJ = 0.</p>
+<p>Minimal patch</p>
+<p>Add one instruction at program start to zero the simulated J register:</p>
+<pre><code>001 * MIX SIMULATOR
+002 ORIG 3500
+003 BEGIN   STZ TIME(0:2)   ; clear time
+004          STZ OVTog      ; clear overflow toggle  (GO requirement)
+004a         STZ JREG       ; * new: rJ ← 0       (GO requirement)
+005          STZ COMPI
+006          ENT6 0         ; start at location 0   (GO requirement)
+007 CYCLE    LDA CLOCK
+...</code></pre>
+<ul>
+<li><code>STZ JREG</code> makes the simulator’s rJ match the GO button’s post-reset state.</li>
+<li><code>STZ OVTog</code> and <code>ENT6 0</code> already matched the GO semantics (overflow cleared; “PC” set to 0000, since rI6 is the location of the next instruction). The control routine’s use of rI6 for the fetch is described just above Program M. </li>
+</ul>
+<p>Notes</p>
+<ul>
+<li>We aren’t simulating the initial card read (GO step 1) here; I/O operators are intentionally left for later exercises (§1.4.3.1, Ex. 6). This exercise only asks the simulator to <em>begin</em> as if GO had been used.</li>
+<li>After this one-line change, the simulator’s initial state matches items (2)–(3) of GO: rJ=0, overflow cleared, and execution begins at 0000.</li>
+</ul>
+<p>That’s it—one added <code>STZ JREG</code> at <code>BEGIN</code>.</p>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">5 [24]</h2>
+<p>Timing rules we’ll use (real MIX)</p>
+<p>MIX uses time unit u. From the timing summary:</p>
+<ul>
+<li>All LOAD/STORE, ADD/SUB, comparisons, shifts: 2u</li>
+<li>MOVE: 1u + 2u per word</li>
+<li>MUL/NUM/CHAR: 10u; DIV: 12u</li>
+<li>All remaining ops (including jumps, INC/DEC/ENT): 1u In particular, LDA = 2u, ENTA = 1u on real MIX.</li>
+</ul>
+<p>Assumptions (to keep the path concrete)</p>
+<ul>
+<li>Instruction uses no indexing (I=0), so the indexing block in the control routine is skipped.</li>
+<li>No errors (no range, field, or memory errors).</li>
+<li>For LDA, the usual field (0:5) (sign included).</li>
+<li>For ENTA, the address M ≠ 0 (the “M=0” special sign case is noted later). These are the straight-line, normal paths through the simulator.</li>
+</ul>
+<p>The simulator’s fixed control overhead per simulated instruction</p>
+<p>Every instruction first goes through the control routine at label CYCLE (load CLOCK, fetch INST, unpack M/I/F/C, consult OPTABLE, and jump). Counting times by instruction class yields 34u before the jump to the operator routine when I=0 (lines 007–035: loads/stores/shift = 2u each; INC/DEC/J? = 1u).</p>
+<p>Simulating LDA</p>
+<p>Path: CYCLE → OPTABLE → LOAD → GETV → (FCHECK, MEMORY) → LOAD1 → SIZECHK → CYCLE. Key code: LOAD/LOADN (lines 196–205), GETV (149–158), FCHECK (135–146), MEMORY (125–134), SIZECHK/OVCHECK (289–291, 191).</p>
+<ul>
+<li><p>Control overhead to reach operator: 34u.</p></li>
+<li><p>Operator + subroutines:</p>
+<ul>
+<li><code>JMP GETV</code>: 1u</li>
+<li>FCHECK (valid field): STJ, ENTA, ENTX, DIV, CMPX, JG, STX, STA, LD1, CMPA, JLE → 27u</li>
+<li>MEMORY: STJ, JS? (not taken), CMP, JGE (not taken), LDX, ENTA, SRAX, LDA, JMP → 14u</li>
+<li>Return in GETV (sign included, so skip setting + sign): J1Z, LD2N, SRA, JMP → 6u</li>
+<li>LOAD1 store magnitude/sign: ENT1, STA, STX, JMP → 6u</li>
+<li>SIZECHK/OVCHECK (no index overflow, no overflow): LD1, J1Z, JNOV → 4u</li>
+</ul>
+<p>Sum operator-side = 1 + 27 + 14 + 6 + 6 + 4 = 58u (plus 5u for the two unconditional returns to GETV’s and MEMORY’s <code>JMP *</code> sites) → 63u total operator segment.</p></li>
+<li><p>Total simulated time for LDA = 34u + 63u = 97u.</p></li>
+</ul>
+<p>Real MIX time for LDA = 2u. Slowdown ≈ 97/2 ≈ 48.5×.</p>
+<p>Simulating ENTA</p>
+<p>Path: CYCLE → OPTABLE → ADDROP → (LOAD1) → SIZECHK → CYCLE. Key code: ADDROP block (265–278), then LOAD1 and SIZECHK as above.</p>
+<ul>
+<li><p>Control overhead to reach operator: 34u.</p></li>
+<li><p>Operator path (typical M ≠ 0 branch):</p>
+<ul>
+<li>ADDROP prologue &amp; sign/magnitude setup: DEC3, J3P (not taken), ENTX, JXNZ (taken), SRAX, LDA, ENT1, <code>JMP 1F,3</code>, <code>JMP LOAD1</code> → 11u</li>
+<li>LOAD1 store magnitude/sign: STA, STX, <code>JMP SIZECHK</code> → 5u</li>
+<li>SIZECHK/OVCHECK: LD1, J1Z, JNOV → 4u</li>
+</ul>
+<p>Sum operator-side = 20u.</p></li>
+<li><p>Total simulated time for ENTA = 34u + 20u = 54u.</p></li>
+</ul>
+<p>Real MIX time for ENTA = 1u. Slowdown ≈ 54/1 = 54×.</p>
+<p>Notes on variants</p>
+<ul>
+<li>Indexing present (I≠0): the control routine executes the indexing block (lines 018–026), adding ~15u more (several loads/stores/shifts/add/compare/jump).</li>
+<li>LDA with field not including sign: GETV executes three extra ops (ENTX; two shifts), adding ~5u.</li>
+<li>ENTA with M = 0: executes two extra ops (LDX INST; ENTA 1) to pick up the instruction’s sign rule, adding ~3u.</li>
+</ul>
+<p>Final comparison</p>
+<ul>
+<li>LDA: simulated ~97u vs real 2u (≈ 49× slower).</li>
+<li>ENTA: simulated ~54u vs real 1u (≈ 54× slower).</li>
+</ul>
+<p>These figures come straight from counting the executed instructions along the normal paths in Program M and applying MIX’s timing rules.</p>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">6 [28]</h2>
+<p>Here’s a clean way to add the missing I/O operators to the MIX simulator, limited to unit 16 (card reader) and unit 18 (line printer), and consistent with Knuth’s timing model:</p>
+<ul>
+<li>Opcodes and meanings (from the MIX table): 34 = JBUS “unit F busy?”, 35 = IOC “control, unit F”, 36 = IN “input, unit F”, 37 = OUT “output, unit F”, 38 = JRED “unit F ready?” </li>
+<li>Exercise requirement: implement JBUS, IOC, IN, OUT, JRED; allow only units 16 and 18; assume read-card and skip-to-new-page take T=10000u; print-line takes T=7500u. Also special-case <code>JBUS *</code> to avoid the simulator “stopping.” </li>
+</ul>
+<p>Design (what to simulate)</p>
+<p>MIX overlaps I/O with computation. Issuing IN/OUT/IOC takes 1 unit of CPU time and makes the device busy for T units; the CPU continues. The queries JBUS/JRED test that busy/ready state. We therefore maintain per-device “ready times” and a CPU clock:</p>
+<ul>
+<li><code>CLOCK</code> — current CPU time (u).</li>
+<li><code>RDRFREE</code> — earliest time at which unit 16 (reader) is ready.</li>
+<li><code>PRTFREE</code> — earliest time at which unit 18 (printer) is ready.</li>
+<li>Constants: <code>TREAD=10000</code>, <code>TSKIP=10000</code>, <code>TPRINT=7500</code>.</li>
+<li>Overlap rule: when (re)starting an I/O, let <code>start = max(CLOCK, DEVFREE)</code> then set <code>DEVFREE = start + T</code>. CPU time still advances by 1 for the instruction itself (the “1+T” shown in the table), while the T portion accrues on the device timeline. </li>
+</ul>
+<p>Handlers to splice into “INDIVIDUAL OPERATORS”</p>
+<p>Below is MIXAL-style code that drops into the simulator’s opcode dispatch, following the conventions used elsewhere in §1.4.3.1 (use your existing <code>MEMORY</code> check and jump simulation sequence, e.g., <code>JSJ JMP MEMORY / ENT6 0,5</code>).</p>
+<p>Data and constants (in your simulator’s data area):</p>
+<pre><code>TREAD   EQU     10000          * read-card (unit 16)
+TSKIP   EQU     10000          * skip-to-new-page (unit 18, IOC)
+TPRINT  EQU     7500           * print-line (unit 18)
+CLOCK   CON     0
+RDRFREE CON     0              * unit 16 ready time
+PRTFREE CON     0              * unit 18 ready time</code></pre>
+<p>Utility: pick device’s FREE-TIME cell given F (16 or 18). If your decode already provides F in a register, keep it; otherwise extract F the way your other handlers do.</p>
+<pre><code>* On entry: r? = F (device number), rI5 = effective M (jump/address).
+DEVPTR  CMP?   =16=
+        JE     DEVPTR16
+        CMP?   =18=
+        JE     DEVPTR18
+        JMP    FERROR            * only 16 and 18 are supported here
+DEVPTR16 LDA   RDRFREE
+        JMP    DEVPTRX
+DEVPTR18 LDA   PRTFREE
+DEVPTRX  STA   FREEBUF           * FREEBUF holds the fetched free time
+        JMP    *+1
+FREEBUF  CON   0                 * scratch word to hold device free time</code></pre>
+<p>36 IN (unit F)</p>
+<ul>
+<li>Support: F=16 only (card reader).</li>
+<li>Effect: begin a read “now or when free” and mark reader busy until <code>start+TREAD</code>. Optionally deposit a 16-word “card image” at M..M+15 (for a bare simulator this can be zeros or any deterministic pattern). CPU time +1.</li>
+</ul>
+<pre><code>INOP    ...                      * you’re in opcode 36 case
+        * require F=16
+        CMP?   =16=
+        JNE    FERROR
+        * start := max(CLOCK, RDRFREE)
+        LDA    CLOCK
+        CMPA   RDRFREE
+        JGE    IN_START_READY
+        LDA    RDRFREE
+IN_START_READY
+        ADD    =TREAD=
+        STA    RDRFREE
+        * (Optional) deposit 16 words at M..M+15:
+        *   ENT1 0; LOOP 16x: STZ 0,5; INC5 1; DEC1 1; J1P LOOP
+        * advance CPU time by 1
+        LDA    CLOCK
+        INCA   1
+        STA    CLOCK
+        JMP    CYCLE</code></pre>
+<p>37 OUT (unit F)</p>
+<ul>
+<li>Support: F=18 only (line printer).</li>
+<li>Effect: schedule a print of one “line” for <code>TPRINT</code> units. CPU time +1.</li>
+</ul>
+<pre><code>OUTOP   CMP?   =18=
+        JNE    FERROR
+        * start := max(CLOCK, PRTFREE)
+        LDA    CLOCK
+        CMPA   PRTFREE
+        JGE    OUT_START_READY
+        LDA    PRTFREE
+OUT_START_READY
+        ADD    =TPRINT=
+        STA    PRTFREE
+        * (optional: ignore actual text formatting in this bare simulator)
+        LDA    CLOCK
+        INCA   1
+        STA    CLOCK
+        JMP    CYCLE</code></pre>
+<p>35 IOC (unit F)</p>
+<ul>
+<li>Support: F=18 used as “skip to new page,” cost <code>TSKIP</code>. (IOC for 16 is a no-op here.) CPU time +1.</li>
+</ul>
+<pre><code>IOCOP   CMP?   =18=
+        JE     IOC_PRN
+        * F=16 -&gt; no-op for this minimal simulator
+        LDA    CLOCK
+        INCA   1
+        STA    CLOCK
+        JMP    CYCLE
+
+IOC_PRN LDA    CLOCK
+        CMPA   PRTFREE
+        JGE    IOC_START_READY
+        LDA    PRTFREE
+IOC_START_READY
+        ADD    =TSKIP=
+        STA    PRTFREE
+        LDA    CLOCK
+        INCA   1
+        STA    CLOCK
+        JMP    CYCLE</code></pre>
+<p>34 JBUS (unit F busy?)</p>
+<ul>
+<li>If the device is still busy (its FREE time &gt; CLOCK), jump to M.</li>
+<li>Special case for <code>JBUS *</code>: if busy and <code>M</code> is the current instruction address, don’t spin at zero cost; instead advance <code>CLOCK</code> to the device’s FREE time (this models “wait until ready” and prevents the simulator from “stopping,” per Knuth’s note). If not busy, fall through. CPU time +1 (for the test itself). </li>
+</ul>
+<pre><code>JBUSOP  * load device free time
+        JSR    DEVPTR
+        * busy if FREEBUF &gt; CLOCK
+        LDA    FREEBUF
+        CMPA   CLOCK
+        JLE    JBUS_NOTBUSY
+        * device busy -&gt; conditional jump
+        * detect JBUS * (M == current PC). Your simulator already knows how to
+        * compare M against “this instruction”; reuse that mechanism.
+        JSR    IS_STAR           * sets CC: = if M==*
+        JE     JBUS_WAIT
+        * normal jump to M
+        JSJ    JMP MEMORY        * validate address in rI5, as elsewhere
+        ENT6   0,5               * simulate the jump
+        * account 1 unit for the instruction itself
+        LDA    CLOCK
+        INCA   1
+        STA    CLOCK
+        JMP    CYCLE
+JBUS_WAIT
+        * wait until ready by jumping time forward
+        LDA    FREEBUF
+        STA    CLOCK
+        JMP    CYCLE
+JBUS_NOTBUSY
+        * not busy, just consume 1 unit and continue
+        LDA    CLOCK
+        INCA   1
+        STA    CLOCK
+        JMP    CYCLE</code></pre>
+<p>38 JRED (unit F ready?)</p>
+<ul>
+<li>Jump to M iff device is ready (<code>FREE ≤ CLOCK</code>). CPU time +1 either way.</li>
+</ul>
+<pre><code>JREDOP  JSR    DEVPTR
+        LDA    FREEBUF
+        CMPA   CLOCK
+        JGT    JRED_NREADY
+        * ready -&gt; jump
+        JSJ    JMP MEMORY
+        ENT6   0,5
+        LDA    CLOCK
+        INCA   1
+        STA    CLOCK
+        JMP    CYCLE
+JRED_NREADY
+        LDA    CLOCK
+        INCA   1
+        STA    CLOCK
+        JMP    CYCLE</code></pre>
+<p>Notes and rationale</p>
+<ul>
+<li>Unit numbers: 16 is the card reader (e.g., the reset loader does <code>IN 0(16)</code>), 18 is the printer; restricting support to those two matches the exercise. </li>
+<li>Timing matches the MIX table (“1+T” for IN/OUT) and the multiple-buffering discussion: T accrues on the device; the CPU continues after the 1-unit issue time.</li>
+<li><code>JBUS *</code> “waits” by fast-forwarding <code>CLOCK</code> to the device’s free time, exactly to avoid a zero-time busy-wait loop (the note in the problem).</li>
+</ul>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">7 [32]</h2>
+<p>Here’s a clean, self-contained way to solve this exercies. The point is to keep your MIX I/O simulator realistic: executing <code>IN</code>/<code>OUT</code> must not move data immediately; the actual transfer happens roughly halfway through the device’s service time, while the device remains busy for the full time. This prevents programs from (incorrectly) assuming that <code>IN</code>/<code>OUT</code> are instantaneous. The exercise builds directly on the I/O instructions and device behavior defined earlier (units 16 = card reader, 18 = line printer; <code>IN/OUT/IOC/JBUS/JRED</code> semantics), and on the timing constants given in Ex. 6 (read-card or skip-page: <code>T=10000u</code>; print-line: <code>T=7500u</code>). The exercise’s specific requirement (“make the transmission occur after about half the time”) appears at the end of the section’s exercise list. </p>
+<p>Model the timing</p>
+<p>Maintain a global simulator clock <code>now</code> (in MIX time units <code>u</code>) and, for each device <code>d ∈ {16,18}</code>, these fields:</p>
+<ul>
+<li><code>ready_at[d]</code> — time when the device will become ready again.</li>
+<li><code>xfer_at[d]</code> — time when the <em>data movement</em> (memory ↔︎ device buffer) actually occurs; this is <code>start + ceil(T[d]/2)</code>.</li>
+<li><code>pending[d]</code> — <code>None | ("IN", M) | ("OUT", M) | ("IOC", op)</code> describing the scheduled action.</li>
+<li>Optional device buffers (e.g., next card image for 16; print line buffer for 18).</li>
+</ul>
+<p>Timing constants (from Ex. 6): <code>T[16].read_card = 10000</code>, <code>T[18].print_line = 7500</code>, and <code>T[18].skip_to_new_page (IOC) = 10000</code>. </p>
+<p>Event processing hook</p>
+<p>Before fetching each instruction in your main <code>CYCLE</code> loop, process any I/O events whose time has arrived:</p>
+<pre><code>def service_io_events():
+    for d in (16, 18):
+        if pending[d] and now &gt;= xfer_at[d]:
+            # Perform the scheduled data movement exactly once.
+            if pending[d].op == "IN":
+                mem[M ... M+block_size(d)-1] = device_in_buffer[d]
+            elif pending[d].op == "OUT":
+                device_out_buffer[d] = mem[M ... M+block_size(d)-1]
+            # IOC with no data movement: nothing to do here.
+            pending[d] = None
+            xfer_at[d] = +∞</code></pre>
+<p>This “half-time” transfer ensures that a program that uses the data too early (after <code>IN</code>) or changes it too late (after <code>OUT</code>) will behave incorrectly—exactly the mistake this exercise wants to catch.</p>
+<p>Instruction semantics (with half-time transfers)</p>
+<p>Use the architectural rules from §1.3.1: <code>IN/OUT</code> wait until the unit is ready <em>to start</em>; the transfer completes later; <code>IOC</code> initiates a device-specific operation; <code>JRED</code>/<code>JBUS</code> test readiness. </p>
+<p><code>IN M(F=unit)</code></p>
+<pre><code>d = unit
+wait_until_ready(d)               # if now &lt; ready_at[d], advance now to ready_at[d]
+start = now
+pending[d] = ("IN", M)            # schedule memory ← device
+xfer_at[d] = start + ceil(T[d]/2) # "approximately half" the device time
+ready_at[d] = start + T[d]        # unit remains busy for full time</code></pre>
+<p>Block size: 16 words for unit 16 (card reader), 24 for unit 18 (printer) if you ever support input there; here we limit to 16 for the card reader. </p>
+<p><code>OUT M(F=unit)</code></p>
+<pre><code>d = unit
+wait_until_ready(d)
+start = now
+pending[d] = ("OUT", M)           # schedule device ← memory
+xfer_at[d] = start + ceil(T[d]/2)
+ready_at[d] = start + T[d]</code></pre>
+<p>For unit 18, the printed line’s <em>content</em> is captured at <code>xfer_at[18]</code>; the physical printing completes at <code>ready_at[18]</code>.</p>
+<p><code>IOC M(F=unit)</code></p>
+<p>Wait until not busy, then perform the control; e.g., for the printer “skip-to-new-page” takes 10000 u but does no data transfer:</p>
+<pre><code>wait_until_ready(18)
+start = now
+pending[18] = ("IOC", "SKIP")
+xfer_at[18] = +∞                  # no data movement
+ready_at[18] = start + 10000</code></pre>
+<p>(If you later support <code>IOC</code> on other units, replicate this pattern with their <code>T</code>.)</p>
+<p><code>JRED M(F=unit)</code> and <code>JBUS M(F=unit)</code></p>
+<p>Use the §1.3.1 definitions: <code>JRED</code> jumps iff the unit is ready (<code>now ≥ ready_at[d]</code>), <code>JBUS</code> jumps iff not ready. </p>
+<p>Important “JBUS *” special case</p>
+<p>As hinted in Ex. 6, if the target of <code>JBUS</code> is the instruction itself (busy-wait spin), you must advance <code>now</code> to the next interesting time to avoid a frozen simulator:</p>
+<pre><code>if op == JBUS and target == PC and now &lt; ready_at[d]:
+    now = min(ready_at[d], min(xfer_at[k] for k with pending[k]))</code></pre>
+<p>This is the pragmatic fix that keeps the loop progressing. </p>
+<p>Why this satisfies Exercise 7</p>
+<ul>
+<li><code>IN</code>/<code>OUT</code> no longer “complete” at issue time: the simulator defers the data movement to <code>start + T/2</code>, while the device remains busy until <code>start + T</code>.</li>
+<li>Programs that incorrectly assume immediate availability (after <code>IN</code>) or immediate consumption (after <code>OUT</code>) will misbehave, reproducing the real-machine hazard the exercise is designed to prevent. </li>
+</ul>
+<p>Quick timeline sanity checks</p>
+<ol type="1">
+<li>Card read into 1000 with immediate use (wrong):</li>
+</ol>
+<pre><code>t0:     IN 1000(16)           # schedules memory update at t0+5000; device busy until t0+10000
+t0+1:   LDA 1000              # reads OLD data (correctly exposing the bug)
+...</code></pre>
+<ol start="2" type="1">
+<li>Printer OUT with later modification (also wrong):</li>
+</ol>
+<pre><code>t0:     OUT 2000(18)          # captures line at t0+3750; printer finishes at t0+7500
+t0+2000: STA 2000             # too early: the printed line will still reflect the pre-change contents</code></pre>
+<ol start="3" type="1">
+<li>Proper synchronization:</li>
+</ol>
+<pre><code>OUT 2000(18);  JBUS *(18)     # spin; simulator advances now to ~t0+7500
+# when we exit, the line has been printed and the unit is ready again</code></pre>
+<ol type="1">
+<li>Data layout for I/O timing and pending actions</li>
+</ol>
+<p>We keep, per device, three fields:</p>
+<ul>
+<li><code>READY_AT[d]</code> — when the device becomes ready again.</li>
+<li><code>XFER_AT[d]</code> — when the <em>actual data movement</em> occurs.</li>
+<li><code>PEND[d]</code> — pending action kind and base address (encoded in one MIX word: sign = kind; value = base address).</li>
+</ul>
+<p>Choose encodings:</p>
+<ul>
+<li><code>PEND</code> sign: <code>+</code> = none; <code>−</code> = has pending. The action code is stored in the most significant byte (B1) and the memory base address in the remaining bytes.</li>
+<li>Action codes: <code>1</code> = IN, <code>2</code> = OUT, <code>3</code> = IOC (no data move).</li>
+</ul>
+<p>You can keep device constants (<code>TREAD16</code>, <code>TPRINT18</code>, etc.) as you prefer.</p>
+<pre class="mixal"><code>          ORIG  2000
+
+* --- Global clock (u time units) ---
+NOW       CON   0
+
+* --- Device constants (adapt to your table) ---
+* D16 = card reader, D18 = line printer
+D16       CON   16
+D18       CON   18
+
+* service times (u)
+TREAD16   CON   10000          * read card / skip page (example)
+TPRINT18  CON   7500
+TSKIP18   CON   10000          * IOC skip page
+
+* half-times (ceil(T/2))
+HREAD16   CON   5000
+HPRINT18  CON   3750
+HSKIP18   CON   5000           * not used (no data move), keep for symmetry
+
+* --- Per-device tables: index by (device-16) if you only support 16..18
+* We'll allocate a small contiguous array and compute offsets.
+NDEV      CON   3              * support devices 16,17,18
+BASEDEV   CON   16
+
+READY_AT  CON   0,0,0          * READY_AT[16], [17], [18]
+XFER_AT   CON   0,0,0          * XFER_AT[16], [17], [18]
+PEND      CON   +0,+0,+0       * +0 = none; −(action&lt;&lt;30 | base) = pending
+
+* encodings
+ACT_IN    CON   1
+ACT_OUT   CON   2
+ACT_IOC   CON   3
+NONE      CON   +0
+
+* scratch
+TMP       CON   0
+IDX       CON   0              * working index = d - BASEDEV
+W         CON   0              * generic temp</code></pre>
+<p>Helper to compute <code>IDX = d − 16</code> and leave it in <code>IDX</code>:</p>
+<pre class="mixal"><code>IDXOF     STJ   IDXOF_RET
+          STA   TMP          * A has d
+          LDA   TMP
+          SUB   BASEDEV
+          STA   IDX
+          JBUS  *            * (no-op; keep same timing style)
+IDXOF_RET JMP   0</code></pre>
+<ol start="2" type="1">
+<li>Small utilities</li>
+</ol>
+<p>Store a “pending action” word</p>
+<p>We encode <code>(action, base)</code> in one word: <code>B1=action</code>, <code>B2..B5=base</code>, sign negative = “pending”.</p>
+<pre class="mixal"><code>SETPEND   STJ   SP_RET
+          STA   TMP          * A = base address M
+          ENT1  0
+          ENTA  0
+          OR    NONE         * clear A
+          LDX   TMP
+          SLA   5            * move X into B2..B5 (implementation detail varies)
+          OR    ACT          * B1 = action (ACT in A)
+          ST1   W            * save if you prefer a different scratch
+          NEG   W            * make it pending (negative sign)
+          LDA   IDX
+          STA   TMP
+          * PEND[base+IDX] ← W
+          LDX   TMP
+          LD2   =PEND=
+          ADD   X
+          STA   @0           * store W into PEND[IDX]
+SP_RET    JMP   0</code></pre>
+<p>(If your assembler lacks these exact bit ops, you can lay out two words <code>PENDKIND[ ]</code> and <code>PENDBASE[ ]</code> instead; logic stays the same and code gets simpler.)</p>
+<p>Read/write table slots</p>
+<p>If your MIXAL doesn’t like indirect addressing macros, you can provide tiny helpers. A simpler, clearer approach is to store each array as separate contiguous words and use <code>ENTx</code>/<code>INCx</code> stepping. To keep this answer concise, I’ll use a compact “index load/store” idiom; translate to your style as needed.</p>
+<ol start="3" type="1">
+<li>I/O event poller (run before each instruction fetch)</li>
+</ol>
+<p>This is the heart of Exercise 7. It performs the <em>deferred</em> transfers at <code>XFER_AT[d]</code> but does not make the device ready until <code>READY_AT[d]</code>.</p>
+<p>Call <code>IOPOLL</code> at the top of your <code>CYCLE</code> loop, before fetching the next instruction.</p>
+<pre class="mixal"><code>IOPOLL    STJ   IOP_RET
+          ENT3  0             * R3 = loop index 0..NDEV-1
+IOP_LP    CMP3  NDEV
+          JGE   IOP_DONE
+
+          * compute absolute device number d = BASEDEV + R3
+          LDA   BASEDEV
+          ADD   R3
+          STA   TMP           * TMP = d
+          JSR   IDXOF         * set IDX = d - BASEDEV
+
+          * if PEND[IDX] == NONE or XFER_AT[IDX] &gt; NOW, skip
+          * Load XFER_AT[IDX] into A:
+          LD2   =XFER_AT=
+          ADD   IDX
+          LDA   @0
+          STA   W             * W = xfer time
+          CMPA  NOW
+          JG    IOP_NEXT      * not yet time
+
+          * Load PEND[IDX]
+          LD2   =PEND=
+          ADD   IDX
+          LDA   @0
+          JPL   IOP_NEXT      * sign + =&gt; no pending
+
+          * decode action and base; here I’ll assume you split them
+          * If you implemented PENDKIND/PENDBASE arrays, this becomes trivial:
+          *   kind = PENDKIND[IDX]; base = PENDBASE[IDX]
+
+          * --- PERFORM THE DATA MOVE IF action == IN/OUT ---
+          * For clarity, I’ll branch by device number and action
+          LDA   TMP           * d in A
+          CMPA  D16
+          JE    IOP_D16
+          CMPA  D18
+          JE    IOP_D18
+          JMP   IOP_CLEAR     * unknown device =&gt; just clear pending
+
+* --- Device 16 (card reader): move 16 words at XFER time ---
+IOP_D16   * if ACT_IN: mem[M..M+15] &lt;- device buffer
+          * if ACT_OUT: (rare for reader) ignore or treat as error
+          * In most simulators, you keep a prepared card image buffer CARD[16].
+          * Copy CARD[k] -&gt; M[k] for k=0..15 (or vice versa for OUT).
+          * Pseudocode in MIXAL outline:
+
+          * ... decode base addr into R1 (left to you) ...
+          * ... copy loop of 16 words memory &lt;-- CARDBUF ...
+          JMP   IOP_CLEAR
+
+* --- Device 18 (line printer): capture line buffer from memory at XFER time ---
+IOP_D18   * if ACT_OUT: PRNBUF &lt;- mem[M..M+N-1] (your N; often 24 words)
+          * if ACT_IN : usually unsupported
+          * MIXAL copy loop outline:
+          * ... decode base addr into R1 ...
+          * ... copy loop memory --&gt; PRNBUF ...
+          JMP   IOP_CLEAR
+
+* After moving data (or deciding no move for IOC), clear PEND and set XFER_AT far in future
+IOP_CLEAR LD2   =PEND=
+          ADD   IDX
+          LDA   NONE
+          STA   @0
+
+          LD2   =XFER_AT=
+          ADD   IDX
+          LDA   =+7777777=    * “infinite” (larger than any NOW)
+          STA   @0
+
+IOP_NEXT  INC3  1
+          JMP   IOP_LP
+
+IOP_DONE  JMP   IOP_RET
+IOP_RET   JMP   0</code></pre>
+<p>Notes:</p>
+<ul>
+<li>Keep your actual memory copy routines where you already copy between device buffers and core. The point is <em>when</em> you do it: here, inside <code>IOPOLL</code> once <code>NOW ≥ XFER_AT[d]</code>, not when <code>IN/OUT</code> is issued.</li>
+<li>IOC actions normally do no data move — so <code>IOPOLL</code> simply clears <code>PEND</code> at XFER time only for IN/OUT; IOC needs no XFER slot at all (we’ll set it to “infinite”).</li>
+</ul>
+<ol start="4" type="1">
+<li>Modifications to instruction semantics</li>
+</ol>
+<p>You only change when data moves and how readiness is computed. The opcode timing (issuing cost) stays as in your simulator.</p>
+<p>IN M(F=unit d)</p>
+<ul>
+<li><p>If <code>NOW &lt; READY_AT[d]</code>, you must <em>not</em> block the whole CPU (MIX uses <code>JBUS</code>/<code>JRED</code> for sync); the architectural spec is that the instruction <em>initiates</em> the operation if the device is ready. Many simulators either (a) trap as “busy” or (b) start the op at <code>READY_AT</code>. For simplicity, I recommend: “if busy, advance <code>NOW</code> to <code>READY_AT[d]</code> and start,” which matches typical exercises.</p></li>
+<li><p>Upon starting, set:</p>
+<ul>
+<li><code>PEND[d] = (IN, M)</code>.</li>
+<li><code>XFER_AT[d] = START + ⌈T/2⌉</code>.</li>
+<li><code>READY_AT[d] = START + T</code>.</li>
+</ul></li>
+</ul>
+<pre class="mixal"><code>* On decode, A holds M (effective address), F holds unit d
+IN_OP     STJ   IN_RET
+          STA   TMP           * TMP = M
+          LDA   FREG          * get device number d
+          STA   W
+          JSR   IDXOF         * IDX = d - BASEDEV
+
+          * wait until device ready
+          LD2   =READY_AT=
+          ADD   IDX
+          LDA   @0
+          CMPA  NOW
+          JLE   IN_START
+          STA   NOW           * advance NOW to READY_AT[d]
+
+IN_START  * schedule IN
+          * XFER_AT = NOW + HALF_T[d]
+          LDA   W             * d in A
+          CMPA  D16
+          JE    IN16
+          CMPA  D18
+          JE    IN18
+
+          JMP   IN_DONE       * unsupported device -&gt; no-op or error
+
+IN16      LDA   NOW
+          ADD   HREAD16
+          LD2   =XFER_AT=
+          ADD   IDX
+          STA   @0
+
+          * READY_AT = NOW + TREAD16
+          LDA   NOW
+          ADD   TREAD16
+          LD2   =READY_AT=
+          ADD   IDX
+          STA   @0
+
+          * PEND = (ACT_IN, M)
+          LDA   TMP          * base M
+          STA   W
+          LDA   ACT_IN
+          STA   ACT
+          JSR   SETPEND
+          JMP   IN_DONE
+
+IN18      * normally input from printer is invalid; ignore or treat as error
+          JMP   IN_DONE
+
+IN_DONE   JMP   IN_RET
+IN_RET    JMP   0</code></pre>
+<p>OUT M(F=unit d)</p>
+<p>Same pattern, with OUT action and device-specific T and HALF_T.</p>
+<pre class="mixal"><code>OUT_OP    STJ   OUT_RET
+          STA   TMP          * TMP = M
+          LDA   FREG
+          STA   W
+          JSR   IDXOF
+
+          * wait until device ready
+          LD2   =READY_AT=
+          ADD   IDX
+          LDA   @0
+          CMPA  NOW
+          JLE   OUT_START
+          STA   NOW
+
+OUT_START LDA   W
+          CMPA  D16
+          JE    OUT16
+          CMPA  D18
+          JE    OUT18
+          JMP   OUT_DONE
+
+OUT16     * card reader OUT usually meaningless; either ignore or error
+          JMP   OUT_DONE
+
+OUT18     * printer: capture line at half time; finish at full time
+          LDA   NOW
+          ADD   HPRINT18
+          LD2   =XFER_AT=
+          ADD   IDX
+          STA   @0
+
+          LDA   NOW
+          ADD   TPRINT18
+          LD2   =READY_AT=
+          ADD   IDX
+          STA   @0
+
+          LDA   TMP
+          STA   W
+          LDA   ACT_OUT
+          STA   ACT
+          JSR   SETPEND
+          JMP   OUT_DONE
+
+OUT_DONE  JMP   OUT_RET
+OUT_RET   JMP   0</code></pre>
+<p>IOC M(F=unit d)</p>
+<p>IOC has no data transfer. It just keeps the device busy for its service time (e.g., skip page).</p>
+<pre class="mixal"><code>IOC_OP    STJ   IOC_RET
+          LDA   FREG
+          STA   W
+          JSR   IDXOF
+
+          * wait until device ready
+          LD2   =READY_AT=
+          ADD   IDX
+          LDA   @0
+          CMPA  NOW
+          JLE   IOC_START
+          STA   NOW
+
+IOC_START LDA   W
+          CMPA  D18
+          JE    IOC18
+          JMP   IOC_DONE
+
+IOC18     * skip to new page, no data movement
+          LDA   NOW
+          ADD   TSKIP18
+          LD2   =READY_AT=
+          ADD   IDX
+          STA   @0
+
+          * Ensure XFER_AT “infinite” and PEND cleared
+          LD2   =XFER_AT=
+          ADD   IDX
+          LDA   =+7777777=
+          STA   @0
+
+          LD2   =PEND=
+          ADD   IDX
+          LDA   NONE
+          STA   @0
+          JMP   IOC_DONE
+
+IOC_DONE  JMP   IOC_RET
+IOC_RET   JMP   0</code></pre>
+<p>JRED / JBUS</p>
+<ul>
+<li><code>JRED</code> jumps iff <code>NOW ≥ READY_AT[d]</code>.</li>
+<li><code>JBUS</code> jumps iff <code>NOW &lt; READY_AT[d]</code>.</li>
+</ul>
+<p>Exercise-friendly special case: if the target is the instruction itself (busy spin <code>JBUS *</code>), <em>advance</em> <code>NOW</code> to the next interesting time (the earlier of <code>READY_AT[d]</code> and any <code>XFER_AT[k]</code> that is still in the future), then fall through (don’t infinite-loop).</p>
+<pre class="mixal"><code>JRED_OP   STJ   JR_RET
+          LDA   FREG
+          JSR   IDXOF
+          LD2   =READY_AT=
+          ADD   IDX
+          LDA   @0
+          CMPA  NOW
+          JLE   JR_TAK       * ready → jump
+          JMP   JR_NOT
+JR_TAK    JMP   TARGET       * fill by your assembler
+JR_NOT    JMP   NEXTPC
+JR_RET    JMP   0</code></pre>
+<pre class="mixal"><code>JBUS_OP   STJ   JB_RET
+          LDA   FREG
+          STA   W
+          JSR   IDXOF
+
+          * check readiness
+          LD2   =READY_AT=
+          ADD   IDX
+          LDA   @0
+          CMPA  NOW
+          JLE   JB_NOT       * ready =&gt; do not jump
+
+          * device busy → would jump.
+          * If target == PC (self-loop), advance NOW to min(next READY or next XFER across all devices).
+          * Detect self-loop using your decoded target; here assume flag SELF is set by decoder.
+          LDA   SELF
+          JZE   JB_TAK       * not self → just jump
+
+          * compute NEXT = READY_AT[d]
+          STA   W            * preserve A
+          LD2   =READY_AT=
+          ADD   IDX
+          LDA   @0
+          STA   TMP          * TMP = candidate time
+
+          * scan XFER_AT for an earlier future event
+          ENT3  0
+JB_SCAN   CMP3  NDEV
+          JGE   JB_SET
+          LD2   =XFER_AT=
+          ADD   R3
+          LDA   @0
+          CMPA  NOW
+          JLE   JB_NEXT
+          CMPA  TMP
+          JGE   JB_NEXT
+          STA   TMP          * tighter min
+
+JB_NEXT   INC3  1
+          JMP   JB_SCAN
+
+JB_SET    LDA   TMP
+          CMPA  NOW
+          JLE   JB_TAK       * nothing ahead → just jump
+          STA   NOW          * advance time to next event
+          JMP   JB_EXIT
+
+JB_TAK    JMP   TARGET
+JB_NOT    JMP   NEXTPC
+JB_EXIT   JMP   NEXTPC
+JB_RET    JMP   0</code></pre>
+<ol start="5" type="1">
+<li>Hook <code>IOPOLL</code> into your fetch/execute loop</li>
+</ol>
+<p>At the very top of <code>CYCLE</code> (or just before fetching the next instruction), call <code>IOPOLL</code>. This guarantees that once <code>NOW ≥ XFER_AT[d]</code>, one (and only one) transfer happens before any instruction that might observe memory.</p>
+<pre class="mixal"><code>CYCLE     * ... your loop prologue ...
+          JSR   IOPOLL
+          * fetch instruction at PC
+          * decode &amp; dispatch
+          * execute
+          * advance PC
+          JMP   CYCLE</code></pre>
+<ol start="6" type="1">
+<li>Notes on memory moves</li>
+</ol>
+<ul>
+<li><p>I’ve left the actual buffer copies as comments because every simulator lays out buffers differently. The change the exercise asks for is purely <em>temporal</em>: move those copies from the <code>IN/OUT</code> handlers to <code>IOPOLL</code> at <code>NOW ≥ XFER_AT[d]</code>.</p></li>
+<li><p>Typical choices:</p>
+<ul>
+<li>Card reader: fixed 16 words <code>CARDBUF[0..15]</code> prepared by your card-file driver. At <code>IN</code> half-time: <code>mem[M..M+15] ← CARDBUF</code>.</li>
+<li>Printer: copy <code>mem[M..M+N-1] → PRNBUF</code> (N = your line-encoding footprint) at <code>OUT</code> half-time; the physical “printing” (e.g., writing to host file) can happen either immediately at half-time or at the moment the device becomes ready; pedagogically, capturing the line at half-time and writing it at <code>READY_AT</code> is clean.</li>
+</ul></li>
+</ul>
+<ol start="7" type="1">
+<li>Quick sanity tests</li>
+</ol>
+<ul>
+<li>Unsafe early use after IN: <code>IN 1000(16); LDA 1000</code> should load the <em>old</em> contents if executed before <code>XFER_AT[16]</code>.</li>
+<li>Unsafe late modification after OUT: <code>OUT 2000(18); STA 2000</code> before <code>XFER_AT[18]</code> must not change the captured line; after <code>XFER_AT[18]</code>, it must be too late.</li>
+<li>Synchronization: <code>OUT 2000(18); JBUS *(18)</code> will advance <code>NOW</code> to <code>min(READY_AT[18], next XFER)</code> and then proceed when ready.</li>
+</ul>
+<p>That’s the complete wiring you need. If you share the specific buffer layouts you’re using (sizes and labels for the card/printer buffers), I can fill in the tiny copy loops to match your memory map exactly.</p>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">8 [20]</h2>
+<p>Answer: False.</p>
+<ul>
+<li>In the control routine, the simulator fetches the next instruction with line 010: <code>LDA 0,6</code> (i.e., from simulated location held in the host index register rI6). Immediately after storing it, the simulator increments rI6 at line 012 with <code>INC6 1</code>. Thus the fetch uses the current value of rI6, and the increment prepares the next value.</li>
+<li>The simulator initializes rI6 ← 0 at line 006. Later, jumps set rI6 directly to the validated target address using <code>ENT6 0,5</code> in the JSJ/JMP handler (after a range check done by the <code>MEMORY</code> subroutine). This guarantees that when a jump occurs, the new rI6 is within [0, BEGIN).</li>
+</ul>
+<p>However, there is no range check before the fetch at line 010. Consider what happens when the simulated program executes an instruction located at address BEGIN − 1 that does not change the location counter (i.e., not a jump):</p>
+<ol type="1">
+<li>At the start of that iteration, rI6 = BEGIN − 1, so line 010 fetches from that address.</li>
+<li>Line 012 executes <code>INC6 1</code>, so rI6 becomes BEGIN.</li>
+<li>The operator returns to the control routine; on the next iteration, line 010 will be executed with rI6 = BEGIN, which violates <span class="math inline">\(rI_6 &lt; \texttt{BEGIN}\)</span>. </li>
+</ol>
+<p>A concrete two-instruction counterexample in the simulated memory (addresses 0..BEGIN−1) is:</p>
+<ul>
+<li>At location 0: JSJ BEGIN−1 (unconditional jump to the last simulated cell; the simulator validates the target via <code>MEMORY</code>, then sets rI6 ← BEGIN−1).</li>
+<li>At location BEGIN−1: any non-jump such as STZ 0 (store zero). After executing it, line 012 makes rI6 = BEGIN; the next fetch (line 010) now uses an out-of-range address.</li>
+</ul>
+<p>For completeness, note that:</p>
+<ul>
+<li>The <code>MEMORY</code> subroutine explicitly enforces 0 ≤ address &lt; BEGIN when the simulator accesses simulated memory via rI5, but this protection does not cover the line-010 fetch via rI6.</li>
+<li>Therefore <span class="math inline">\(0 \le rI_6\)</span> is preserved, but <span class="math inline">\(rI_6 &lt; \texttt{BEGIN}\)</span> is not guaranteed at every execution of line 010.</li>
+</ul>
+<p>So the statement is false.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.4.2.html" class="pagination-link" aria-label="1.4.2 Coroutines">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.4.2 Coroutines</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.4.3.2.html" class="pagination-link" aria-label="1.4.3.2 Trace routines">
+        <span class="nav-page-text"><span class="chapter-title">1.4.3.2 Trace routines</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

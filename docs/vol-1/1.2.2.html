@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.2.2 Numbers, powers, and logarithms – The Little Book of The Art of Computer Programming Solutions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../vol-1/1.2.3.html" rel="next">
+<link href="../vol-1/1.2.1.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vol-1/1.2.2.html"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Little Book of The Art of Computer Programming Solutions</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.1 Algorithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.1 Mathematical induction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.3 Sums and products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.4 Integer functions and elementary number theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.5 Permutations and factorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.6 Binomial coefficients</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.7 Harmonic numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.8 Fibonacci numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.9 Generating functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.10 Analysis of an Algorithm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.2.11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2.11 Asymptotic representations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.1 Description of MIX</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.2 The MIX assembly language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.3.3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3.3 Applications to Permutation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.1 Subroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.2 Coroutines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.1 A MIX simulator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.3.2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.3.2 Trace routines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vol-1/1.4.4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.4.4 Input and Output</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1 [00]</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2 [00]</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3 [02]</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4 [05]</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">5 [05]</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">6 [10]</a></li>
+  <li><a href="#m23" id="toc-m23" class="nav-link" data-scroll-target="#m23">7 [M23]</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">8 [25]</a></li>
+  <li><a href="#m23-1" id="toc-m23-1" class="nav-link" data-scroll-target="#m23-1">9 [M23]</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">10 [18]</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">11 [10]</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">12 [02]</a></li>
+  <li><a href="#m23-2" id="toc-m23-2" class="nav-link" data-scroll-target="#m23-2">13 [M23]</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">14 [15]</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">15 [10]</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">17 [05]</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">18 [10]</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">19 [20]</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">20 [10]</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">21 [15]</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">22 [20]</a></li>
+  <li><a href="#m25" id="toc-m25" class="nav-link" data-scroll-target="#m25">23 [M25]</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">24 [15]</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">25 [22]</a></li>
+  <li><a href="#m27" id="toc-m27" class="nav-link" data-scroll-target="#m27">26 [M27]</a></li>
+  <li><a href="#m30" id="toc-m30" class="nav-link" data-scroll-target="#m30">27 [M30]</a></li>
+  <li><a href="#m30-1" id="toc-m30-1" class="nav-link" data-scroll-target="#m30-1">28 [M30]</a></li>
+  <li><a href="#hm20" id="toc-hm20" class="nav-link" data-scroll-target="#hm20">29 [HM20]</a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">30 [12]</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">1.2.2 Numbers, powers, and logarithms</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1 [00]</h3>
+<p>There is <strong>no</strong> smallest positive rational number.</p>
+<p>Assume there is a smallest positive rational number; call it <span class="math inline">\(r\)</span>. Since <span class="math inline">\(r&gt;0\)</span>, the number <span class="math inline">\(r/2\)</span> is also rational and positive, and <span class="math inline">\(r/2&lt;r\)</span>. This contradicts the assumption that <span class="math inline">\(r\)</span> was the smallest positive rational. Therefore such a smallest element does not exist. ∎</p>
+<p>Notes: - Rationals are numbers of the form <span class="math inline">\(p/q\)</span> with integers <span class="math inline">\(p\)</span> and <span class="math inline">\(q&gt;0\)</span> (see the section’s definitions of integers/rationals), but the above argument doesn’t even need their explicit form: it uses only closure under division by 2 and positivity. - In order-theory terms, the set <span class="math inline">\(\{x\in\mathbb{Q}: x&gt;0\}\)</span> has no minimum; its greatest lower bound (infimum) is <span class="math inline">\(0\)</span>. - Contrast: the positive integers do have a least element (namely <span class="math inline">\(1\)</span>); the positive rationals (and reals) are not well-ordered under the usual <span class="math inline">\(&lt;\)</span>.</p>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2 [00]</h3>
+<p>What Knuth means by “decimal expansion”</p>
+<p>In §1.2.2 Knuth defines a real number’s decimal expansion as <span class="math inline">\(x = n + 0.d_1d_2d_3\ldots\)</span> with digits <span class="math inline">\(d_i\in\{0,\dots,9\}\)</span>, and with the explicit convention that the digit sequence does not end with infinitely many 9s (to make the expansion unique).</p>
+<p>Answer</p>
+<p><strong>No.</strong> As written, <span class="math inline">\(1+0.239999999\ldots\)</span> (i.e., <span class="math inline">\(1.239999999\ldots\)</span>) is not an allowed “decimal expansion” under Knuth’s convention, because it ends with infinitely many 9s. However, it does represent a perfectly good real number—namely <span class="math inline">\(1.24\)</span>—and the proper (canonical) decimal expansion for that number is <span class="math inline">\(1.240000\ldots\)</span>.</p>
+<p>Why <span class="math inline">\(0.239999\ldots = 0.24\)</span></p>
+<p>Compute the tail as a geometric series:</p>
+<p><span class="math display">\[
+0.239999\ldots
+= 0.23 + \sum_{k=3}^{\infty} \frac{9}{10^{k}}
+= 0.23 + 9\cdot\frac{10^{-3}}{1-\frac{1}{10}}
+= 0.23 + 9\cdot\frac{10^{-3}}{\frac{9}{10}}
+= 0.23 + 10^{-2}
+= 0.24.
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+1 + 0.239999\ldots = 1 + 0.24 = 1.24.
+\]</span></p>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3 [02]</h3>
+<ol type="1">
+<li><p>Use the definition of negative integer powers. For any nonzero <span class="math inline">\(a\)</span> and positive integer <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+a^{-n}=\frac{1}{a^{\,n}}.
+\]</span></p></li>
+<li><p>Evaluate the positive power in the denominator.</p>
+<p><span class="math display">\[
+(-3)^3 = (-3)\cdot(-3)\cdot(-3)=9\cdot(-3)=-27,
+\]</span></p>
+<p>since an odd number of negative factors yields a negative result.</p></li>
+<li><p>Invert.</p>
+<p><span class="math display">\[
+(-3)^{-3}=\frac{1}{(-3)^3}=\frac{1}{-27}=-\frac{1}{27}.
+\]</span></p></li>
+<li><p>Quick check.</p>
+<p><span class="math display">\[
+(-3)^{-3}\cdot(-3)^3 = (-3)^{0}=1,
+\]</span></p>
+<p>confirming the result.</p></li>
+</ol>
+<p><strong>Answer:</strong> <span class="math inline">\(\displaystyle -\tfrac{1}{27}\)</span>.</p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">4 [05]</h3>
+<p>Solution, two equivalent ways.</p>
+<ol type="1">
+<li>Use base-2 and exponent laws. <span class="math inline">\(0.125=\tfrac{1}{8}=2^{-3}\)</span>. Using <span class="math inline">\((b^x)^y=b^{xy}\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+(0.125)^{-2/3}=(2^{-3})^{-2/3}=2^{(-3)\cdot(-2/3)}=2^{2}=4.
+\]</span></p>
+<p>(The law <span class="math inline">\((b^x)^y=b^{xy}\)</span> for exponents appears in Eq. (5).) </p>
+<ol start="2" type="1">
+<li>Use the definition of rational exponents. For <span class="math inline">\(a&gt;0\)</span> and rational <span class="math inline">\(p/q\)</span>, <span class="math inline">\(a^{p/q}=\sqrt[q]{a^{\,p}}\)</span> (Eq. (6)). Thus</li>
+</ol>
+<p><span class="math display">\[
+(0.125)^{-2/3}=\frac{1}{(0.125)^{2/3}}
+=\frac{1}{\big(\sqrt[3]{0.125}\big)^2}
+=\frac{1}{\left(\sqrt[3]{\tfrac{1}{8}}\right)^2}
+=\frac{1}{\left(\tfrac{1}{2}\right)^2}
+=4.
+\]</span></p>
+<p><strong>Answer:</strong> <span class="math inline">\(4\)</span>.</p>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">5 [05]</h3>
+<p>Let <span class="math inline">\(x\)</span> be a real number. Write</p>
+<p><span class="math display">\[
+x=n+0.d_1d_2d_3\ldots\quad\text{(base 2)},
+\]</span></p>
+<p>meaning</p>
+<p><span class="math display">\[
+x \;=\; n+\sum_{i=1}^{\infty}\frac{d_i}{2^i},
+\quad\text{where each } d_i\in\{0,1\}.
+\]</span></p>
+<p>To make this representation <strong>unique</strong>, forbid tails of infinitely many 1s (exactly analogous to forbidding infinitely many 9s in decimal). With that convention, the <strong>binary analogue of Eq. (2)</strong> is:</p>
+<p><span class="math display">\[
+\boxed{\;
+n+\sum_{i=1}^{k}\frac{d_i}{2^i}
+\;\le\;
+x
+\;&lt;\;
+n+\sum_{i=1}^{k}\frac{d_i}{2^i}+\frac{1}{2^{k}}
+\qquad\text{for all } k\ge1. \;
+}
+\]</span></p>
+<p>Why this works</p>
+<p>Split the infinite sum at <span class="math inline">\(k\)</span>:</p>
+<p><span class="math display">\[
+x
+= \underbrace{\Bigl(n+\sum_{i=1}^{k}\frac{d_i}{2^i}\Bigr)}_{S_k}
++ \underbrace{\sum_{i=k+1}^{\infty}\frac{d_i}{2^i}}_{R_k}.
+\]</span></p>
+<p>Because <span class="math inline">\(d_i\in\{0,1\}\)</span>,</p>
+<p><span class="math display">\[
+0\le R_k &lt; \sum_{i=k+1}^{\infty}\frac{1}{2^i}
+= \frac{1}{2^{k}}.
+\]</span></p>
+<p>Hence <span class="math inline">\(S_k\le x &lt; S_k+2^{-k}\)</span>, which is exactly the displayed inequality.</p>
+<p>Existence and digit construction (greedy rule)</p>
+<p>Given any real <span class="math inline">\(x\)</span>, let <span class="math inline">\(n=\lfloor x\rfloor\)</span>. For the fractional part <span class="math inline">\(\{x\}=x-n\)</span>, define digits iteratively:</p>
+<p><span class="math display">\[
+d_i=\bigl\lfloor 2\,r_{i-1}\bigr\rfloor,\qquad
+r_i=2\,r_{i-1}-d_i,\qquad r_0=\{x\}.
+\]</span></p>
+<p>This produces <span class="math inline">\(d_i\in\{0,1\}\)</span> and <span class="math inline">\(\{x\}=\sum_{i\ge1} d_i/2^i\)</span>. If the process would eventually give all 1s, switch to the equivalent finite form (e.g., <span class="math inline">\(0.0111\ldots_2=0.1000\ldots_2\)</span>) and keep our “no infinite 1s” rule for uniqueness.</p>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">6 [10]</h3>
+<p>Rule (the “lexicographic” comparison)</p>
+<ol type="1">
+<li><p>Compare integer parts. • If <span class="math inline">\(m&lt;n\)</span> then <span class="math inline">\(x&lt;y\)</span>. • If <span class="math inline">\(m&gt;n\)</span> then <span class="math inline">\(x&gt;y\)</span>. • If <span class="math inline">\(m=n\)</span>, go to step 2.</p></li>
+<li><p>Compare fractional digits left to right. Let <span class="math inline">\(k\)</span> be the first position with <span class="math inline">\(d_k\neq e_k\)</span>. • If no such <span class="math inline">\(k\)</span> exists (all digits match), then <span class="math inline">\(x=y\)</span>. • If <span class="math inline">\(d_k&lt;e_k\)</span>, then <span class="math inline">\(x&lt;y\)</span>; if <span class="math inline">\(d_k&gt;e_k\)</span>, then <span class="math inline">\(x&gt;y\)</span>.</p></li>
+</ol>
+<p>That’s it. This works for positive and negative numbers because <span class="math inline">\(m\)</span> is the floor of the real (so <span class="math inline">\(x\in[m,m+1)\)</span>, <span class="math inline">\(y\in[n,n+1)\)</span>); the fractional part <span class="math inline">\(0.d_1d_2\ldots\)</span> is always in <span class="math inline">\([0,1)\)</span>. </p>
+<p>Why the rule is correct (brief proof)</p>
+<p>• If <span class="math inline">\(m\neq n\)</span>: Since <span class="math inline">\(0.d_1d_2\ldots\in[0,1)\)</span>, we have <span class="math inline">\(x\in[m,m+1)\)</span> and <span class="math inline">\(y\in[n,n+1)\)</span>. Hence <span class="math inline">\(x&lt;y\iff m&lt;n\)</span>. (Likewise for <span class="math inline">\(&gt;\)</span>.)</p>
+<p>• If <span class="math inline">\(m=n\)</span>: Write</p>
+<p><span class="math display">\[
+x-y=\sum_{j\ge1}\frac{d_j-e_j}{10^j}.
+\]</span></p>
+<p>If all digits match, the sum is 0, so <span class="math inline">\(x=y\)</span>.</p>
+<p>Otherwise, let <span class="math inline">\(k\)</span> be the first index with <span class="math inline">\(d_k\ne e_k\)</span>. Then</p>
+<p><span class="math display">\[
+x-y=\frac{d_k-e_k}{10^k}+R,\qquad
+R=\sum_{j\ge k+1}\frac{d_j-e_j}{10^j}.
+\]</span></p>
+<p>We have <span class="math inline">\(|R|\le \frac{9}{10^{k+1}}+\frac{9}{10^{k+2}}+\cdots=\frac{1}{10^k}\)</span>. Because Knuth disallows decimal expansions that <em>end</em> with infinitely many 9s, that bound is in fact <em>strict</em> here: <span class="math inline">\(|R|&lt;\frac{1}{10^k}\)</span>. Since <span class="math inline">\(|d_k-e_k|\ge1\)</span>, the leading term <span class="math inline">\((d_k-e_k)/10^k\)</span> dominates <span class="math inline">\(R\)</span>, so <span class="math inline">\(\operatorname{sign}(x-y)=\operatorname{sign}(d_k-e_k)\)</span>. Therefore <span class="math inline">\(x&lt;y\)</span> iff <span class="math inline">\(d_k&lt;e_k\)</span>, etc.</p>
+<p>Notes and examples</p>
+<ul>
+<li><p>Equality test is simple because of the uniqueness convention: <span class="math inline">\(x=y\)</span> iff <span class="math inline">\(m=n\)</span> and <span class="math inline">\(d_j=e_j\)</span> for all <span class="math inline">\(j\)</span> (no “<span class="math inline">\(0.999\ldots=1.000\ldots\)</span>” ambiguity under Knuth’s definition).</p></li>
+<li><p>Negative numbers behave the same way. Example: <span class="math inline">\(x=-2+0.3=-1.7\)</span>, <span class="math inline">\(y=-2+0.7=-1.3\)</span>. Here <span class="math inline">\(m=n=-2\)</span>, first differing digit is <span class="math inline">\(k=1\)</span> with <span class="math inline">\(3&lt;7\)</span>, so <span class="math inline">\(x&lt;y\)</span>.</p></li>
+</ul>
+</section>
+<section id="m23" class="level3">
+<h3 class="anchored" data-anchor-id="m23">7 [M23]</h3>
+<p>Assuming <span class="math inline">\(b&gt;0\)</span> and using the <em>definition</em> of integer powers</p>
+<p><span class="math display">\[
+b^{0}=1,\quad b^{n}=b^{\,n-1}b\ (n&gt;0),\quad b^{n}=b^{\,n+1}/b\ (n&lt;0),
+\]</span></p>
+<p>prove the “laws of exponents” for all integers <span class="math inline">\(x,y\)</span>: (i) <span class="math inline">\(b^{x+y}=b^{x}b^{y}\)</span> and (ii) <span class="math inline">\((b^{x})^{y}=b^{xy}\)</span>. (See the definition in Eq. (4) and the request of Ex. 7 in §1.2.2.) </p>
+<p>We proceed in two steps. Throughout, <span class="math inline">\(b&gt;0\)</span>, so <span class="math inline">\(b^{n}\neq 0\)</span> for all integers <span class="math inline">\(n\)</span>.</p>
+<ol type="1">
+<li>Product rule: <span class="math inline">\(b^{x+y}=b^{x}b^{y}\)</span> for all integers <span class="math inline">\(x,y\)</span></li>
+</ol>
+<p><strong>Step A (nonnegative addend).</strong> Fix any integer <span class="math inline">\(x\)</span>. We show by induction on <span class="math inline">\(n\ge 0\)</span> that</p>
+<p><span class="math display">\[
+b^{x+n}=b^{x}b^{n}.
+\]</span></p>
+<ul>
+<li><p><strong>Base <span class="math inline">\(n=0\)</span>:</strong> <span class="math inline">\(b^{x+0}=b^{x}=b^{x}\cdot b^{0}\)</span> since <span class="math inline">\(b^{0}=1\)</span>.</p></li>
+<li><p><strong>Induction step:</strong> If <span class="math inline">\(b^{x+n}=b^{x}b^{n}\)</span>, then</p>
+<p><span class="math display">\[
+b^{x+(n+1)}=(b^{x+n})\,b=(b^{x}b^{n})\,b=b^{x}b^{n+1},
+\]</span></p>
+<p>using the defining recurrence for positive exponents.</p></li>
+</ul>
+<p>Thus, for any integer <span class="math inline">\(x\)</span> and any <span class="math inline">\(n\ge 0\)</span>, <span class="math inline">\(b^{x+n}=b^{x}b^{n}\)</span>.</p>
+<p><strong>Step B (negative addend).</strong> Let <span class="math inline">\(y&lt;0\)</span> and write <span class="math inline">\(y=-k\)</span> with <span class="math inline">\(k\ge 0\)</span>. Using Step A with the nonnegative addend <span class="math inline">\(k\)</span>,</p>
+<p><span class="math display">\[
+b^{(x+y)}=b^{x-k}\quad\text{and}\quad b^{x}=b^{x-k}b^{k}.
+\]</span></p>
+<p>Multiply both sides of the second identity by <span class="math inline">\(b^{-k}\)</span> (i.e., divide by <span class="math inline">\(b^{k}\)</span>):</p>
+<p><span class="math display">\[
+b^{x}b^{-k}=b^{x-k}.
+\]</span></p>
+<p>Since <span class="math inline">\(y=-k\)</span>, this is <span class="math inline">\(b^{x}b^{y}=b^{x+y}\)</span>.</p>
+<p>Combining Steps A and B yields <span class="math inline">\(b^{x+y}=b^{x}b^{y}\)</span> for all integers <span class="math inline">\(x,y\)</span>.</p>
+<ol start="2" type="1">
+<li>Power-of-a-power rule: <span class="math inline">\((b^{x})^{y}=b^{xy}\)</span> for all integers <span class="math inline">\(x,y\)</span></li>
+</ol>
+<p><strong>Case 1: <span class="math inline">\(y\ge 0\)</span>.</strong> Induct on <span class="math inline">\(y\)</span>.</p>
+<ul>
+<li><p><strong>Base <span class="math inline">\(y=0\)</span>:</strong> <span class="math inline">\((b^{x})^{0}=1=b^{0}=b^{x\cdot 0}\)</span>.</p></li>
+<li><p><strong>Step:</strong> If <span class="math inline">\((b^{x})^{n}=b^{xn}\)</span>, then</p>
+<p><span class="math display">\[
+(b^{x})^{n+1}=(b^{x})^{n}\,b^{x}=b^{xn}\,b^{x}=b^{x(n+1)},
+\]</span></p>
+<p>using the product rule just proved.</p></li>
+</ul>
+<p><strong>Case 2: <span class="math inline">\(y&lt;0\)</span>.</strong> Write <span class="math inline">\(y=-k\)</span> with <span class="math inline">\(k&gt;0\)</span>. Then</p>
+<p><span class="math display">\[
+(b^{x})^{y}=(b^{x})^{-k}=\frac{1}{(b^{x})^{k}}
+=\frac{1}{b^{xk}}=b^{-xk}=b^{xy}.
+\]</span></p>
+<p>This establishes <span class="math inline">\((b^{x})^{y}=b^{xy}\)</span> for all integers <span class="math inline">\(x,y\)</span>.</p>
+</section>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">8 [25]</h3>
+<ol type="1">
+<li>Existence via a monotone digit-by-digit construction</li>
+</ol>
+<p>We construct a nondecreasing sequence <span class="math inline">\((r_k)_{k\ge0}\)</span> of decimal truncations that converges to a number <span class="math inline">\(y\)</span> with <span class="math inline">\(y^m=u\)</span>.</p>
+<p><strong>Step 0 (integer part).</strong> Let <span class="math inline">\(n\)</span> be the unique integer with</p>
+<p><span class="math display">\[
+n^m \le u &lt; (n+1)^m .
+\]</span></p>
+<p>This <span class="math inline">\(n\)</span> exists because <span class="math inline">\(x\mapsto x^m\)</span> is continuous and strictly increasing on <span class="math inline">\([0,\infty)\)</span>, and it is unique because these intervals are disjoint.</p>
+<p>Set <span class="math inline">\(r_0:=n\)</span>.</p>
+<p><strong>Inductive step (the next digit).</strong> Suppose we have chosen</p>
+<p><span class="math display">\[
+r_k \;=\; n+\frac{d_1}{10}+\cdots+\frac{d_k}{10^k},
+\]</span></p>
+<p>with digits <span class="math inline">\(0\le d_j\le 9\)</span>, such that</p>
+<p><span class="math display">\[
+r_k^m \le u &lt; \bigl(r_k+10^{-k}\bigr)^m. \tag{Inv\(_k\)}
+\]</span></p>
+<p>Choose <span class="math inline">\(d_{k+1}\in\{0,1,\dots,9\}\)</span> to be the <strong>largest</strong> digit for which</p>
+<p><span class="math display">\[
+\bigl(r_k + d_{k+1}10^{-(k+1)}\bigr)^m \le u .
+\]</span></p>
+<p>Then define <span class="math inline">\(r_{k+1}:=r_k + d_{k+1}10^{-(k+1)}\)</span>.</p>
+<p>This choice always exists: take <span class="math inline">\(d=0\)</span> (which satisfies the inequality) and increase <span class="math inline">\(d\)</span> until the inequality would fail—then stop at the last valid digit. Because <span class="math inline">\(x\mapsto x^m\)</span> is increasing, we also get</p>
+<p><span class="math display">\[
+r_{k+1}^m \le u &lt; \bigl(r_{k+1}+10^{-(k+1)}\bigr)^m,
+\]</span></p>
+<p>so <strong>Inv<span class="math inline">\(_{k+1}\)</span></strong> holds. Thus <span class="math inline">\((r_k)\)</span> is nondecreasing and bounded above by <span class="math inline">\(r_k+10^{-k}\)</span>.</p>
+<p><strong>Convergence.</strong> By construction,</p>
+<p><span class="math display">\[
+0 \le y - r_k &lt; 10^{-k} \quad\text{for } y:=\lim_{k\to\infty} r_k .
+\]</span></p>
+<p>Taking limits in <strong>Inv<span class="math inline">\(_k\)</span></strong> and using continuity of <span class="math inline">\(x\mapsto x^m\)</span>,</p>
+<p><span class="math display">\[
+y^m \;=\; \lim_{k\to\infty} r_k^m \;=\; u .
+\]</span></p>
+<p>Hence a positive <span class="math inline">\(m\)</span>-th root <strong>exists</strong> and its decimal digits are determined successively by the rule above.</p>
+<blockquote class="blockquote">
+<p><strong>Remark (how to <em>compute</em> the test).</strong> To decide whether <span class="math inline">\(\bigl(r + t\bigr)^m \le u\)</span> for <span class="math inline">\(t\in\{0,\;10^{-(k+1)},\;2\cdot10^{-(k+1)},\dots\}\)</span>, you can either (i) multiply out directly, or (ii) use the binomial expansion <span class="math inline">\((r+t)^m=r^m+m r^{m-1}t+\binom{m}{2}r^{m-2}t^2+\cdots\)</span> with additions and multiplications only. Either way is valid for this existence/constructibility proof.</p>
+</blockquote>
+<ol start="2" type="1">
+<li>Uniqueness of the positive <span class="math inline">\(m\)</span>-th root</li>
+</ol>
+<p>Suppose <span class="math inline">\(y_1&gt;0\)</span> and <span class="math inline">\(y_2&gt;0\)</span> with <span class="math inline">\(y_1^m=u=y_2^m\)</span>. If <span class="math inline">\(y_1&lt;y_2\)</span>, monotonicity of <span class="math inline">\(x^m\)</span> on <span class="math inline">\([0,\infty)\)</span> gives <span class="math inline">\(y_1^m&lt;y_2^m\)</span>, a contradiction. Thus <span class="math inline">\(y_1=y_2\)</span>. The positive <span class="math inline">\(m\)</span>-th root is <strong>unique</strong>.</p>
+<p>(Our digit rule—“take the largest digit keeping <span class="math inline">\((\cdot)^m\le u\)</span>”—also ensures we get the standard decimal that does <strong>not</strong> end in an infinite string of 9s.)</p>
+<ol start="3" type="1">
+<li>The requested digit-by-digit algorithm (summary)</li>
+</ol>
+<p>Given <span class="math inline">\(u&gt;0\)</span> and integer <span class="math inline">\(m\ge1\)</span>:</p>
+<ol type="1">
+<li><p><strong>Find the integer part <span class="math inline">\(n\)</span>:</strong> the unique <span class="math inline">\(n\)</span> with <span class="math inline">\(n^m\le u&lt;(n+1)^m\)</span>. Set <span class="math inline">\(r_0=n\)</span>.</p></li>
+<li><p><strong>For <span class="math inline">\(k=0,1,2,\dots\)</span>:</strong> Choose <span class="math inline">\(d_{k+1}\in\{0,\dots,9\}\)</span> largest s.t.</p>
+<p><span class="math display">\[
+\bigl(r_k + d_{k+1}\cdot 10^{-(k+1)}\bigr)^m \le u,
+\]</span></p>
+<p>then set <span class="math inline">\(r_{k+1}=r_k + d_{k+1}\cdot 10^{-(k+1)}\)</span>.</p></li>
+<li><p>The decimal <span class="math inline">\(y=\lim r_k=n.\,d_1d_2d_3\ldots\)</span> satisfies <span class="math inline">\(y^m=u\)</span>, with error <span class="math inline">\(&lt;10^{-k}\)</span> after <span class="math inline">\(k\)</span> digits.</p></li>
+</ol>
+<p>This proves existence (by construction), uniqueness (by monotonicity), and gives the explicit method for successive digits that the exercise asks for. </p>
+<ol start="4" type="1">
+<li>Optional integer-only variant (nice for hand computation)</li>
+</ol>
+<p>Let <span class="math inline">\(A_k:=\lfloor 10^k r_k\rfloor\)</span> (so <span class="math inline">\(A_0=n\)</span>). Keep the scaled target <span class="math inline">\(U:=u\)</span>. At stage <span class="math inline">\(k\)</span>, pick the largest <span class="math inline">\(d\in\{0,\dots,9\}\)</span> with</p>
+<p><span class="math display">\[
+(10A_k + d)^m \;\le\; \bigl\lfloor 10^{m(k+1)} U \bigr\rfloor .
+\]</span></p>
+<p>Then set <span class="math inline">\(A_{k+1}:=10A_k + d\)</span>. The digits are the base-10 digits of <span class="math inline">\(A_k\)</span>. This is equivalent to the real-number method but uses only integer comparisons.</p>
+</section>
+<section id="m23-1" class="level3">
+<h3 class="anchored" data-anchor-id="m23-1">9 [M23]</h3>
+<ul>
+<li><p>For integers <span class="math inline">\(n\)</span> and a fixed base <span class="math inline">\(b&gt;0\)</span>, powers are defined by</p>
+<p><span class="math display">\[
+b^0=1,\qquad b^n=b^{n-1}\,b\ (n&gt;0),\qquad b^n=b^{n+1}/b\ (n&lt;0).
+\]</span></p>
+<p>From this, one proves for <strong>integers</strong> <span class="math inline">\(x,y\)</span>: <span class="math inline">\(b^{x+y}=b^x b^y\)</span> and <span class="math inline">\((b^x)^y=b^{xy}\)</span>. </p></li>
+<li><p>For a <strong>rational</strong> <span class="math inline">\(r=p/q\)</span> (with <span class="math inline">\(q&gt;0\)</span>), Knuth defines</p>
+<p><span class="math display">\[
+b^{p/q}:=\sqrt[q]{\,b^{p}\,}.
+\]</span></p>
+<p>Existence and uniqueness of the positive <span class="math inline">\(q\)</span>-th root are noted just before (and used in) this definition.</p></li>
+</ul>
+<p>The exercise asks you to <strong>prove the exponent laws for rational exponents</strong>, assuming they already hold for integers.</p>
+<p>Throughout, let <span class="math inline">\(b&gt;0\)</span> and let rationals be written in lowest terms with positive denominators.</p>
+<ol type="1">
+<li>Product rule: <span class="math inline">\(b^{r+s}=b^r\,b^s\)</span> for rationals <span class="math inline">\(r,s\)</span></li>
+</ol>
+<p>Write <span class="math inline">\(r=\dfrac{a}{m}\)</span>, <span class="math inline">\(s=\dfrac{c}{n}\)</span> with <span class="math inline">\(m,n&gt;0\)</span>. Let</p>
+<p><span class="math display">\[
+S:=b^{a/m}\,b^{c/n}.
+\]</span></p>
+<p>Raise both sides to the <strong>integer</strong> power <span class="math inline">\(mn\)</span>:</p>
+<p><span class="math display">\[
+S^{mn}=\bigl(b^{a/m}\bigr)^{mn}\,\bigl(b^{c/n}\bigr)^{mn}
+= \bigl((b^{a/m})^{m}\bigr)^{n}\,\bigl((b^{c/n})^{n}\bigr)^{m}.
+\]</span></p>
+<p>By the <em>definition</em> of rational powers, <span class="math inline">\((b^{a/m})^{m}=b^{a}\)</span> and <span class="math inline">\((b^{c/n})^{n}=b^{c}\)</span>; by the <strong>integer</strong> laws, <span class="math inline">\((b^{a})^{n}=b^{an}\)</span> and <span class="math inline">\((b^{c})^{m}=b^{cm}\)</span>. Hence</p>
+<p><span class="math display">\[
+S^{mn}=b^{an}\,b^{cm}=b^{an+cm}.
+\]</span></p>
+<p>Now set</p>
+<p><span class="math display">\[
+T:=b^{(an+cm)/(mn)}=b^{r+s}.
+\]</span></p>
+<p>By definition, <span class="math inline">\(T^{mn}=b^{an+cm}\)</span>. Thus <span class="math inline">\(S^{mn}=T^{mn}\)</span>, and both <span class="math inline">\(S,T\)</span> are positive; by <strong>uniqueness</strong> of the positive <span class="math inline">\(mn\)</span>-th root, <span class="math inline">\(S=T\)</span>. Therefore <span class="math inline">\(b^{r+s}=b^{r}\,b^{s}\)</span>.</p>
+<ol start="2" type="1">
+<li>Power-of-a-power: <span class="math inline">\(\bigl(b^{r}\bigr)^{s}=b^{rs}\)</span> for rationals <span class="math inline">\(r,s\)</span></li>
+</ol>
+<p>Again write <span class="math inline">\(r=\dfrac{a}{m}\)</span>, <span class="math inline">\(s=\dfrac{c}{n}\)</span> with <span class="math inline">\(m,n&gt;0\)</span>. Let</p>
+<p><span class="math display">\[
+U:=\bigl(b^{a/m}\bigr)^{c/n}.
+\]</span></p>
+<p>By <strong>definition</strong> of the rational exponent with denominator <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+U^n=\bigl(b^{a/m}\bigr)^c.
+\]</span></p>
+<p>Raise both sides to the integer power <span class="math inline">\(m\)</span>:</p>
+<p><span class="math display">\[
+U^{mn}=\bigl((b^{a/m})^c\bigr)^{m}.
+\]</span></p>
+<p>Use the integer laws twice: first <span class="math inline">\((x^c)^m=x^{cm}\)</span> for any positive <span class="math inline">\(x\)</span>, then <span class="math inline">\((b^{a/m})^{m}=b^{a}\)</span>. Hence</p>
+<p><span class="math display">\[
+U^{mn}=(b^{a})^{c}=b^{ac}.
+\]</span></p>
+<p>Now set <span class="math inline">\(V:=b^{ac/(mn)}=b^{rs}\)</span>. Then <span class="math inline">\(V^{mn}=b^{ac}\)</span>. By uniqueness of positive <span class="math inline">\(mn\)</span>-th roots, <span class="math inline">\(U=V\)</span>. Thus <span class="math inline">\(\bigl(b^{r}\bigr)^{s}=b^{rs}\)</span>.</p>
+<ol start="3" type="1">
+<li>Consequences: negatives, quotient, and zero</li>
+</ol>
+<ul>
+<li>Taking <span class="math inline">\(s=-r\)</span> in the product rule gives <span class="math inline">\(b^{r}b^{-r}=b^{0}=1\)</span>, hence <span class="math inline">\(b^{-r}=1/b^{r}\)</span>.</li>
+<li>The quotient law follows: <span class="math inline">\(b^{r-s}=b^{r}/b^{s}\)</span> (multiply both sides by <span class="math inline">\(b^{s}\)</span>).</li>
+<li>Since <span class="math inline">\(0=0/1\)</span>, the integer definition already gives <span class="math inline">\(b^{0}=1\)</span>. </li>
+</ul>
+</section>
+<section id="section-7" class="level3">
+<h3 class="anchored" data-anchor-id="section-7">10 [18]</h3>
+<p>Assume <span class="math inline">\(\log_{10} 2\)</span> were rational. Then there exist integers <span class="math inline">\(p,q\)</span> with <span class="math inline">\(q&gt;0\)</span> and <span class="math inline">\(\gcd(p,q)=1\)</span> such that</p>
+<p><span class="math display">\[
+\log_{10} 2=\frac pq.
+\]</span></p>
+<p>Exponentiating base <span class="math inline">\(10\)</span> gives</p>
+<p><span class="math display">\[
+10^{p/q}=2\quad\Longrightarrow\quad 10^{p}=2^{q}.
+\]</span></p>
+<p>But <span class="math inline">\(10^{p}=(2\cdot 5)^{p}=2^{p}\,5^{p}\)</span>. Hence</p>
+<p><span class="math display">\[
+2^{p}\,5^{p}=2^{q}\quad\Longrightarrow\quad 5^{p}=2^{\,q-p}.
+\]</span></p>
+<p>The left side is a power of the prime <span class="math inline">\(5\)</span>; the right side is a power of the prime <span class="math inline">\(2\)</span>. By the Fundamental Theorem of Arithmetic (unique prime factorization), the only way a power of <span class="math inline">\(5\)</span> can equal a power of <span class="math inline">\(2\)</span> is if both are <span class="math inline">\(1\)</span>, which would force <span class="math inline">\(p=0\)</span> and then <span class="math inline">\(2=10^{0}=1\)</span>, a contradiction.</p>
+<p>Therefore the assumption was false, and <span class="math inline">\(\log_{10} 2\)</span> is irrational.</p>
+</section>
+<section id="section-8" class="level3">
+<h3 class="anchored" data-anchor-id="section-8">11 [10]</h3>
+<p>Let <span class="math inline">\(x_0=\log_{10}2\)</span>. Suppose we know <span class="math inline">\(x\)</span> to <span class="math inline">\(d\)</span> decimal places, so <span class="math inline">\(|x-x_0|\le \tfrac12\cdot10^{-d}\)</span>. Write the error as <span class="math inline">\(\delta=x-x_0\)</span>. Then</p>
+<p><span class="math display">\[
+10^{x}=10^{x_0+\delta}=10^{x_0}\,10^{\delta}=2\cdot 10^{\delta}.
+\]</span></p>
+<p>To get the first three decimal places of <span class="math inline">\(10^x\)</span> correct, we need an absolute error <span class="math inline">\(&lt;\;0.0005\)</span>:</p>
+<p><span class="math display">\[
+|\,10^x-2\,|=2\,|\,10^{\delta}-1\,|&lt;0.0005
+\quad\Longrightarrow\quad
+|\,10^{\delta}-1\,|&lt;0.00025.
+\]</span></p>
+<p>Because <span class="math inline">\(10^{\delta}\)</span> is increasing in <span class="math inline">\(\delta\)</span>, this is equivalent to</p>
+<p><span class="math display">\[
+|\delta|&lt;\log_{10}(1.00025).
+\]</span></p>
+<p>(Here we simply used the definition of logarithm; change of base was introduced earlier in the section.) </p>
+<p>Numerically,</p>
+<p><span class="math display">\[
+\log_{10}(1.00025)\approx 0.00010856.
+\]</span></p>
+<p>Therefore we need</p>
+<p><span class="math display">\[
+\tfrac12\cdot 10^{-d}\;\le\;0.00010856
+\;\Longleftrightarrow\;
+10^{-d}\le 2.1712\times 10^{-4}
+\;\Longleftrightarrow\;
+d\gtrsim 3.66.
+\]</span></p>
+<p>Hence <span class="math inline">\(d=4\)</span> decimal places suffice; <span class="math inline">\(d=3\)</span> do not (a three-place error bound <span class="math inline">\(\tfrac12\cdot10^{-3}\)</span> would allow <span class="math inline">\(|10^{\delta}-1|\approx (\ln 10)\cdot\tfrac12\cdot10^{-3}\approx 0.00115&gt;0.00025\)</span>).</p>
+</section>
+<section id="section-9" class="level3">
+<h3 class="anchored" data-anchor-id="section-9">12 [02]</h3>
+<p>In §1.2.2 the logarithm to base <span class="math inline">\(b\)</span> is introduced as the inverse of exponentiation with base <span class="math inline">\(b\)</span>. Concretely, the identities stated around Equations (8) are the inverse laws:</p>
+<p><span class="math display">\[
+\log_b(b^x)=x\quad\text{and}\quad b^{\log_b x}=x\quad(x&gt;0,\; b&gt;0,\; b\neq 1).
+\]</span></p>
+<p>Taking <span class="math inline">\(b=10\)</span> in <span class="math inline">\(\log_b(b^x)=x\)</span> gives</p>
+<p><span class="math display">\[
+\log_{10}(10^x)=x,
+\]</span></p>
+<p>which is exactly the form used to “illustrate the so-called common (base-10) logarithms” at Equation (10). Hence (10) is an immediate specialization of (8) with base <span class="math inline">\(10\)</span>.</p>
+</section>
+<section id="m23-2" class="level3">
+<h3 class="anchored" data-anchor-id="m23-2">13 [M23]</h3>
+<p>Proof 1 (via Bernoulli’s inequality — shortest)</p>
+<p>Bernoulli’s inequality says that for all real <span class="math inline">\(y&gt;-1\)</span> and integers <span class="math inline">\(n\ge 0\)</span>,</p>
+<p><span class="math display">\[
+(1+y)^n \ge 1+ny.
+\]</span></p>
+<p>Apply it with <span class="math inline">\(y=\dfrac{x}{n}\)</span>. Then</p>
+<p><span class="math display">\[
+\Bigl(1+\frac{x}{n}\Bigr)^n \ \ge\ 1+n\cdot\frac{x}{n}\ =\ 1+x.
+\]</span></p>
+<p>Both sides are positive (since <span class="math inline">\(x&gt;-1\)</span>), and the function <span class="math inline">\(t\mapsto t^{1/n}\)</span> is strictly increasing on <span class="math inline">\(t&gt;0\)</span>. Taking <span class="math inline">\(n\)</span>th roots preserves the inequality and gives</p>
+<p><span class="math display">\[
+\sqrt[n]{\,1+x\,}\ \le\ 1+\frac{x}{n}.
+\]</span></p>
+<p>Equality holds exactly when <span class="math inline">\(x=0\)</span> or <span class="math inline">\(n=1\)</span>.</p>
+<p>Proof 2 (concavity / tangent line method)</p>
+<p>For <span class="math inline">\(0&lt;r\le 1\)</span> the function <span class="math inline">\(f(t)=(1+t)^r\)</span> on <span class="math inline">\((-1,\infty)\)</span> has</p>
+<p><span class="math display">\[
+f''(t)=r(r-1)(1+t)^{r-2}\le 0,
+\]</span></p>
+<p>so <span class="math inline">\(f\)</span> is concave. A concave function lies below any tangent line; at <span class="math inline">\(t=0\)</span>,</p>
+<p><span class="math display">\[
+f(0)=1,\qquad f'(0)=r.
+\]</span></p>
+<p>Hence <span class="math inline">\(f(t)\le f(0)+f'(0)\,t=1+rt\)</span>. With <span class="math inline">\(r=1/n\)</span> and <span class="math inline">\(t=x\)</span> we get</p>
+<p><span class="math display">\[
+(1+x)^{1/n}\le 1+\frac{x}{n},
+\]</span></p>
+<p>for every <span class="math inline">\(x&gt;-1\)</span>. (This is the same inequality, proved analytically.) For a reference to the standard Bernoulli form—which this concavity argument generalizes—see the sources cited above.</p>
+</section>
+<section id="section-10" class="level3">
+<h3 class="anchored" data-anchor-id="section-10">14 [15]</h3>
+<p>Prove Eq. (12), namely</p>
+<p><span class="math display">\[
+\log_b\!(c^{\,y}) \;=\; y\,\log_b c\qquad(c&gt;0),
+\]</span></p>
+<p>with the usual assumptions <span class="math inline">\(b&gt;0,\; b\neq 1\)</span>. </p>
+<p><strong>Definition of <span class="math inline">\(\log_b x\)</span>.</strong> For <span class="math inline">\(x&gt;0\)</span> there is a unique real number <span class="math inline">\(\log_b x\)</span> such that</p>
+<p><span class="math display">\[
+b^{\log_b x}=x,
+\]</span></p>
+<p>because <span class="math inline">\(b^t\)</span> is a one-to-one, onto mapping from <span class="math inline">\(\mathbb{R}\)</span> to <span class="math inline">\((0,\infty)\)</span> when <span class="math inline">\(b&gt;0,\; b\neq 1\)</span>.</p>
+<p><strong>Law of exponents.</strong> For all real <span class="math inline">\(u,v\)</span> and all <span class="math inline">\(a&gt;0\)</span>,</p>
+<p><span class="math display">\[
+(a^{u})^{v}=a^{uv}.
+\]</span></p>
+<p>(One proves this first for integers, then for rationals via roots, and finally for reals by continuity/limits; this is the standard development in §1.2.2.)</p>
+<p>Now let <span class="math inline">\(v=\log_b c\)</span>. By definition, <span class="math inline">\(b^{v}=c\)</span>. Then</p>
+<p><span class="math display">\[
+c^{\,y}=(b^{v})^{y}=b^{vy}\qquad\text{(law of exponents).}
+\]</span></p>
+<p>Apply <span class="math inline">\(\log_b\)</span> to both sides:</p>
+<p><span class="math display">\[
+\log_b(c^{\,y})=\log_b(b^{vy})=vy
+= y\,\log_b c,
+\]</span></p>
+<p>since <span class="math inline">\(\log_b(b^{t})=t\)</span> by definition of <span class="math inline">\(\log_b\)</span>. This is exactly Eq. (12). ■</p>
+</section>
+<section id="section-11" class="level3">
+<h3 class="anchored" data-anchor-id="section-11">15 [10]</h3>
+<p>Proof (from the laws of logarithms)</p>
+<p>Knuth has already established the basic rules</p>
+<p><span class="math display">\[
+\log_b(xy)=\log_b x+\log_b y\quad(x&gt;0,\ y&gt;0),
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\log_b(c^{\,t})=t\,\log_b c\quad(c&gt;0),
+\]</span></p>
+<p>which follow from the exponent laws and the definition of <span class="math inline">\(\log_b\)</span>. </p>
+<p>Apply these to <span class="math inline">\(x/y=x\cdot y^{-1}\)</span> (note <span class="math inline">\(y^{-1}&gt;0\)</span> since <span class="math inline">\(y&gt;0\)</span>):</p>
+<p><span class="math display">\[
+\log_b\!\left(\frac{x}{y}\right)
+=\log_b\!\bigl(x\cdot y^{-1}\bigr)
+=\log_b x+\log_b\!\left(y^{-1}\right)
+=\log_b x+(-1)\log_b y
+=\log_b x-\log_b y.
+\]</span></p>
+<p>Thus the identity is <strong>true</strong> for all <span class="math inline">\(x&gt;0\)</span>, <span class="math inline">\(y&gt;0\)</span>, with <span class="math inline">\(b&gt;0\)</span>, <span class="math inline">\(b\ne1\)</span>.</p>
+<p>Equivalent one-liner (via the definition <span class="math inline">\(\;b^{\log_b u}=u\)</span>)</p>
+<p>By definition, <span class="math inline">\(x=b^{\log_b x}\)</span> and <span class="math inline">\(y=b^{\log_b y}\)</span>. Hence</p>
+<p><span class="math display">\[
+\frac{x}{y}=b^{\log_b x}\,b^{-\log_b y}=b^{\,\log_b x-\log_b y},
+\]</span></p>
+<p>so taking <span class="math inline">\(\log_b\)</span> of both sides gives <span class="math inline">\(\log_b(x/y)=\log_b x-\log_b y\)</span>.</p>
+</section>
+<section id="section-12" class="level3">
+<h3 class="anchored" data-anchor-id="section-12">17 [05]</h3>
+<ol type="1">
+<li><span class="math inline">\(\lg 32\)</span></li>
+</ol>
+<p>By definition <span class="math inline">\(\lg x := \log_2 x\)</span>. Since <span class="math inline">\(32=2^5\)</span>, we have <span class="math inline">\(\lg 32=\log_2(2^5)=5\)</span>. </p>
+<ol start="2" type="1">
+<li><span class="math inline">\(\log_{\pi} \pi\)</span></li>
+</ol>
+<p>In any (real) base <span class="math inline">\(b&gt;0, b\neq 1\)</span>, <span class="math inline">\(\log_b b = 1\)</span> because <span class="math inline">\(b^1=b\)</span>. Thus <span class="math inline">\(\log_{\pi}\pi=1\)</span>. (This uses the standard real-log definition.) </p>
+<ol start="3" type="1">
+<li><span class="math inline">\(\ln e\)</span></li>
+</ol>
+<p>By definition <span class="math inline">\(\ln x := \log_e x\)</span>. Hence <span class="math inline">\(\ln e=\log_e e=1\)</span>. </p>
+<ol start="4" type="1">
+<li><span class="math inline">\(\log_b 1\)</span></li>
+</ol>
+<p>For any <span class="math inline">\(b&gt;0, b\neq 1\)</span>, we have <span class="math inline">\(b^0=1\)</span>. Therefore <span class="math inline">\(\log_b 1=0\)</span>. (Again using the real-log definition with positive argument.) </p>
+<ol start="5" type="1">
+<li><span class="math inline">\(\log_b(-1)\)</span></li>
+</ol>
+<p>In the (real) setting used in this section, logarithms are defined only for positive arguments <span class="math inline">\(x&gt;0\)</span> with <span class="math inline">\(b&gt;0, b\neq 1\)</span>. Since <span class="math inline">\(-1\)</span> is not positive, <span class="math inline">\(\log_b(-1)\)</span> has <strong>no real value</strong> (is undefined over the reals).</p>
+</section>
+<section id="section-13" class="level3">
+<h3 class="anchored" data-anchor-id="section-13">18 [10]</h3>
+<p>Solution (disprove)</p>
+<p>Work for <span class="math inline">\(x&gt;0\)</span>. By definition, <span class="math inline">\(\log_8 x = y\)</span> iff <span class="math inline">\(8^y=x\)</span>. Since <span class="math inline">\(8=2^3\)</span>, we have</p>
+<p><span class="math display">\[
+8^y=(2^3)^y=2^{3y}=x.
+\]</span></p>
+<p>Take binary logarithms (<span class="math inline">\(\lg\)</span>) of both sides and use the law <span class="math inline">\(\log_b(c^y)=y\log_b c\)</span>:</p>
+<p><span class="math display">\[
+\lg x=\lg\bigl(2^{3y}\bigr)=3y \quad\Rightarrow\quad y=\frac{1}{3}\lg x.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+\boxed{\;\log_8 x=\tfrac13\,\lg x\;}
+\]</span></p>
+<p>—not <span class="math inline">\(\tfrac12\,\lg x\)</span>. (The used law <span class="math inline">\(\log_b(c^y)=y\log_b c\)</span> is given in Eq. (12).) </p>
+<p>A concrete counterexample makes the falsehood clear: take <span class="math inline">\(x=8\)</span>. Then <span class="math inline">\(\log_8 8=1\)</span>, but <span class="math inline">\(\tfrac12\,\lg 8=\tfrac12\cdot 3=1.5\neq 1\)</span>.</p>
+<p>When would <span class="math inline">\(\log_8 x=\tfrac12\lg x\)</span> hold?</p>
+<p>Only when <span class="math inline">\(\tfrac13\lg x=\tfrac12\lg x\)</span>, i.e., when <span class="math inline">\(\lg x=0\)</span>, so <span class="math inline">\(x=1\)</span>.</p>
+<p>Remark (generalization)</p>
+<p>More generally, for any <span class="math inline">\(k&gt;0\)</span>,</p>
+<p><span class="math display">\[
+\log_{2^k} x=\frac{1}{k}\,\lg x,
+\]</span></p>
+<p>and by change of base,</p>
+<p><span class="math display">\[
+\log_a x=\frac{\lg x}{\lg a}.
+\]</span></p>
+<p>The incorrect <span class="math inline">\(\tfrac12\)</span> would be correct for base <span class="math inline">\(4=2^2\)</span>: <span class="math inline">\(\log_4 x=\tfrac12\,\lg x\)</span>.</p>
+</section>
+<section id="section-14" class="level3">
+<h3 class="anchored" data-anchor-id="section-14">19 [20]</h3>
+<p>Answer</p>
+<p>Yes — every 14-digit integer fits.</p>
+<p>A 14-digit positive integer <span class="math inline">\(n\)</span> satisfies</p>
+<p><span class="math display">\[
+10^{13}\le n\le 10^{14}-1&lt;10^{14}.
+\]</span></p>
+<p>Use the classic tight comparison <span class="math inline">\(10^3&lt;2^{10}\)</span>. Then</p>
+<p><span class="math display">\[
+10^{14}=10^{12}\cdot 10^{2}&lt;(2^{10})^{4}\cdot 100
+=2^{40}\cdot 100
+&lt;2^{40}\cdot 2^{7}=2^{47},
+\]</span></p>
+<p>since <span class="math inline">\(100&lt;128=2^{7}\)</span>. Hence <span class="math inline">\(n&lt;2^{47}\)</span>.</p>
+<p>A machine with 47 magnitude bits (plus a sign bit) can represent all integers in the range <span class="math inline">\(-\,(2^{47}-1)\)</span> to <span class="math inline">\(+(2^{47}-1)\)</span> in sign-magnitude format (and <span class="math inline">\([-2^{47},2^{47}-1]\)</span> if it were two’s-complement with 48 total bits). Either way, every <span class="math inline">\(n&lt;2^{47}\)</span> (and its negative) fits.</p>
+<p>Alternative view (bit-length via logs)</p>
+<p>The number of bits needed for the largest 14-digit number is</p>
+<p><span class="math display">\[
+\left\lceil \log_2(10^{14}-1)\right\rceil
+&lt; \left\lceil \log_2 10^{14}\right\rceil
+=\left\lceil 14\log_2 10 \right\rceil
+=\left\lceil 14\times 3.321928\ldots \right\rceil
+=\lceil 46.5069\ldots\rceil
+=47.
+\]</span></p>
+<p>So 47 value bits suffice; the extra sign bit handles negativity.</p>
+</section>
+<section id="section-15" class="level3">
+<h3 class="anchored" data-anchor-id="section-15">20 [10]</h3>
+<p>Each is the reciprocal of the other:</p>
+<p><span class="math display">\[
+\boxed{\ \log_{10}2=\frac1{\log_{2}10}\ } \qquad\text{and}\qquad
+\boxed{\ \log_{2}10=\frac1{\log_{10}2}\ }.
+\]</span></p>
+<p>The section derives the change-of-base rule</p>
+<p><span class="math display">\[
+\log_{c}x=\frac{\log_{b}x}{\log_{b}c},
+\]</span></p>
+<p>which follows from the basic logarithm identities <span class="math inline">\(\log_b(xy)=\log_b x+\log_b y\)</span> and <span class="math inline">\(\log_b(c^y)=y\log_b c\)</span>. </p>
+<p>Apply that rule twice:</p>
+<ol type="1">
+<li>Take <span class="math inline">\(b=10,\; c=2,\; x=10\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\log_{2}10=\frac{\log_{10}10}{\log_{10}2}=\frac{1}{\log_{10}2}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Equivalently, take <span class="math inline">\(b=2,\; c=10,\; x=2\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\log_{10}2=\frac{\log_{2}2}{\log_{2}10}=\frac{1}{\log_{2}10}.
+\]</span></p>
+<p>Thus the “simple relation” is also</p>
+<p><span class="math display">\[
+\log_{10}2\cdot\log_{2}10=1.
+\]</span></p>
+</section>
+<section id="section-16" class="level3">
+<h3 class="anchored" data-anchor-id="section-16">21 [15]</h3>
+<p>To keep everything real-valued we need <span class="math inline">\(b&gt;1\)</span> and <span class="math inline">\(x&gt;1\)</span>: then <span class="math inline">\(\log_b x&gt;0\)</span> (so the outer log is defined) and <span class="math inline">\(\ln\ln b,\ \ln\ln x\)</span> both exist.</p>
+<p>Use the change-of-base identity (Eq. (14) in §1.2.2):</p>
+<p><span class="math display">\[
+\log_c u \;=\; \frac{\log_b u}{\log_b c} \;=\; \frac{\ln u}{\ln c}.
+\]</span></p>
+<p>Apply it twice:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\log_b(\log_b x)
+&amp;= \log_b\!\left(\frac{\ln x}{\ln b}\right) &amp;&amp; \text{(change base)}\\
+&amp;= \log_b(\ln x)\;-\;\log_b(\ln b) &amp;&amp; \text{(log of a quotient)}\\
+&amp;= \frac{\ln(\ln x)}{\ln b}\;-\;\frac{\ln(\ln b)}{\ln b} &amp;&amp; \text{(change base again)}\\[4pt]
+&amp;= \boxed{\;\dfrac{\ln\ln x - \ln\ln b}{\ln b}\; }.
+\end{aligned}
+\]</span></p>
+</section>
+<section id="section-17" class="level3">
+<h3 class="anchored" data-anchor-id="section-17">22 [20]</h3>
+<p>By change of base, <span class="math inline">\(\lg x=\dfrac{\ln x}{\ln 2}\)</span> and <span class="math inline">\(\log_{10}x=\dfrac{\ln x}{\ln 10}\)</span>. </p>
+<p>Let</p>
+<p><span class="math display">\[
+A(x)\;=\;\ln x+\log_{10}x \;=\; \ln x\!\left(1+\frac{1}{\ln 10}\right).
+\]</span></p>
+<p>Then, for any <span class="math inline">\(x\neq 1\)</span> (the case <span class="math inline">\(x=1\)</span> is trivial since both sides are <span class="math inline">\(0\)</span>),</p>
+<p><span class="math display">\[
+\frac{A(x)}{\lg x}
+=\frac{\ln x\left(1+\frac{1}{\ln 10}\right)}{\ln x/\ln 2}
+=\ln 2\!\left(1+\frac{1}{\ln 10}\right)
+=:R.
+\]</span></p>
+<p>Notice <span class="math inline">\(R\)</span> is a <strong>constant</strong>, independent of <span class="math inline">\(x\)</span>. Hence the relative error of the approximation <span class="math inline">\(A(x)\)</span> to <span class="math inline">\(\lg x\)</span> is</p>
+<p><span class="math display">\[
+\frac{|\lg x-A(x)|}{|\lg x|}
+=|1-R|.
+\]</span></p>
+<p>Use the simple bounds <span class="math inline">\(\,0.693&lt;\ln 2&lt;0.694\)</span> and <span class="math inline">\(2.3025&lt;\ln 10&lt;2.3026\)</span>. Then</p>
+<p><span class="math display">\[
+R\in\Bigl[\,0.693\Bigl(1+\frac{1}{2.3026}\Bigr),\;
+0.694\Bigl(1+\frac{1}{2.3025}\Bigr)\Bigr]
+\subset (0.9939,\;0.9955),
+\]</span></p>
+<p>so <span class="math inline">\(|1-R|&lt;0.0061&lt;0.01\)</span>. Thus</p>
+<p><span class="math display">\[
+\boxed{\;\lg x \approx \ln x+\log_{10}x\;\text{ with }&lt;1\%\text{ relative error.}\;}
+\]</span></p>
+</section>
+<section id="m25" class="level3">
+<h3 class="anchored" data-anchor-id="m25">23 [M25]</h3>
+<p>Geometric proof (area-preserving similarity)</p>
+<p>Let <span class="math inline">\(\mathcal{A}(a,b)\)</span> denote the area under <span class="math inline">\(y=1/t\)</span> from <span class="math inline">\(t=a\)</span> to <span class="math inline">\(t=b\)</span> (with <span class="math inline">\(0&lt;a&lt;b\)</span>). By the definition above, <span class="math inline">\(\ln x=\mathcal{A}(1,x)\)</span>.</p>
+<p>Fix some <span class="math inline">\(x&gt;0\)</span>. Consider the <strong>similarity transformation</strong></p>
+<p><span class="math display">\[
+\Phi_x:\ (u,v)\ \longmapsto\ (t,w)=(xu,\; v/x).
+\]</span></p>
+<p>This scales the horizontal axis by a factor <span class="math inline">\(x\)</span> and the vertical axis by a factor <span class="math inline">\(1/x\)</span>. Its Jacobian determinant is</p>
+<p><span class="math display">\[
+\det\begin{pmatrix}
+\partial t/\partial u &amp; \partial t/\partial v\\
+\partial w/\partial u &amp; \partial w/\partial v
+\end{pmatrix}
+=\det\begin{pmatrix}
+x &amp; 0\\[2pt]
+0 &amp; 1/x
+\end{pmatrix}
+=1,
+\]</span></p>
+<p>so <strong>areas are preserved</strong> by <span class="math inline">\(\Phi_x\)</span>.</p>
+<p>Now check what <span class="math inline">\(\Phi_x\)</span> does to the curve <span class="math inline">\(v=\frac1u\)</span>:</p>
+<p><span class="math display">\[
+v=\frac1u\quad\Longrightarrow\quad
+w=\frac{v}{x}=\frac{1}{xu}=\frac{1}{t},
+\]</span></p>
+<p>since <span class="math inline">\(t=xu\)</span>. Thus <span class="math inline">\(\Phi_x\)</span> maps the hyperbola <span class="math inline">\(v=1/u\)</span> <strong>onto itself</strong>.</p>
+<p>Therefore, <span class="math inline">\(\Phi_x\)</span> maps the region under <span class="math inline">\(v=1/u\)</span> from <span class="math inline">\(u=1\)</span> to <span class="math inline">\(u=y\)</span> <strong>bijectively and area-preservingly</strong> onto the region under <span class="math inline">\(w=1/t\)</span> from <span class="math inline">\(t=x\)</span> to <span class="math inline">\(t=xy\)</span>. In our notation,</p>
+<p><span class="math display">\[
+\mathcal{A}(1,y)\;=\;\mathcal{A}(x,xy).
+\]</span></p>
+<p>Finally decompose the larger interval <span class="math inline">\([1,xy]\)</span> at <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[
+\mathcal{A}(1,xy)\;=\;\mathcal{A}(1,x)+\mathcal{A}(x,xy)
+\;=\;\mathcal{A}(1,x)+\mathcal{A}(1,y).
+\]</span></p>
+<p>Using <span class="math inline">\(\ln z=\mathcal{A}(1,z)\)</span>, this is exactly</p>
+<p><span class="math display">\[
+\boxed{\ \ln(xy)=\ln x+\ln y\ }.
+\]</span></p>
+<p>(Optional) Same idea as a one-line integral substitution</p>
+<p>The same geometry is the substitution <span class="math inline">\(t=xs\)</span> in the area integral:</p>
+<p><span class="math display">\[
+\ln(xy)=\int_{1}^{xy}\frac{dt}{t}
+=\int_{1}^{x}\frac{dt}{t}+\int_{x}^{xy}\frac{dt}{t}
+=\ln x+\int_{1}^{y}\frac{ds}{s}
+=\ln x+\ln y,
+\]</span></p>
+<p>where the middle equality is exactly the area-preserving stretch by <span class="math inline">\(x\)</span> horizontally and <span class="math inline">\(1/x\)</span> vertically (the Jacobian is 1). This matches Fig. 6’s geometric interpretation.</p>
+</section>
+<section id="section-18" class="level3">
+<h3 class="anchored" data-anchor-id="section-18">24 [15]</h3>
+<p>What the original method does (base 10, summarized)</p>
+<p>Knuth shows how to normalize <span class="math inline">\(x\)</span> so that <span class="math inline">\(1\le x/10^{n}&lt;10\)</span> (this picks out the integer part <span class="math inline">\(n=\lfloor \log_{10}x\rfloor\)</span>), then iteratively squares and (when needed) divides by 10 to decide the binary digits <span class="math inline">\(b_1,b_2,\dots\)</span> of the fractional part of <span class="math inline">\(\log_{10}x\)</span>:</p>
+<p><span class="math display">\[
+\log_{10}x \;=\; n + \frac{b_1}{2}+\frac{b_2}{4}+\frac{b_3}{8}+\cdots,
+\]</span></p>
+<p>with the loop invariant</p>
+<p><span class="math display">\[
+1 \;\le\; \frac{x^{2^k}}{10^{\,2^k\!\left(n+b_1/2+\cdots+b_k/2^k\right)}} \;&lt;\; 10.
+\]</span></p>
+<p>This is the content of Eqs. (17)–(19) and the paragraph introducing them.</p>
+<p>Modify it for base 2</p>
+<p>Simply replace every “10” by “2” and “decimal shift” by “binary shift.”</p>
+<p><strong>Normalization.</strong> Choose the unique integer <span class="math inline">\(n\)</span> with <span class="math inline">\(1 \le x/2^n &lt; 2\)</span>; set <span class="math inline">\(x_0 := x/2^n\)</span>. Then <span class="math inline">\(n=\lfloor \lg x\rfloor\)</span>.</p>
+<p><strong>Iteration.</strong> For <span class="math inline">\(k=1,2,\dots\)</span>,</p>
+<ol type="1">
+<li>Compute <span class="math inline">\(t := x_{k-1}^2\)</span>.</li>
+<li>If <span class="math inline">\(t &lt; 2\)</span> set <span class="math inline">\(b_k := 0\)</span> and <span class="math inline">\(x_k := t\)</span>; else set <span class="math inline">\(b_k := 1\)</span> and <span class="math inline">\(x_k := t/2\)</span>.</li>
+</ol>
+<p>(This is exactly the same control flow as the base-10 version, just with the radix “2.”)</p>
+<p><strong>Output.</strong> The algorithm yields</p>
+<p><span class="math display">\[
+\lg x \;=\; n + \frac{b_1}{2}+\frac{b_2}{4}+\frac{b_3}{8}+\cdots,
+\]</span></p>
+<p>i.e., the fractional bits of <span class="math inline">\(\lg x\)</span> are <span class="math inline">\(b_1b_2b_3\ldots\)</span> in base 2.</p>
+<p><strong>Why it works (invariant proof).</strong> By construction <span class="math inline">\(1\le x_k&lt;2\)</span> for all <span class="math inline">\(k\)</span>. Unrolling the recurrence shows</p>
+<p><span class="math display">\[
+x_k \;=\; \frac{\,x^{2^k}\,}{2^{\,2^k\!\left(n+\sum_{j=1}^k b_j/2^j\right)}}.
+\]</span></p>
+<p>Thus the test “<span class="math inline">\(t&lt;2\)</span>?” is equivalent to asking whether</p>
+<p><span class="math display">\[
+\frac{x^{2^k}}{2^{\,2^k\!\left(n+\sum_{j=1}^{k-1} b_j/2^j + 1/2^k\right)}} \;&lt;\; 1
+\quad\text{or}\quad \ge 1,
+\]</span></p>
+<p>i.e., whether the next binary digit <span class="math inline">\(b_k\)</span> of <span class="math inline">\(\lg x\)</span> is <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>. Therefore after <span class="math inline">\(k\)</span> steps we have fixed the first <span class="math inline">\(k\)</span> fractional bits. This is identical to the correctness argument Knuth gives for base 10, specialized to base 2. </p>
+<p>Small example: <span class="math inline">\(\lg 3\)</span></p>
+<p>Normalize: <span class="math inline">\(1\le 3/2^1=1.5&lt;2\)</span> so <span class="math inline">\(n=1\)</span>, <span class="math inline">\(x_0=1.5\)</span>.</p>
+<ul>
+<li><span class="math inline">\(k=1\)</span>: <span class="math inline">\(t=1.5^2=2.25\ge 2\Rightarrow b_1=1\)</span>, <span class="math inline">\(x_1=2.25/2=1.125\)</span>.</li>
+<li><span class="math inline">\(k=2\)</span>: <span class="math inline">\(t=1.125^2=1.265625&lt;2\Rightarrow b_2=0\)</span>, <span class="math inline">\(x_2=1.265625\)</span>.</li>
+<li><span class="math inline">\(k=3\)</span>: <span class="math inline">\(t\approx1.6018066&lt;2\Rightarrow b_3=0\)</span>, <span class="math inline">\(x_3\approx1.6018066\)</span>.</li>
+<li><span class="math inline">\(k=4\)</span>: <span class="math inline">\(t\approx2.56579\ge2\Rightarrow b_4=1\)</span>, <span class="math inline">\(x_4\approx1.282895\)</span>. (…and so on.)</li>
+</ul>
+<p>So <span class="math inline">\(\lg 3 \approx 1 + 1/2 + 0/4 + 0/8 + 1/16 + \cdots = 1.58496\ldots\)</span> — which matches the true value to the shown precision.</p>
+</section>
+<section id="section-19" class="level3">
+<h3 class="anchored" data-anchor-id="section-19">25 [22]</h3>
+<p>Why it terminates (finite-precision binary)</p>
+<p>Work in fixed binary with <span class="math inline">\(p\)</span> fraction bits (i.e., resolution <span class="math inline">\(2^{-p}\)</span>). “Shift right 1” divides by 2 and truncates one low-order bit; after <span class="math inline">\(j\)</span> successive shifts, <span class="math inline">\(z\)</span> is <span class="math inline">\(\approx x/2^{\,j}\)</span> (again truncated).</p>
+<ul>
+<li>During L3 we keep halving <span class="math inline">\(z\)</span> until <span class="math inline">\(x-z\ge 1\)</span>. Since after <span class="math inline">\(p\)</span> shifts we have <span class="math inline">\(z\le x/2^{p}&lt;2/2^{p}=2^{1-p}&lt;1\)</span>, we certainly get <span class="math inline">\(x-z\ge1\)</span> by or before <span class="math inline">\(j=p\)</span>. Thus L3 always finishes with some <span class="math inline">\(k\le p\)</span>.</li>
+<li>In L4 we subtract a <strong>positive</strong> amount <span class="math inline">\(z\ge 2^{-p}\)</span>. Therefore <span class="math inline">\(x\)</span> strictly decreases by at least one ulp. Because initially <span class="math inline">\(1\le x&lt;2\)</span>, there are at most <span class="math inline">\(\lceil (x_0-1)\,2^{p}\rceil\)</span> such decreases before <span class="math inline">\(x\)</span> becomes exactly <span class="math inline">\(1\)</span> in this arithmetic, triggering L2. Hence the algorithm halts after <span class="math inline">\(O(p)\)</span> reductions, i.e., a number of simple shifts/adds/subtracts proportional to the desired places of accuracy. (Knuth notes that the deliberate truncations from shifting ensure eventual reduction to 1.)</li>
+</ul>
+<p>Why it computes <span class="math inline">\(\log_b x\)</span></p>
+<p>Ignore truncation for a moment (idealized arithmetic) to see the invariant:</p>
+<ul>
+<li><p>In L3 we choose the <strong>smallest</strong> <span class="math inline">\(k\)</span> with <span class="math inline">\(x-\frac{x}{2^k}\ge1\)</span>, i.e.</p>
+<p><span class="math display">\[
+x\ \ge\ \frac{1}{1-2^{-k}}\ =\ \frac{2^k}{2^k-1}\ \stackrel{\mathrm{def}}{=}\ a_k.
+\]</span></p></li>
+<li><p>In L4 we then replace <span class="math inline">\(x\)</span> by <span class="math inline">\(x':=x-\frac{x}{2^k}=x\,(1-2^{-k})=\dfrac{x}{a_k}\)</span> and add to <span class="math inline">\(y\)</span> the term <span class="math inline">\(\log_b a_k\)</span>.</p></li>
+</ul>
+<p>Thus each reduction step maintains the invariant</p>
+<p><span class="math display">\[
+x\cdot b^{-y}\ \ \text{stays constant}.
+\]</span></p>
+<p>After a sequence of <span class="math inline">\(k_1,k_2,\dots,k_m\)</span> we have</p>
+<p><span class="math display">\[
+y=\sum_{i=1}^m\log_b a_{k_i}\ =\ \log_b\!\Bigl(\prod_{i=1}^m a_{k_i}\Bigr),
+\qquad
+x=\frac{x_0}{\prod_{i=1}^m a_{k_i}}.
+\]</span></p>
+<p>If we could carry on “forever,” <span class="math inline">\(x\)</span> would tend to <span class="math inline">\(1\)</span> and <span class="math inline">\(y\)</span> would tend to <span class="math inline">\(\log_b x_0\)</span>.</p>
+<p>With finite precision the only difference is that “shift right” underestimates <span class="math inline">\(\frac{x}{2^k}\)</span> by &lt; one ulp. Hence each step reduces <span class="math inline">\(x\)</span> by <strong>nearly</strong> <span class="math inline">\(x/2^k\)</span>, so the invariant becomes</p>
+<p><span class="math display">\[
+x\cdot b^{-y}\ =\ 1+\varepsilon,
+\]</span></p>
+<p>where <span class="math inline">\(\varepsilon\)</span> is a small multiplicative error caused by truncation (bounded in terms of machine precision and the number of steps). When the loop stops at <span class="math inline">\(x=1\)</span>, we have</p>
+<p><span class="math display">\[
+y = \log_b\!\Bigl(\frac{x_0}{1+\varepsilon}\Bigr)
+= \log_b x_0 - \log_b(1+\varepsilon),
+\]</span></p>
+<p>so the absolute error is <span class="math inline">\(|\log_b x_0 - y|=\log_b(1+\varepsilon)\approx \varepsilon/\ln b\)</span>. In other words, <span class="math inline">\(y\)</span> is a bona fide approximation to <span class="math inline">\(\log_b x_0\)</span>, with an accuracy governed by the working precision. (Exercise 26 in the book asks for a rigorous bound tied to the rounding model.)</p>
+<p>A tiny worked trace (to see the mechanism)</p>
+<p>Take <span class="math inline">\(b=e\)</span> and <span class="math inline">\(x_0=1.5\)</span> (exact arithmetic, for intuition).</p>
+<ul>
+<li>Start: <span class="math inline">\(y=0,\ z=0.75,\ k=1\)</span>. Since <span class="math inline">\(1.5-0.75&lt;1\)</span>, halve <span class="math inline">\(z\Rightarrow z=0.375,k=2\)</span>. Now <span class="math inline">\(1.5-0.375=1.125\ge1\)</span>.</li>
+<li>Reduce: <span class="math inline">\(x\gets1.125\)</span>, <span class="math inline">\(y\gets y+\ln(4/3)\)</span>.</li>
+<li>Recompute <span class="math inline">\(z=x/2^k=1.125/4=0.28125\)</span>. Since <span class="math inline">\(1.125-0.28125&lt;1\)</span>, halve <span class="math inline">\(z\to 0.140625,k=3\)</span>; still <span class="math inline">\(&lt;1\)</span>, halve again <span class="math inline">\(z\to 0.0703125,k=4\)</span>; now <span class="math inline">\(1.125-0.0703125=1.0546875\ge1\)</span>.</li>
+<li>Reduce: <span class="math inline">\(x\gets1.0546875\)</span>, <span class="math inline">\(y\gets y+\ln(16/15)\)</span>.</li>
+</ul>
+</section>
+<section id="m27" class="level3">
+<h3 class="anchored" data-anchor-id="m27">26 [M27]</h3>
+<p>What the algorithm does (very briefly)</p>
+<p>Given a binary machine number <span class="math inline">\(x\in[1,2)\)</span> and a base <span class="math inline">\(b&gt;0,\;b\neq1\)</span>, Ex. 25 proposes the loop</p>
+<ul>
+<li>choose <span class="math inline">\(k\ge1\)</span> so that with <span class="math inline">\(z=\text{(}x\text{ shifted right }k\text{)}\)</span> we still have <span class="math inline">\(x-z\ge1\)</span>;</li>
+<li>replace <span class="math inline">\(x\leftarrow x-z\)</span> and add <span class="math inline">\(\log_b\!\bigl(2^k/(2^k-1)\bigr)\)</span> to the running sum <span class="math inline">\(y\)</span>;</li>
+</ul>
+<p>and repeat until <span class="math inline">\(x=1\)</span>. (See the statement on p.&nbsp;26 of the book.)</p>
+<p>Error model (binary fixed-point)</p>
+<p>Assume the computer works in binary fixed-point with <span class="math inline">\(t\)</span> fraction bits. Let</p>
+<p><span class="math display">\[
+u \stackrel{\text{def}}{=} 2^{-t}
+\]</span></p>
+<p>be one unit in the last place (1 ulp). A right shift by <span class="math inline">\(k\)</span> computes</p>
+<p><span class="math display">\[
+z \;=\; \Big\lfloor\frac{x}{2^{\,k}}\Big\rfloor
+\]</span></p>
+<p>so the exact division and the shifted value differ by less than one ulp:</p>
+<p><span class="math display">\[
+0 \;\le\; \frac{x}{2^{\,k}}-z \;&lt;\; u\quad\text{for every step.}
+\]</span></p>
+<p>Two key facts</p>
+<ol type="1">
+<li><strong>Monotone overestimate at each step.</strong> When the loop subtracts <span class="math inline">\(z\)</span> and adds <span class="math inline">\(\log_b\!\bigl(2^k/(2^k-1)\bigr)\)</span>, it is pretending we subtracted the exact fraction <span class="math inline">\(x/2^{\,k}\)</span>. Since <span class="math inline">\(z\le x/2^{\,k}\)</span>, we subtract <strong>no more than</strong> that exact amount, hence the running sum <span class="math inline">\(y\)</span> is an <strong>overestimate</strong> of <span class="math inline">\(\log_b\)</span> of the original input. Thus</li>
+</ol>
+<p><span class="math display">\[
+y \;\ge\; \log_b x_{\text{input}}.
+\]</span></p>
+<ol start="2" type="1">
+<li><strong>A one-shot bound from the last step.</strong> On the <em>final</em> iteration we have <span class="math inline">\(x-z=1\)</span>, so <span class="math inline">\(z=x-1\)</span>. Because <span class="math inline">\(z=\lfloor x/2^{\,k}\rfloor\)</span>,</li>
+</ol>
+<p><span class="math display">\[
+x-1 \;\le\; \frac{x}{2^{\,k}} \;&lt;\; x-1+u
+\quad\Longrightarrow\quad
+1-u \;&lt;\; x-\frac{x}{2^{\,k}} \;\le\; 1.
+\]</span></p>
+<p>If we imagine doing the <em>same</em> sequence of <span class="math inline">\(k\)</span>’s but with <strong>exact</strong> divisions, the identity behind the algorithm says</p>
+<p><span class="math display">\[
+\log_b x_{\text{input}} \;=\; y_{\text{(no roundoff in sums)}}\;+\;\log_b x_{\text{final}}^{\ast},
+\]</span></p>
+<p>where <span class="math inline">\(x_{\text{final}}^{\ast}\)</span> is what the last exact subtraction would leave. The inequality above shows</p>
+<p><span class="math display">\[
+1-u \;\le\; x_{\text{final}}^{\ast}\;\le\;1.
+\]</span></p>
+<p>Therefore the (systematic) overestimate is bounded by</p>
+<p><span class="math display">\[
+0 \;\le\; y_{\text{(no roundoff in sums)}}-\log_b x_{\text{input}}
+\;=\; -\,\log_b x_{\text{final}}^{\ast}
+\;\le\; -\,\log_b(1-u).
+\]</span></p>
+<p>Final bound (and a handy simplification)</p>
+<p>Let <span class="math inline">\(u=2^{-t}\)</span> be the machine ulp. Then a rigorous upper bound on the error of the algorithm in Ex. 25 is</p>
+<p><span class="math display">\[
+\boxed{\quad 0 \;\le\; y-\log_b x_{\text{input}} \;\le\; -\log_b(1-2^{-t}).\quad}
+\]</span></p>
+<p>Using <span class="math inline">\(-\ln(1-\delta)\le \dfrac{\delta}{1-\delta}\)</span> and <span class="math inline">\(\log_b z=\dfrac{\ln z}{\ln b}\)</span>,</p>
+<p><span class="math display">\[
+-\log_b(1-2^{-t})
+\;\le\;
+\frac{\,2^{-t}}{(1-2^{-t})\,\ln b}
+\;&lt;\;
+\frac{2^{-(t-1)}}{\ln b}
+\qquad(t\ge1).
+\]</span></p>
+<p>Thus the error is <span class="math inline">\(O(2^{-t})\)</span> with an explicit constant depending only on the logarithm base <span class="math inline">\(b\)</span>.</p>
+<p>If the <em>sums</em> are rounded too</p>
+<p>If each addition <span class="math inline">\(y\leftarrow y+\log_b(2^k/(2^k-1))\)</span> is performed in a <span class="math inline">\(p\)</span>-bit accumulator (round-to-nearest), each add contributes at most <span class="math inline">\(2^{-p-1}\)</span> in <span class="math inline">\(\log_b\)</span>-units. With <span class="math inline">\(N\)</span> additions,</p>
+<p><span class="math display">\[
+0 \;\le\; y_{\text{computed}}-\log_b x_{\text{input}}
+\;\le\; -\log_b(1-2^{-t}) \;+\; N\cdot 2^{-p-1}.
+\]</span></p>
+<p>(Here <span class="math inline">\(N\)</span> is the number of times step L4 executes; it is proportional to the digits of accuracy requested, as noted in the exercise statement.)</p>
+</section>
+<section id="m30" class="level3">
+<h3 class="anchored" data-anchor-id="m30">27 [M30]</h3>
+<p>Setup (what the algorithm does)</p>
+<p>Let <span class="math inline">\(x\)</span> be a positive real number. The method writes</p>
+<p><span class="math display">\[
+\log_{10} x \;=\; n \;+\; \frac{b_1}{2} + \frac{b_2}{4} + \frac{b_3}{8} + \cdots,
+\]</span></p>
+<p>where we first normalize <span class="math inline">\(x_0 = x/10^n \in [1,10)\)</span>, then iterate for <span class="math inline">\(k\ge 1\)</span>:</p>
+<p><span class="math display">\[
+b_k =
+\begin{cases}
+0,&amp; \text{if } x_{k-1}^2 &lt; 10,\\[2pt]
+1,&amp; \text{if } x_{k-1}^2 \ge 10,
+\end{cases}
+\qquad
+x_k \;=\;
+\begin{cases}
+x_{k-1}^2,&amp; \text{if } b_k=0,\\
+x_{k-1}^2/10,&amp; \text{if } b_k=1,
+\end{cases}
+\]</span></p>
+<p>so that always <span class="math inline">\(x_k\in[1,10)\)</span>. In practice we cannot compute exactly; Knuth explicitly says we <strong>round or truncate</strong> each <span class="math inline">\(x_k\)</span> to a fixed number <span class="math inline">\(t\)</span> of significant decimal figures.</p>
+<p>Exercise 27 asks you to <strong>derive a worst-case upper bound</strong> for the error in the resulting value of <span class="math inline">\(\log_{10} x\)</span> caused by doing that finite-precision rounding/truncation each step. (Knuth hints at the outcome and later notes that with <span class="math inline">\(t=4\)</span> the error is guaranteed to be <span class="math inline">\(&lt;0.00044\)</span>.)</p>
+<p>Work in log space</p>
+<p>Write <span class="math inline">\(\ell_k=\log_{10} x_k\)</span> for the exact process and <span class="math inline">\(\tilde\ell_k=\log_{10}\tilde x_k\)</span> for the computed (rounded/truncated) values. The exact recurrence is</p>
+<p><span class="math display">\[
+\ell_k \;=\; 2\,\ell_{k-1} - b_k, \qquad \ell_k\in[0,1)\,.
+\]</span></p>
+<p>Finite precision introduces an <strong>additive</strong> error in log space:</p>
+<p><span class="math display">\[
+\tilde\ell_k \;=\; 2\,\tilde\ell_{k-1} - \tilde b_k \;+\; \varepsilon_k,
+\]</span></p>
+<p>where <span class="math inline">\(\varepsilon_k\)</span> is the log10-error created when we round/truncate <span class="math inline">\(x_k\)</span> into <span class="math inline">\(\tilde x_k\)</span>.</p>
+<p>Because after normalization <span class="math inline">\(x_k\in[1,10)\)</span>, rounding/truncation to <span class="math inline">\(t\)</span> significant figures perturbs <span class="math inline">\(x_k\)</span> by at most <span class="math inline">\(\pm 10^{\,1-t}\)</span> in absolute value. Therefore the <strong>per-step log10 error</strong> is bounded by</p>
+<p><span class="math display">\[
+|\varepsilon_k|
+\;\le\;
+\log_{10}\!\left(1 + 10^{\,1-t}\right)
+\;&lt;\;
+\frac{10^{\,1-t}}{\ln 10}\,,
+\]</span></p>
+<p>using <span class="math inline">\(\ln(1+u)\le u\)</span>. (We use the larger truncation bound; rounding alone would replace <span class="math inline">\(10^{1-t}\)</span> by <span class="math inline">\(0.5\cdot 10^{1-t}\)</span>.)</p>
+<p>Relate digit errors to the <span class="math inline">\(\varepsilon_k\)</span></p>
+<p>Unfold the two recurrences up to step <span class="math inline">\(k\)</span> and subtract. One obtains</p>
+<p><span class="math display">\[
+\tilde\ell_k - \ell_k
+\;=\;
+-\,2^{\,k}\bigl(\tilde S_k - S_k\bigr)
+\;+\;
+\sum_{j=1}^{k} 2^{\,k-j}\,\varepsilon_j,
+\]</span></p>
+<p>where <span class="math inline">\(S_k=\sum_{j=1}^k b_j/2^{\,j}\)</span> and <span class="math inline">\(\tilde S_k=\sum_{j=1}^k \tilde b_j/2^{\,j}\)</span> are the exact and computed partial binary sums. Since both <span class="math inline">\(\ell_k\)</span> and <span class="math inline">\(\tilde\ell_k\)</span> lie in <span class="math inline">\([0,1)\)</span>, <span class="math inline">\(|\tilde\ell_k-\ell_k|&lt;1\)</span>, hence</p>
+<p><span class="math display">\[
+\bigl|\tilde S_k - S_k\bigr|
+\;\le\;
+2^{-k}
+\;+\;
+\sum_{j=1}^{k} 2^{-j}\,|\varepsilon_j|.
+\]</span></p>
+<p>Letting <span class="math inline">\(k\to\infty\)</span> (so <span class="math inline">\(2^{-k}\to0\)</span> and <span class="math inline">\(S_k\to S\)</span>, <span class="math inline">\(\tilde S_k\to \tilde S\)</span>) gives the <strong>final error bound</strong></p>
+<p><span class="math display">\[
+\boxed{\;
+\bigl|\tilde S - S\bigr|
+\;\le\;
+\sum_{j=1}^{\infty} 2^{-j}\,|\varepsilon_j|
+\;\le\;
+\log_{10}\!\left(1 + 10^{\,1-t}\right)
+\;&lt;\;
+\frac{10^{\,1-t}}{\ln 10}\; }.
+\]</span></p>
+<p>Plug in <span class="math inline">\(t=4\)</span></p>
+<p>With four significant figures,</p>
+<p><span class="math display">\[
+\frac{10^{\,1-4}}{\ln 10} \;=\; \frac{10^{-3}}{\ln 10} \;\approx\; 0.000434294\;&lt;\;0.00044,
+\]</span></p>
+<p>exactly matching Knuth’s stated guarantee. (His worked example happens to be even better because the first few <span class="math inline">\(x_k\)</span> were exact before rounding error accumulated.)</p>
+</section>
+<section id="m30-1" class="level3">
+<h3 class="anchored" data-anchor-id="m30-1">28 [M30]</h3>
+<p>Here is a clean way to do <strong><span class="math inline">\(b^x\)</span> for <span class="math inline">\(0\le x&lt;1\)</span></strong> using only shifting, addition, and subtraction, mirroring the “shift-subtract” logarithm method from §1.2.2 Ex. 25.</p>
+<p>#1. Idea (invert Ex. 25)</p>
+<p>Exercise 25 shows how to reduce a value <span class="math inline">\(x\in[1,2)\)</span> toward <span class="math inline">\(1\)</span> by repeatedly replacing</p>
+<p><span class="math display">\[
+x\leftarrow x-\frac{x}{2^k}=x\Bigl(1-\frac1{2^k}\Bigr)
+\]</span></p>
+<p>and adding the constant <span class="math inline">\(\log_b\!\bigl(\tfrac{2^k}{2^k-1}\bigr)\)</span> to the running logarithm; it needs only shifts, adds, subtracts, plus a small table of constants <span class="math inline">\(\log_b\!\bigl(\tfrac{2^k}{2^k-1}\bigr)\)</span>. </p>
+<p>To go the other way (compute the <strong>exponential</strong>), write the exponent <span class="math inline">\(x\)</span> itself as a sum of those same constants:</p>
+<p><span class="math display">\[
+x = \sum_i c_{k_i},\qquad c_k\stackrel{\text{def}}{=}\log_b\!\Bigl(\frac{2^k}{2^k-1}\Bigr).
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+b^x=\prod_i b^{c_{k_i}}=\prod_i \frac{2^{k_i}}{2^{k_i}-1}.
+\]</span></p>
+<p>Each factor <span class="math inline">\(\frac{2^{k}}{2^{k}-1}\)</span> is a <strong>shift left by <span class="math inline">\(k\)</span></strong> (multiply by <span class="math inline">\(2^k\)</span>) followed by an <strong>integer division by <span class="math inline">\((2^k-1)\)</span></strong>—both doable with shifts and add/sub (long division).</p>
+<p>#2. Algorithm (Feynman’s product)</p>
+<p>Precompute a short table <span class="math inline">\(c_k=\log_b\!\bigl(\tfrac{2^k}{2^k-1}\bigr)\)</span> for <span class="math inline">\(k=1,2,\dots,K\)</span>. (Exactly the same kind of table Ex. 25 requires. )</p>
+<p><strong>Input:</strong> base <span class="math inline">\(b&gt;0,\;b\ne1\)</span>; exponent <span class="math inline">\(x\in[0,1)\)</span>; tolerance <span class="math inline">\(\varepsilon\)</span>.</p>
+<p><strong>Output:</strong> <span class="math inline">\(y\approx b^x\)</span>.</p>
+<p><strong>Invariant:</strong> after every step, <span class="math inline">\(y\cdot b^r=b^x\)</span> where <span class="math inline">\(r\)</span> is the remaining (unaccounted) exponent.</p>
+<ul>
+<li><p>E1. Initialize <span class="math inline">\(y\leftarrow 1,\; r\leftarrow x,\; k\leftarrow1\)</span>.</p></li>
+<li><p>E2. If <span class="math inline">\(r\le \varepsilon\)</span>, <strong>stop</strong> and return <span class="math inline">\(y\)</span>.</p></li>
+<li><p>E3. While <span class="math inline">\(r&lt;c_k\)</span>, set <span class="math inline">\(k\leftarrow k+1\)</span>. (Because <span class="math inline">\(c_k\)</span> decreases rapidly with <span class="math inline">\(k\)</span>.)</p></li>
+<li><p>E4. Update the product using shifts only:</p>
+<ul>
+<li><span class="math inline">\(y\leftarrow y\cdot 2^k\)</span> (shift left by <span class="math inline">\(k\)</span>),</li>
+<li><span class="math inline">\(y\leftarrow y\div(2^k-1)\)</span> (binary long division: shift/subtract),</li>
+<li><span class="math inline">\(r\leftarrow r-c_k\)</span>;</li>
+<li>Go to E2.</li>
+</ul></li>
+</ul>
+<p><strong>Correctness.</strong> Step E4 multiplies <span class="math inline">\(y\)</span> by <span class="math inline">\(2^k/(2^k-1)=b^{c_k}\)</span>; reducing <span class="math inline">\(r\)</span> by <span class="math inline">\(c_k\)</span> maintains <span class="math inline">\(y\,b^r=b^x\)</span>. When <span class="math inline">\(r\le\varepsilon\)</span>, the returned <span class="math inline">\(y\)</span> differs from <span class="math inline">\(b^x\)</span> by a factor <span class="math inline">\(b^{r}\in[1,b^\varepsilon]\)</span>.</p>
+<p>#3. How accurate is it?</p>
+<p>Two effects matter:</p>
+<p><strong>(A) Truncation of the exponent sum.</strong> If you stop when <span class="math inline">\(r\le\varepsilon\)</span>, then</p>
+<p><span class="math display">\[
+\frac{|b^x-y|}{b^x}\;=\;|b^r-1|\;\le\;e^{(\ln b)\,\varepsilon}-1
+\;\approx\;(\ln b)\,\varepsilon\quad(\text{for small }\varepsilon).
+\]</span></p>
+<p>Thus, to get about <span class="math inline">\(p\)</span> <strong>bits</strong> of relative accuracy, it suffices to drive</p>
+<p><span class="math display">\[
+\varepsilon \;\lesssim\; \frac{2^{-p}}{\ln b}.
+\]</span></p>
+<p>Because <span class="math inline">\(c_k=\log_b\!\bigl(\tfrac{2^k}{2^k-1}\bigr)\sim \tfrac{1}{(\ln b)(2^k-1)}\)</span>, the greedy selection makes <span class="math inline">\(k\)</span> grow, and you typically need only <span class="math inline">\(O(p)\)</span> factors.</p>
+<p><strong>(B) Finite-precision arithmetic in the divisions.</strong> Each division by <span class="math inline">\((2^k-1)\)</span> performed with <span class="math inline">\(w\)</span>-bit fixed-point long division incurs at most <span class="math inline">\(O(2^{-w})\)</span> <strong>relative</strong> error. After <span class="math inline">\(T\)</span> factors the cumulative relative error is <span class="math inline">\(\lesssim T\,2^{-w}\)</span> (first-order). Pick <span class="math inline">\(w\)</span> a few bits larger than the target precision and the truncation term (A) will dominate.</p>
+<p>#4. Tiny example (base-10, four-digit feel)</p>
+<p>Take <span class="math inline">\(b=10\)</span> and <span class="math inline">\(x\approx \log_{10}2\approx 0.3010\)</span>. Using the table <span class="math inline">\(c_2=\log_{10}\tfrac43\approx0.12494,\;c_4=\log_{10}\tfrac{16}{15}\approx0.02803,\;
+c_5\approx0.01355,\;c_6\approx0.00679,\;c_8\approx0.00174,\;c_9\approx0.000903,\dots\)</span> and applying E2–E4 greedily gives</p>
+<p><span class="math display">\[
+10^{0.3010}
+\approx \Bigl(\frac43\Bigr)^2\!\cdot\frac{16}{15}\cdot\frac{32}{31}\cdot\frac{64}{63}\cdot
+\frac{256}{255}\cdot\frac{512}{511}\cdots
+\approx 1.9992\quad(\text{within }4\times10^{-4}\text{ of }2).
+\]</span></p>
+<p>All updates are “shift by <span class="math inline">\(k\)</span> and divide by <span class="math inline">\(2^k-1\)</span>”; the constants come straight from the exercise list in §1.2.2.</p>
+</section>
+<section id="hm20" class="level3">
+<h3 class="anchored" data-anchor-id="hm20">29 [HM20]</h3>
+<p>Use the base-change identity <span class="math inline">\(\log_b x=\dfrac{\ln x}{\ln b}\)</span>. Since <span class="math inline">\(x&gt;1\)</span> is fixed, <span class="math inline">\(\ln x&gt;0\)</span>, so minimizing</p>
+<p><span class="math display">\[
+b\log_b x = b\cdot\frac{\ln x}{\ln b}
+\]</span></p>
+<p>is equivalent to minimizing <span class="math inline">\(f(b)=\dfrac{b}{\ln b}\)</span> over the stated domain. Similarly, minimizing <span class="math inline">\((b+1)\log_b x\)</span> is equivalent to minimizing <span class="math inline">\(g(b)=\dfrac{b+1}{\ln b}\)</span>.</p>
+<ol type="a">
+<li>Real <span class="math inline">\(b&gt;1\)</span> minimizing <span class="math inline">\(b\log_b x\)</span></li>
+</ol>
+<p>Let <span class="math inline">\(f(b)=\dfrac{b}{\ln b}\)</span> for <span class="math inline">\(b&gt;1\)</span>. Then</p>
+<p><span class="math display">\[
+f'(b)=\frac{\ln b - 1}{(\ln b)^2}.
+\]</span></p>
+<p>Hence <span class="math inline">\(f'(b)=0 \iff \ln b=1 \iff b=e\)</span>. Moreover,</p>
+<ul>
+<li><span class="math inline">\(f'(b)&lt;0\)</span> for <span class="math inline">\(1&lt;b&lt;e\)</span> and</li>
+<li><span class="math inline">\(f'(b)&gt;0\)</span> for <span class="math inline">\(b&gt;e\)</span>,</li>
+</ul>
+<p>so <span class="math inline">\(b=e\)</span> is the unique minimizer. The minimum value is</p>
+<p><span class="math display">\[
+b\log_b x\big|_{b=e} = e\cdot \ln x .
+\]</span></p>
+<p><strong>Answer (a):</strong> <span class="math inline">\(b=e\)</span>, with minimum <span class="math inline">\(e\ln x\)</span>.</p>
+<ol start="2" type="a">
+<li>Integer <span class="math inline">\(b&gt;1\)</span> minimizing <span class="math inline">\(b\log_b x\)</span></li>
+</ol>
+<p>From (a), <span class="math inline">\(f(b)\)</span> decreases on <span class="math inline">\((1,e]\)</span> and increases on <span class="math inline">\([e,\infty)\)</span>. Thus among integers <span class="math inline">\(b&gt;1\)</span>, only <span class="math inline">\(b=2\)</span> and <span class="math inline">\(b=3\)</span> can be candidates, and <span class="math inline">\(f(3)&lt;f(2)\)</span> because we are past the minimum at <span class="math inline">\(e\)</span>.</p>
+<p>Equivalently, compare <span class="math inline">\(\dfrac{3}{\ln 3}\)</span> and <span class="math inline">\(\dfrac{2}{\ln 2}\)</span>: <span class="math inline">\(\dfrac{3}{\ln 3} &lt; \dfrac{2}{\ln 2} \iff 3\ln 2 &lt; 2\ln 3 \iff 2^3&lt;3^2\)</span>, i.e., <span class="math inline">\(8&lt;9\)</span>, true.</p>
+<p><strong>Answer (b):</strong> <span class="math inline">\(b=3\)</span>.</p>
+<ol start="3" type="a">
+<li>Integer <span class="math inline">\(b&gt;1\)</span> minimizing <span class="math inline">\((b+1)\log_b x\)</span></li>
+</ol>
+<p>Consider <span class="math inline">\(g(b)=\dfrac{b+1}{\ln b}\)</span> for real <span class="math inline">\(b&gt;1\)</span>:</p>
+<p><span class="math display">\[
+g'(b)=\frac{\ln b - 1 - \tfrac{1}{b}}{(\ln b)^2}.
+\]</span></p>
+<p>The critical point satisfies <span class="math inline">\(\ln b = 1+\frac{1}{b}\)</span>, which has a unique solution <span class="math inline">\(b^\ast\in(3,4)\)</span> (since <span class="math inline">\(\ln 3 &lt; 1+\tfrac13\)</span> and <span class="math inline">\(\ln 4 &gt; 1+\tfrac14\)</span>). Therefore <span class="math inline">\(g(b)\)</span> strictly decreases up to <span class="math inline">\(b^\ast\)</span> and increases thereafter, so the minimizing integer must be <span class="math inline">\(3\)</span> or <span class="math inline">\(4\)</span>.</p>
+<p>Compare</p>
+<p><span class="math display">\[
+g(3)=\frac{4}{\ln 3},\qquad g(4)=\frac{5}{\ln 4}.
+\]</span></p>
+<p>We have <span class="math inline">\(g(4)&lt;g(3)\)</span> iff <span class="math inline">\(5\ln 3 &lt; 4\ln 4 = 8\ln 2\)</span>, i.e.</p>
+<p><span class="math display">\[
+\ln(3^5) &lt; \ln(2^8) \iff 243&lt;256,
+\]</span></p>
+<p>which is true. Also <span class="math inline">\(g(5)&gt;\!g(4)\)</span> since <span class="math inline">\(6\ln 4 &gt; 5\ln 5\)</span> (equivalently <span class="math inline">\(4^6&gt;5^5\)</span>, i.e.&nbsp;<span class="math inline">\(4096&gt;3125\)</span>). Thus <span class="math inline">\(b=4\)</span> is the unique minimizing integer.</p>
+<p><strong>Answer (c):</strong> <span class="math inline">\(b=4\)</span>.</p>
+</section>
+<section id="section-20" class="level3">
+<h3 class="anchored" data-anchor-id="section-20">30 [12]</h3>
+<ol type="1">
+<li>Domain sanity check</li>
+</ol>
+<ul>
+<li><span class="math inline">\(x&gt;1\Rightarrow \ln x&gt;0\)</span>, so the base <span class="math inline">\(\ln x\)</span> is positive.</li>
+<li><span class="math inline">\(x\ne e\Rightarrow \ln x\ne 1\)</span> and <span class="math inline">\(\ln\ln x\ne 0\)</span>, so the exponent is defined and the base isn’t <span class="math inline">\(1\)</span>.</li>
+</ul>
+<ol start="2" type="1">
+<li>Recognize a change–of–base pattern</li>
+</ol>
+<p>Recall the identity (valid for any <span class="math inline">\(a&gt;0\)</span>, <span class="math inline">\(a\neq1\)</span>): <span class="math inline">\(a^{\log_a t}=t\)</span>.</p>
+<p>Note that</p>
+<p><span class="math display">\[
+\frac{\ln x}{\ln\ln x}=\log_{\ln x} x .
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+(\ln x)^{\ln x/\ln\ln x}
+=(\ln x)^{\log_{\ln x} x}
+= x .
+\]</span></p>
+<ol start="3" type="1">
+<li>(Equivalent derivation via exponentials)</li>
+</ol>
+<p><span class="math display">\[
+(\ln x)^{\ln x/\ln\ln x}
+=\exp\!\Big(\frac{\ln x}{\ln\ln x}\cdot \ln(\ln x)\Big)
+=\exp(\ln x)=x .
+\]</span></p>
+<ol start="4" type="1">
+<li>Note on the excluded point</li>
+</ol>
+<p>At <span class="math inline">\(x=e\)</span> the expression is undefined (division by <span class="math inline">\(\ln\ln e=\ln1=0\)</span>). However, the limit <span class="math inline">\(\lim_{x\to e}(\ln x)^{\ln x/\ln\ln x}=\exp(\lim_{x\to e}\ln x)=e\)</span>, so the continuous extension at <span class="math inline">\(x=e\)</span> would take the value <span class="math inline">\(e\)</span>.</p>
+<p><span class="math display">\[
+\boxed{(\ln x)^{\ln x/\ln\ln x}=x \quad\text{for }x&gt;1,\; x\ne e.}
+\]</span></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../vol-1/1.2.1.html" class="pagination-link" aria-label="1.2.1 Mathematical induction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.2.1 Mathematical induction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../vol-1/1.2.3.html" class="pagination-link" aria-label="1.2.3 Sums and products">
+        <span class="nav-page-text"><span class="chapter-title">1.2.3 Sums and products</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
