@@ -37,6 +37,10 @@ website:
   navbar:
     search: true
     right:
+      - text: English
+        href: /
+      - text: 中文
+        href: /taocp-solutions/zh/
       - text: *book_subtitle 
       - icon: github
         href: https://github.com/little-book-of/taocp-solutions
