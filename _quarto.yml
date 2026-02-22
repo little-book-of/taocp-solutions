@@ -33,6 +33,7 @@ book:
     - vol-1/2.1.md
     - vol-1/2.2.1.md
     - vol-1/2.2.2.md
+    - vol-1/2.2.3.md
 
 website:
   title: *book_title
@@ -40,6 +41,10 @@ website:
   navbar:
     search: true
     right:
+      - text: English
+        href: /
+      - text: 中文
+        href: /taocp-solutions/zh/
       - text: *book_subtitle 
       - icon: github
         href: https://github.com/little-book-of/taocp-solutions
