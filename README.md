@@ -8,6 +8,7 @@ A concise, structured companion of worked solutions and annotations to exercises
 * [Download EPUB](docs/book.epub) — e-reader friendly
 * [View LaTeX](docs/book-latex/book.tex) — `.tex` source
 * [Read on GitHub Pages](https://little-book-of.github.io/taocp-solutions/) — online website
+* [Read in Chinese (draft)](https://little-book-of.github.io/taocp-solutions/zh/) — Chinese website
 
 ## Build it yourself (Quarto)
 
@@ -30,6 +31,9 @@ quarto render --to html     # site into docs/
 quarto render --to pdf      # docs/book.pdf
 quarto render --to epub     # docs/book.epub
 quarto render --to latex    # docs/book-latex/book.tex
+
+# Chinese site (into docs/zh/)
+quarto render _quarto-zh.yml --to html
 ```
 
 ## Contributing
@@ -67,3 +71,42 @@ Nguyen, Duc-Tam (2025). *The Little Book of the Art of Computer Programming Solu
 ## License
 
 This work is licensed under **CC BY-NC-SA 4.0**. See [LICENSE](LICENSE) for the full text.
+
+
+## Multilingual site
+
+This repository now ships two Quarto builds:
+
+- default config (`_quarto.yml`) for the English site (`docs/`)
+- zh profile (`_quarto-zh.yml`) for the Chinese site (`docs/zh/`)
+
+On GitHub Pages, both are published together from `docs`, so the Chinese site is available at `/zh/`.
+
+
+## Build with Makefile
+
+```bash
+make install-quarto   # install local Quarto binary (Linux)
+make check-quarto
+make render           # render English + Chinese
+make render-zh        # only Chinese profile
+make preview
+```
+
+
+To regenerate translated content with the uv-based pipeline:
+
+```bash
+make install-uv
+make install-deps
+
+# Chinese (default)
+make translate-zh
+
+# Generic language run (example: Japanese)
+make translate TARGET_LANG=ja OUTPUT_DIR=ja
+
+# Speed controls and subset files
+make translate-zh TRANSLATE_WORKERS=6 TRANSLATE_RATE=4 TRANSLATE_CHUNK=1800
+make translate-zh TRANSLATE_FILES="vol-1/1.1.md,vol-1/1.2.1.md" TRANSLATE_VERBOSE=--verbose
+```

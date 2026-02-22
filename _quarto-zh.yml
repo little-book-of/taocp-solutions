@@ -1,0 +1,57 @@
+project:
+  type: book
+  output-dir: docs/zh
+
+book:
+  title: "《计算机程序设计艺术》解题小书"
+  subtitle: "中文站点"
+  author: "Duc-Tam Nguyen"
+  date: "2026-02-22"
+  output-file: book-zh
+  chapters:
+    - zh/index.qmd
+    - zh/vol-1/1.1.md
+    - zh/vol-1/1.2.1.md
+    - zh/vol-1/1.2.2.md
+    - zh/vol-1/1.2.3.md
+    - zh/vol-1/1.2.4.md
+    - zh/vol-1/1.2.5.md
+    - zh/vol-1/1.2.6.md
+    - zh/vol-1/1.2.7.md
+    - zh/vol-1/1.2.8.md
+    - zh/vol-1/1.2.9.md
+    - zh/vol-1/1.2.10.md
+    - zh/vol-1/1.2.11.md
+    - zh/vol-1/1.3.1.md
+    - zh/vol-1/1.3.2.md
+    - zh/vol-1/1.3.3.md
+    - zh/vol-1/1.4.1.md
+    - zh/vol-1/1.4.2.md
+    - zh/vol-1/1.4.3.1.md
+    - zh/vol-1/1.4.3.2.md
+    - zh/vol-1/1.4.4.md
+
+website:
+  title: "TAOCP Solutions（中文）"
+  page-navigation: true
+  navbar:
+    search: true
+    right:
+      - text: English
+        href: ../
+      - text: 中文
+        href: ./
+      - icon: github
+        href: https://github.com/little-book-of/taocp-solutions
+        aria-label: GitHub
+
+format:
+  html:
+    sidebar: true
+    toc: true
+    toc-location: left
+    toc-depth: 4
+    number-sections: false
+    theme: [cosmo, brand]
+
+lang: zh-CN
