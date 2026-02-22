@@ -34,6 +34,7 @@ book:
     - vol-1/2.2.1.md
     - vol-1/2.2.2.md
     - vol-1/2.2.3.md
+    - vol-1/2.2.4.md
 
 website:
   title: *book_title
