@@ -8,6 +8,7 @@ A concise, structured companion of worked solutions and annotations to exercises
 * [Download EPUB](docs/book.epub) — e-reader friendly
 * [View LaTeX](docs/book-latex/book.tex) — `.tex` source
 * [Read on GitHub Pages](https://little-book-of.github.io/taocp-solutions/) — online website
+* [Read in Chinese (draft)](https://little-book-of.github.io/taocp-solutions/zh/) — Chinese website
 
 ## Build it yourself (Quarto)
 
@@ -30,6 +31,9 @@ quarto render --to html     # site into docs/
 quarto render --to pdf      # docs/book.pdf
 quarto render --to epub     # docs/book.epub
 quarto render --to latex    # docs/book-latex/book.tex
+
+# Chinese site (into docs/zh/)
+quarto render --profile zh
 ```
 
 ## Contributing
@@ -67,3 +71,13 @@ Nguyen, Duc-Tam (2025). *The Little Book of the Art of Computer Programming Solu
 ## License
 
 This work is licensed under **CC BY-NC-SA 4.0**. See [LICENSE](LICENSE) for the full text.
+
+
+## Multilingual site
+
+This repository now ships two Quarto builds:
+
+- default config (`_quarto.yml`) for the English site (`docs/`)
+- zh profile (`_quarto-zh.yml`) for the Chinese site (`docs/zh/`)
+
+On GitHub Pages, both are published together from `docs`, so the Chinese site is available at `/zh/`.
