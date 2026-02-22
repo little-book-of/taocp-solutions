@@ -81,3 +81,14 @@ This repository now ships two Quarto builds:
 - zh profile (`_quarto-zh.yml`) for the Chinese site (`docs/zh/`)
 
 On GitHub Pages, both are published together from `docs`, so the Chinese site is available at `/zh/`.
+
+
+## Build with Makefile
+
+```bash
+make install-quarto   # install local Quarto binary (Linux)
+make check-quarto
+make render           # render English + Chinese
+make render-zh        # only Chinese profile
+make preview
+```

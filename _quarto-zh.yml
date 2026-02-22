@@ -1,5 +1,8 @@
 project:
   output-dir: docs/zh
+  render:
+    - zh/index.qmd
+    - zh/vol-1/*.md
 
 book:
   title: "《计算机程序设计艺术》解题小书"
@@ -32,12 +35,17 @@ website:
   title: "TAOCP Solutions（中文）"
   navbar:
     right:
-      - text: "English"
-        href: ../
-      - text: "中文"
-        href: ./
       - icon: github
         href: https://github.com/little-book-of/taocp-solutions
         aria-label: GitHub
+
+format:
+  html:
+    sidebar: true
+    toc: true
+    toc-location: left
+    toc-depth: 3
+    number-sections: false
+    theme: [cosmo, brand]
 
 lang: zh

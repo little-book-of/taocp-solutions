@@ -24,10 +24,10 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render English site
-        run: quarto render
+        run: quarto render --to html
 
       - name: Render Chinese site
-        run: quarto render --profile zh
+        run: quarto render --profile zh --to html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
