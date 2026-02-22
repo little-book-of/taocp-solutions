@@ -1,12 +1,12 @@
 project:
+  type: book
   output-dir: docs/zh
-  render:
-    - zh/index.qmd
-    - zh/vol-1/*.md
 
 book:
   title: "《计算机程序设计艺术》解题小书"
-  subtitle: "中文站点（草稿）"
+  subtitle: "中文站点"
+  author: "Duc-Tam Nguyen"
+  date: "2026-02-22"
   output-file: book-zh
   chapters:
     - zh/index.qmd
@@ -33,8 +33,14 @@ book:
 
 website:
   title: "TAOCP Solutions（中文）"
+  page-navigation: true
   navbar:
+    search: true
     right:
+      - text: English
+        href: ../
+      - text: 中文
+        href: ./
       - icon: github
         href: https://github.com/little-book-of/taocp-solutions
         aria-label: GitHub
@@ -44,8 +50,8 @@ format:
     sidebar: true
     toc: true
     toc-location: left
-    toc-depth: 3
+    toc-depth: 4
     number-sections: false
     theme: [cosmo, brand]
 
-lang: zh
+lang: zh-CN

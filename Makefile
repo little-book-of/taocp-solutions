@@ -4,18 +4,24 @@ QUARTO ?= quarto
 QUARTO_VERSION ?= 1.7.32
 QUARTO_DIR ?= .tools/quarto
 QUARTO_BIN := $(QUARTO_DIR)/bin/quarto
+PYTHON ?= python3
 
-.PHONY: help check-quarto install-quarto preview render render-en render-zh clean
+.PHONY: help install-deps check-quarto install-quarto preview render render-en render-zh translate-zh clean
 
 help:
 	@echo "Targets:"
+	@echo "  make install-deps    - Install Python deps (deep-translator)"
 	@echo "  make install-quarto  - Download Quarto CLI locally into .tools/quarto"
 	@echo "  make check-quarto    - Print Quarto version"
+	@echo "  make translate-zh    - Translate source book content into zh/"
 	@echo "  make preview         - Run local preview (English profile)"
-	@echo "  make render          - Render English + Chinese sites"
-	@echo "  make render-en       - Render default site"
-	@echo "  make render-zh       - Render Chinese profile site"
+	@echo "  make render          - Render English + Chinese sites (HTML)"
+	@echo "  make render-en       - Render default site (HTML)"
+	@echo "  make render-zh       - Render Chinese site config (HTML)"
 	@echo "  make clean           - Remove generated docs"
+
+install-deps:
+	$(PYTHON) -m pip install --upgrade deep-translator
 
 check-quarto:
 	@command -v $(QUARTO) >/dev/null 2>&1 || { echo "Quarto not found in PATH. Run 'make install-quarto' or install globally."; exit 1; }
@@ -42,6 +48,9 @@ install-quarto:
 	rm -f .tools/$$PKG; \
 	$(QUARTO_BIN) --version
 
+translate-zh:
+	$(PYTHON) scripts/translate_to_zh.py
+
 preview: check-quarto
 	$(QUARTO) preview
 
@@ -51,7 +60,7 @@ render-en: check-quarto
 	$(QUARTO) render --to html
 
 render-zh: check-quarto
-	$(QUARTO) render --profile zh --to html
+	$(QUARTO) render _quarto-zh.yml --to html
 
 clean:
 	rm -rf docs

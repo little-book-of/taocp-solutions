@@ -33,7 +33,7 @@ quarto render --to epub     # docs/book.epub
 quarto render --to latex    # docs/book-latex/book.tex
 
 # Chinese site (into docs/zh/)
-quarto render --profile zh
+quarto render _quarto-zh.yml --to html
 ```
 
 ## Contributing
@@ -91,4 +91,12 @@ make check-quarto
 make render           # render English + Chinese
 make render-zh        # only Chinese profile
 make preview
+```
+
+
+To regenerate Chinese content with machine translation:
+
+```bash
+make install-deps
+make translate-zh
 ```
