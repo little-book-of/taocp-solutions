@@ -94,9 +94,19 @@ make preview
 ```
 
 
-To regenerate Chinese content with machine translation:
+To regenerate translated content with the uv-based pipeline:
 
 ```bash
+make install-uv
 make install-deps
+
+# Chinese (default)
 make translate-zh
+
+# Generic language run (example: Japanese)
+make translate TARGET_LANG=ja OUTPUT_DIR=ja
+
+# Speed controls and subset files
+make translate-zh TRANSLATE_WORKERS=6 TRANSLATE_RATE=4 TRANSLATE_CHUNK=1800
+make translate-zh TRANSLATE_FILES="vol-1/1.1.md,vol-1/1.2.1.md" TRANSLATE_VERBOSE=--verbose
 ```
